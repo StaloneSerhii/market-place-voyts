@@ -1,8 +1,8 @@
 {
-  "name": "react-homework-template",
+  "name": "market-place-voyts-1",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://StaloneSerhii.github.io/goit-react-hw-07-phonebook/",
+  "homepage": "https://StaloneSerhii.github.io/market-place-voyts/",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",
     "@testing-library/jest-dom": "^5.16.3",
