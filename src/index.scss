@@ -1,8 +1,10 @@
 @import "./var";
 @import "./components/header/header";
+@import "./components/categoryMainTop/navCategory";
 
 a {
     text-decoration: none;
+    transition: all 250ms ease;
 }
 
 // Скидання стилів sss
