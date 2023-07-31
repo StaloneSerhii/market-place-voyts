@@ -1,0 +1,21 @@
+.video_container {
+    background-color: var(--greenMain);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    gap: 15px;
+}
+
+.con1 {
+    background-color: gray;
+    border: 1px solid var(--yellowMain);
+    width: 600px;
+    height: 300px;
+}
+.con2 {
+    background-color: gray;
+    border: 1px solid var(--yellowMain);
+    width: 600px;
+    height: 300px;
+}

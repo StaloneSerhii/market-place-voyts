@@ -1,0 +1,62 @@
+.card-catalog {
+    background-color: #fff;
+    width: 300px;
+    padding: 10px;
+}
+.card-cataloge__img {
+    height: 200px;
+    width: 300px;
+}
+
+.sell {
+    display: flex;
+    justify-content: space-between;
+}
+
+.beffore__sell {
+    background-color: var(--greenMain);
+    color: #fff;
+    border-radius: 6px;
+    height: 20px;
+    padding: 1px 4px;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.beffore__select {
+    & > button > svg {
+        width: 30px;
+        height: 30px;
+        color: var(--yellowMain);
+    }
+}
+
+.card-catalog__link {
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+.card-cataloge__span {
+    font-weight: 900;
+    font-size: 18px;
+    border-bottom: 1px solid rgb(158, 156, 156);
+
+    & > span {
+        vertical-align: super;
+        font-weight: 400;
+    }
+}
+
+.card-cataloge__btn {
+    margin-top: 10px;
+    background-color: #ef9732;
+    color: #fff;
+    border-radius: 5px;
+    text-align: center;
+    width: 100%;
+    padding: 5px;
+    font-size: 15px;
+    text-transform: uppercase;
+    font-weight: 700;
+    & > svg {
+        width: 30px;
+        height: 15px;
+    }
+}

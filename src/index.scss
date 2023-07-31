@@ -3,9 +3,24 @@
 @import "./components/categoryMainTop/navCategory";
 @import "./components/hero/hero-style";
 @import "./components/heroCategory/heroCategory_style";
+@import "./components/cards/cards_style";
+@import "./components/catalogeCard/catalogeCard_style";
+@import "./components/footer/footer_style";
+
+// Page
+@import "./pages/mainCataloge/catalogPage_style";
+@import "./pages/lastPrev/lastPrev_style";
+@import "./pages/videoContent/videoContent";
+
 a {
     text-decoration: none;
     transition: all 250ms ease;
+}
+
+.paginate {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 5px;
 }
 
 // Скидання стилів sss
@@ -124,6 +139,7 @@ html {
 
 body {
     line-height: 1;
+    background-color: rgb(230, 230, 230);
 }
 
 ol,

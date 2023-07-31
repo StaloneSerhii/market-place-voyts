@@ -1,0 +1,56 @@
+.cards {
+    margin-top: 600px;
+    background-color: #191919;
+    padding: 50px 80px;
+}
+.cards_list {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 35px;
+}
+
+.cards__link {
+    color: #fff;
+    font-size: 40px;
+    text-align: start;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: 1.1;
+    &:hover {
+        color: var(--greenMain);
+    }
+    &:hover .cards_span {
+        color: var(--greenMain);
+    }
+    &:hover .cards_span--arrow {
+        color: var(--greenMain);
+    }
+}
+
+.cards_text {
+    margin-top: 15px;
+}
+
+.cards_span {
+    color: #fff;
+    font-weight: 400;
+    &--arrow {
+        margin-left: 55px;
+        color: #fff;
+    }
+}
+
+.block_bg {
+    right: 0px;
+    position: absolute;
+    left: 0;
+    top: 800px;
+    width: 350px;
+    border-top: 460px solid var(--yellowMain);
+    border-right: 300px solid transparent;
+    z-index: 1;
+}
