@@ -1,5 +1,5 @@
-import { ImFacebook2, ImInstagram } from 'react-icons/im';
-import { TfiYoutube } from 'react-icons/tfi';
+// import { ImFacebook2, ImInstagram } from 'react-icons/im';
+// import { TfiYoutube } from 'react-icons/tfi';
 // import { MdArrowDropDown } from 'react-icons/md';
 
 const Footer = () => {
@@ -45,13 +45,13 @@ const Footer = () => {
               </li>
               <ul>
                 <li>
-                  <a href=""></a>
+                  <a href="/">asdasd</a>
                 </li>
                 <li>
-                  <a href=""></a>
+                  <a href="/">asdasd</a>
                 </li>
                 <li>
-                  <a href=""></a>
+                  <a href="/">asdasd</a>
                 </li>
               </ul>
             </ul>

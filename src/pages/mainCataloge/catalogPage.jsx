@@ -1,13 +1,13 @@
 import CatalogeCard from 'components/catalogeCard/CatalogeCard';
-import { useState } from 'react';
-import { AiOutlineArrowRight, AiOutlineArrowLeft } from 'react-icons/ai';
-import ReactPaginate from 'react-paginate';
+// import { useState } from 'react';
+// import { AiOutlineArrowRight, AiOutlineArrowLeft } from 'react-icons/ai';
+// import ReactPaginate from 'react-paginate';
 
 const CatalogePage = () => {
-  const [page, setPage] = useState(1);
-  const handlePageClick = () => {
-    return setPage(page + 1);
-  };
+  // const [page, setPage] = useState(1);
+  // const handlePageClick = () => {
+  //   return setPage(page + 1);
+  // };
   return (
     <div className="cataloge">
       <h3 className="cataloge__title">Каталог продуктів</h3>
