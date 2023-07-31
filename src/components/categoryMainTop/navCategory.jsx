@@ -5,21 +5,11 @@ import { TfiYoutube } from 'react-icons/tfi';
 import { MdArrowDropDown } from 'react-icons/md';
 
 const NavigateCategory = () => {
-  const [activePage, setActivePage] = useState(true);
-  const refPage = () => {
-    setActivePage(false);
-  };
-  console.log(refPage());
   return (
     <nav className="navigate">
       <ul className="navigate__list">
         <li className="navigate__item">
-          <Link
-            className={
-              activePage ? 'navigate__link background' : 'navigate__link'
-            }
-            to="/"
-          >
+          <Link className={'navigate__link background'} to="/">
             Home
           </Link>
         </li>
