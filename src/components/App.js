@@ -1,6 +1,6 @@
 import CatalogePage from 'pages/mainCataloge/catalogPage';
 import Cards from './cards/cards';
-// import NavigateCategory from './categoryMainTop/navCategory';
+import NavigateCategory from './categoryMainTop/navCategory';
 import Header from './header/header';
 import Hero from './hero/hero';
 import HeroCategory from './heroCategory/heroCategory';
@@ -14,7 +14,7 @@ function App() {
   return (
     <div>
       <Header />
-      {/* <NavigateCategory /> */}
+      <NavigateCategory />
       <Hero />
       <HeroCategory />
       <Cards />
