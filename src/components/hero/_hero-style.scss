@@ -1,0 +1,130 @@
+.backImg {
+    display: none;
+    @media (min-width: 1080px) {
+        display: block;
+        top: 0;
+        left: 0;
+        position: absolute;
+
+        height: auto;
+    }
+}
+
+.section-center {
+    display: none;
+    @media (min-width: 1080px) {
+        display: block;
+        width: 100%;
+        height: 600px;
+        position: absolute;
+        overflow: hidden;
+        background-color: var(--greenMain);
+    }
+}
+
+.slidePosition {
+    display: flex;
+    height: 600px;
+}
+
+.slide-p {
+    display: flex;
+    align-items: center;
+    background-size: cover;
+    .title_hero {
+        position: absolute;
+        bottom: -585px;
+        right: 0;
+        padding: 10px;
+        background-color: var(--yellowMain);
+        color: #000;
+        font-size: 20px;
+        line-height: 1.4;
+        font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana,
+            sans-serif;
+    }
+}
+
+article {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: all 1.1s linear;
+}
+article.activeSlide {
+    opacity: 1;
+    transform: translateX(0);
+    z-index: 1;
+}
+article.lastSlide {
+    transform: translateX(-100%);
+}
+article.nextSlide {
+    transform: translateX(100%);
+}
+
+.prev,
+.next {
+    color: #fff;
+    position: absolute;
+    bottom: 250px;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+.prev:hover,
+.next:hover {
+    color: var(--yelow);
+}
+.prev {
+    left: 0px;
+    z-index: 100000;
+}
+.next {
+    right: 500px;
+    z-index: 100000;
+}
+@media (min-width: 1080px) {
+    .text {
+        max-width: 45em;
+    }
+    .prev,
+    .next {
+        color: var(--greenMain);
+        background-color: black;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        width: 3rem;
+        height: 3rem;
+        font-size: 1.5rem;
+    }
+}
+
+.title_textBlock {
+    right: 500px;
+    position: absolute;
+    height: 0;
+    top: 0;
+    width: 350px;
+    border-bottom: 600px solid #1076119b;
+    border-left: 300px solid transparent;
+}
+
+.title_textBlock--div {
+    position: relative;
+}
+
+.title_textBlock--p {
+    font-size: 50px;
+    line-height: 79px;
+    letter-spacing: -1.2px;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+    text-align: end;
+    margin-top: 360px;
+}

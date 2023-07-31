@@ -1,7 +1,8 @@
 @import "./var";
 @import "./components/header/header";
 @import "./components/categoryMainTop/navCategory";
-
+@import "./components/hero/hero-style";
+@import "./components/heroCategory/heroCategory_style";
 a {
     text-decoration: none;
     transition: all 250ms ease;
