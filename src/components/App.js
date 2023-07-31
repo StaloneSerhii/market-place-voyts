@@ -18,12 +18,12 @@ function App() {
       <Hero />
       <HeroCategory />
       <Cards />
-      <CatalogePage />
+      {/* <CatalogePage />
       <Advertisement />
       <TopSellPages />
       <LastPrev />
       <VideoContent />
-      <Footer />
+      <Footer /> */}
     </div>
   );
 }
