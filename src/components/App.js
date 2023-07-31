@@ -1,9 +1,9 @@
 import CatalogePage from 'pages/mainCataloge/catalogPage';
-// import Cards from './cards/cards';
+import Cards from './cards/cards';
 // import NavigateCategory from './categoryMainTop/navCategory';
 import Header from './header/header';
 // import Hero from './hero/hero';
-// import HeroCategory from './heroCategory/heroCategory';
+import HeroCategory from './heroCategory/heroCategory';
 import Advertisement from './advertisement/advertisement';
 import TopSellPages from 'pages/topSellPages/topSellPages';
 import LastPrev from 'pages/lastPrev/lastPrev';
@@ -14,10 +14,10 @@ function App() {
   return (
     <div>
       <Header />
-      {/* <NavigateCategory />
-      <Hero />
+      {/* <NavigateCategory /> */}
+      {/* <Hero /> */}
       <HeroCategory />
-      <Cards /> */}
+      <Cards />
       <CatalogePage />
       <Advertisement />
       <TopSellPages />
