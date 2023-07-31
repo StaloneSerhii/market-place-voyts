@@ -6,6 +6,10 @@ import { MdArrowDropDown } from 'react-icons/md';
 
 const NavigateCategory = () => {
   const [activePage, setActivePage] = useState(true);
+  const refPage = () => {
+    setActivePage(false);
+  };
+  console.log(refPage());
   return (
     <nav className="navigate">
       <ul className="navigate__list">
