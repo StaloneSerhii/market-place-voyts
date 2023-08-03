@@ -29,7 +29,7 @@ const Hero = () => {
       {/* <div>
         <img className="backImg" src={sss} alt="backLogo" height="700px" />
       </div> */}
-      <section>
+      <section style={{display:'block' , height: '600px'}}>
         <div className="section-center">
           {heroImg.map((person, personIndex) => {
             const { id, p, image, link } = person;

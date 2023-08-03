@@ -11,10 +11,15 @@
 @import "./pages/mainCataloge/catalogPage_style";
 @import "./pages/lastPrev/lastPrev_style";
 @import "./pages/videoContent/videoContent";
+@import "./pages/registerPages/register_style";
 
 a {
     text-decoration: none;
     transition: all 250ms ease;
+}
+
+p {
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
 .paginate {
@@ -23,6 +28,23 @@ a {
     padding-bottom: 5px;
 }
 
+.none {
+    display: none;
+}
+
+.yellow {
+    background-color: var(--yellowMain);
+}
+
+.inputDef {
+    width: 327px;
+    height: 40px;
+    margin: 10px;
+    border-radius: 10px;
+    background-color: rgb(200, 200, 200);
+    font-size: 20px;
+    padding-left: 10px;
+}
 // Скидання стилів sss
 
 img {
@@ -43,7 +65,6 @@ h3,
 h4,
 h5,
 h6,
-p,
 blockquote,
 pre,
 a,
@@ -117,6 +138,7 @@ video {
     font-size: 100%;
     font: inherit;
     vertical-align: baseline;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
 article,

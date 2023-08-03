@@ -85,6 +85,7 @@
 .navigate--social {
   display: flex;
   flex-direction: row;
+  align-items: center;
   gap: 10px;
 }
 .navigate--social > li > a > svg {
@@ -125,6 +126,69 @@
 
 .arrow {
   fill: var(--yellowMain);
+}
+
+.login {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 30px;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-weight: 900;
+  position: relative;
+  padding: 25px 10px;
+  cursor: pointer;
+}
+.login:hover {
+  background-color: var(--yellowMain);
+}
+
+.formLogin {
+  position: absolute;
+  background-color: #fff;
+  z-index: 10000;
+  top: 243px;
+  right: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.formLogin > input {
+  width: 327px;
+  height: 40px;
+  margin: 10px;
+  border-radius: 10px;
+  background-color: rgb(200, 200, 200);
+  font-size: 20px;
+  padding-left: 10px;
+}
+
+.formLogin__item {
+  display: flex;
+  align-items: center;
+  gap: 100px;
+  padding-bottom: 10px;
+  border-bottom: 3px solid var(--yellowMain);
+}
+
+.formLogin__link {
+  font-size: 20px;
+  color: #777777;
+}
+
+.formLogin__btn {
+  font-size: 20px;
+  padding: 8px 18px;
+  background-color: var(--yellowMain);
+  border-bottom-right-radius: 10px;
+  border-top-left-radius: 10px;
+}
+
+.formLogin__register {
+  color: var(--greenMain);
+  font-size: 25px;
+  padding: 10px;
 }
 
 .backImg {
@@ -270,7 +334,7 @@ article.nextSlide {
   background-color: rgba(16, 118, 17, 0.6078431373);
   width: 495px;
   height: 600px;
-  top: 200px;
+  top: 243px;
   right: 0;
   z-index: 100;
   border-left: 5px solid #191919;
@@ -306,9 +370,10 @@ article.nextSlide {
 }
 
 .cards {
-  margin-top: 600px;
   background-color: #191919;
   padding: 50px 80px;
+  position: relative;
+  overflow: hidden;
 }
 
 .cards_list {
@@ -356,9 +421,9 @@ article.nextSlide {
   right: 0px;
   position: absolute;
   left: 0;
-  top: 800px;
+  top: 0px;
   width: 350px;
-  border-top: 460px solid var(--yellowMain);
+  border-top: 500px solid var(--yellowMain);
   border-right: 300px solid transparent;
   z-index: 1;
 }
@@ -576,15 +641,76 @@ article.nextSlide {
   height: 300px;
 }
 
+.register {
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+  width: 700px;
+}
+
+.register > h2 {
+  margin-bottom: 30px;
+  color: var(--greenMain);
+  font-size: 25px;
+  font-weight: 900;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.form__register {
+  display: flex;
+}
+.form__register > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.docSite {
+  font-size: 15px;
+}
+
+.formLogin__btn:hover {
+  background-color: var(--greenMain);
+}
+
+.form__item {
+  margin: 30px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
 a {
   text-decoration: none;
   transition: all 250ms ease;
+}
+
+p {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
 .paginate {
   display: flex;
   justify-content: center;
   padding-bottom: 5px;
+}
+
+.none {
+  display: none;
+}
+
+.yellow {
+  background-color: var(--yellowMain);
+}
+
+.inputDef, .form__register > div > input {
+  width: 327px;
+  height: 40px;
+  margin: 10px;
+  border-radius: 10px;
+  background-color: rgb(200, 200, 200);
+  font-size: 20px;
+  padding-left: 10px;
 }
 
 img {
@@ -605,7 +731,6 @@ h3,
 h4,
 h5,
 h6,
-p,
 blockquote,
 pre,
 a,
@@ -679,6 +804,7 @@ video {
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
 article,

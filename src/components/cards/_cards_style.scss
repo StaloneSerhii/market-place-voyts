@@ -1,7 +1,9 @@
 .cards {
-    margin-top: 600px;
+    // margin-top: 600px;
     background-color: #191919;
     padding: 50px 80px;
+    position: relative;
+    overflow: hidden;
 }
 .cards_list {
     position: relative;
@@ -48,9 +50,9 @@
     right: 0px;
     position: absolute;
     left: 0;
-    top: 800px;
+    top: 0px;
     width: 350px;
-    border-top: 460px solid var(--yellowMain);
+    border-top: 500px solid var(--yellowMain);
     border-right: 300px solid transparent;
     z-index: 1;
 }

@@ -1,10 +1,17 @@
-// import { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ImFacebook2, ImInstagram } from 'react-icons/im';
 import { TfiYoutube } from 'react-icons/tfi';
 import { MdArrowDropDown } from 'react-icons/md';
+import { CgEnter } from 'react-icons/cg';
 
 const NavigateCategory = () => {
+  const [openMenu, setOpenMenu] = useState(false);
+
+  const menuOpen = () => {
+    return setOpenMenu(!openMenu);
+  };
+
   return (
     <nav className="navigate">
       <ul className="navigate__list">
@@ -62,8 +69,41 @@ const NavigateCategory = () => {
             <TfiYoutube />
           </Link>
         </li>
+        <li>
+          <div
+            className={openMenu ? 'login yellow' : 'login'}
+            onClick={menuOpen}
+          >
+            <CgEnter />
+            <span>Увійти/Зареєструватись</span>
+          </div>
+          {openMenu && modalLogin(openMenu)}
+        </li>
       </ul>
     </nav>
+  );
+};
+
+const modalLogin = () => {
+  return (
+    <form className={'formLogin '}>
+      <input type="email" name="email" id="email" placeholder="E-mail" />
+      <input
+        type="password"
+        name="password"
+        id="password"
+        placeholder="Пароль"
+      />
+      <div className="formLogin__item">
+        <Link to="/" className="formLogin__link">
+          Забули пароль?
+        </Link>
+        <button className="formLogin__btn">Увійти</button>
+      </div>
+      <Link to="/register" className="formLogin__register">
+        Зареєструватися
+      </Link>
+    </form>
   );
 };
 
