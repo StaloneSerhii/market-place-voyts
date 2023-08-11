@@ -1,0 +1,122 @@
+.block__info {
+    display: flex;
+    background-color: rgb(213, 213, 213);
+}
+.name__product {
+    background-color: var(--greenMain);
+    color: var(--yellowMain);
+    font-size: 25px;
+    padding: 15px;
+    font-weight: 900;
+}
+
+.content__product {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    background-color: #fff;
+    margin-top: 35px;
+}
+
+.block__info--item {
+    padding: 30px;
+    font-size: 18px;
+}
+
+.block__info--on {
+    color: var(--greenMain);
+    font-size: 18px;
+    font-weight: 900;
+    &::before {
+        content: " ";
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        background-color: var(--greenMain);
+        border-radius: 100%;
+        margin-right: 5px;
+    }
+}
+
+.block__info--price {
+    font-size: 30px;
+    // text-transform: uppercase;
+    display: block;
+    margin-bottom: 20px;
+}
+
+.block__infoCenter {
+    margin-left: auto;
+    text-align: end;
+    margin-right: 30px;
+    margin-top: 20px;
+    & > p {
+        color: var(--greenMain);
+        font-size: 20px;
+        font-weight: 600;
+    }
+    & > span {
+        display: block;
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+}
+
+.block__analog {
+    & > h4 {
+        font-size: 20px;
+        font-weight: 900;
+        color: var(--greenMain);
+        margin-top: 15px;
+        &::after {
+            content: " ";
+            display: block;
+            margin-top: 5px;
+
+            width: 9%;
+            height: 3px;
+            background-color: var(--yellowMain);
+        }
+    }
+}
+
+.block__analog--info {
+    display: flex;
+    border-bottom: 1px solid rgb(194, 194, 194);
+    padding: 15px;
+    gap: 20px;
+    align-items: center;
+    font-size: 18px;
+    color: var(--greenMain);
+    font-weight: 800;
+    & > img {
+        border: 1px solid rgb(194, 194, 194);
+    }
+}
+
+.price {
+    background-color: rgb(208, 208, 208);
+    padding: 5px;
+    font-size: 20px;
+    border-radius: 5px;
+    font-weight: 500;
+}
+
+.info__btn {
+    margin-top: 25px;
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.info__btn--details {
+    font-size: 18px;
+    font-weight: 900;
+    color: var(--greenMain);
+    border-bottom: 3px solid gray;
+}
+
+.active__btn {
+    border-bottom: 3px solid var(--greenMain);
+}
