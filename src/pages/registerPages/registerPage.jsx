@@ -1,4 +1,5 @@
 import Cards from 'components/cards/cards';
+import { Link } from 'react-router-dom';
 
 const RegisterPage = () => {
   return (
@@ -23,8 +24,10 @@ const RegisterPage = () => {
         </form>
         <div className="form__item">
           <label className="docSite">
-            <input type="checkbox" />Я прочитав і згоден з правилави Умови
-            використання сайту.
+            <input type="checkbox" />Я прочитав і згоден
+            <Link className="linkRegisterRules" to="/">
+              &#0; з правилави Умови використання сайту.
+            </Link>
           </label>
           <button className="formLogin__btn">Реєстрація</button>
         </div>

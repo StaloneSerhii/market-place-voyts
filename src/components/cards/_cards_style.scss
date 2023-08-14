@@ -15,6 +15,32 @@
 }
 
 .cards__link {
+    width: 430px;
+    height: 240px;
+    overflow: hidden;
+    & > img {
+        transition: all 250ms linear;
+    }
+}
+.cards_span {
+    color: var(--yellowMain);
+}
+
+.cards__link img:hover {
+    scale: 1.2;
+}
+
+.cards__item .cards_span {
+    transition: all 200ms linear;
+}
+.cards__item:hover .cards_text {
+    color: var(--greenMain);
+}
+.cards__item:hover .cards_span {
+    color: var(--greenMain);
+}
+
+.cards_text {
     color: #fff;
     font-size: 40px;
     text-align: start;
@@ -22,18 +48,6 @@
     font-weight: 900;
     text-transform: uppercase;
     line-height: 1.1;
-    &:hover {
-        color: var(--greenMain);
-    }
-    &:hover .cards_span {
-        color: var(--greenMain);
-    }
-    &:hover .cards_span--arrow {
-        color: var(--greenMain);
-    }
-}
-
-.cards_text {
     margin-top: 15px;
 }
 

@@ -15,7 +15,7 @@
     justify-content: center;
     gap: 50px;
     background-color: #fff;
-    margin-top: 35px;
+    padding: 35px 0;
 }
 
 .block__info--item {
@@ -119,4 +119,48 @@
 
 .active__btn {
     border-bottom: 3px solid var(--greenMain);
+}
+
+.block__img {
+    & > img {
+        border: 1px solid rgb(183, 183, 183);
+    }
+}
+
+.block__img--allImg {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    & > img {
+        border: 1px solid rgb(183, 183, 183);
+    }
+}
+
+.formFind {
+    color: var(--greenMain);
+    font-size: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-end;
+    & > h3 {
+        margin-top: 15px;
+        font-weight: 900;
+    }
+    & > label > input {
+        width: 350px;
+        font-size: 16px;
+        padding: 8px;
+        border-radius: 8px;
+        background-color: rgb(231, 229, 229);
+    }
+}
+
+.postBtn {
+    width: 200px;
+    font-size: 17px;
+    display: flex;
+    align-items: center;
 }

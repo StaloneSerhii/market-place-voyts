@@ -1,22 +1,30 @@
 import { FcCallback } from 'react-icons/fc';
 import test from '../../image/testBuy.jpg';
 import { Link } from 'react-router-dom';
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
 const BuyProduct = () => {
   return (
     <div className="content__product">
       <div>
-        <div>
-          <img src="/" alt="/" />
-          <form>
+        <div className="block__img">
+          <img src={test} alt="product" width="400" />
+          <div className="block__img--allImg">
+            <FiChevronLeft />
+            <img src={test} alt="allProduct" width="100" />
+            <FiChevronRight />
+          </div>
+          <form className="formFind">
+            <h3>Знайдемо потрібну запчастину:</h3>
             <label htmlFor="">
-              <h3>Знайдемо потрібну запчастину</h3>
               <input type="text" placeholder="Номер або назва запчастини" />
             </label>
             <label htmlFor="">
               <input type="tel" placeholder="Телефон" />
             </label>
-            <button>Надіслати запит</button>
+            <button className="formLogin__btn postBtn">
+              Надіслати запит <FiChevronRight />
+            </button>
           </form>
         </div>
       </div>

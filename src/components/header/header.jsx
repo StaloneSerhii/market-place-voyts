@@ -1,18 +1,20 @@
-import { IoMdPhonePortrait } from "react-icons/io";
+import { IoMdPhonePortrait } from 'react-icons/io';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
     <header className="header">
-      <a className="logo" href="/">
-        TRACTOR<span className="logo__item">REPAIRS & SPARES</span>
-      </a>
+      <Link className="logo" to="/">
+        ZAP4ASTINI
+        <span className="logo__item">ВІД Б/У ДО НОВИХ СГ ЗАПЧАСТИНГ</span>
+      </Link>
       <p className="header__contact">
         Потрібна допомога?Наші контакти!
-        <a className="header__contact--item" href="tel:+4780023456735">
+        <a className="header__contact--item" href="tel:+380686473128">
           <span className="header__contact--svg">
             <IoMdPhonePortrait />
           </span>
-          800-2345-6789
+          +380-68-64-73-128
         </a>
       </p>
     </header>

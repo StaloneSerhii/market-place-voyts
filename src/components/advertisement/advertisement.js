@@ -5,6 +5,7 @@ const Advertisement = () => {
         margin: 'auto',
         width: '98%',
         backgroundColor: '#000',
+        height: '100px',
       }}
     >
       <p

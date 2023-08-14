@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ImFacebook2, ImInstagram } from 'react-icons/im';
+import { SiTiktok } from 'react-icons/si';
 import { TfiYoutube } from 'react-icons/tfi';
 import { MdArrowDropDown } from 'react-icons/md';
 import { CgEnter } from 'react-icons/cg';
@@ -17,57 +18,75 @@ const NavigateCategory = () => {
       <ul className="navigate__list">
         <li className="navigate__item">
           <Link className={'navigate__link background'} to="/">
-            Home
+            ГОЛОВНА
           </Link>
         </li>
         <li className="navigate__item">
           <Link className="navigate__link" to="/">
-            About
+            ЗАПЧАСТИНИ
             <MdArrowDropDown className="arrow" />
           </Link>
           <ul className="navigate__link--subMenu">
             <li className="items">
-              <Link>History</Link>
+              <Link to="product">Запчастини Б/У</Link>
             </li>
             <li className="items">
-              <Link>History</Link>
-            </li>
-            <li className="items">
-              <Link>History</Link>
+              <Link to="product">Нові Запчастини</Link>
             </li>
           </ul>
         </li>
         <li className="navigate__item">
           <Link className="navigate__link" to="/">
-            Repairs
+            СГ ТЕХНІКА
           </Link>
         </li>
         <li className="navigate__item">
           <Link className="navigate__link" to="/">
-            Spares
+            НАВІСНЕ СГ
           </Link>
         </li>
         <li className="navigate__item">
           <Link className="navigate__link" to="/">
-            Contacts
+            КОНТАКТИ
           </Link>
         </li>
       </ul>
       <ul className="navigate--social">
         <li>
-          <Link to="/">
+          <a
+            target="_blank"
+            rel="noreferrer noopener"
+            href="https://www.facebook.com/groups/zap4astini"
+          >
             <ImFacebook2 />
-          </Link>
+          </a>
         </li>
         <li>
-          <Link to="/">
+          <a
+            target="_blank"
+            rel="noreferrer noopener"
+            href="https://www.instagram.com/n.voyts/"
+          >
             <ImInstagram />
-          </Link>
+          </a>
         </li>
         <li>
-          <Link to="/">
+          <a
+            target="_blank"
+            rel="noreferrer noopener"
+            href="https://www.tiktok.com/@n.voyts "
+          >
+            <SiTiktok />
+          </a>
+        </li>
+        <li>
+          <a
+            target="_blank"
+            rel="noreferrer noopener"
+            href="https://www.youtube.com/@NAZARVOYTS/featured"
+          >
             <TfiYoutube />
-          </Link>
+          </a>
         </li>
         <li>
           <div

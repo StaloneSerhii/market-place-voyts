@@ -1,31 +1,33 @@
+import { Link } from 'react-router-dom';
+
 const HeroCategory = () => {
   return (
     <div className="hero_category">
       <ul className="category_list">
         <li className="category_item">
-          <a href="/" className="category_link">
-            Запчатини бу
-          </a>
+          <Link to="product" className="category_link">
+            НОВІ ЗАПЧАСТИНИ
+          </Link>
         </li>
         <li className="category_item">
-          <a href="/" className="category_link">
-            Блалалалалаллала
-          </a>
+          <Link to="product" className="category_link">
+            ЗАПЧАСТИНИ Б/У
+          </Link>
         </li>
         <li className="category_item">
-          <a href="/" className="category_link">
-            Lorem ipsum dolor
-          </a>
+          <Link to="/" className="category_link">
+            АКЦІЙНІ ПРОПОЗИЦІЇ
+          </Link>
         </li>
         <li className="category_item">
-          <a href="/" className="category_link">
-            Меню
-          </a>
+          <Link to="/" className="category_link">
+            СГ ТЕХНІКА
+          </Link>
         </li>
         <li className="category_item">
-          <a href="/" className="category_link">
-            Меню
-          </a>
+          <Link to="/" className="category_link">
+            НАВІСНЕ ОБЛАДНАННЯ
+          </Link>
         </li>
       </ul>
     </div>
