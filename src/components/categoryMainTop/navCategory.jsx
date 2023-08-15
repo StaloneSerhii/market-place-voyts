@@ -22,10 +22,10 @@ const NavigateCategory = () => {
           </Link>
         </li>
         <li className="navigate__item">
-          <Link className="navigate__link" to="/">
+          <div className="navigate__link" to="/">
             ЗАПЧАСТИНИ
             <MdArrowDropDown className="arrow" />
-          </Link>
+          </div>
           <ul className="navigate__link--subMenu">
             <li className="items">
               <Link to="product">Запчастини Б/У</Link>

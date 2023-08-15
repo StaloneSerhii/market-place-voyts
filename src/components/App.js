@@ -2,10 +2,13 @@ import { Route, Routes } from 'react-router-dom';
 import Layout from './Layout';
 import RegisterPage from 'pages/registerPages/registerPage';
 import MainPages from 'pages/mainPage/mainPage';
-import BuyProduct from './buyProduct/buyProduct';
+import BuyProduct, { Application, Dital, Obm } from './buyProduct/buyProduct';
 import CatalogeProduct from 'pages/catalogePage/catalogeProduct';
+// import { useState } from 'react';
 
 function App() {
+  // const [openModal, setOpenModal] = useState(false);
+
   return (
     <div>
       <Routes>
@@ -13,7 +16,11 @@ function App() {
           <Route index element={<MainPages />} />
           <Route path="register" element={<RegisterPage />} />
           <Route path="product" element={<CatalogeProduct />} />
-          <Route path="product/:id" element={<BuyProduct />} />
+          <Route path="product/:id" element={<BuyProduct />}>
+            <Route path="dital" element={<Dital />} />
+            <Route path="application" element={<Application />} />
+            <Route path="obm" element={<Obm />} />
+          </Route>
         </Route>
         <Route path="*" element={<p>404 not found</p>} />
       </Routes>

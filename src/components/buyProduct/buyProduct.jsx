@@ -1,9 +1,14 @@
 import { FcCallback } from 'react-icons/fc';
 import test from '../../image/testBuy.jpg';
-import { Link } from 'react-router-dom';
+import { Link, Outlet, useHref } from 'react-router-dom';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import BuyBusketModal from 'components/modalBuy/about/buyBusket';
+import { useState } from 'react';
 
 const BuyProduct = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const selector = useHref();
+  console.log(selector);
   return (
     <div className="content__product">
       <div>
@@ -32,7 +37,7 @@ const BuyProduct = () => {
         <h3 className="name__product">
           Назва запчастини... хрестовина з головками 4324-234-324 бла бла бла
         </h3>
-        <div className="block__info">
+        <div className="block__info" id="app-root">
           <div className="block__info--item">
             <p>
               Код: <span>123132</span>
@@ -45,9 +50,17 @@ const BuyProduct = () => {
             </p>
             <p className="block__info--on">В наявності</p>
             <span className="block__info--price">3999.00 грн</span>
-            <button type="button" className="formLogin__btn">
+            <button
+              type="button"
+              className="formLogin__btn"
+              onClick={() => setIsModalOpen(true)}
+            >
               Купити
             </button>
+
+            {isModalOpen && (
+              <BuyBusketModal onClose={() => setIsModalOpen(false)} />
+            )}
           </div>
           <div className="block__infoCenter">
             <p> {<FcCallback />} Отримати консультацію</p>
@@ -57,20 +70,60 @@ const BuyProduct = () => {
         </div>
         <div className="block__analog">
           <h4>Аналоги</h4>
-          <Link to="product/2" className="block__analog--info">
+          <Link to="/product/2" className="block__analog--info">
             <img src={test} alt="/" width="70px" />
             <p>Назва запчастини... хрестовина з головками 4324</p>
             <p className="price">6805.90 грн</p>
           </Link>
         </div>
         <div className="info__btn">
-          <button className="info__btn--details active__btn">Опис</button>
-          <button className="info__btn--details">Застосування</button>
-          <button className="info__btn--details">ОБМ номер</button>
+          <Link
+            to="dital"
+            className={
+              selector === '/market-place-voyts/product/1/dital'
+                ? 'info__btn--details active__btn'
+                : 'info__btn--details'
+            }
+          >
+            Опис
+          </Link>
+          <Link
+            to="application"
+            className={
+              selector === '/market-place-voyts/product/1/application'
+                ? 'info__btn--details active__btn'
+                : 'info__btn--details'
+            }
+          >
+            Застосування
+          </Link>
+          <Link
+            to="obm"
+            className={
+              selector === '/market-place-voyts/product/1/obm'
+                ? 'info__btn--details active__btn'
+                : 'info__btn--details'
+            }
+          >
+            ОБМ номер
+          </Link>
         </div>
+        <Outlet />
       </div>
     </div>
   );
 };
 
 export default BuyProduct;
+
+export const Application = () => {
+  return <p>Застосовуються в мтз</p>;
+};
+
+export const Obm = () => {
+  return <p>316546465</p>;
+};
+
+export const Dital = () => {
+  return <p>Цей товар є найс і застосовується скрізь в мтз</p>;
+};

@@ -5,12 +5,13 @@
     background-color: #fff;
     border-radius: 8px;
     position: relative;
+    transition: all 250ms linear;
     &:hover {
         box-shadow: 3px 4px 38px -7px rgba(0, 0, 0, 0.75);
         -webkit-box-shadow: 3px 4px 38px -7px rgba(0, 0, 0, 0.75);
         -moz-box-shadow: 3px 4px 38px -7px rgba(0, 0, 0, 0.75);
     }
-    & > img {
+    & > a > img {
         margin: 25px auto;
     }
     &--span {

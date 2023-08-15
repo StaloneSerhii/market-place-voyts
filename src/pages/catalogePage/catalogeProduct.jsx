@@ -21,8 +21,10 @@ const CatalogeProduct = () => {
           </div>
           <ul className="product__container">
             <li>
-              <Link to="1" className="product__block">
-                <img src={test} alt="sell" width="200px" />
+              <div className="product__block">
+                <Link to="1">
+                  <img src={test} alt="sell" width="200px" />
+                </Link>
                 <div className="product__block--text">
                   <span className="product__block--span">A-re4235</span>
                   <p>Electrik drive</p>
@@ -33,7 +35,7 @@ const CatalogeProduct = () => {
                     </button>
                   </div>
                 </div>
-              </Link>
+              </div>
             </li>
           </ul>
         </div>
