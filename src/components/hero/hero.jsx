@@ -2,9 +2,12 @@ import React, { useState, useEffect } from 'react';
 import heroImg from './heroImg';
 
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import HeroCategory from './heroCategory/heroCategory';
 
 const Hero = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [effect, setEffect] = useState(false);
+
   useEffect(() => {
     const lastIndex = heroImg.length - 1;
     if (currentIndex < 0) {
@@ -16,23 +19,42 @@ const Hero = () => {
   }, [currentIndex]);
 
   useEffect(() => {
-    let slider = setInterval(
-      () => setCurrentIndex(prevState => prevState + 1),
-      50000
-    );
+    const sliderInterval = setInterval(nextSlide, 5000);
+
     return () => {
-      clearInterval(slider);
+      clearInterval(sliderInterval);
     };
-  }, [currentIndex]);
+  }, []);
+
+  const prevSlide = () => {
+    if (!effect) {
+      setEffect(true);
+    }
+    setTimeout(() => {
+      setCurrentIndex(prevState => prevState - 1);
+    }, 800);
+    setTimeout(() => {
+      setEffect(false);
+    }, 1500);
+  };
+  const nextSlide = () => {
+    if (!effect) {
+      setEffect(true);
+    }
+    setTimeout(() => {
+      setCurrentIndex(prevState => prevState + 1);
+    }, 800);
+    setTimeout(() => {
+      setEffect(false);
+    }, 1500);
+  };
+
   return (
     <>
-      {/* <div>
-        <img className="backImg" src={sss} alt="backLogo" height="700px" />
-      </div> */}
-      <section style={{display:'block' , height: '600px'}}>
+      <section style={{ display: 'block', height: '600px' }}>
         <div className="section-center">
           {heroImg.map((person, personIndex) => {
-            const { id, p, image, link } = person;
+            const { id, image } = person;
             let position = 'nexSlide';
             if (personIndex === currentIndex) {
               position = 'activeSlide';
@@ -47,38 +69,20 @@ const Hero = () => {
               <article className={position} key={id}>
                 <div className="slide-p">
                   <img src={image} alt="hero_img" height={600} width={'100%'} />
-                  <div className="title_textBlock">
-                    <div className="title_textBlock--div">
-                      <p className="title_textBlock--p">{p}</p>
-                      <a
-                        className="title_hero"
-                        href={link}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        Read more <FiChevronRight />
-                      </a>
-                    </div>
-                  </div>
                 </div>
               </article>
             );
           })}
 
-          <button
-            className="prev"
-            onClick={() => setCurrentIndex(prevState => prevState - 1)}
-          >
+          <button className="prev" onClick={prevSlide}>
             <FiChevronLeft />
           </button>
 
-          <button
-            className="next"
-            onClick={() => setCurrentIndex(prevState => prevState + 1)}
-          >
+          <button className="next" onClick={nextSlide}>
             <FiChevronRight />
           </button>
         </div>
+        <HeroCategory effect={effect} />
       </section>
     </>
   );

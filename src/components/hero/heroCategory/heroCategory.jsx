@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 
-const HeroCategory = () => {
+const HeroCategory = ({ effect }) => {
   return (
-    <div className="hero_category">
+    <div className={effect ? 'hero_category noneTransition' : 'hero_category '}>
+      <div className="borderDec "></div>
       <ul className="category_list">
         <li className="category_item">
           <Link to="product" className="category_link">

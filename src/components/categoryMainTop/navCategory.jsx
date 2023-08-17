@@ -5,12 +5,18 @@ import { SiTiktok } from 'react-icons/si';
 import { TfiYoutube } from 'react-icons/tfi';
 import { MdArrowDropDown } from 'react-icons/md';
 import { CgEnter } from 'react-icons/cg';
+import { SlBasketLoaded } from 'react-icons/sl';
+import test from '../../image/testBuy.jpg';
 
 const NavigateCategory = () => {
   const [openMenu, setOpenMenu] = useState(false);
+  const [openBasket, setOpenBasket] = useState(false);
 
   const menuOpen = () => {
     return setOpenMenu(!openMenu);
+  };
+  const basketOpen = () => {
+    return setOpenBasket(!openBasket);
   };
 
   return (
@@ -98,6 +104,12 @@ const NavigateCategory = () => {
           </div>
           {openMenu && modalLogin(openMenu)}
         </li>
+        <li>
+          <button className="categoty__basket" onClick={basketOpen}>
+            <SlBasketLoaded />
+          </button>
+          {openBasket && modalBasket()}
+        </li>
       </ul>
     </nav>
   );
@@ -123,6 +135,27 @@ const modalLogin = () => {
         Зареєструватися
       </Link>
     </form>
+  );
+};
+
+const modalBasket = () => {
+  return (
+    <div className={'basket '}>
+      <div className="basketList">
+        <img src={test} alt="" width="80px" />
+        <h2>Запчастина назва тут блабла</h2>
+        <Link to="/" className="formLogin__btn">
+          Купити
+        </Link>
+      </div>
+      <div className="basketList">
+        <img src={test} alt="" width="80px" />
+        <h2>Запчастина назва тут блабла</h2>
+        <Link to="/" className="formLogin__btn">
+          Купити
+        </Link>
+      </div>
+    </div>
   );
 };
 
