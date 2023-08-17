@@ -1,26 +1,40 @@
 import CatalogeCard from 'components/catalogeCard/CatalogeCard';
+import { useSpring, animated } from 'react-spring';
+import { useInView } from 'react-intersection-observer';
 // import { useState } from 'react';
 // import { AiOutlineArrowRight, AiOutlineArrowLeft } from 'react-icons/ai';
 // import ReactPaginate from 'react-paginate';
 
 const CatalogePage = () => {
+  const [ref, inView] = useInView({
+    triggerOnce: true, // Анімація відбудеться тільки раз
+    threshold: 0.5, // Поріг видимості секції
+  });
+
+  const sectionAnimation = useSpring({
+    opacity: inView ? 1 : 0, // Властивість для анімації
+    transform: inView ? 'translateY(0)' : 'translateY(40px)', // Інша властивість для анімації
+    config: { duration: 1000 },
+  });
   // const [page, setPage] = useState(1);
   // const handlePageClick = () => {
   //   return setPage(page + 1);
   // };
   return (
-    <div className="cataloge">
-      <h3 className="cataloge__title">Каталог продуктів</h3>
-      <div className="cataloge__gap">
-        <CatalogeCard />
-        <CatalogeCard />
-        <CatalogeCard />
-        <CatalogeCard />
-        <CatalogeCard />
-        <CatalogeCard />
-        <CatalogeCard />
-        <CatalogeCard />
-      </div>
+    <div ref={ref} className="cataloge animated-section">
+      <animated.div style={sectionAnimation} className="section-content">
+        <h3 className="cataloge__title">Каталог продуктів</h3>
+        <div className="cataloge__gap">
+          <CatalogeCard />
+          <CatalogeCard />
+          <CatalogeCard />
+          <CatalogeCard />
+          <CatalogeCard />
+          <CatalogeCard />
+          <CatalogeCard />
+          <CatalogeCard />
+        </div>
+      </animated.div>
 
       {/* <div className="paginate">
         <ReactPaginate

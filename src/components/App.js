@@ -5,7 +5,6 @@ import MainPages from 'pages/mainPage/mainPage';
 import BuyProduct, { Application, Dital, Obm } from './buyProduct/buyProduct';
 import CatalogeProduct from 'pages/catalogePage/catalogeProduct';
 // import { useState } from 'react';
-
 function App() {
   // const [openModal, setOpenModal] = useState(false);
 
