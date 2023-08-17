@@ -3,6 +3,7 @@ import heroImg from './heroImg';
 
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import HeroCategory from './heroCategory/heroCategory';
+import { useCallback } from 'react';
 
 const Hero = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -18,36 +19,39 @@ const Hero = () => {
     }
   }, [currentIndex]);
 
+  const prevSlide = useCallback(() => {
+    if (!effect) {
+      setEffect(true);
+      setTimeout(() => {
+        setCurrentIndex(prevState => prevState - 1);
+        setTimeout(() => {
+          setEffect(false);
+        }, 700);
+      }, 1000);
+    }
+  }, [effect]);
+
+  const nextSlide = useCallback(() => {
+    if (!effect) {
+      setEffect(true);
+      setTimeout(() => {
+        setCurrentIndex(prevState => prevState + 1);
+        setTimeout(() => {
+          setEffect(false);
+        }, 700);
+      }, 1000);
+    }
+  }, [effect]);
+
   useEffect(() => {
-    const sliderInterval = setInterval(nextSlide, 5000);
+    const sliderInterval = setInterval(() => {
+      nextSlide();
+    }, 5000);
 
     return () => {
       clearInterval(sliderInterval);
     };
-  }, []);
-
-  const prevSlide = () => {
-    if (!effect) {
-      setEffect(true);
-    }
-    setTimeout(() => {
-      setCurrentIndex(prevState => prevState - 1);
-    }, 800);
-    setTimeout(() => {
-      setEffect(false);
-    }, 1500);
-  };
-  const nextSlide = () => {
-    if (!effect) {
-      setEffect(true);
-    }
-    setTimeout(() => {
-      setCurrentIndex(prevState => prevState + 1);
-    }, 800);
-    setTimeout(() => {
-      setEffect(false);
-    }, 1500);
-  };
+  }, [nextSlide]);
 
   return (
     <>
