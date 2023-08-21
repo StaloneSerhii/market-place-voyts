@@ -105,9 +105,9 @@ const NavigateCategory = () => {
           {openMenu && modalLogin(openMenu)}
         </li>
         <li>
-          <button className="categoty__basket" onClick={basketOpen}>
+          <Link className="categoty__basket" to="/busket">
             <SlBasketLoaded />
-          </button>
+          </Link>
           {openBasket && modalBasket()}
         </li>
       </ul>

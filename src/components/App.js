@@ -4,6 +4,7 @@ import RegisterPage from 'pages/registerPages/registerPage';
 import MainPages from 'pages/mainPage/mainPage';
 import BuyProduct, { Application, Dital, Obm } from './buyProduct/buyProduct';
 import CatalogeProduct from 'pages/catalogePage/catalogeProduct';
+import Busket from 'pages/busket/busket';
 // import { useState } from 'react';
 function App() {
   // const [openModal, setOpenModal] = useState(false);
@@ -15,6 +16,7 @@ function App() {
           <Route index element={<MainPages />} />
           <Route path="register" element={<RegisterPage />} />
           <Route path="product" element={<CatalogeProduct />} />
+          <Route path="busket" element={<Busket />} />
           <Route path="product/:id" element={<BuyProduct />}>
             <Route path="dital" element={<Dital />} />
             <Route path="application" element={<Application />} />

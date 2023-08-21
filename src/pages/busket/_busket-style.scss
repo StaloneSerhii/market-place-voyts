@@ -1,0 +1,71 @@
+.zak {
+    font-size: 25px;
+}
+
+.formData {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px;
+    gap: 10px;
+    width: 800px;
+    margin-bottom: 15px;
+    box-shadow: -3px -2px 19px -3px rgba(0, 0, 0, 0.31) inset;
+    -webkit-box-shadow: -3px -2px 19px -3px rgba(0, 0, 0, 0.31) inset;
+    -moz-box-shadow: -3px -2px 19px -3px rgba(0, 0, 0, 0.31) inset;
+    & > div > input {
+        border-radius: 5px;
+        background-color: #fff;
+        padding: 10px;
+        font-size: 15px;
+        border: 1px solid rgb(164, 164, 164);
+        width: 350px;
+    }
+}
+
+.formData--label {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+.formData--post {
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 800px;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    padding: 10px;
+    margin-bottom: 15px;
+    box-shadow: -3px -2px 19px -3px rgba(0, 0, 0, 0.31) inset;
+    -webkit-box-shadow: -3px -2px 19px -3px rgba(0, 0, 0, 0.31) inset;
+    -moz-box-shadow: -3px -2px 19px -3px rgba(0, 0, 0, 0.31) inset;
+    & > input {
+        border-radius: 5px;
+        background-color: #fff;
+        padding: 10px;
+        font-size: 15px;
+        border: 1px solid rgb(164, 164, 164);
+        width: 350px;
+    }
+}
+
+.pay {
+    text-align: center;
+}
+
+.formData--buy {
+    height: 250px;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 10px;
+    margin-bottom: 15px;
+    box-shadow: -3px -2px 19px -3px rgba(0, 0, 0, 0.31) inset;
+    -webkit-box-shadow: -3px -2px 19px -3px rgba(0, 0, 0, 0.31) inset;
+    -moz-box-shadow: -3px -2px 19px -3px rgba(0, 0, 0, 0.31) inset;
+}
