@@ -4,11 +4,27 @@ import { Link, Outlet, useHref } from 'react-router-dom';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import BuyBusketModal from 'components/modalBuy/about/buyBusket';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { counterSum } from 'redux/slice';
 
 const BuyProduct = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const dispatch = useDispatch();
   const selector = useHref();
-  console.log(selector);
+
+  const buyProduct = event => {
+    setIsModalOpen(true);
+    dispatch(
+      counterSum({
+        name: 'basdllasd',
+        id: 131,
+        code: 53,
+        price: 3999.53,
+        counter: 1,
+      })
+    );
+  };
   return (
     <div className="content__product">
       <div>
@@ -27,7 +43,7 @@ const BuyProduct = () => {
             <label htmlFor="">
               <input type="tel" placeholder="Телефон" />
             </label>
-            <button className="formLogin__btn postBtn">
+            <button className="formLogin__btn postBtn" type="submit">
               Надіслати запит <FiChevronRight />
             </button>
           </form>
@@ -38,7 +54,7 @@ const BuyProduct = () => {
           Назва запчастини... хрестовина з головками 4324-234-324 бла бла бла
         </h3>
         <div className="block__info" id="app-root">
-          <div className="block__info--item">
+          <form className="block__info--item">
             <p>
               Код: <span>123132</span>
             </p>
@@ -53,7 +69,7 @@ const BuyProduct = () => {
             <button
               type="button"
               className="formLogin__btn"
-              onClick={() => setIsModalOpen(true)}
+              onClick={buyProduct}
             >
               Купити
             </button>
@@ -61,7 +77,7 @@ const BuyProduct = () => {
             {isModalOpen && (
               <BuyBusketModal onClose={() => setIsModalOpen(false)} />
             )}
-          </div>
+          </form>
           <div className="block__infoCenter">
             <p> {<FcCallback />} Отримати консультацію</p>
             <span>+38(67)000-00-00</span>

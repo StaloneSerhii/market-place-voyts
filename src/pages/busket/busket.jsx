@@ -1,11 +1,26 @@
+import { useDispatch, useSelector } from 'react-redux';
 import test from '../../image/testBuy.jpg';
+import { counterSum } from 'redux/slice';
 
 const Busket = () => {
+  const dispatch = useDispatch();
+  const select = useSelector(state => state.product);
+  console.log(select);
+  const buyProduct = event => {
+    dispatch(
+      counterSum({
+        id: 131,
+        counter: event.target.value,
+      })
+    );
+  };
   return (
     <div>
       <h2 style={{ fontSize: '35px', marginLeft: '25px' }}>Кошик</h2>
-      <form style={{ display: 'flex', justifyContent: 'center' }}>
-        <div style={{ width: '50%' }}>
+      <form
+        style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}
+      >
+        <div>
           <label className="zak">
             <div className="formData">
               <h3>Контактні дані</h3>
@@ -112,6 +127,8 @@ const Busket = () => {
                           min="1"
                           max="200"
                           step="1"
+                          onChange={buyProduct}
+                          value={select[0].counter}
                         />
                       </label>
                     </div>

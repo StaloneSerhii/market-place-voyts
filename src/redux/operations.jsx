@@ -51,7 +51,6 @@ export const deleteContact = createAsyncThunk(
 // Auth Operations
 
 export const register = createAsyncThunk('auth/register', async credentials => {
-  console.log(credentials);
   try {
     const { data } = await axios.post(`/users/signup`, credentials);
     token.set(data.token);
@@ -86,7 +85,6 @@ export const fetchCurrentUser = createAsyncThunk(
     const state = thunkAPI.getState();
     const persistToken = state.auth.token;
     if (persistToken === null) {
-      console.log('Tokena null');
       return thunkAPI.rejectWithValue();
     } else {
       try {

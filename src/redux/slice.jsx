@@ -1,67 +1,26 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { addContact, deleteContact, fetchContact } from './operations';
 
-export const filterSlice = createSlice({
-  name: 'filter',
-  initialState: '',
+export const productReducer = createSlice({
+  name: 'product',
+  initialState: [],
   reducers: {
-    changeFilterRedux(state, action) {
-      return (state = action.payload);
+    addProductBusket(state, action) {
+      state.push({ ...action.payload, counter: 1 });
+    },
+    counterSum(state, action) {
+      const { id, counter } = action.payload;
+      return state.map(product => {
+        if (product.id === id) {
+          return { ...product, counter };
+        }
+        return product;
+      });
+    },
+    onDeleteProductBusket(state, action) {
+      return state.filter(contact => contact.id !== action.payload);
     },
   },
 });
 
-export const { changeFilterRedux } = filterSlice.actions;
-
-const contactSlice = createSlice({
-  name: 'contact',
-  initialState: {
-    items: [],
-    isLoading: false,
-    error: null,
-  },
-  extraReducers: {
-    [fetchContact.pending](state) {
-      state.isLoading = true;
-    },
-    [fetchContact.fulfilled](state, action) {
-      state.isLoading = false;
-      state.error = null;
-      state.items = action.payload;
-    },
-    [fetchContact.rejected](state, action) {
-      state.isLoading = false;
-      state.error = action.payload;
-    },
-    [addContact.pending]: state => {
-      state.isLoading = true;
-      state.error = null;
-    },
-    [addContact.fulfilled]: (state, action) => {
-      state.isLoading = false;
-      state.error = null;
-      state.items.push(action.payload);
-    },
-    [addContact.rejected]: (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload;
-    },
-    [deleteContact.pending]: state => {
-      state.isLoading = true;
-      state.error = null;
-    },
-    [deleteContact.fulfilled]: (state, action) => {
-      state.isLoading = false;
-      const index = state.items.findIndex(
-        task => task.id === action.payload.id
-      );
-      state.items.splice(index, 1);
-    },
-    [deleteContact.rejected]: (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload;
-    },
-  },
-});
-
-export const contactsReducer = contactSlice.reducer;
+export const { addProductBusket, onDeleteProductBusket, counterSum } =
+  productReducer.actions;

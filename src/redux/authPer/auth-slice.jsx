@@ -1,15 +1,14 @@
+import { createSlice } from '@reduxjs/toolkit';
 import { fetchCurrentUser, logIn, logOut, register } from 'redux/operations';
 
-const { createSlice } = require('@reduxjs/toolkit');
-
 const initialState = {
-  user: { name: null, email: null },
+  user: { name: null, email: null, tell: null, city: null },
   token: null,
   isLoggedIn: false,
   isFetching: false,
 };
 
-const authSlice = createSlice({
+export const authSlice = createSlice({
   name: 'auth',
   initialState,
   extraReducers: {
@@ -41,5 +40,3 @@ const authSlice = createSlice({
     },
   },
 });
-
-export default authSlice.reducer;
