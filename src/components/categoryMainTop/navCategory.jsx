@@ -6,7 +6,6 @@ import { TfiYoutube } from 'react-icons/tfi';
 import { MdArrowDropDown } from 'react-icons/md';
 import { CgEnter } from 'react-icons/cg';
 import { SlBasketLoaded } from 'react-icons/sl';
-import test from '../../image/testBuy.jpg';
 
 const NavigateCategory = () => {
   const [openMenu, setOpenMenu] = useState(false);
@@ -15,9 +14,6 @@ const NavigateCategory = () => {
   const menuOpen = () => {
     return setOpenMenu(!openMenu);
   };
-  // const basketOpen = () => {
-  //   return setOpenBasket(!openBasket);
-  // };
 
   return (
     <nav className="navigate">
@@ -108,7 +104,7 @@ const NavigateCategory = () => {
           <Link className="categoty__basket" to="/busket">
             <SlBasketLoaded />
           </Link>
-          {openBasket && modalBasket()}
+          {/* {openBasket && modalBasket()} */}
         </li>
       </ul>
     </nav>
@@ -138,25 +134,25 @@ const modalLogin = () => {
   );
 };
 
-const modalBasket = () => {
-  return (
-    <div className={'basket '}>
-      <div className="basketList">
-        <img src={test} alt="" width="80px" />
-        <h2>Запчастина назва тут блабла</h2>
-        <Link to="/" className="formLogin__btn">
-          Купити
-        </Link>
-      </div>
-      <div className="basketList">
-        <img src={test} alt="" width="80px" />
-        <h2>Запчастина назва тут блабла</h2>
-        <Link to="/" className="formLogin__btn">
-          Купити
-        </Link>
-      </div>
-    </div>
-  );
-};
+// const modalBasket = () => {
+//   return (
+//     <div className={'basket '}>
+//       <div className="basketList">
+//         <img src={test} alt="" width="80px" />
+//         <h2>Запчастина назва тут блабла</h2>
+//         <Link to="/" className="formLogin__btn">
+//           Купити
+//         </Link>
+//       </div>
+//       <div className="basketList">
+//         <img src={test} alt="" width="80px" />
+//         <h2>Запчастина назва тут блабла</h2>
+//         <Link to="/" className="formLogin__btn">
+//           Купити
+//         </Link>
+//       </div>
+//     </div>
+//   );
+// };
 
 export default NavigateCategory;
