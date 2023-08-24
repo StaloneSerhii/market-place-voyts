@@ -10,14 +10,14 @@ import test from '../../image/testBuy.jpg';
 
 const NavigateCategory = () => {
   const [openMenu, setOpenMenu] = useState(false);
-  const [openBasket, setOpenBasket] = useState(false);
+  // const [openBasket, setOpenBasket] = useState(false);
 
   const menuOpen = () => {
     return setOpenMenu(!openMenu);
   };
-  const basketOpen = () => {
-    return setOpenBasket(!openBasket);
-  };
+  // const basketOpen = () => {
+  //   return setOpenBasket(!openBasket);
+  // };
 
   return (
     <nav className="navigate">
