@@ -3,7 +3,7 @@ import { AiOutlineHeart } from 'react-icons/ai';
 import { BsFillBasketFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 
-const CatalogeCard = () => {
+const CatalogeCard = ({ price, id, name }) => {
   return (
     <div className="card-catalog">
       <div className="sell">
@@ -16,14 +16,14 @@ const CatalogeCard = () => {
           </button>
         </div>
       </div>
-      <Link to='product/1' className="card-catalog__link">
+      <Link to={`product/${id}`} state={id} className="card-catalog__link">
         <img src={buyTest} alt="img-buy" className="card-cataloge__img" />
-        <p className="card-cataloge__p">Тяга МТЗ навески правая "вир-во МТЗ"</p>
+        <p className="card-cataloge__p">{name}</p>
         <p className="card-cataloge__span">
-          998,00 <span>грн</span>
+          {price} <span>грн</span>
         </p>
       </Link>
-      <Link to='product/1' className="card-cataloge__btn">
+      <Link to="product/1" className="card-cataloge__btn">
         <BsFillBasketFill /> Купити
       </Link>
     </div>

@@ -1,5 +1,4 @@
-export const getContact = state => state.contacts.items;
-export const getName = state => state.auth.user.name;
-export const getIsLoading = state => state.auth.isLoggedIn;
+export const getProductAll = state => state.productFetch.items;
+export const getProductLoad = state => state.productFetch.isLoading;
+export const getProductId = state => state.productFetch.productID;
 export const getError = state => state.contacts.error;
-export const getStatusFilter = state => state.filter;

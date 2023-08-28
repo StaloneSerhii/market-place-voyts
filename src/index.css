@@ -75,7 +75,7 @@
 .navigate__link {
   display: inline-block;
   position: relative;
-  padding: 23px 28px 24px 29px;
+  padding: 23px 10px 24px 10px;
   font-size: 16px;
   line-height: 33px;
   font-weight: 600;
@@ -85,6 +85,7 @@
 @media (min-width: 1600px) {
   .navigate__link {
     font-size: 22px;
+    padding: 23px 28px 24px 29px;
   }
 }
 

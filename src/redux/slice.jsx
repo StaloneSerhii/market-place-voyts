@@ -1,18 +1,22 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { fetchProduct, fetchProductById } from './operations';
 
 export const productReducer = createSlice({
   name: 'product',
   initialState: [],
   reducers: {
     addProductBusket(state, action) {
-      state.push({ ...action.payload, counter: 1 });
+      state.push({ ...action.payload, coun: 1 });
     },
     counterSum(state, action) {
-      const { id, counter } = action.payload;
+      const { even, id } = action.payload;
+      console.log(action);
       return state.map(product => {
-        if (product.id === id) {
-          return { ...product, counter };
+        if (product._id === id) {
+          console.log(product);
+          return { ...product, coun: even };
         }
+        console.log(id);
         return product;
       });
     },

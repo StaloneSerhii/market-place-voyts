@@ -15,7 +15,6 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { productReducer } from './slice';
-import { authSlice } from './authPer/auth-slice';
 
 const middleware = [
   ...getDefaultMiddleware({
@@ -27,7 +26,6 @@ const middleware = [
 
 const rootReducer = combineReducers({
   product: productReducer.reducer,
-  auth: authSlice.reducer,
 });
 
 const persistConfig = {
@@ -38,7 +36,9 @@ const persistConfig = {
 const persistedReducerAdd = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
-  reducer: persistedReducerAdd,
+  reducer: {
+    persistedReducerAdd,
+  },
   middleware,
   devTools: process.env.NODE_ENV === 'development',
 });
