@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import ReactDOM from 'react-dom';
 import test from '../../../image/testBuy.jpg';
@@ -9,15 +9,16 @@ import { counterSum } from 'redux/slice';
 const modalRoot = document.querySelector('#modal-root');
 
 const BuyBusketModal = ({ onClose }) => {
+  const [val, setVal] = useState(1);
   const { id } = useParams();
   const dispatch = useDispatch();
 
   const buyProduct = e => {
-    const event = e.target.value;
-    dispatch(counterSum({ event, id }));
+    setVal(Number(e.target.value));
+    const count = Number(e.target.value);
+    dispatch(counterSum({ count, id }));
   };
 
-  // const [counter, setCounter] = useState(1);
   return ReactDOM.createPortal(
     <div className="modal" id="modal-root">
       <div className="modal__block">
@@ -84,6 +85,7 @@ const BuyBusketModal = ({ onClose }) => {
                         min="1"
                         max="200"
                         step="1"
+                        value={val}
                       />
                     </label>
                   </div>

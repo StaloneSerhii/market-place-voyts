@@ -30,6 +30,7 @@ const BuyProduct = () => {
     setIsModalOpen(true);
     dispatch(addProductBusket(product));
   };
+
   return (
     product && (
       <div className="content__product">

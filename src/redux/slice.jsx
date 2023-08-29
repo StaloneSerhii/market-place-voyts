@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchProduct, fetchProductById } from './operations';
 
 export const productReducer = createSlice({
   name: 'product',
@@ -9,14 +8,11 @@ export const productReducer = createSlice({
       state.push({ ...action.payload, coun: 1 });
     },
     counterSum(state, action) {
-      const { even, id } = action.payload;
-      console.log(action);
+      const { count, id } = action.payload;
       return state.map(product => {
         if (product._id === id) {
-          console.log(product);
-          return { ...product, coun: even };
+          return { ...product, coun: count };
         }
-        console.log(id);
         return product;
       });
     },
