@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API = 'http://localhost:3333/api/product/';
+const API = 'http://localhost:3333/api/product';
 
 async function getAllProduct() {
   const { data } = await axios.get(`${API}`);
@@ -18,4 +18,12 @@ async function getIdProduct(id) {
   console.log('error');
 }
 
-export { getAllProduct, getIdProduct };
+async function postBuyProduct(body) {
+  const data = await axios.post(`${API}/buy/product`, body);
+  if ({ data }) {
+    return data;
+  }
+  console.log('error');
+}
+
+export { getAllProduct, getIdProduct, postBuyProduct };
