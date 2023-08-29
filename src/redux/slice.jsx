@@ -17,7 +17,7 @@ export const productReducer = createSlice({
       });
     },
     onDeleteProductBusket(state, action) {
-      return state.filter(contact => contact.id !== action.payload);
+      return state.filter(product => product._id !== action.payload);
     },
   },
 });

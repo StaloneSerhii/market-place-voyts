@@ -863,18 +863,16 @@ article.nextSlide {
   padding: 10px;
 }
 
-.block__listBuy {
-  background-color: #fff;
-}
-
 .block__listBuy--img {
   padding: 5px;
   border: 1px solid rgb(209, 209, 209);
 }
 
 .block__listBuy--item {
+  background: #fff;
+  position: relative;
   display: flex;
-  padding: 10px 0;
+  padding: 10px 5px;
   border-bottom: 1px solid rgb(192, 192, 192);
 }
 .block__listBuy--item > div {
@@ -1184,7 +1182,7 @@ article.nextSlide {
 
 .formData--buy {
   margin-left: 50px;
-  height: 250px;
+  height: 100%;
   font-size: 20px;
   display: flex;
   flex-direction: column;

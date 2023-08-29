@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
 import test from '../../image/testBuy.jpg';
-import { counterSum } from 'redux/slice';
+import { counterSum, onDeleteProductBusket } from 'redux/slice';
 import { useFormik } from 'formik';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const Busket = () => {
-  const [isFormChanged, setIsFormChanged] = useState(true);
+  const [suma, setSuma] = useState(null);
   const dispatch = useDispatch();
   const select = useSelector(state => state.persistedReducerAdd.product);
   // const userInfo = useSelector(state => console.log(state));
@@ -15,6 +15,17 @@ const Busket = () => {
     const count = Number(e.target.value);
     dispatch(counterSum({ count, id }));
   };
+
+  useEffect(() => {
+    let totalPrice = 0;
+    if (select) {
+      for (const pr of select) {
+        const productTotal = pr.price * pr.coun;
+        totalPrice += productTotal;
+      }
+    }
+    setSuma(totalPrice.toFixed(2));
+  }, [select]);
 
   const initialValues = {
     name: '',
@@ -38,7 +49,6 @@ const Busket = () => {
     const { name, value } = event.target;
     console.log(event);
     formik.setFieldValue(name, value);
-    setIsFormChanged(true);
   };
 
   // редактор введення телефону
@@ -52,21 +62,29 @@ const Busket = () => {
       value =
         value.slice(0, 2) + '(' + value.slice(2, 5) + ')' + value.slice(5);
     }
-    setIsFormChanged(true);
-
     formik.setFieldValue('phone', value);
   };
 
-  const isValid = field =>
-    formik.touched[field] && formik.errors[field]
-      ? 'is-invalid'
-      : formik.touched[field]
-      ? 'is-valid'
-      : '';
+  // const isValid = field =>
+  //   formik.touched[field] && formik.errors[field]
+  //     ? 'is-invalid'
+  //     : formik.touched[field]
+  //     ? 'is-valid'
+  //     : '';
 
   return (
     <div>
-      <h2 style={{ fontSize: '35px', marginLeft: '25px' }}>Кошик</h2>
+      <h2
+        style={{
+          fontSize: '35px',
+          marginLeft: '25px',
+          textAlign: 'center',
+          fontWeight: 900,
+          margin: '15px',
+        }}
+      >
+        Кошик
+      </h2>
       <form
         onSubmit={formik.handleSubmit}
         style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}
@@ -77,6 +95,7 @@ const Busket = () => {
               <h3>Контактні дані</h3>
               <div className="formData--label">
                 <input
+                  required
                   type="text"
                   name="name"
                   placeholder="Імя"
@@ -85,6 +104,7 @@ const Busket = () => {
                   onChange={handleInputChange}
                 />
                 <input
+                  required
                   type="text"
                   name="fename"
                   placeholder="Прізвище"
@@ -93,6 +113,7 @@ const Busket = () => {
                   onChange={handleInputChange}
                 />
                 <input
+                  required
                   type="tel"
                   name="phone"
                   placeholder="Номер телефону"
@@ -128,6 +149,7 @@ const Busket = () => {
           <label className="formData--post">
             Доставка "Нова Пошта" у віділення
             <input
+              required
               type="text"
               placeholder="Місто"
               name="city"
@@ -135,6 +157,7 @@ const Busket = () => {
               onChange={handleInputChange}
             />
             <input
+              required
               type="text"
               placeholder="Віділення"
               name="viddill"
@@ -157,8 +180,8 @@ const Busket = () => {
                   ); // Оновлюємо значення в formik
                 }}
               />
-              Післяоплата Нова Пошта, до оплати
-              <span> 2 567.00 грн</span>
+              Післяоплата Нова Пошта, до оплати буде
+              <span> {suma} грн</span>
             </label>
             <label>
               <input
@@ -170,19 +193,35 @@ const Busket = () => {
                   formik.setFieldValue('oplata', 'Оплата на карту МоноБанку'); // Оновлюємо значення в formik
                 }}
               />
-              Оплата на карту МоноБанку 1231234545 Радчів Михасік Понеу, до
-              оплати
-              <span> 2 567.00 грн</span>
+              Оплата на карту МоноБанку 1231234545 Радчів Михасік Поне до оплати
+              <span> {suma} грн</span>
             </label>
           </div>
         </div>
         <div className="formData--buy">
           <h3>Ваші замовлення</h3>
           <div className="block__listBuy">
-            <ul>
+            <ul
+              style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}
+            >
               {select &&
                 select.map(pr => (
                   <li className="block__listBuy--item" key={pr._id}>
+                    <button
+                      style={{
+                        color: 'red',
+                        border: '2px solid red',
+                        borderRadius: '100%',
+                        height: '20px',
+                        width: '20px',
+                        marginTop: '10px',
+                        position: 'absolute',
+                        right: '10px',
+                      }}
+                      onClick={() => dispatch(onDeleteProductBusket(pr._id))}
+                    >
+                      X
+                    </button>
                     <img
                       className="block__listBuy--img"
                       src={test}
@@ -268,18 +307,9 @@ const Busket = () => {
                     </div>
                   </li>
                 ))}
-              <button
-                style={{
-                  color: 'red',
-                  border: '2px solid red',
-                  borderRadius: '100%',
-                  height: '20px',
-                  width: '20px',
-                  marginTop: '10px',
-                }}
-              >
-                X
-              </button>
+              <p style={{ textAlign: 'end', marginRight: '10px' }}>
+                Разом до оплати: {suma} грн
+              </p>
             </ul>
           </div>
           <button
