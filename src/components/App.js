@@ -15,7 +15,8 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<MainPages />} />
           <Route path="register" element={<RegisterPage />} />
-          <Route path="product" element={<CatalogeProduct />} />
+          <Route path="productBY" element={<CatalogeProduct />} />
+          <Route path="productNEW" element={<CatalogeProduct />} />
           <Route path="busket" element={<Busket />} />
           <Route path="product/:id" element={<BuyProduct />}>
             <Route path="dital" element={<Dital />} />

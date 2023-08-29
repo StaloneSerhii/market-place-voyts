@@ -5,6 +5,26 @@ import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { postBuyProduct } from 'redux/service';
+import * as Yup from 'yup';
+
+const validationSchema = Yup.object().shape({
+  name: Yup.string()
+    .min(2, 'Too Short name!')
+    .max(35, 'Too Long name!')
+    .required('Name is required'),
+  fename: Yup.string()
+    .min(2, 'Too Short name!')
+    .max(35, 'Too Long name!')
+    .required('Name is required'),
+  email: Yup.string().email('Invalid email').required('Email is required'),
+  phone: Yup.string()
+    .min(14, 'Too Short name!')
+    .max(14, 'Too Long name!')
+    .notRequired(),
+  city: Yup.string().required().min(3, 'Too Short name!'),
+  viddill: Yup.string().required(),
+  oplata: Yup.string().required(),
+});
 
 const Busket = () => {
   const dispatch = useDispatch();
@@ -12,7 +32,6 @@ const Busket = () => {
   const [suma, setSuma] = useState(null);
   const [res, setRes] = useState(null);
   const select = useSelector(state => state.persistedReducerAdd.product);
-  // const userInfo = useSelector(state => console.log(state));
 
   // Зміна значення к-сть товарів для покупки в редакс=лс
   const chancheCountProduct = (e, id) => {
@@ -43,7 +62,7 @@ const Busket = () => {
     fename: '',
     email: '',
     phone: '',
-    comments: '',
+    comments: '-',
     city: '',
     viddill: '',
     oplata: '',
@@ -52,8 +71,12 @@ const Busket = () => {
   // Відправка форми після замовлення
   const formik = useFormik({
     initialValues,
+    validationSchema: validationSchema,
     onSubmit: values => {
-      postBuyProduct({ values, select }).then(state => setRes(state));
+      const result = window.confirm(`Ви піддтверджуєте свою покупку?`);
+      if (result) {
+        postBuyProduct({ values, select }).then(state => setRes(state));
+      }
     },
   });
 
@@ -76,7 +99,6 @@ const Busket = () => {
     }
     formik.setFieldValue('phone', value);
   };
-
   return (
     <div>
       <h2
@@ -112,6 +134,11 @@ const Busket = () => {
                     onBlur={formik.handleBlur}
                     value={formik.values.name}
                     onChange={handleInputChange}
+                    style={
+                      formik.touched.name && formik.errors.name
+                        ? { border: '1px solid red' }
+                        : { border: '1px solid gray' }
+                    }
                   />
                   <input
                     required
@@ -121,16 +148,27 @@ const Busket = () => {
                     onBlur={formik.handleBlur}
                     value={formik.values.fename}
                     onChange={handleInputChange}
+                    style={
+                      formik.touched.fename && formik.errors.fename
+                        ? { border: '1px solid red' }
+                        : { border: '1px solid gray' }
+                    }
                   />
                   <input
                     required
                     type="tel"
                     name="phone"
-                    placeholder="Номер телефону"
+                    placeholder="38-000-000-00-00"
                     onBlur={formik.handleBlur}
                     value={formik.values.phone}
                     onChange={handlePhoneNumberChange}
+                    style={
+                      formik.touched.phone && formik.errors.phone
+                        ? { border: '1px solid red' }
+                        : { border: '1px solid gray' }
+                    }
                   />
+
                   <input
                     type="email"
                     name="email"
@@ -138,6 +176,11 @@ const Busket = () => {
                     onBlur={formik.handleBlur}
                     value={formik.values.email}
                     onChange={handleInputChange}
+                    style={
+                      formik.touched.email && formik.errors.email
+                        ? { border: '1px solid red' }
+                        : { border: '1px solid gray' }
+                    }
                   />
                 </div>
                 <textarea
@@ -166,6 +209,11 @@ const Busket = () => {
                 name="city"
                 onBlur={formik.handleBlur}
                 onChange={handleInputChange}
+                style={
+                  formik.touched.city && formik.errors.city
+                    ? { border: '1px solid red' }
+                    : { border: '1px solid gray' }
+                }
               />
               <input
                 required
@@ -174,6 +222,11 @@ const Busket = () => {
                 name="viddill"
                 onBlur={formik.handleBlur}
                 onChange={handleInputChange}
+                style={
+                  formik.touched.viddill && formik.errors.viddill
+                    ? { border: '1px solid red' }
+                    : { border: '1px solid gray' }
+                }
               />
             </label>
             <div className="formData--post pay">
@@ -194,9 +247,6 @@ const Busket = () => {
                 Післяоплата Нова Пошта, до оплати буде
                 <span> {suma} грн</span>
               </label>
-              {/* {formik.touched.oplata && <div className="error">ee</div>}
-              {console.log(formik.touched.oplata, ' t')}
-              {console.log(formik.errors, 'e')} */}
 
               <label>
                 <input
@@ -212,6 +262,11 @@ const Busket = () => {
                 оплати
                 <span> {suma} грн</span>
               </label>
+              {formik.touched.oplata && formik.errors.oplata && (
+                <div className="error" style={{ color: 'red' }}>
+                  Ви не вибрали спосіб оплати
+                </div>
+              )}
             </div>
           </div>
           <div className="formData--buy">

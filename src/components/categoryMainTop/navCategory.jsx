@@ -30,10 +30,10 @@ const NavigateCategory = () => {
           </div>
           <ul className="navigate__link--subMenu">
             <li className="items">
-              <Link to="product">Запчастини Б/У</Link>
+              <Link to="productBY">Запчастини Б/У</Link>
             </li>
             <li className="items">
-              <Link to="product">Нові Запчастини</Link>
+              <Link to="productNEW">Нові Запчастини</Link>
             </li>
           </ul>
         </li>
