@@ -1,8 +1,7 @@
-import buyTest from '../../image/testBuy.jpg';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { BsFillBasketFill } from 'react-icons/bs';
 
-const TopSell = () => {
+const TopSell = ({ id, price, img, name }) => {
   return (
     <div className="card-catalog">
       <div className="sell">
@@ -16,10 +15,10 @@ const TopSell = () => {
         </div>
       </div>
       <a href="/" className="card-catalog__link">
-        <img src={buyTest} alt="img-buy" className="card-cataloge__img" />
-        <p className="card-cataloge__p">Тяга МТЗ навески правая "вир-во МТЗ"</p>
+        <img src={img} alt="img-buy" className="card-cataloge__img" />
+        <p className="card-cataloge__p">{name}</p>
         <p className="card-cataloge__span">
-          998,00 <span>грн</span>
+          {price} <span>грн</span>
         </p>
       </a>
       <button className="card-cataloge__btn">

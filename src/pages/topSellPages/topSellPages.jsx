@@ -2,8 +2,12 @@ import TopSell from 'components/topSell/topSell';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { useSpring, animated } from 'react-spring';
 import { useInView } from 'react-intersection-observer';
+import { useEffect } from 'react';
+import { getTopBuyProduct } from 'redux/service';
+import { useState } from 'react';
 
 const TopSellPages = () => {
+  const [data, setData] = useState();
   const [ref, inView] = useInView({
     triggerOnce: true, // Анімація відбудеться тільки раз
     threshold: 0.5, // Поріг видимості секції
@@ -15,6 +19,10 @@ const TopSellPages = () => {
     config: { duration: 1000 },
   });
 
+  useEffect(() => {
+    getTopBuyProduct().then(state => setData(state));
+  }, []);
+  console.log(data);
   return (
     <div ref={ref} className="cataloge animated-section">
       <animated.div style={sectionAnimation} className="section-content">
@@ -29,13 +37,18 @@ const TopSellPages = () => {
             </button>
           </div>
         </div>
-        <div className="cataloge__gap top">
-          <TopSell />
-          <TopSell />
-          <TopSell />
-          <TopSell />
-          <TopSell />
-        </div>
+        <ul className="cataloge__gap top">
+          {data &&
+            data.map(({ select }) => (
+              <li key={select[0]._id}>
+                <TopSell
+                  price={select[0].price}
+                  name={select[0].name}
+                  img={select[0].img[0]}
+                />
+              </li>
+            ))}
+        </ul>
       </animated.div>
     </div>
   );

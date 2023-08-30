@@ -404,7 +404,7 @@ const Busket = () => {
             <br />
             <Link
               style={{ textAlign: 'center', fontSize: '40px', color: 'red' }}
-              to="/product"
+              to="/productBY"
             >
               ТИК!
             </Link>

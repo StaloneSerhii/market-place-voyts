@@ -2,6 +2,8 @@
 // import { TfiYoutube } from 'react-icons/tfi';
 // import { MdArrowDropDown } from 'react-icons/md';
 
+import { Link } from 'react-router-dom';
+
 const Footer = () => {
   return (
     <div className="footer">
@@ -11,19 +13,19 @@ const Footer = () => {
             <p>Quick Link</p>
             <ul>
               <li>
-                <a href="/">Abous Us</a>
+                <Link to="productBY">Запчастини Б/У</Link>
               </li>
               <li>
-                <a href="/">Service</a>
+                <Link to="productNEW">Нові Запчастини</Link>
               </li>
               <li>
-                <a href="/">Faq</a>
+                <Link to="/">СГ ТЕХНІКА</Link>
               </li>
               <li>
-                <a href="/">Contact Us</a>
+                <Link to="/">НАВІСНЕ СГ</Link>
               </li>
               <li>
-                <a href="/">Reips</a>
+                <Link to="/">КОНТАКТИ</Link>
               </li>
             </ul>
           </div>
@@ -43,7 +45,7 @@ const Footer = () => {
               <li>
                 <a href="email:info@gmail.com">info@gmail.com</a>
               </li>
-              <ul>
+              {/* <ul>
                 <li>
                   <a href="/">asdasd</a>
                 </li>
@@ -53,7 +55,7 @@ const Footer = () => {
                 <li>
                   <a href="/">asdasd</a>
                 </li>
-              </ul>
+              </ul> */}
             </ul>
           </div>
         </li>

@@ -8,7 +8,7 @@ export const productReducer = createSlice({
       state.push({ ...action.payload, coun: 1 });
     },
     counterSum(state, action) {
-      const { count, id } = action.payload;
+      const { count = 1, id } = action.payload;
       return state.map(product => {
         if (product._id === id) {
           return { ...product, coun: count };

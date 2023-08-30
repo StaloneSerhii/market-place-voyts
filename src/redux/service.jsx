@@ -10,6 +10,14 @@ async function getAllProduct() {
   console.log('error');
 }
 
+async function getTopBuyProduct() {
+  const { data } = await axios.get(`${API}/product/topbuy`);
+  if (data) {
+    return data;
+  }
+  console.log('error');
+}
+
 async function getIdProduct(id) {
   const { data } = await axios.get(`${API}/${id}`);
   if (data) {
@@ -26,4 +34,36 @@ async function postBuyProduct(body) {
   console.log('error');
 }
 
-export { getAllProduct, getIdProduct, postBuyProduct };
+async function postBuyProductBY(body) {
+  const { data } = await axios.get(`${API}/product/by`, body);
+  if (data) {
+    return data;
+  }
+  console.log('error');
+}
+
+async function postHelpProduct(requestData) {
+  const { data } = await axios.post(`${API}/product/helpers`, requestData);
+  if (data) {
+    return data;
+  }
+  console.log('error');
+}
+
+async function postBuyProductNew(body) {
+  const { data } = await axios.get(`${API}/product/new`, body);
+  if (data) {
+    return data;
+  }
+  console.log('error');
+}
+
+export {
+  getAllProduct,
+  getIdProduct,
+  postBuyProduct,
+  postBuyProductBY,
+  postBuyProductNew,
+  postHelpProduct,
+  getTopBuyProduct,
+};

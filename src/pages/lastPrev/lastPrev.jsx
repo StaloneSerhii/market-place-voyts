@@ -8,8 +8,6 @@ const LastPrev = () => {
       <h3 className="lastPrev__title">Остані переглянуті</h3>
       <div className="lastPrev__gap">
         <CatalogeCard />
-        <CatalogeCard />
-        <CatalogeCard />
       </div>
     </div>
   );

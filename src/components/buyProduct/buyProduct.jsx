@@ -1,22 +1,29 @@
 import { FcCallback } from 'react-icons/fc';
-import test from '../../image/testBuy.jpg';
-import { Link, Outlet, useHref, useParams } from 'react-router-dom';
-import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
+import { FiChevronRight } from 'react-icons/fi';
 import BuyBusketModal from 'components/modalBuy/about/buyBusket';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addProductBusket } from 'redux/slice';
 import { useEffect } from 'react';
-import { getIdProduct } from 'redux/service';
+import { getIdProduct, postHelpProduct } from 'redux/service';
+import { useRef } from 'react';
 
-const BuyProduct = () => {
+const BuyProduct = ({ saveInfo }) => {
+  const dispatch = useDispatch();
+  const location = useLocation();
   const { id } = useParams();
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [buyPr, setBuyPr] = useState(false);
   const [product, setProduct] = useState();
-  const dispatch = useDispatch();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [hasInfoBeenSaved, setHasInfoBeenSaved] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(
+    '/market-place-voyts/static/media/noimage.2efe78cdf6dbf909f571.jpg'
+  );
   const productBuy = useSelector(state => state.persistedReducerAdd.product);
-
+  // Стейт для відправки форми запиту про допомогу
+  const [partNumber, setPartNumber] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
   useEffect(() => {
     getIdProduct(id).then(pr => setProduct(pr));
     const buy = productBuy.filter(pr => pr._id === id);
@@ -25,10 +32,57 @@ const BuyProduct = () => {
     }
   }, [id, productBuy]);
 
-  const selector = useHref();
-  const buyProduct = event => {
+  useEffect(() => {
+    if (product && !hasInfoBeenSaved) {
+      saveInfo({
+        use: product.info.use,
+        obm: product.info.obm,
+        details: product.info.details,
+      });
+      setHasInfoBeenSaved(true);
+    }
+  }, [product, hasInfoBeenSaved, saveInfo]);
+
+  useEffect(() => {
+    if (product) {
+      setCurrentImageIndex(product.img[0]);
+    }
+  }, [product]);
+
+  const buyProduct = () => {
     setIsModalOpen(true);
     dispatch(addProductBusket(product));
+  };
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    const requestData = {
+      partNumber,
+      phoneNumber,
+    };
+
+    postHelpProduct(requestData).then(state => console.log(state));
+  };
+
+  const switchToPreviousImage = e => {
+    const openImg = e.target.src.slice(21, e.target.src.length);
+    setCurrentImageIndex(openImg);
+  };
+
+  const containerRef = useRef(null);
+
+  const handleMouseMove = event => {
+    const container = containerRef.current;
+    const image = container.querySelector('.zoomable-image');
+
+    const containerRect = container.getBoundingClientRect();
+    const mouseX = event.clientX - containerRect.left;
+    const mouseY = event.clientY - containerRect.top;
+
+    const imageX = ((mouseX / containerRect.width) * 100) / 100;
+    const imageY = ((mouseY / containerRect.height) * 100) / 100;
+
+    image.style.transformOrigin = `${imageX * 100}% ${imageY * 100}%`;
   };
 
   return (
@@ -36,19 +90,50 @@ const BuyProduct = () => {
       <div className="content__product">
         <div>
           <div className="block__img">
-            <img src={test} alt="product" width="400" />
-            <div className="block__img--allImg">
-              <FiChevronLeft />
-              <img src={test} alt="allProduct" width="100" />
-              <FiChevronRight />
+            <div
+              className="zoomable-container"
+              ref={containerRef}
+              onMouseMove={handleMouseMove}
+            >
+              <img
+                src={currentImageIndex}
+                alt="product"
+                width="400"
+                className="zoomable-image"
+              />
             </div>
-            <form className="formFind">
+            <div className="block__img--allImg ">
+              {product &&
+                product.img.map(img => (
+                  <img
+                    className="active"
+                    src={img}
+                    alt="allProduct"
+                    width="100"
+                    onClick={switchToPreviousImage}
+                  />
+                ))}
+            </div>
+            <form className="formFind" onSubmit={handleSubmit}>
               <h3>Знайдемо потрібну запчастину:</h3>
               <label htmlFor="">
-                <input type="text" placeholder="Номер або назва запчастини" />
+                <input
+                  required
+                  type="text"
+                  placeholder="Номер або назва запчастини"
+                  value={partNumber}
+                  onChange={e => setPartNumber(e.target.value)}
+                />
               </label>
               <label htmlFor="">
-                <input type="tel" placeholder="Телефон" />
+                <input
+                  required
+                  type="number"
+                  name="phone"
+                  placeholder="Телефон"
+                  value={phoneNumber}
+                  onChange={e => setPhoneNumber(e.target.value)}
+                />
               </label>
               <button className="formLogin__btn postBtn" type="submit">
                 Надіслати запит <FiChevronRight />
@@ -57,9 +142,7 @@ const BuyProduct = () => {
           </div>
         </div>
         <div>
-          <h3 className="name__product">
-            Назва запчастини... хрестовина з головками 4324-234-324 бла бла бла
-          </h3>
+          <h3 className="name__product">{product.name}</h3>
           <div className="block__info" id="app-root">
             <form className="block__info--item">
               <p>
@@ -101,7 +184,7 @@ const BuyProduct = () => {
           <div className="block__analog">
             <h4>Аналоги</h4>
             <Link to="/product/2" className="block__analog--info">
-              <img src={test} alt="/" width="70px" />
+              <img src={product.img} alt="/" width="70px" />
               <p>Назва запчастини... хрестовина з головками 4324</p>
               <p className="price">6805.90 грн</p>
             </Link>
@@ -110,7 +193,7 @@ const BuyProduct = () => {
             <Link
               to="dital"
               className={
-                selector === '/market-place-voyts/product/1/dital'
+                location.pathname === `/product/${id}/dital`
                   ? 'info__btn--details active__btn'
                   : 'info__btn--details'
               }
@@ -118,9 +201,9 @@ const BuyProduct = () => {
               Опис
             </Link>
             <Link
-              to="application"
+              to={{ pathname: 'application', state: product.info }}
               className={
-                selector === '/market-place-voyts/product/1/application'
+                location.pathname === `/product/${id}/application`
                   ? 'info__btn--details active__btn'
                   : 'info__btn--details'
               }
@@ -130,7 +213,7 @@ const BuyProduct = () => {
             <Link
               to="obm"
               className={
-                selector === '/market-place-voyts/product/1/obm'
+                location.pathname === `/product/${id}/obm`
                   ? 'info__btn--details active__btn'
                   : 'info__btn--details'
               }
@@ -147,14 +230,14 @@ const BuyProduct = () => {
 
 export default BuyProduct;
 
-export const Application = () => {
-  return <p>Застосовуються в мтз</p>;
+export const Application = ({ info }) => {
+  return <p>{info && info.use}</p>;
 };
 
-export const Obm = () => {
-  return <p>316546465</p>;
+export const Obm = ({ info }) => {
+  return <p>{info && info.obm}</p>;
 };
 
-export const Dital = () => {
-  return <p>Цей товар є найс і застосовується скрізь в мтз</p>;
+export const Dital = ({ info }) => {
+  return <p>{info && info.details}</p>;
 };

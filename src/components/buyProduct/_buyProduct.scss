@@ -118,7 +118,7 @@
 }
 
 .active__btn {
-    border-bottom: 3px solid var(--greenMain);
+    border-bottom: 3px solid var(--yellowMain);
 }
 
 .block__img {
@@ -163,4 +163,29 @@
     font-size: 17px;
     display: flex;
     align-items: center;
+}
+
+.active:hover {
+    border: 1px solid rgb(26, 122, 35);
+}
+
+/* Стилі для контейнера */
+.zoomable-container {
+    border: 1px solid rgb(26, 122, 35);
+    overflow: hidden; /* Обрізати зображення за межами контейнера */
+    position: relative; /* Потрібно для абсолютної позиції зображення */
+    width: 400px; /* Змініть це на відповідний розмір вашого зображення */
+    height: 300px; /* Змініть це на відповідний розмір вашого зображення */
+}
+
+/* Звичайний стиль для зображення */
+.zoomable-image {
+    width: 100%; /* Забезпечити, що зображення вписується в контейнер */
+    transition: transform 0.3s; /* Додати плавну анімацію */
+}
+
+/* Стілі для збільшеного зображення при наведенні */
+.zoomable-image:hover {
+    transform: scale(1.7); /* Збільшити зображення на 20% при наведенні */
+    cursor: zoom-in; /* Змінити курсор на лупу для вказання можливості збільшення */
 }

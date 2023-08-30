@@ -43,6 +43,7 @@ const CatalogePage = () => {
                   name={product.name}
                   price={product.price}
                   id={product._id}
+                  img={product.img}
                 />
               </li>
             ))}
