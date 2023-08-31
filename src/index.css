@@ -565,6 +565,12 @@ article.nextSlide {
   scale: 1.05;
 }
 
+.section-content {
+  display: flex;
+  width: 1400px;
+  overflow: hidden;
+}
+
 .footer {
   background-color: var(--bgGray);
   color: #fff;
@@ -933,13 +939,13 @@ article.nextSlide {
 
 .cataloge__gap {
   display: flex;
-  flex-wrap: wrap;
   gap: 30px;
-  justify-content: center;
 }
 
 .top {
   flex-wrap: nowrap;
+  display: flex; /* Відображаємо слайди в ряд */
+  transition: transform 0.3s ease-in-out;
 }
 
 .cataloge__top {

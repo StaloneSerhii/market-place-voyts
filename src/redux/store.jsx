@@ -15,6 +15,7 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { productReducer } from './slice';
+import { authSlice } from './authPer/auth-slice';
 
 const middleware = [
   ...getDefaultMiddleware({

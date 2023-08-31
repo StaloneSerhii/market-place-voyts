@@ -10,13 +10,13 @@
 }
 .cataloge__gap {
     display: flex;
-    flex-wrap: wrap;
     gap: 30px;
-    justify-content: center;
 }
 
 .top {
     flex-wrap: nowrap;
+    display: flex; /* Відображаємо слайди в ряд */
+    transition: transform 0.3s ease-in-out;
     // padding: 30px 0px;
 }
 

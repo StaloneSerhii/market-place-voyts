@@ -1,7 +1,6 @@
 import { AiOutlineHeart } from 'react-icons/ai';
 import { BsFillBasketFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
-
 const CatalogeCard = ({ price, id, name, img, code }) => {
   return (
     <div className="card-catalog">
