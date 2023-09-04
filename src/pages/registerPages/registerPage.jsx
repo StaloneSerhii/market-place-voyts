@@ -1,6 +1,8 @@
 import Cards from 'components/cards/cards';
 import { useFormik } from 'formik';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { register } from 'redux/operations';
 import * as Yup from 'yup';
 
 const validationSchema = Yup.object().shape({
@@ -21,6 +23,7 @@ const validationSchema = Yup.object().shape({
 });
 
 const RegisterPage = () => {
+  const dispath = useDispatch();
   const initialValues = {
     name: '',
     fename: '',
@@ -34,7 +37,7 @@ const RegisterPage = () => {
     initialValues,
     validationSchema: validationSchema,
     onSubmit: values => {
-      console.log(values);
+      dispath(register(values));
     },
   });
 

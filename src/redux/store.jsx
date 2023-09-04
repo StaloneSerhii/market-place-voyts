@@ -15,6 +15,8 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { productReducer } from './slice';
+// import { authSlice } from './authPer/auth-slice';
+import { orderReducer } from './orderSlice';
 import { authSlice } from './authPer/auth-slice';
 
 const middleware = [
@@ -27,6 +29,8 @@ const middleware = [
 
 const rootReducer = combineReducers({
   product: productReducer.reducer,
+  myOrder: orderReducer.reducer,
+  auth: authSlice.reducer,
 });
 
 const persistConfig = {

@@ -102,6 +102,15 @@
     }
 }
 
+.svg__main {
+    height: 40px;
+    width: 40px;
+    fill: gray;
+    &:hover {
+        fill: var(--yellowMain);
+    }
+}
+
 .formLogin {
     position: absolute;
     background-color: #fff;
@@ -153,9 +162,19 @@
     color: #fff;
     font-size: 30px;
     padding: 30px 15px;
-    // &:hover {
-    //     background-color: var(--yellowMain);
-    // }
+    position: relative;
+    &--num {
+        position: absolute;
+        font-weight: 900;
+        padding: 2px;
+        right: 0;
+        width: 15px;
+        height: 15px;
+        background-color: var(--yellowMain);
+        font-size: 13px;
+        border-radius: 100%;
+        text-align: center;
+    }
 }
 
 .basket {

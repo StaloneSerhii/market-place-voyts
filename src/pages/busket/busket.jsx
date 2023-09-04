@@ -1,11 +1,16 @@
 import { useDispatch, useSelector } from 'react-redux';
 import test from '../../image/testBuy.jpg';
-import { counterSum, onDeleteProductBusket } from 'redux/slice';
+import {
+  allDeleteProductBusket,
+  counterSum,
+  onDeleteProductBusket,
+} from 'redux/slice';
 import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { postBuyProduct } from 'redux/service';
 import * as Yup from 'yup';
+import { addProductOrder } from 'redux/orderSlice';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string()
@@ -29,8 +34,12 @@ const validationSchema = Yup.object().shape({
 const Busket = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  // Загальна сума всього замовленя в корзині
   const [suma, setSuma] = useState(null);
+  // Відповідь від сервера пісоя замовленя для переадресації
   const [res, setRes] = useState(null);
+  // ЛС для передаваня в ордер
+  const [data, setdata] = useState();
   const select = useSelector(state => state.persistedReducerAdd.product);
 
   // Зміна значення к-сть товарів для покупки в редакс=лс
@@ -38,6 +47,7 @@ const Busket = () => {
     const count = Number(e.target.value);
     dispatch(counterSum({ count, id }));
   };
+
   // Обрахунок загальної суми замовлення
   useEffect(() => {
     let totalPrice = 0;
@@ -53,9 +63,15 @@ const Busket = () => {
   // Перенаправлення на сторінку після покупки
   useEffect(() => {
     if (res) {
-      navigate('/');
+      navigate('/myorder');
+      dispatch(addProductOrder(data));
+      dispatch(allDeleteProductBusket());
     }
-  }, [navigate, res]);
+  }, [res]);
+
+  useEffect(() => {
+    setdata(select);
+  }, [select]);
 
   const initialValues = {
     name: '',
@@ -101,17 +117,32 @@ const Busket = () => {
   };
   return (
     <div>
-      <h2
-        style={{
-          fontSize: '35px',
-          marginLeft: '25px',
-          textAlign: 'center',
-          fontWeight: 900,
-          margin: '15px',
-        }}
-      >
-        Кошик
-      </h2>
+      <div className="block__name">
+        <Link
+          to="/busket"
+          style={{
+            fontSize: '35px',
+            marginLeft: '25px',
+            textAlign: 'center',
+            fontWeight: 900,
+            margin: '15px',
+          }}
+        >
+          | Кошик |
+        </Link>
+        <Link
+          to="/myorder"
+          style={{
+            fontSize: '35px',
+            marginLeft: '25px',
+            textAlign: 'center',
+            fontWeight: 900,
+            margin: '15px',
+          }}
+        >
+          | Мої Замовлення |
+        </Link>
+      </div>
       {select.length > 0 ? (
         <form
           onSubmit={formik.handleSubmit}

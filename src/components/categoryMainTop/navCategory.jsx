@@ -1,18 +1,31 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ImFacebook2, ImInstagram } from 'react-icons/im';
+import { BiSolidUser } from 'react-icons/bi';
 import { SiTiktok } from 'react-icons/si';
 import { TfiYoutube } from 'react-icons/tfi';
 import { MdArrowDropDown } from 'react-icons/md';
 import { CgEnter } from 'react-icons/cg';
 import { SlBasketLoaded } from 'react-icons/sl';
+import { useDispatch, useSelector } from 'react-redux';
+import { logIn } from 'redux/operations';
 
 const NavigateCategory = () => {
   const [openMenu, setOpenMenu] = useState(false);
-  // const [openBasket, setOpenBasket] = useState(false);
+  const [email, setEmail] = useState();
+  const [password, setPass] = useState();
+  const dispatch = useDispatch();
+  const select = useSelector(state => state.persistedReducerAdd.product.length);
+  const selectAuth = useSelector(
+    state => state.persistedReducerAdd.auth.isLoggedIn
+  );
 
   const menuOpen = () => {
     return setOpenMenu(!openMenu);
+  };
+
+  const onLogin = e => {
+    dispatch(logIn({ email, password }));
   };
 
   return (
@@ -24,7 +37,7 @@ const NavigateCategory = () => {
           </Link>
         </li>
         <li className="navigate__item">
-          <div className="navigate__link" to="/">
+          <div className="navigate__link">
             ЗАПЧАСТИНИ
             <MdArrowDropDown className="arrow" />
           </div>
@@ -91,68 +104,66 @@ const NavigateCategory = () => {
           </a>
         </li>
         <li>
-          <div
-            className={openMenu ? 'login yellow' : 'login'}
-            onClick={menuOpen}
-          >
-            <CgEnter />
-            <span>Увійти/Зареєструватись</span>
-          </div>
-          {openMenu && modalLogin(openMenu)}
+          {selectAuth ? (
+            <Link to="/account">
+              <BiSolidUser className="svg__main" />
+            </Link>
+          ) : (
+            <>
+              <div
+                className={openMenu ? 'login yellow' : 'login'}
+                onClick={menuOpen}
+              >
+                <CgEnter />
+                <span>Увійти/Зареєструватись</span>
+              </div>
+              {{ openMenu } && (
+                <form className="formLogin ">
+                  <input
+                    onChange={e => setEmail(e.target.value)}
+                    type="email"
+                    name="email"
+                    id="email"
+                    placeholder="E-mail"
+                    value={email}
+                  />
+                  <input
+                    onChange={e => setPass(e.target.value)}
+                    value={password}
+                    type="password"
+                    name="password"
+                    id="password"
+                    placeholder="Пароль"
+                  />
+                  <div className="formLogin__item">
+                    <Link to="/" className="formLogin__link">
+                      Забули пароль?
+                    </Link>
+                    <button
+                      className="formLogin__btn"
+                      type="button"
+                      onClick={onLogin}
+                    >
+                      Увійти
+                    </button>
+                  </div>
+                  <Link to="/register" className="formLogin__register">
+                    Зареєструватися
+                  </Link>
+                </form>
+              )}
+            </>
+          )}
         </li>
         <li>
           <Link className="categoty__basket" to="/busket">
+            <div className="categoty__basket--num">{select}</div>
             <SlBasketLoaded />
           </Link>
-          {/* {openBasket && modalBasket()} */}
         </li>
       </ul>
     </nav>
   );
 };
-
-const modalLogin = () => {
-  return (
-    <form className={'formLogin '}>
-      <input type="email" name="email" id="email" placeholder="E-mail" />
-      <input
-        type="password"
-        name="password"
-        id="password"
-        placeholder="Пароль"
-      />
-      <div className="formLogin__item">
-        <Link to="/" className="formLogin__link">
-          Забули пароль?
-        </Link>
-        <button className="formLogin__btn">Увійти</button>
-      </div>
-      <Link to="/register" className="formLogin__register">
-        Зареєструватися
-      </Link>
-    </form>
-  );
-};
-
-// const modalBasket = () => {
-//   return (
-//     <div className={'basket '}>
-//       <div className="basketList">
-//         <img src={test} alt="" width="80px" />
-//         <h2>Запчастина назва тут блабла</h2>
-//         <Link to="/" className="formLogin__btn">
-//           Купити
-//         </Link>
-//       </div>
-//       <div className="basketList">
-//         <img src={test} alt="" width="80px" />
-//         <h2>Запчастина назва тут блабла</h2>
-//         <Link to="/" className="formLogin__btn">
-//           Купити
-//         </Link>
-//       </div>
-//     </div>
-//   );
-// };
 
 export default NavigateCategory;

@@ -19,8 +19,15 @@ export const productReducer = createSlice({
     onDeleteProductBusket(state, action) {
       return state.filter(product => product._id !== action.payload);
     },
+    allDeleteProductBusket(state, action) {
+      return (state = []);
+    },
   },
 });
 
-export const { addProductBusket, onDeleteProductBusket, counterSum } =
-  productReducer.actions;
+export const {
+  addProductBusket,
+  onDeleteProductBusket,
+  counterSum,
+  allDeleteProductBusket,
+} = productReducer.actions;

@@ -58,19 +58,24 @@ export const fetchProductById = createAsyncThunk('/', async (id, thunkAPI) => {
 
 // Auth Operations
 
-export const register = createAsyncThunk('auth/register', async credentials => {
-  try {
-    const { data } = await axios.post(`/users/signup`, credentials);
-    token.set(data.token);
-    return data;
-  } catch (e) {
-    console.log(e);
+export const register = createAsyncThunk(
+  'register/register',
+  async credentials => {
+    console.log(credentials);
+    try {
+      const { data } = await axios.post(`/register`, credentials);
+      token.set(data.token);
+      return data;
+    } catch (e) {
+      console.log(e);
+    }
   }
-});
+);
 
-export const logIn = createAsyncThunk('auth/register', async credentials => {
+export const logIn = createAsyncThunk('register/login', async credentials => {
+  console.log(credentials);
   try {
-    const { data } = await axios.post(`/users/login`, credentials);
+    const { data } = await axios.post(`/register/login`, credentials);
     token.set(data.token);
     return data;
   } catch (e) {

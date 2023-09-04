@@ -6,6 +6,7 @@ import BuyProduct, { Application, Dital, Obm } from './buyProduct/buyProduct';
 import CatalogeProduct from 'pages/catalogePage/catalogeProduct';
 import Busket from 'pages/busket/busket';
 import { useState } from 'react';
+import BuyModalSuc from '../pages/buysuccess/buySuc';
 function App() {
   // Пропси з описом для передачі в продукти
   const [info, setInfo] = useState();
@@ -22,6 +23,7 @@ function App() {
           <Route path="productBY" element={<CatalogeProduct />} />
           <Route path="productNEW" element={<CatalogeProduct />} />
           <Route path="busket" element={<Busket />} />
+          <Route path="myorder" element={<BuyModalSuc />} />
           <Route
             path="product/:id"
             element={<BuyProduct saveInfo={saveInfo} />}
