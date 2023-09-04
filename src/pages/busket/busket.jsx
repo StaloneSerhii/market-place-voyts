@@ -67,7 +67,7 @@ const Busket = () => {
       dispatch(addProductOrder(data));
       dispatch(allDeleteProductBusket());
     }
-  }, [res]);
+  }, [res, data, dispatch, navigate]);
 
   useEffect(() => {
     setdata(select);

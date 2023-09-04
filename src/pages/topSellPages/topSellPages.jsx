@@ -1,32 +1,33 @@
+import React, { useState, useEffect, useCallback } from 'react';
 import TopSell from 'components/topSell/topSell';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { useSpring, animated } from 'react-spring';
 import { useInView } from 'react-intersection-observer';
-import { useEffect } from 'react';
 import { getTopBuyProduct } from 'redux/service';
-import { useState } from 'react';
 
 const TopSellPages = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [data, setData] = useState();
   const [ref, inView] = useInView({
-    triggerOnce: true, // Анімація відбудеться тільки раз
-    threshold: 0.5, // Поріг видимості секції
+    triggerOnce: true,
+    threshold: 0.5,
   });
 
   const sectionAnimation = useSpring({
-    opacity: inView ? 1 : 0, // Властивість для анімації
-    transform: inView ? 'translateX(0)' : 'translateX(-60%)', // Інша властивість для анімації
+    opacity: inView ? 1 : 0,
+    transform: inView ? 'translateX(0)' : 'translateX(-60%)',
     config: { duration: 1000 },
   });
 
-  const prevSlide = () => {
-    setCurrentIndex(currentIndex === 0 ? 0 : currentIndex - 1);
-  };
+  const prevSlide = useCallback(() => {
+    setCurrentIndex(prevIndex => (prevIndex === 0 ? 0 : prevIndex - 1));
+  }, []);
 
-  const nextSlide = () => {
-    setCurrentIndex(currentIndex === lastIndex ? 2 : currentIndex + 1);
-  };
+  const nextSlide = useCallback(() => {
+    setCurrentIndex(prevIndex => (prevIndex === lastIndex ? 2 : prevIndex + 1));
+  }, []);
+
+  const lastIndex = 2;
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -35,18 +36,17 @@ const TopSellPages = () => {
       } else if (currentIndex === 3) {
         prevSlide();
       }
-    }, 5000); // 5000 мілісекунд = 5 секунд
+    }, 5000);
 
     return () => {
       clearInterval(interval);
     };
-  }, [currentIndex]);
-
-  const lastIndex = 2;
+  }, [currentIndex, prevSlide, nextSlide]);
 
   useEffect(() => {
     getTopBuyProduct().then(state => setData(state));
   }, []);
+
   return (
     <div ref={ref} className="cataloge animated-section">
       <div className="cataloge__top">
