@@ -106,6 +106,26 @@ export const fetchProductUser = createAsyncThunk(
     }
   }
 );
+
+export const onDeleteProductBusket = createAsyncThunk(
+  'buy/deletebusket',
+  async (_id, thunkAPI) => {
+    console.log(_id);
+    const state = thunkAPI.getState();
+    const persistedToken = state.persistedReducerAdd.auth.token;
+    if (persistedToken === null) {
+      return thunkAPI.rejectWithValue();
+    } else {
+      try {
+        setAuthHeader(persistedToken);
+        const { data } = await instance.patch(`/buy/deletebusket`,{_id: _id});
+        return data;
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  }
+);
 // export const logIn = createAsyncThunk('register/login', async credentials => {
 //   try {
 //     const { data } = await axios.post(`/register/login`, credentials);

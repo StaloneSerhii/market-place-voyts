@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { addProductBusketAuth, fetchProductUser } from './operations';
+import { addProductBusketAuth, fetchProductUser,onDeleteProductBusket } from './operations';
 
 export const buyProducSlice = createSlice({
   name: 'busket',
@@ -10,6 +10,10 @@ export const buyProducSlice = createSlice({
     },
     [fetchProductUser.fulfilled](state, action) {
       state.splice(0, state.length, ...action.payload);
+    },
+    [onDeleteProductBusket.fulfilled](state, action) {
+      const updatedState = state.filter(pr => pr._id !== action.payload._id);
+      return updatedState;
     },
   },
 });

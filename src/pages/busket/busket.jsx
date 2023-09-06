@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
 import test from '../../image/testBuy.jpg';
-import { onDeleteProductBusket } from 'redux/slice';
 import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { postBuyProduct } from 'redux/service';
 import * as Yup from 'yup';
 import { getProductLocalStorage } from 'redux/selector';
+import { onDeleteProductBusket } from 'redux/operations';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string()
@@ -30,7 +30,7 @@ const validationSchema = Yup.object().shape({
 const Busket = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [suma, setSuma] = useState();
+  const [suma, setSuma] = useState(0);
   // Відповідь від сервера пісоя замовленя для переадресації
   const [res, setRes] = useState(null);
   // ЛС для передаваня в ордер
@@ -131,7 +131,7 @@ const Busket = () => {
           | Мої Замовлення |
         </Link>
       </div>
-      {data ? (
+      {data&&data.length ? (
         <form
           onSubmit={formik.handleSubmit}
           style={{
@@ -298,7 +298,7 @@ const Busket = () => {
                   gap: '15px',
                 }}
               >
-                {data &&
+                {
                   data.length > 0 &&
                   data.map(pr => (
                     <li className="block__listBuy--item" key={pr._id}>
