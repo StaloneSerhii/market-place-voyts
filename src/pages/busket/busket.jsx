@@ -11,6 +11,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { postBuyProduct } from 'redux/service';
 import * as Yup from 'yup';
 import { addProductOrder } from 'redux/orderSlice';
+import { getAuthProduct, getAuthStatus } from 'redux/authPer/auth-selector';
+import { counterSumAuth } from 'redux/authPer/auth-slice';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string()
@@ -34,44 +36,18 @@ const validationSchema = Yup.object().shape({
 const Busket = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // Загальна сума всього замовленя в корзині
-  const [suma, setSuma] = useState(null);
   // Відповідь від сервера пісоя замовленя для переадресації
   const [res, setRes] = useState(null);
   // ЛС для передаваня в ордер
   const [data, setdata] = useState();
   const select = useSelector(state => state.persistedReducerAdd.product);
 
-  // Зміна значення к-сть товарів для покупки в редакс=лс
-  const chancheCountProduct = (e, id) => {
-    const count = Number(e.target.value);
-    dispatch(counterSum({ count, id }));
-  };
-
-  // Обрахунок загальної суми замовлення
-  useEffect(() => {
-    let totalPrice = 0;
-    if (select) {
-      for (const pr of select) {
-        const productTotal = pr.price * pr.coun;
-        totalPrice += productTotal;
-      }
-    }
-    setSuma(totalPrice.toFixed(2));
-  }, [select]);
-
   // Перенаправлення на сторінку після покупки
   useEffect(() => {
     if (res) {
       navigate('/myorder');
-      dispatch(addProductOrder(data));
-      dispatch(allDeleteProductBusket());
     }
   }, [res, data, dispatch, navigate]);
-
-  useEffect(() => {
-    setdata(select);
-  }, [select]);
 
   const initialValues = {
     name: '',
@@ -143,7 +119,7 @@ const Busket = () => {
           | Мої Замовлення |
         </Link>
       </div>
-      {select.length > 0 ? (
+      {data ? (
         <form
           onSubmit={formik.handleSubmit}
           style={{
@@ -276,7 +252,7 @@ const Busket = () => {
                   }}
                 />
                 Післяоплата Нова Пошта, до оплати буде
-                <span> {suma} грн</span>
+                <span> {} грн</span>
               </label>
 
               <label>
@@ -291,7 +267,7 @@ const Busket = () => {
                 />
                 Оплата на карту МоноБанку 1231234545 Радчів Михасік Поне до
                 оплати
-                <span> {suma} грн</span>
+                <span> {} грн</span>
               </label>
               {formik.touched.oplata && formik.errors.oplata && (
                 <div className="error" style={{ color: 'red' }}>
@@ -310,8 +286,8 @@ const Busket = () => {
                   gap: '15px',
                 }}
               >
-                {select &&
-                  select.map(pr => (
+                {data &&
+                  data.product.map(pr => (
                     <li className="block__listBuy--item" key={pr._id}>
                       <button
                         style={{
@@ -347,7 +323,10 @@ const Busket = () => {
                           }}
                         >
                           <div
-                            style={{ display: 'flex', flexDirection: 'column' }}
+                            style={{
+                              display: 'flex',
+                              flexDirection: 'column',
+                            }}
                           >
                             <span
                               style={{
@@ -389,13 +368,16 @@ const Busket = () => {
                                 min="1"
                                 max="200"
                                 step="1"
-                                onChange={e => chancheCountProduct(e, pr._id)}
-                                value={Number(pr.coun)}
+                                // onChange={e => chancheCountProduct(e, pr._id)}
+                                value={Number(pr.counter)}
                               />
                             </label>
                           </div>
                           <div
-                            style={{ display: 'flex', flexDirection: 'column' }}
+                            style={{
+                              display: 'flex',
+                              flexDirection: 'column',
+                            }}
                           >
                             <span
                               style={{
@@ -406,7 +388,7 @@ const Busket = () => {
                               Сума
                             </span>
                             <span style={{ color: 'red', fontSize: '20px' }}>
-                              {pr.price * pr.coun} грн
+                              {pr.price * pr.counter} грн
                             </span>
                           </div>
                         </div>
@@ -414,7 +396,7 @@ const Busket = () => {
                     </li>
                   ))}
                 <p style={{ textAlign: 'end', marginRight: '10px' }}>
-                  Разом до оплати: {suma} грн
+                  Разом до оплати: {} грн
                 </p>
               </ul>
             </div>

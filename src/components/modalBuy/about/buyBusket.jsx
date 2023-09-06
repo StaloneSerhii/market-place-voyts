@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import ReactDOM from 'react-dom';
 import test from '../../../image/testBuy.jpg';
-import { useDispatch } from 'react-redux';
-import { counterSum } from 'redux/slice';
+import { useDispatch, useSelector } from 'react-redux';
+import { counterSumAuth } from 'redux/operations';
+import { getAuth } from 'redux/authPer/auth-selector';
+
 // import { useState } from 'react';
 
 const modalRoot = document.querySelector('#modal-root');
@@ -12,11 +14,13 @@ const BuyBusketModal = ({ onClose }) => {
   const [val, setVal] = useState(1);
   const { id } = useParams();
   const dispatch = useDispatch();
-
+  const authData = useSelector(getAuth);
+  const { _id } = authData.user;
   const buyProduct = e => {
     setVal(Number(e.target.value));
     const count = Number(e.target.value);
-    dispatch(counterSum({ count, id }));
+
+    dispatch(counterSumAuth({ count, id, _id }));
   };
 
   return ReactDOM.createPortal(

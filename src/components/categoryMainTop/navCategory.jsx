@@ -9,22 +9,21 @@ import { CgEnter } from 'react-icons/cg';
 import { SlBasketLoaded } from 'react-icons/sl';
 import { useDispatch, useSelector } from 'react-redux';
 import { logIn } from 'redux/operations';
+import { getAuthStatus } from 'redux/authPer/auth-selector';
 
 const NavigateCategory = () => {
-  const [openMenu, setOpenMenu] = useState(false);
+  const dispatch = useDispatch();
   const [email, setEmail] = useState();
   const [password, setPass] = useState();
-  const dispatch = useDispatch();
+  const [openMenu, setOpenMenu] = useState(false);
   const select = useSelector(state => state.persistedReducerAdd.product.length);
-  const selectAuth = useSelector(
-    state => state.persistedReducerAdd.auth.isLoggedIn
-  );
+  const selectAuth = useSelector(getAuthStatus);
 
   const menuOpen = () => {
     return setOpenMenu(!openMenu);
   };
 
-  const onLogin = e => {
+  const onLogin = () => {
     dispatch(logIn({ email, password }));
   };
 
@@ -117,41 +116,39 @@ const NavigateCategory = () => {
                 <CgEnter />
                 <span>Увійти/Зареєструватись</span>
               </div>
-              {{ openMenu } && (
-                <form className="formLogin ">
-                  <input
-                    onChange={e => setEmail(e.target.value)}
-                    type="email"
-                    name="email"
-                    id="email"
-                    placeholder="E-mail"
-                    value={email}
-                  />
-                  <input
-                    onChange={e => setPass(e.target.value)}
-                    value={password}
-                    type="password"
-                    name="password"
-                    id="password"
-                    placeholder="Пароль"
-                  />
-                  <div className="formLogin__item">
-                    <Link to="/" className="formLogin__link">
-                      Забули пароль?
-                    </Link>
-                    <button
-                      className="formLogin__btn"
-                      type="button"
-                      onClick={onLogin}
-                    >
-                      Увійти
-                    </button>
-                  </div>
-                  <Link to="/register" className="formLogin__register">
-                    Зареєструватися
+              <form className={openMenu ? 'formLogin' : 'formLogin none'}>
+                <input
+                  onChange={e => setEmail(e.target.value)}
+                  type="email"
+                  name="email"
+                  id="email"
+                  placeholder="E-mail"
+                  value={email}
+                />
+                <input
+                  onChange={e => setPass(e.target.value)}
+                  value={password}
+                  type="password"
+                  name="password"
+                  id="password"
+                  placeholder="Пароль"
+                />
+                <div className="formLogin__item">
+                  <Link to="/" className="formLogin__link">
+                    Забули пароль?
                   </Link>
-                </form>
-              )}
+                  <button
+                    className="formLogin__btn"
+                    type="button"
+                    onClick={onLogin}
+                  >
+                    Увійти
+                  </button>
+                </div>
+                <Link to="/register" className="formLogin__register">
+                  Зареєструватися
+                </Link>
+              </form>
             </>
           )}
         </li>

@@ -57,6 +57,44 @@ export const fetchProductById = createAsyncThunk('/', async (id, thunkAPI) => {
 // );
 
 // Auth Operations
+export const addProductBusketAuth = createAsyncThunk(
+  'buy/addbusket',
+  async credentials => {
+    console.log(credentials);
+    try {
+      const { data } = await axios.put(`/buy/addbusket`, credentials);
+      token.set(data.token);
+      return data;
+    } catch (e) {
+      console.log(e);
+    }
+  }
+);
+export const onDeleteProductBusketAuth = createAsyncThunk(
+  'buy/addbusket',
+  async credentials => {
+    console.log(credentials);
+    try {
+      const { data } = await axios.put(`/buy/delete`, credentials);
+      token.set(data.token);
+      return data;
+    } catch (e) {
+      console.log(e);
+    }
+  }
+);
+
+export const counterSumAuth = createAsyncThunk(
+  'buy/changcounter',
+  async credentials => {
+    try {
+      const { data } = await axios.patch(`/buy/changcounter`, credentials);
+      return data;
+    } catch (e) {
+      console.log(e);
+    }
+  }
+);
 
 export const register = createAsyncThunk(
   'register/register',

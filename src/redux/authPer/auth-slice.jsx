@@ -1,12 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchCurrentUser, logIn, logOut, register } from 'redux/operations';
+import {
+  fetchCurrentUser,
+  logIn,
+  logOut,
+  register,
+  addProductBusketAuth,
+  onDeleteProductBusketAuth,
+  counterSumAuth,
+} from 'redux/operations';
 
 const initialState = {
-  user: { name: null, email: null, phone: null },
+  user: { name: null, email: null, phone: null, city: null, product: [] },
   token: null,
   isLoggedIn: false,
   isFetching: false,
-  product: [],
 };
 
 export const authSlice = createSlice({
@@ -18,14 +25,23 @@ export const authSlice = createSlice({
       state.token = action.payload.token;
       state.isLoggedIn = true;
     },
+    [counterSumAuth.fulfilled](state, action) {
+      state.user = action.payload.user;
+      state.isLoggedIn = true;
+    },
     [logIn.fulfilled](state, action) {
-      console.log(action.payload);
       state.user = action.payload.user;
       state.token = action.payload.token;
       state.isLoggedIn = true;
     },
     [logOut.fulfilled](state) {
-      state.user = { name: null, email: null, phone: null };
+      state.user = {
+        name: null,
+        email: null,
+        phone: null,
+        city: null,
+        product: [],
+      };
       state.token = null;
       state.isLoggedIn = false;
     },
@@ -39,6 +55,12 @@ export const authSlice = createSlice({
     },
     [fetchCurrentUser.rejected](state) {
       state.isFetching = false;
+    },
+    [addProductBusketAuth.fulfilled](state, action) {
+      state = action.payload.product;
+    },
+    [onDeleteProductBusketAuth.fulfilled](state, action) {
+      state.product = action.payload.product;
     },
   },
 });

@@ -8,29 +8,49 @@ import { addProductBusket } from 'redux/slice';
 import { useEffect } from 'react';
 import { getIdProduct, postHelpProduct } from 'redux/service';
 import { useRef } from 'react';
+import { getAuth, getAuthStatus } from 'redux/authPer/auth-selector';
+import { addProductBusketAuth } from 'redux/operations';
 
 const BuyProduct = ({ saveInfo }) => {
   const dispatch = useDispatch();
   const location = useLocation();
+  // Ід для запиту в бд
   const { id } = useParams();
+  // Перевірка на наявність у кошику
   const [buyPr, setBuyPr] = useState(false);
+  // Поверненя продуктів з бд
   const [product, setProduct] = useState();
+  // Відкритя модалки покупки
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [hasInfoBeenSaved, setHasInfoBeenSaved] = useState(false);
+  // Дефолтна картинка
   const [currentImageIndex, setCurrentImageIndex] = useState(
     '/market-place-voyts/static/media/noimage.2efe78cdf6dbf909f571.jpg'
   );
+
+  // Перевірка на авторизацію
+  const selectAuth = useSelector(getAuthStatus);
+  // Поверненя даних з лс
+  const productBuyAuth = useSelector(getAuth);
   const productBuy = useSelector(state => state.persistedReducerAdd.product);
+  const getAuthProfile = useSelector(state => state.persistedReducerAdd.auth);
   // Стейт для відправки форми запиту про допомогу
   const [partNumber, setPartNumber] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+
   useEffect(() => {
     getIdProduct(id).then(pr => setProduct(pr));
-    const buy = productBuy.filter(pr => pr._id === id);
-    if (buy.length > 0) {
+    if (selectAuth) {
+      const buy = productBuy.filter(pr => pr._id === id);
+      if (buy.length > 0) {
+        setBuyPr(true);
+      }
+    }
+    const buyAuth = productBuyAuth.user.product.filter(pr => pr._id === id);
+    if (buyAuth.length > 0) {
       setBuyPr(true);
     }
-  }, [id, productBuy]);
+  }, [id, productBuy, productBuyAuth.user.product, selectAuth]);
 
   useEffect(() => {
     if (product && !hasInfoBeenSaved) {
@@ -50,8 +70,17 @@ const BuyProduct = ({ saveInfo }) => {
   }, [product]);
 
   const buyProduct = () => {
+    const { _id } = getAuthProfile.user;
+    const { token } = getAuthProfile;
+
+    console.log(getAuthProfile);
     setIsModalOpen(true);
-    dispatch(addProductBusket(product));
+    if (!selectAuth) {
+      dispatch(addProductBusket(product));
+    }
+    dispatch(
+      addProductBusketAuth({ token, _id, product: { ...product, count: 1 } })
+    );
   };
 
   const handleSubmit = e => {

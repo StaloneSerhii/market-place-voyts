@@ -156,15 +156,6 @@
   background-color: var(--yellowMain);
 }
 
-.svg__main {
-  height: 40px;
-  width: 40px;
-  fill: gray;
-}
-.svg__main:hover {
-  fill: var(--yellowMain);
-}
-
 .formLogin, .basket {
   position: absolute;
   background-color: #fff;
