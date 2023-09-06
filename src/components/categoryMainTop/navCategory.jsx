@@ -8,15 +8,16 @@ import { MdArrowDropDown } from 'react-icons/md';
 import { CgEnter } from 'react-icons/cg';
 import { SlBasketLoaded } from 'react-icons/sl';
 import { useDispatch, useSelector } from 'react-redux';
-import { logIn } from 'redux/operations';
 import { getAuthStatus } from 'redux/authPer/auth-selector';
+import { logIn } from 'redux/operations';
+import { getProductLocalStorage } from 'redux/selector';
 
 const NavigateCategory = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState();
   const [password, setPass] = useState();
   const [openMenu, setOpenMenu] = useState(false);
-  const select = useSelector(state => state.persistedReducerAdd.product.length);
+  const select = useSelector(getProductLocalStorage);
   const selectAuth = useSelector(getAuthStatus);
 
   const menuOpen = () => {
@@ -154,7 +155,9 @@ const NavigateCategory = () => {
         </li>
         <li>
           <Link className="categoty__basket" to="/busket">
-            <div className="categoty__basket--num">{select}</div>
+            <div className="categoty__basket--num">
+              {select && select.length}
+            </div>
             <SlBasketLoaded />
           </Link>
         </li>

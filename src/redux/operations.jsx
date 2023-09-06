@@ -1,146 +1,85 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-axios.defaults.baseURL = 'http://localhost:3333/api/product';
+const instance = axios.create({
+  baseURL: 'http://localhost:3333/api',
+});
 
-const token = {
-  set(token) {
-    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-  },
-  unset() {
-    axios.defaults.headers.common.Authorization = '';
-  },
+const setAuthHeader = token => {
+  return (instance.defaults.headers.common.Authorization = `Bearer ${token}`);
 };
 
-// export const addContact = createAsyncThunk(
-//   'addProduct',
-//   async ({ name, number }, thunkAPI) => {
-//     try {
-//       const { data } = await axios.post('addProduct', { name, number });
-//       return data;
-//     } catch (e) {
-//       return thunkAPI.rejectWithValue(e.message);
-//     }
-//   }
-// );
+// const clearAuthHeader = () => {
+//   instance.defaults.headers.common.Authorization = '';
+// };
 
-// Поверненя всіх продуктів головної сторінки з пагінацією
-
-export const fetchProduct = createAsyncThunk('/', async (_, thunkAPI) => {
-  try {
-    const { data } = await axios.get('/');
-    return data;
-  } catch (e) {
-    return thunkAPI.rejectWithValue(e.message);
-  }
-});
-
-export const fetchProductById = createAsyncThunk('/', async (id, thunkAPI) => {
-  try {
-    const { data } = await axios.get(`/${id}`);
-    return data;
-  } catch (e) {
-    return thunkAPI.rejectWithValue(e.message);
-  }
-});
-
-// export const deleteContact = createAsyncThunk(
-//   'contacts/deletecontact',
-//   async (taskId, thunkAPI) => {
-//     try {
-//       const { data } = await axios.delete(`/contacts/${taskId}`);
-//       return data;
-//     } catch (e) {
-//       return thunkAPI.rejectWithValue(e.message);
-//     }
-//   }
-// );
-
-// Auth Operations
 export const addProductBusketAuth = createAsyncThunk(
   'buy/addbusket',
-  async credentials => {
-    console.log(credentials);
-    try {
-      const { data } = await axios.put(`/buy/addbusket`, credentials);
-      token.set(data.token);
-      return data;
-    } catch (e) {
-      console.log(e);
+  async (credentials, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const persistedToken = state.persistedReducerAdd.auth.token;
+    if (persistedToken === null) {
+      return thunkAPI.rejectWithValue('Unable to fetch user');
     }
-  }
-);
-export const onDeleteProductBusketAuth = createAsyncThunk(
-  'buy/addbusket',
-  async credentials => {
-    console.log(credentials);
     try {
-      const { data } = await axios.put(`/buy/delete`, credentials);
-      token.set(data.token);
+      setAuthHeader(persistedToken);
+      const { data } = await instance.put('/buy/addbusket', credentials);
       return data;
     } catch (e) {
-      console.log(e);
+      return thunkAPI.rejectWithValue(e.message);
     }
   }
 );
 
-export const counterSumAuth = createAsyncThunk(
-  'buy/changcounter',
-  async credentials => {
+export const logIn = createAsyncThunk(
+  'register/login',
+  async (user, thunkAPI) => {
     try {
-      const { data } = await axios.patch(`/buy/changcounter`, credentials);
-      return data;
-    } catch (e) {
-      console.log(e);
+      const response = await instance.post('/register/login', user);
+      setAuthHeader(response.data.token);
+      if (response) {
+        console.log('LogIn success');
+      }
+      return response.data;
+    } catch (error) {
+      if (error) {
+        console.log('Invalid email or password');
+      }
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
 
 export const register = createAsyncThunk(
-  'register/register',
-  async credentials => {
-    console.log(credentials);
+  '/register',
+  async (user, thunkAPI) => {
     try {
-      const { data } = await axios.post(`/register`, credentials);
-      token.set(data.token);
-      return data;
-    } catch (e) {
-      console.log(e);
+      const response = await instance.post('/register', user);
+      setAuthHeader(response.data.token);
+      if (response) {
+        console.log('Register success');
+      }
+      return response.data;
+    } catch (error) {
+      if (error.response.status === 409) {
+        console.log('This mail is already in use');
+      }
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
 
-export const logIn = createAsyncThunk('register/login', async credentials => {
-  console.log(credentials);
-  try {
-    const { data } = await axios.post(`/register/login`, credentials);
-    token.set(data.token);
-    return data;
-  } catch (e) {
-    console.log(e);
-  }
-});
-
-export const logOut = createAsyncThunk('auth/logout', async () => {
-  try {
-    await axios.post(`/users/logout`);
-    token.unset();
-  } catch (e) {
-    console.log(e);
-  }
-});
-
 export const fetchCurrentUser = createAsyncThunk(
-  'auth/refresh',
+  'register/current',
   async (_, thunkAPI) => {
     const state = thunkAPI.getState();
-    const persistToken = state.auth.token;
-    if (persistToken === null) {
+    const persistedToken = state.persistedReducerAdd.auth.token;
+    if (persistedToken === null) {
       return thunkAPI.rejectWithValue();
     } else {
       try {
-        token.set(persistToken);
-        const { data } = await axios.get(`/users/current`);
+        setAuthHeader(persistedToken);
+        const { data } = await instance.get(`/register/current`);
         return data;
       } catch (e) {
         console.log(e);
@@ -148,3 +87,40 @@ export const fetchCurrentUser = createAsyncThunk(
     }
   }
 );
+
+export const fetchProductUser = createAsyncThunk(
+  'buy/product',
+  async (_, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const persistedToken = state.persistedReducerAdd.auth.token;
+    if (persistedToken === null) {
+      return thunkAPI.rejectWithValue();
+    } else {
+      try {
+        setAuthHeader(persistedToken);
+        const { data } = await instance.get(`/buy/product`);
+        return data;
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  }
+);
+// export const logIn = createAsyncThunk('register/login', async credentials => {
+//   try {
+//     const { data } = await axios.post(`/register/login`, credentials);
+//     token.set(data.token);
+//     return data;
+//   } catch (e) {
+//     console.log(e);
+//   }
+// });
+
+// export const logOut = createAsyncThunk('auth/logout', async () => {
+//   try {
+//     await axios.post(`/users/logout`);
+//     token.unset();
+//   } catch (e) {
+//     console.log(e);
+//   }
+// });

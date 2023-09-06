@@ -1,18 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
 import test from '../../image/testBuy.jpg';
-import {
-  allDeleteProductBusket,
-  counterSum,
-  onDeleteProductBusket,
-} from 'redux/slice';
+import { onDeleteProductBusket } from 'redux/slice';
 import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { postBuyProduct } from 'redux/service';
 import * as Yup from 'yup';
-import { addProductOrder } from 'redux/orderSlice';
-import { getAuthProduct, getAuthStatus } from 'redux/authPer/auth-selector';
-import { counterSumAuth } from 'redux/authPer/auth-slice';
+import { getProductLocalStorage } from 'redux/selector';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string()
@@ -36,11 +30,29 @@ const validationSchema = Yup.object().shape({
 const Busket = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [suma, setSuma] = useState();
   // Відповідь від сервера пісоя замовленя для переадресації
   const [res, setRes] = useState(null);
   // ЛС для передаваня в ордер
   const [data, setdata] = useState();
-  const select = useSelector(state => state.persistedReducerAdd.product);
+  const select = useSelector(getProductLocalStorage);
+
+  // Загальна сума за всі товари
+  useEffect(() => {
+    if (data) {
+      const totalSum = data.reduce((sum, item) => {
+        return sum + item.price * item.count;
+      }, 0);
+      setSuma(totalSum);
+    }
+  }, [data]);
+
+  // Запис в стейт
+  useEffect(() => {
+    if (select) {
+      setdata(select);
+    }
+  }, [select]);
 
   // Перенаправлення на сторінку після покупки
   useEffect(() => {
@@ -252,7 +264,7 @@ const Busket = () => {
                   }}
                 />
                 Післяоплата Нова Пошта, до оплати буде
-                <span> {} грн</span>
+                <span> {suma.toFixed(2)} грн</span>
               </label>
 
               <label>
@@ -267,7 +279,7 @@ const Busket = () => {
                 />
                 Оплата на карту МоноБанку 1231234545 Радчів Михасік Поне до
                 оплати
-                <span> {} грн</span>
+                <span> {suma.toFixed(2)} грн</span>
               </label>
               {formik.touched.oplata && formik.errors.oplata && (
                 <div className="error" style={{ color: 'red' }}>
@@ -287,7 +299,8 @@ const Busket = () => {
                 }}
               >
                 {data &&
-                  data.product.map(pr => (
+                  data.length > 0 &&
+                  data.map(pr => (
                     <li className="block__listBuy--item" key={pr._id}>
                       <button
                         style={{
@@ -369,7 +382,7 @@ const Busket = () => {
                                 max="200"
                                 step="1"
                                 // onChange={e => chancheCountProduct(e, pr._id)}
-                                value={Number(pr.counter)}
+                                value={Number(pr.count)}
                               />
                             </label>
                           </div>
@@ -388,7 +401,7 @@ const Busket = () => {
                               Сума
                             </span>
                             <span style={{ color: 'red', fontSize: '20px' }}>
-                              {pr.price * pr.counter} грн
+                              {pr.price * pr.count} грн
                             </span>
                           </div>
                         </div>
@@ -396,7 +409,7 @@ const Busket = () => {
                     </li>
                   ))}
                 <p style={{ textAlign: 'end', marginRight: '10px' }}>
-                  Разом до оплати: {} грн
+                  Разом до оплати: {suma.toFixed(2)} грн
                 </p>
               </ul>
             </div>

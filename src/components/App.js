@@ -7,12 +7,24 @@ import CatalogeProduct from 'pages/catalogePage/catalogeProduct';
 import Busket from 'pages/busket/busket';
 import { useState } from 'react';
 import BuyModalSuc from '../pages/buysuccess/buySuc';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchProductUser } from 'redux/operations';
+import { getAuthStatus } from 'redux/authPer/auth-selector';
+
 function App() {
+  const dispatch = useDispatch();
+  const isLogIn = useSelector(getAuthStatus);
   // Пропси з описом для передачі в продукти
   const [info, setInfo] = useState();
   const saveInfo = info => {
     setInfo(info);
   };
+  useEffect(() => {
+    if (isLogIn) {
+      dispatch(fetchProductUser());
+    }
+  }, [dispatch, isLogIn]);
 
   return (
     <div>

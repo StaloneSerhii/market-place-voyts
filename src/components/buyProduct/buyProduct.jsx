@@ -4,11 +4,10 @@ import { FiChevronRight } from 'react-icons/fi';
 import BuyBusketModal from 'components/modalBuy/about/buyBusket';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addProductBusket } from 'redux/slice';
 import { useEffect } from 'react';
 import { getIdProduct, postHelpProduct } from 'redux/service';
 import { useRef } from 'react';
-import { getAuth, getAuthStatus } from 'redux/authPer/auth-selector';
+import { getAuthStatus } from 'redux/authPer/auth-selector';
 import { addProductBusketAuth } from 'redux/operations';
 
 const BuyProduct = ({ saveInfo }) => {
@@ -27,30 +26,20 @@ const BuyProduct = ({ saveInfo }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(
     '/market-place-voyts/static/media/noimage.2efe78cdf6dbf909f571.jpg'
   );
-
   // Перевірка на авторизацію
   const selectAuth = useSelector(getAuthStatus);
   // Поверненя даних з лс
-  const productBuyAuth = useSelector(getAuth);
-  const productBuy = useSelector(state => state.persistedReducerAdd.product);
-  const getAuthProfile = useSelector(state => state.persistedReducerAdd.auth);
+  // const productBuyAuth = useSelector(
+  //   state => state.persistedReducerAdd.buyProduct
+  // );
+  // const productBuy = useSelector(state => state.persistedReducerAdd.product);
+  // const getAuthProfile = useSelector(state => state.persistedReducerAdd.auth);
   // Стейт для відправки форми запиту про допомогу
   const [partNumber, setPartNumber] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
-
   useEffect(() => {
     getIdProduct(id).then(pr => setProduct(pr));
-    if (selectAuth) {
-      const buy = productBuy.filter(pr => pr._id === id);
-      if (buy.length > 0) {
-        setBuyPr(true);
-      }
-    }
-    const buyAuth = productBuyAuth.user.product.filter(pr => pr._id === id);
-    if (buyAuth.length > 0) {
-      setBuyPr(true);
-    }
-  }, [id, productBuy, productBuyAuth.user.product, selectAuth]);
+  }, [id]);
 
   useEffect(() => {
     if (product && !hasInfoBeenSaved) {
@@ -69,20 +58,16 @@ const BuyProduct = ({ saveInfo }) => {
     }
   }, [product]);
 
+  // Додаваня в кошик на бд і лс
   const buyProduct = () => {
-    const { _id } = getAuthProfile.user;
-    const { token } = getAuthProfile;
-
-    console.log(getAuthProfile);
-    setIsModalOpen(true);
-    if (!selectAuth) {
-      dispatch(addProductBusket(product));
+    if (selectAuth) {
+      const { _id, updatedAt, createdAt, ...obj } = product;
+      dispatch(addProductBusketAuth({ ...obj, count: 1 }));
     }
-    dispatch(
-      addProductBusketAuth({ token, _id, product: { ...product, count: 1 } })
-    );
+    setIsModalOpen(true);
   };
 
+  // Пост пошуку запчастини по номеру
   const handleSubmit = e => {
     e.preventDefault();
     const requestData = {
@@ -99,7 +84,7 @@ const BuyProduct = ({ saveInfo }) => {
   };
 
   const containerRef = useRef(null);
-
+  // Збільшення зображення
   const handleMouseMove = event => {
     const container = containerRef.current;
     const image = container.querySelector('.zoomable-image');
@@ -170,88 +155,90 @@ const BuyProduct = ({ saveInfo }) => {
             </form>
           </div>
         </div>
-        <div>
-          <h3 className="name__product">{product.name}</h3>
-          <div className="block__info" id="app-root">
-            <form className="block__info--item">
-              <p>
-                Код: <span>{product.code}</span>
-              </p>
-              <p>
-                Артикул: <span>{product.ark}</span>
-              </p>
-              <p>
-                Виробник:
-                <span>{product.producer || <span>не вказано</span>}</span>
-              </p>
-              <p className="block__info--on">В наявності</p>
-              <span className="block__info--price">{product.price} грн</span>
-              {buyPr ? (
-                <Link to="/busket" type="button" className="formLogin__btn">
-                  У Кошик
-                </Link>
-              ) : (
-                <button
-                  type="button"
-                  className="formLogin__btn"
-                  onClick={buyProduct}
-                >
-                  Купити
-                </button>
-              )}
+        {product && (
+          <div>
+            <h3 className="name__product">{product.name}</h3>
+            <div className="block__info" id="app-root">
+              <form className="block__info--item">
+                <p>
+                  Код: <span>{product.code}</span>
+                </p>
+                <p>
+                  Артикул: <span>{product.ark}</span>
+                </p>
+                <p>
+                  Виробник:
+                  <span>{product.producer || <span>не вказано</span>}</span>
+                </p>
+                <p className="block__info--on">В наявності</p>
+                <span className="block__info--price">{product.price} грн</span>
+                {buyPr ? (
+                  <Link to="/busket" type="button" className="formLogin__btn">
+                    У Кошик
+                  </Link>
+                ) : (
+                  <button
+                    type="button"
+                    className="formLogin__btn"
+                    onClick={buyProduct}
+                  >
+                    Купити
+                  </button>
+                )}
 
-              {isModalOpen && (
-                <BuyBusketModal onClose={() => setIsModalOpen(false)} />
-              )}
-            </form>
-            <div className="block__infoCenter">
-              <p> {<FcCallback />} Отримати консультацію</p>
-              <span>+38(67)000-00-00</span>
-              <button className="formLogin__btn">Задати питання</button>
+                {isModalOpen && (
+                  <BuyBusketModal onClose={() => setIsModalOpen(false)} />
+                )}
+              </form>
+              <div className="block__infoCenter">
+                <p> {<FcCallback />} Отримати консультацію</p>
+                <span>+38(67)000-00-00</span>
+                <button className="formLogin__btn">Задати питання</button>
+              </div>
             </div>
+            <div className="block__analog">
+              <h4>Аналоги</h4>
+              <Link to="/product/2" className="block__analog--info">
+                <img src={product.img} alt="/" width="70px" />
+                <p>Назва запчастини... хрестовина з головками 4324</p>
+                <p className="price">6805.90 грн</p>
+              </Link>
+            </div>
+            <div className="info__btn">
+              <Link
+                to="dital"
+                className={
+                  location.pathname === `/product/${id}/dital`
+                    ? 'info__btn--details active__btn'
+                    : 'info__btn--details'
+                }
+              >
+                Опис
+              </Link>
+              <Link
+                to={{ pathname: 'application', state: product.info }}
+                className={
+                  location.pathname === `/product/${id}/application`
+                    ? 'info__btn--details active__btn'
+                    : 'info__btn--details'
+                }
+              >
+                Застосування
+              </Link>
+              <Link
+                to="obm"
+                className={
+                  location.pathname === `/product/${id}/obm`
+                    ? 'info__btn--details active__btn'
+                    : 'info__btn--details'
+                }
+              >
+                ОБМ номер
+              </Link>
+            </div>
+            <Outlet />
           </div>
-          <div className="block__analog">
-            <h4>Аналоги</h4>
-            <Link to="/product/2" className="block__analog--info">
-              <img src={product.img} alt="/" width="70px" />
-              <p>Назва запчастини... хрестовина з головками 4324</p>
-              <p className="price">6805.90 грн</p>
-            </Link>
-          </div>
-          <div className="info__btn">
-            <Link
-              to="dital"
-              className={
-                location.pathname === `/product/${id}/dital`
-                  ? 'info__btn--details active__btn'
-                  : 'info__btn--details'
-              }
-            >
-              Опис
-            </Link>
-            <Link
-              to={{ pathname: 'application', state: product.info }}
-              className={
-                location.pathname === `/product/${id}/application`
-                  ? 'info__btn--details active__btn'
-                  : 'info__btn--details'
-              }
-            >
-              Застосування
-            </Link>
-            <Link
-              to="obm"
-              className={
-                location.pathname === `/product/${id}/obm`
-                  ? 'info__btn--details active__btn'
-                  : 'info__btn--details'
-              }
-            >
-              ОБМ номер
-            </Link>
-          </div>
-          <Outlet />
-        </div>
+        )}
       </div>
     )
   );

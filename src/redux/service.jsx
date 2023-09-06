@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-const API = 'http://localhost:3333/api/product';
+const API = 'http://localhost:3333/api';
 
 async function getAllProduct() {
-  const { data } = await axios.get(`${API}`);
+  const { data } = await axios.get(`${API}/product/`);
   if (data) {
     return data;
   }
@@ -19,7 +19,7 @@ async function getTopBuyProduct() {
 }
 
 async function getIdProduct(id) {
-  const { data } = await axios.get(`${API}/${id}`);
+  const { data } = await axios.get(`${API}/product/${id}`);
   if (data) {
     return data;
   }

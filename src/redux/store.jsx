@@ -14,10 +14,11 @@ import {
   REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import { productReducer } from './slice';
+// import { productReducer } from './slice';
 // import { authSlice } from './authPer/auth-slice';
-import { orderReducer } from './orderSlice';
+// import { orderReducer } from './orderSlice';
 import { authSlice } from './authPer/auth-slice';
+import { buyProducSlice } from './buyProduct-slice';
 
 const middleware = [
   ...getDefaultMiddleware({
@@ -28,8 +29,7 @@ const middleware = [
 ];
 
 const rootReducer = combineReducers({
-  product: productReducer.reducer,
-  myOrder: orderReducer.reducer,
+  buyProduct: buyProducSlice.reducer,
   auth: authSlice.reducer,
 });
 
