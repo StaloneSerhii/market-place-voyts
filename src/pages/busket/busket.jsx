@@ -7,6 +7,7 @@ import { postBuyProduct } from 'redux/service';
 import * as Yup from 'yup';
 import { getProductLocalStorage } from 'redux/selector';
 import { onDeleteProductBusket } from 'redux/operations';
+import { chancheCounterValue } from 'redux/buyProduct-slice';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string()
@@ -47,6 +48,11 @@ const Busket = () => {
     }
   }, [data]);
 
+  // Зміна значення кількості товарів до покупки
+  const changeValueCounterProduct = (counter, id) => {
+    dispatch(chancheCounterValue({ id, counter }));
+  };
+
   // Запис в стейт
   useEffect(() => {
     if (select) {
@@ -61,6 +67,7 @@ const Busket = () => {
     }
   }, [res, data, dispatch, navigate]);
 
+  // Стейт форми покупки для відправки
   const initialValues = {
     name: '',
     fename: '',
@@ -131,7 +138,7 @@ const Busket = () => {
           | Мої Замовлення |
         </Link>
       </div>
-      {data&&data.length ? (
+      {data && data.length ? (
         <form
           onSubmit={formik.handleSubmit}
           style={{
@@ -298,8 +305,7 @@ const Busket = () => {
                   gap: '15px',
                 }}
               >
-                {
-                  data.length > 0 &&
+                {data.length > 0 &&
                   data.map(pr => (
                     <li className="block__listBuy--item" key={pr._id}>
                       <button
@@ -381,8 +387,13 @@ const Busket = () => {
                                 min="1"
                                 max="200"
                                 step="1"
-                                // onChange={e => chancheCountProduct(e, pr._id)}
-                                value={Number(pr.count)}
+                                onChange={e =>
+                                  changeValueCounterProduct(
+                                    e.target.value,
+                                    pr._id
+                                  )
+                                }
+                                value={pr.count}
                               />
                             </label>
                           </div>

@@ -9,7 +9,7 @@ import { useState } from 'react';
 import BuyModalSuc from '../pages/buysuccess/buySuc';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchProductUser } from 'redux/operations';
+import { fetchCurrentUser, fetchProductUser } from 'redux/operations';
 import { getAuthStatus } from 'redux/authPer/auth-selector';
 
 function App() {
@@ -21,6 +21,7 @@ function App() {
     setInfo(info);
   };
   useEffect(() => {
+    dispatch(fetchCurrentUser());
     if (isLogIn) {
       dispatch(fetchProductUser());
     }

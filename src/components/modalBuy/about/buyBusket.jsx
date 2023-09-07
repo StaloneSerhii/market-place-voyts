@@ -2,25 +2,38 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ReactDOM from 'react-dom';
 import test from '../../../image/testBuy.jpg';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { counterSumAuth } from 'redux/operations';
-// import { getAuth } from 'redux/authPer/auth-selector';
-
-// import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { chancheCounterValue } from 'redux/buyProduct-slice';
+import { getProductLocalStorage } from 'redux/selector';
+import { chanchValueProductCounter } from 'redux/operations';
+import { useEffect } from 'react';
 
 const modalRoot = document.querySelector('#modal-root');
 
 const BuyBusketModal = ({ onClose }) => {
   const [val, setVal] = useState(1);
-  // const { id } = useParams();
-  // const dispatch = useDispatch();
-  // const authData = useSelector(getAuth);
-  // const { _id } = authData.user;
+  const [idSend, setidSend] = useState(1);
+  const dispatch = useDispatch();
+  const authData = useSelector(getProductLocalStorage);
+
+  // Покупка зі зміною кількості товару в стейті
   const buyProduct = e => {
     setVal(Number(e.target.value));
-    // const count = Number(e.target.value);
+    const counter = Number(e.target.value);
+    const id = authData[authData.length - 1]._id;
+    dispatch(chancheCounterValue({ id, counter }));
+  };
 
-    // dispatch(counterSumAuth({ count, id, _id }));
+  useEffect(() => {
+    if (authData && authData.length > 0) {
+      setidSend(authData[authData.length - 1]._id);
+    }
+  }, [authData]);
+
+  const sendValueProduct = () => {
+    if (val > 1) {
+      dispatch(chanchValueProductCounter({ productId: idSend, newCount: val }));
+    }
   };
 
   return ReactDOM.createPortal(
@@ -122,12 +135,16 @@ const BuyBusketModal = ({ onClose }) => {
           </ul>
         </div>
         <div className="modal__text--block">
-          <Link className="modal__btn send" to="/">
+          <Link className="modal__btn send" to="/" onClick={sendValueProduct}>
             ПРОДОВЖИТИ ПОКУПКИ
           </Link>
           <div className="modal__text--price">
             <span>2 567,00 грн</span>
-            <Link className="modal__btn " to="/busket" onClick={onClose}>
+            <Link
+              className="modal__btn "
+              to="/busket"
+              onClick={sendValueProduct}
+            >
               ОФОРМИТИ ЗАМОВЛЕННЯ
             </Link>
           </div>

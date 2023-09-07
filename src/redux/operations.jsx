@@ -31,6 +31,27 @@ export const addProductBusketAuth = createAsyncThunk(
   }
 );
 
+export const chanchValueProductCounter = createAsyncThunk(
+  'buy/chanchValueProduct',
+  async (credentials, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const persistedToken = state.persistedReducerAdd.auth.token;
+    if (persistedToken === null) {
+      return thunkAPI.rejectWithValue('Unable to fetch user');
+    }
+    try {
+      setAuthHeader(persistedToken);
+      const { data } = await instance.put(
+        '/buy/chanchValueProduct',
+        credentials
+      );
+      return data;
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e.message);
+    }
+  }
+);
+
 export const logIn = createAsyncThunk(
   'register/login',
   async (user, thunkAPI) => {
@@ -81,8 +102,9 @@ export const fetchCurrentUser = createAsyncThunk(
         setAuthHeader(persistedToken);
         const { data } = await instance.get(`/register/current`);
         return data;
-      } catch (e) {
-        console.log(e);
+      } catch (error) {
+        console.log(error);
+        return thunkAPI.rejectWithValue(error.message);
       }
     }
   }
@@ -100,8 +122,9 @@ export const fetchProductUser = createAsyncThunk(
         setAuthHeader(persistedToken);
         const { data } = await instance.get(`/buy/product`);
         return data;
-      } catch (e) {
-        console.log(e);
+      } catch (error) {
+        console.log(error);
+        return thunkAPI.rejectWithValue(error.message);
       }
     }
   }
@@ -118,7 +141,9 @@ export const onDeleteProductBusket = createAsyncThunk(
     } else {
       try {
         setAuthHeader(persistedToken);
-        const { data } = await instance.patch(`/buy/deletebusket`,{_id: _id});
+        const { data } = await instance.patch(`/buy/deletebusket`, {
+          _id: _id,
+        });
         return data;
       } catch (e) {
         console.log(e);

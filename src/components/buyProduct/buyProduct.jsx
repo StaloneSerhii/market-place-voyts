@@ -9,6 +9,7 @@ import { getIdProduct, postHelpProduct } from 'redux/service';
 import { useRef } from 'react';
 import { getAuthStatus } from 'redux/authPer/auth-selector';
 import { addProductBusketAuth } from 'redux/operations';
+import { getProductLocalStorage } from 'redux/selector';
 
 const BuyProduct = ({ saveInfo }) => {
   const dispatch = useDispatch();
@@ -28,19 +29,20 @@ const BuyProduct = ({ saveInfo }) => {
   );
   // Перевірка на авторизацію
   const selectAuth = useSelector(getAuthStatus);
+
   // Поверненя даних з лс
-  // const productBuyAuth = useSelector(
-  //   state => state.persistedReducerAdd.buyProduct
-  // );
-  // const productBuy = useSelector(state => state.persistedReducerAdd.product);
-  // const getAuthProfile = useSelector(state => state.persistedReducerAdd.auth);
+  const productBuyAuth = useSelector(getProductLocalStorage);
+
   // Стейт для відправки форми запиту про допомогу
   const [partNumber, setPartNumber] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+
+  // Запит по продукту на бд по ід
   useEffect(() => {
     getIdProduct(id).then(pr => setProduct(pr));
   }, [id]);
 
+  // Дод інфа
   useEffect(() => {
     if (product && !hasInfoBeenSaved) {
       saveInfo({
@@ -52,6 +54,17 @@ const BuyProduct = ({ saveInfo }) => {
     }
   }, [product, hasInfoBeenSaved, saveInfo]);
 
+  // Зміна кнопки на посиланя кошика
+  useEffect(() => {
+    if (product && productBuyAuth && productBuyAuth.length > 0) {
+      const buyingTrue = productBuyAuth.find(pr => pr.code === product.code);
+      if (buyingTrue) {
+        setBuyPr(true);
+      }
+    }
+  }, [product, productBuyAuth]);
+
+  // Застосуваня картинки на яку клікнув на головну
   useEffect(() => {
     if (product) {
       setCurrentImageIndex(product.img[0]);
@@ -185,7 +198,6 @@ const BuyProduct = ({ saveInfo }) => {
                     Купити
                   </button>
                 )}
-
                 {isModalOpen && (
                   <BuyBusketModal onClose={() => setIsModalOpen(false)} />
                 )}
