@@ -10,7 +10,7 @@ import { useEffect } from 'react';
 
 const modalRoot = document.querySelector('#modal-root');
 
-const BuyBusketModal = ({ onClose }) => {
+const BuyBusketModal = ({ product, onClose }) => {
   const [val, setVal] = useState(1);
   const [idSend, setidSend] = useState(1);
   const dispatch = useDispatch();
@@ -53,9 +53,7 @@ const BuyBusketModal = ({ onClose }) => {
               />
               <div style={{ display: 'flex' }}>
                 <div>
-                  <p className="block__listBuy--name">
-                    Тяга МТЗ навісна блаблабла
-                  </p>
+                  <p className="block__listBuy--name">{product.name}</p>
                 </div>
                 <div
                   style={{
@@ -71,7 +69,9 @@ const BuyBusketModal = ({ onClose }) => {
                     >
                       Ціна
                     </span>
-                    <span style={{ fontSize: '20px' }}>2 567.00 грн/шт</span>
+                    <span style={{ fontSize: '20px' }}>
+                      {product.price} грн/шт
+                    </span>
                   </div>
                   <div
                     style={{
@@ -113,7 +113,7 @@ const BuyBusketModal = ({ onClose }) => {
                       Сума
                     </span>
                     <span style={{ color: 'red', fontSize: '20px' }}>
-                      2564.00 грн
+                      {product.price * val} грн
                     </span>
                   </div>
                 </div>
@@ -139,7 +139,7 @@ const BuyBusketModal = ({ onClose }) => {
             ПРОДОВЖИТИ ПОКУПКИ
           </Link>
           <div className="modal__text--price">
-            <span>2 567,00 грн</span>
+            <span>{product.price * val} грн</span>
             <Link
               className="modal__btn "
               to="/busket"

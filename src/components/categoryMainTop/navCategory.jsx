@@ -9,7 +9,7 @@ import { CgEnter } from 'react-icons/cg';
 import { SlBasketLoaded } from 'react-icons/sl';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAuthStatus } from 'redux/authPer/auth-selector';
-import { logIn } from 'redux/operations';
+import { logIn, logOut } from 'redux/operations';
 import { getProductLocalStorage } from 'redux/selector';
 
 const NavigateCategory = () => {
@@ -105,8 +105,11 @@ const NavigateCategory = () => {
         </li>
         <li>
           {selectAuth ? (
-            <Link to="/account">
-              <BiSolidUser className="svg__main" />
+            <Link to="/">
+              <BiSolidUser
+                className="svg__main"
+                onClick={() => dispatch(logOut())}
+              />
             </Link>
           ) : (
             <>

@@ -25,7 +25,7 @@ const BuyProduct = ({ saveInfo }) => {
   const [hasInfoBeenSaved, setHasInfoBeenSaved] = useState(false);
   // Дефолтна картинка
   const [currentImageIndex, setCurrentImageIndex] = useState(
-    '/market-place-voyts/static/media/noimage.2efe78cdf6dbf909f571.jpg'
+    '/market-place-voyts/static/media/testBuy.883d2f19961eab487ef8.jpg'
   );
   // Перевірка на авторизацію
   const selectAuth = useSelector(getAuthStatus);
@@ -46,9 +46,9 @@ const BuyProduct = ({ saveInfo }) => {
   useEffect(() => {
     if (product && !hasInfoBeenSaved) {
       saveInfo({
-        use: product.info.use,
-        obm: product.info.obm,
-        details: product.info.details,
+        use: product.info.use || 'інформація відсутння',
+        obm: product.info.obm || 'інформація відсутння',
+        details: product.info.details || 'інформація відсутння',
       });
       setHasInfoBeenSaved(true);
     }
@@ -133,6 +133,7 @@ const BuyProduct = ({ saveInfo }) => {
               {product &&
                 product.img.map(img => (
                   <img
+                    key={img}
                     className="active"
                     src={img}
                     alt="allProduct"
@@ -199,7 +200,10 @@ const BuyProduct = ({ saveInfo }) => {
                   </button>
                 )}
                 {isModalOpen && (
-                  <BuyBusketModal onClose={() => setIsModalOpen(false)} />
+                  <BuyBusketModal
+                    product={product}
+                    onClose={() => setIsModalOpen(false)}
+                  />
                 )}
               </form>
               <div className="block__infoCenter">

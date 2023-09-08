@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
   addProductBusketAuth,
+  buyProductBusket,
   fetchCurrentUser,
   fetchProductUser,
   onDeleteProductBusket,
@@ -30,10 +31,12 @@ export const buyProducSlice = createSlice({
     [fetchCurrentUser.rejected](state) {
       state.length = 0;
     },
-
     [onDeleteProductBusket.fulfilled](state, action) {
       const updatedState = state.filter(pr => pr._id !== action.payload._id);
       return updatedState;
+    },
+    [buyProductBusket.fulfilled](state) {
+      state.splice(0, state.length, null);
     },
   },
 });

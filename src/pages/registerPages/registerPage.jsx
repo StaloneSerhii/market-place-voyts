@@ -1,6 +1,7 @@
 import Cards from 'components/cards/cards';
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { register } from 'redux/operations';
 import * as Yup from 'yup';
@@ -23,6 +24,7 @@ const validationSchema = Yup.object().shape({
 });
 
 const RegisterPage = () => {
+  const [reapPass, setReapPass] = useState();
   const dispath = useDispatch();
   const initialValues = {
     name: '',
@@ -37,21 +39,26 @@ const RegisterPage = () => {
     initialValues,
     validationSchema: validationSchema,
     onSubmit: values => {
+      if (formik.values.password !== reapPass) {
+        return alert('Паролі  не співпадають');
+      }
       dispath(register(values));
+      alert(
+        'Ви успішно зареєструвалися, підтвердіть свою особу в електроному листі який ви вказали при реєстрації'
+      );
     },
   });
 
   // Збереження ведених даних в форму
   const handleInputChange = event => {
     const { name, value } = event.target;
-    console.log(event.target);
     formik.setFieldValue(name, value);
   };
 
+  // Корекція веденого номера тел
   const handlePhoneNumberChange = e => {
     let value = e.target.value;
     value = value.replace(/\D/g, '');
-
     if (value.length > 3 && value.length <= 6) {
       value = value.slice(0, 3) + ' ' + value.slice(3);
     } else if (value.length > 6) {
@@ -145,6 +152,8 @@ const RegisterPage = () => {
                 type="password"
                 id="password"
                 placeholder="Повторити пароль"
+                onChange={e => setReapPass(e.target.value)}
+                value={reapPass}
               />
             </div>
           </div>

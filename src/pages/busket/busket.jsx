@@ -3,11 +3,12 @@ import test from '../../image/testBuy.jpg';
 import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { postBuyProduct } from 'redux/service';
+// import { postBuyProduct } from 'redux/service';
 import * as Yup from 'yup';
 import { getProductLocalStorage } from 'redux/selector';
-import { onDeleteProductBusket } from 'redux/operations';
+import { buyProductBusket, onDeleteProductBusket } from 'redux/operations';
 import { chancheCounterValue } from 'redux/buyProduct-slice';
+import { getAuth } from 'redux/authPer/auth-selector';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string()
@@ -32,12 +33,12 @@ const Busket = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [suma, setSuma] = useState(0);
-  // Відповідь від сервера пісоя замовленя для переадресації
+  // Відповідь від сервера після замовленя для переадресації
   const [res, setRes] = useState(null);
   // ЛС для передаваня в ордер
   const [data, setdata] = useState();
   const select = useSelector(getProductLocalStorage);
-
+  const userAuth = useSelector(getAuth);
   // Загальна сума за всі товари
   useEffect(() => {
     if (data) {
@@ -52,7 +53,6 @@ const Busket = () => {
   const changeValueCounterProduct = (counter, id) => {
     dispatch(chancheCounterValue({ id, counter }));
   };
-
   // Запис в стейт
   useEffect(() => {
     if (select) {
@@ -69,12 +69,17 @@ const Busket = () => {
 
   // Стейт форми покупки для відправки
   const initialValues = {
-    name: '',
-    fename: '',
-    email: '',
-    phone: '',
+    name:
+      data !== undefined && data && data.length > 0 ? userAuth.user.name : '',
+    fename:
+      data !== undefined && data && data.length > 0 ? userAuth.user.fename : '',
+    email:
+      data !== undefined && data && data.length > 0 ? userAuth.user.email : '',
+    phone:
+      data !== undefined && data && data.length > 0 ? userAuth.user.phone : '',
     comments: '-',
-    city: '',
+    city:
+      data !== undefined && data && data.length > 0 ? userAuth.user.city : '',
     viddill: '',
     oplata: '',
   };
@@ -86,7 +91,9 @@ const Busket = () => {
     onSubmit: values => {
       const result = window.confirm(`Ви піддтверджуєте свою покупку?`);
       if (result) {
-        postBuyProduct({ values, select }).then(state => setRes(state));
+        dispatch(buyProductBusket({ values, select }));
+        navigate('/');
+        // postBuyProduct({ values, select }).then(state => setRes(state));
       }
     },
   });
@@ -110,6 +117,7 @@ const Busket = () => {
     }
     formik.setFieldValue('phone', value);
   };
+
   return (
     <div>
       <div className="block__name">
@@ -138,7 +146,7 @@ const Busket = () => {
           | Мої Замовлення |
         </Link>
       </div>
-      {data && data.length ? (
+      {data !== undefined && data && data.length > 0 ? (
         <form
           onSubmit={formik.handleSubmit}
           style={{
@@ -231,7 +239,7 @@ const Busket = () => {
               <input
                 required
                 type="text"
-                placeholder="Місто"
+                placeholder="Місто/Населений пункт"
                 name="city"
                 onBlur={formik.handleBlur}
                 onChange={handleInputChange}
@@ -244,7 +252,7 @@ const Busket = () => {
               <input
                 required
                 type="text"
-                placeholder="Віділення"
+                placeholder="Віділення нової пошти"
                 name="viddill"
                 onBlur={formik.handleBlur}
                 onChange={handleInputChange}
@@ -305,7 +313,8 @@ const Busket = () => {
                   gap: '15px',
                 }}
               >
-                {data.length > 0 &&
+                {data &&
+                  data.length > 0 &&
                   data.map(pr => (
                     <li className="block__listBuy--item" key={pr._id}>
                       <button

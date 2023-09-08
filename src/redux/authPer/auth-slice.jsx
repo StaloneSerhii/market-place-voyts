@@ -4,6 +4,7 @@ import {
   register,
   fetchCurrentUser,
   chanchValueProductCounter,
+  logOut,
 } from 'redux/operations';
 
 const initialState = {
@@ -21,6 +22,10 @@ export const authSlice = createSlice({
       state.isFetching = false;
       // Знайдемо індекс об'єкта з потрібним ідентифікатором
     },
+    [logOut.fulfilled](state) {
+      state.isLoggedIn = false;
+      // Знайдемо індекс об'єкта з потрібним ідентифікатором
+    },
     [register.fulfilled](state, action) {
       state.user = action.payload.user;
       state.token = action.payload.token;
@@ -32,8 +37,7 @@ export const authSlice = createSlice({
       state.isLoggedIn = true;
     },
     [fetchCurrentUser.fulfilled](state, action) {
-      console.log(action.payload);
-      state.user = action.payload;
+      state.user = action.payload.user;
       state.token = action.payload.token;
       state.isLoggedIn = true;
     },

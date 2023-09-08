@@ -13,6 +13,7 @@ const setAuthHeader = token => {
 //   instance.defaults.headers.common.Authorization = '';
 // };
 
+// Додаваня продуктів в коризну лс і бд
 export const addProductBusketAuth = createAsyncThunk(
   'buy/addbusket',
   async (credentials, thunkAPI) => {
@@ -31,6 +32,7 @@ export const addProductBusketAuth = createAsyncThunk(
   }
 );
 
+// Зміна кількості товарів при покупці товару в лс і бд
 export const chanchValueProductCounter = createAsyncThunk(
   'buy/chanchValueProduct',
   async (credentials, thunkAPI) => {
@@ -52,6 +54,7 @@ export const chanchValueProductCounter = createAsyncThunk(
   }
 );
 
+// Логінація
 export const logIn = createAsyncThunk(
   'register/login',
   async (user, thunkAPI) => {
@@ -71,6 +74,7 @@ export const logIn = createAsyncThunk(
   }
 );
 
+// Реєстрація
 export const register = createAsyncThunk(
   '/register',
   async (user, thunkAPI) => {
@@ -90,6 +94,7 @@ export const register = createAsyncThunk(
   }
 );
 
+// Оновленя даних юзера
 export const fetchCurrentUser = createAsyncThunk(
   'register/current',
   async (_, thunkAPI) => {
@@ -110,6 +115,7 @@ export const fetchCurrentUser = createAsyncThunk(
   }
 );
 
+// оновленя даних корзини
 export const fetchProductUser = createAsyncThunk(
   'buy/product',
   async (_, thunkAPI) => {
@@ -129,7 +135,7 @@ export const fetchProductUser = createAsyncThunk(
     }
   }
 );
-
+// Видаленя продуктів з корзини лс і бд
 export const onDeleteProductBusket = createAsyncThunk(
   'buy/deletebusket',
   async (_id, thunkAPI) => {
@@ -151,21 +157,47 @@ export const onDeleteProductBusket = createAsyncThunk(
     }
   }
 );
-// export const logIn = createAsyncThunk('register/login', async credentials => {
-//   try {
-//     const { data } = await axios.post(`/register/login`, credentials);
-//     token.set(data.token);
-//     return data;
-//   } catch (e) {
-//     console.log(e);
-//   }
-// });
 
-// export const logOut = createAsyncThunk('auth/logout', async () => {
-//   try {
-//     await axios.post(`/users/logout`);
-//     token.unset();
-//   } catch (e) {
-//     console.log(e);
-//   }
-// });
+export const buyProductBusket = createAsyncThunk(
+  'buy/buyProductBusket',
+  async (order, thunkAPI) => {
+    try {
+      const response = await instance.post('/buy/buyProductBusket', order);
+      setAuthHeader(response.data.token);
+      if (response) {
+        console.log('logOut success');
+      }
+      return response.data;
+    } catch (error) {
+      if (error) {
+        console.log('Error');
+      }
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const logOut = createAsyncThunk(
+  'register/logout',
+  async (user, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const persistedToken = state.persistedReducerAdd.auth.token;
+    if (persistedToken === null) {
+      return thunkAPI.rejectWithValue();
+    } else {
+      try {
+        setAuthHeader(persistedToken);
+        const response = await instance.post('/register/logout', user);
+        if (response) {
+          console.log('logOut success');
+        }
+        return response.data;
+      } catch (error) {
+        if (error) {
+          console.log('Error');
+        }
+        return thunkAPI.rejectWithValue(error.message);
+      }
+    }
+  }
+);
