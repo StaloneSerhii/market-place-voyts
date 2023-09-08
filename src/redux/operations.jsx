@@ -2,8 +2,8 @@ import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 const instance = axios.create({
-  // baseURL: 'https://voyts.onrender.com/api',
-  baseURL: 'http://localhost:3333/api',
+  baseURL: 'https://voyts.onrender.com/api',
+  // baseURL: 'http://localhost:3333/api',
 });
 
 const setAuthHeader = token => {
