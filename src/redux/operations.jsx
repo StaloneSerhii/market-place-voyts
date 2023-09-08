@@ -2,7 +2,8 @@ import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 const instance = axios.create({
-  baseURL: 'https://voyts.onrender.com/api',
+  // baseURL: 'https://voyts.onrender.com/api',
+  baseURL: 'http://localhost:3333/api',
 });
 
 const setAuthHeader = token => {
@@ -140,7 +141,6 @@ export const fetchProductUser = createAsyncThunk(
 export const onDeleteProductBusket = createAsyncThunk(
   'buy/deletebusket',
   async (_id, thunkAPI) => {
-    console.log(_id);
     const state = thunkAPI.getState();
     const persistedToken = state.persistedReducerAdd.auth.token;
     if (persistedToken === null) {

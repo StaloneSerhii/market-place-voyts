@@ -92,8 +92,7 @@ const BuyProduct = ({ saveInfo }) => {
   };
 
   const switchToPreviousImage = e => {
-    const openImg = e.target.src.slice(21, e.target.src.length);
-    setCurrentImageIndex(openImg);
+    setCurrentImageIndex(e.target.src);
   };
 
   const containerRef = useRef(null);

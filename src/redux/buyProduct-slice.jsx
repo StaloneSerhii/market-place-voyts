@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
   addProductBusketAuth,
-  buyProductBusket,
   fetchCurrentUser,
   fetchProductUser,
   onDeleteProductBusket,
@@ -9,7 +8,10 @@ import {
 
 export const buyProducSlice = createSlice({
   name: 'busket',
-  initialState: [],
+  initialState: {
+    product: [],
+    isFetching: false,
+  },
   reducers: {
     chancheCounterValue(state, action) {
       const { id, counter } = action.payload;
@@ -23,20 +25,34 @@ export const buyProducSlice = createSlice({
   },
   extraReducers: {
     [addProductBusketAuth.fulfilled](state, action) {
-      state.push(action.payload);
+      state.isFetching = false;
+
+      state.product.push(action.payload);
     },
     [fetchProductUser.fulfilled](state, action) {
-      state.splice(0, state.length, ...action.payload);
+      state.isFetching = false;
+      state.product.splice(0, state.product.length, ...action.payload);
     },
     [fetchCurrentUser.rejected](state) {
-      state.length = 0;
+      state.product.length = 0;
+    },
+    [onDeleteProductBusket.pending](state) {
+      state.isFetching = true;
     },
     [onDeleteProductBusket.fulfilled](state, action) {
-      const updatedState = state.filter(pr => pr._id !== action.payload._id);
+      state.isFetching = false;
+      const updatedState = state.product.filter(
+        pr => pr._id !== action.payload._id
+      );
       return updatedState;
     },
-    [buyProductBusket.fulfilled](state) {
-      state.splice(0, state.length, null);
+    [onDeleteProductBusket.fulfilled](state, action) {
+      state.isFetching = false;
+      const deletedProductId = action.payload._id;
+      const updatedState = state.product.filter(
+        pr => pr._id !== deletedProductId
+      );
+      state.product.splice(0, state.product.length, ...updatedState);
     },
   },
 });

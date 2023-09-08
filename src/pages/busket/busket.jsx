@@ -5,10 +5,12 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 // import { postBuyProduct } from 'redux/service';
 import * as Yup from 'yup';
-import { getProductLocalStorage } from 'redux/selector';
+import { getFetchingCurr, getProductLocalStorage } from 'redux/selector';
 import { buyProductBusket, onDeleteProductBusket } from 'redux/operations';
 import { chancheCounterValue } from 'redux/buyProduct-slice';
 import { getAuth } from 'redux/authPer/auth-selector';
+import { ThreeCircles } from 'react-loader-spinner';
+import { RiDeleteBin6Line } from 'react-icons/ri';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string()
@@ -32,11 +34,13 @@ const validationSchema = Yup.object().shape({
 const Busket = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [suma, setSuma] = useState(0);
-  // ЛС для передаваня в ордер
   const [data, setdata] = useState();
-  const select = useSelector(getProductLocalStorage);
+  const [suma, setSuma] = useState(0);
   const userAuth = useSelector(getAuth);
+  const [hover, setHover] = useState(false);
+  const isFetchinCurr = useSelector(getFetchingCurr);
+  const select = useSelector(getProductLocalStorage);
+
   // Загальна сума за всі товари
   useEffect(() => {
     if (data) {
@@ -51,13 +55,21 @@ const Busket = () => {
   const changeValueCounterProduct = (counter, id) => {
     dispatch(chancheCounterValue({ id, counter }));
   };
+
+  // Hover efect
+  const hoverEffect = () => {
+    setHover(true);
+  };
+  const hoverEffectL = () => {
+    setHover(false);
+  };
+
   // Запис в стейт
   useEffect(() => {
     if (select) {
       setdata(select);
     }
   }, [select]);
-
   // Стейт форми покупки для відправки
   const initialValues = {
     name:
@@ -124,7 +136,7 @@ const Busket = () => {
         >
           | Кошик |
         </Link>
-        <Link
+        {/* <Link
           to="/myorder"
           style={{
             fontSize: '35px',
@@ -135,7 +147,7 @@ const Busket = () => {
           }}
         >
           | Мої Замовлення |
-        </Link>
+        </Link> */}
       </div>
       {data !== undefined && data && data.length > 0 ? (
         <form
@@ -193,7 +205,6 @@ const Busket = () => {
                         : { border: '1px solid gray' }
                     }
                   />
-
                   <input
                     type="email"
                     name="email"
@@ -304,24 +315,38 @@ const Busket = () => {
                   gap: '15px',
                 }}
               >
-                {data &&
+                {isFetchinCurr ? (
+                  <ThreeCircles
+                    height="100"
+                    width="100"
+                    color="#4fa94d"
+                    wrapperStyle={{ justifyContent: 'center' }}
+                    wrapperClass=""
+                    visible={true}
+                    ariaLabel="three-circles-rotating"
+                    outerCircleColor=""
+                    innerCircleColor=""
+                    middleCircleColor=""
+                  />
+                ) : (
+                  data &&
                   data.length > 0 &&
                   data.map(pr => (
                     <li className="block__listBuy--item" key={pr._id}>
                       <button
+                        textarea="Вадалити з кошика"
                         style={{
-                          color: 'red',
-                          border: '2px solid red',
-                          borderRadius: '100%',
-                          height: '20px',
-                          width: '20px',
+                          color: !hover ? 'green' : 'red',
+                          fontSize: '25px',
                           marginTop: '10px',
                           position: 'absolute',
                           right: '10px',
                         }}
                         onClick={() => dispatch(onDeleteProductBusket(pr._id))}
+                        onMouseEnter={hoverEffect}
+                        onMouseLeave={hoverEffectL}
                       >
-                        X
+                        <RiDeleteBin6Line />
                       </button>
                       <img
                         className="block__listBuy--img"
@@ -418,7 +443,8 @@ const Busket = () => {
                         </div>
                       </div>
                     </li>
-                  ))}
+                  ))
+                )}
                 <p style={{ textAlign: 'end', marginRight: '10px' }}>
                   Разом до оплати: {suma.toFixed(2)} грн
                 </p>

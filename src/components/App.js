@@ -10,16 +10,19 @@ import BuyModalSuc from '../pages/buysuccess/buySuc';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCurrentUser, fetchProductUser } from 'redux/operations';
-import { getAuthStatus } from 'redux/authPer/auth-selector';
+import { getAuthStatus, getFetching } from 'redux/authPer/auth-selector';
+import { Circles } from 'react-loader-spinner';
 
 function App() {
   const dispatch = useDispatch();
   const isLogIn = useSelector(getAuthStatus);
+  const isFetching = useSelector(getFetching);
   // Пропси з описом для передачі в продукти
   const [info, setInfo] = useState();
   const saveInfo = info => {
     setInfo(info);
   };
+
   useEffect(() => {
     dispatch(fetchCurrentUser());
     if (isLogIn) {
@@ -27,7 +30,21 @@ function App() {
     }
   }, [dispatch, isLogIn]);
 
-  return (
+  return isFetching ? (
+    <Circles
+      height="80"
+      width="80"
+      color="#4fa94d"
+      ariaLabel="circles-loading"
+      wrapperStyle={{
+        display: 'flex',
+        justifyContent: 'center',
+        marginTop: '25%',
+      }}
+      wrapperClass=""
+      visible={true}
+    />
+  ) : (
     <div>
       <Routes>
         <Route path="/" element={<Layout />}>
