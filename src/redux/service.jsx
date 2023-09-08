@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API = 'http://localhost:3333/api';
+const API = 'https://voyts.onrender.com/api';
 
 // Поверненя всіх товарів на головну
 async function getAllProduct() {
