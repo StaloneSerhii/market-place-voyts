@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const API = 'http://localhost:3333/api';
 
+// Поверненя всіх товарів на головну
 async function getAllProduct() {
   const { data } = await axios.get(`${API}/product/`);
   if (data) {
@@ -10,6 +11,7 @@ async function getAllProduct() {
   console.log('error');
 }
 
+// Поверненя топових товарів
 async function getTopBuyProduct() {
   const { data } = await axios.get(`${API}/product/topbuy`);
   if (data) {
@@ -18,6 +20,7 @@ async function getTopBuyProduct() {
   console.log('error');
 }
 
+// поверненя товару по ід
 async function getIdProduct(id) {
   const { data } = await axios.get(`${API}/product/${id}`);
   if (data) {
@@ -26,6 +29,7 @@ async function getIdProduct(id) {
   console.log('error');
 }
 
+// Покупка товару не для авторизованих користуваччів
 async function postBuyProduct(body) {
   const data = await axios.post(`${API}/buy/product`, body);
   if ({ data }) {
@@ -35,7 +39,7 @@ async function postBuyProduct(body) {
 }
 
 async function postBuyProductBY(body) {
-  const { data } = await axios.get(`${API}/product/by`, body);
+  const { data } = await axios.get(`${API}/product/getAll/by`, body);
   if (data) {
     return data;
   }
@@ -51,7 +55,7 @@ async function postHelpProduct(requestData) {
 }
 
 async function postBuyProductNew(body) {
-  const { data } = await axios.get(`${API}/product/new`, body);
+  const { data } = await axios.get(`${API}/product/getAll/new`, body);
   if (data) {
     return data;
   }

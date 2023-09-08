@@ -135,6 +135,7 @@ export const fetchProductUser = createAsyncThunk(
     }
   }
 );
+
 // Видаленя продуктів з корзини лс і бд
 export const onDeleteProductBusket = createAsyncThunk(
   'buy/deletebusket',
@@ -158,6 +159,7 @@ export const onDeleteProductBusket = createAsyncThunk(
   }
 );
 
+// Добавленя продуктів в корзниу
 export const buyProductBusket = createAsyncThunk(
   'buy/buyProductBusket',
   async (order, thunkAPI) => {
@@ -176,7 +178,7 @@ export const buyProductBusket = createAsyncThunk(
     }
   }
 );
-
+// вихід юзера
 export const logOut = createAsyncThunk(
   'register/logout',
   async (user, thunkAPI) => {

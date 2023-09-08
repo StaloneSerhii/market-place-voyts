@@ -33,8 +33,6 @@ const Busket = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [suma, setSuma] = useState(0);
-  // Відповідь від сервера після замовленя для переадресації
-  const [res, setRes] = useState(null);
   // ЛС для передаваня в ордер
   const [data, setdata] = useState();
   const select = useSelector(getProductLocalStorage);
@@ -59,13 +57,6 @@ const Busket = () => {
       setdata(select);
     }
   }, [select]);
-
-  // Перенаправлення на сторінку після покупки
-  useEffect(() => {
-    if (res) {
-      navigate('/myorder');
-    }
-  }, [res, data, dispatch, navigate]);
 
   // Стейт форми покупки для відправки
   const initialValues = {
