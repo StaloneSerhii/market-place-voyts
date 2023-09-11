@@ -14,7 +14,7 @@ async function getAllProduct() {
 
 // Поверненя топових товарів
 async function getTopBuyProduct() {
-  const { data } = await axios.get(`${API}/product/topbuy`);
+  const { data } = await axios.get(`${API}/product/get/topbuy`);
   if (data) {
     return data;
   }
@@ -48,7 +48,10 @@ async function postBuyProductBY(body) {
 }
 
 async function postHelpProduct(requestData) {
-  const { data } = await axios.post(`${API}/product/helpers`, requestData);
+  const { data } = await axios.post(
+    `${API}/product/product/helpers`,
+    requestData
+  );
   if (data) {
     return data;
   }

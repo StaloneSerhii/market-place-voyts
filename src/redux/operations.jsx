@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import Notiflix from 'notiflix';
 
 const instance = axios.create({
   // baseURL: 'https://voyts.onrender.com/api',
@@ -14,6 +15,48 @@ const setAuthHeader = token => {
 //   instance.defaults.headers.common.Authorization = '';
 // };
 
+// Видалення продуктів в обране
+export const delMyFavorite = createAsyncThunk(
+  'buy/dellMyFavorite',
+  async (id, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const persistedToken = state.persistedReducerAdd.auth.token;
+    if (persistedToken === null) {
+      return thunkAPI.rejectWithValue('Unable to fetch user');
+    }
+    try {
+      setAuthHeader(persistedToken);
+      const { data } = await instance.put('/buy/dellMyFavorite', {
+        idProduct: id,
+      });
+      return data;
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e.message);
+    }
+  }
+);
+
+// Додаваня продуктів в обране
+export const addMyFavorite = createAsyncThunk(
+  'buy/addMyFavorite',
+  async (id, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const persistedToken = state.persistedReducerAdd.auth.token;
+    if (persistedToken === null) {
+      return thunkAPI.rejectWithValue('Unable to fetch user');
+    }
+    try {
+      setAuthHeader(persistedToken);
+      const { data } = await instance.put('/buy/addMyFavorite', {
+        idProduct: id,
+      });
+      return data;
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e.message);
+    }
+  }
+);
+
 // Додаваня продуктів в коризну лс і бд
 export const addProductBusketAuth = createAsyncThunk(
   'buy/addbusket',
@@ -23,12 +66,18 @@ export const addProductBusketAuth = createAsyncThunk(
     if (persistedToken === null) {
       return thunkAPI.rejectWithValue('Unable to fetch user');
     }
+
     try {
       setAuthHeader(persistedToken);
-      const { data } = await instance.put('/buy/addbusket', credentials);
-      return data;
+      const response = await instance.put('/buy/addbusket', credentials);
+      if (response) {
+        Notiflix.Notify.success('Ваш товар успішно доданий в корзину!');
+      }
+      return response.data;
     } catch (e) {
-      return thunkAPI.rejectWithValue(e.message);
+      Notiflix.Notify.failure(
+        'Не вдалося добавити товар в корзину обновіть сторінку і спробуйте знову!'
+      );
     }
   }
 );
@@ -63,12 +112,12 @@ export const logIn = createAsyncThunk(
       const response = await instance.post('/register/login', user);
       setAuthHeader(response.data.token);
       if (response) {
-        console.log('LogIn success');
+        Notiflix.Notify.success('Ви успішно авторизувалися');
       }
       return response.data;
     } catch (error) {
       if (error) {
-        console.log('Invalid email or password');
+        Notiflix.Notify.warning('Неправильно ведений логін або пароль');
       }
       return thunkAPI.rejectWithValue(error.message);
     }
@@ -83,12 +132,17 @@ export const register = createAsyncThunk(
       const response = await instance.post('/register', user);
       setAuthHeader(response.data.token);
       if (response) {
-        console.log('Register success');
+        Notiflix.Report.success(
+          'Ви успішно зареєструвалися на нашому сайті',
+          'Перейдіть на свою електрону адресу яку ви вказали під час реєстрації щоб підтвердити користувача!'
+        );
       }
       return response.data;
     } catch (error) {
       if (error.response.status === 409) {
-        console.log('This mail is already in use');
+        Notiflix.Report.success(
+          `Не вдалося зареєструвати нового користувача, обновіть сторінку і спробуйте ще раз!`
+        );
       }
       return thunkAPI.rejectWithValue(error.message);
     }
@@ -153,7 +207,9 @@ export const onDeleteProductBusket = createAsyncThunk(
         });
         return data;
       } catch (e) {
-        console.log(e);
+        Notiflix.Notify.failure(
+          'Не вдалося видалити товар з корзини, спробуйте обновити сторінку і спробувати знову...'
+        );
       }
     }
   }
@@ -167,12 +223,16 @@ export const buyProductBusket = createAsyncThunk(
       const response = await instance.post('/buy/buyProductBusket', order);
       setAuthHeader(response.data.token);
       if (response) {
-        console.log('logOut success');
+        Notiflix.Notify.success(
+          'Ваш товар відправлений на обробку адміністрацією, дякуємо за покупку!'
+        );
       }
       return response.data;
     } catch (error) {
       if (error) {
-        console.log('Error');
+        Notiflix.Notify.failure(
+          'Не вдалося добавити товар в корзину обновіть сторінку і спробуйте знову!'
+        );
       }
       return thunkAPI.rejectWithValue(error.message);
     }
@@ -191,12 +251,14 @@ export const logOut = createAsyncThunk(
         setAuthHeader(persistedToken);
         const response = await instance.post('/register/logout', user);
         if (response) {
-          console.log('logOut success');
+          Notiflix.Notify.success('Ви успішно вийшли із свого акаунта!');
         }
         return response.data;
       } catch (error) {
         if (error) {
-          console.log('Error');
+          Notiflix.Notify.failure(
+            'Не вдалося вийти з вашого облікового запису, спробуйте ще раз!'
+          );
         }
         return thunkAPI.rejectWithValue(error.message);
       }

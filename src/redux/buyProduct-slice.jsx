@@ -4,47 +4,43 @@ import {
   fetchCurrentUser,
   fetchProductUser,
   onDeleteProductBusket,
+  addMyFavorite,
+  delMyFavorite,
 } from './operations';
 
 export const buyProducSlice = createSlice({
   name: 'busket',
   initialState: {
     product: [],
+    myFavorite: [],
     isFetching: false,
   },
   reducers: {
     chancheCounterValue(state, action) {
       const { id, counter } = action.payload;
       // Знайдемо індекс об'єкта з потрібним ідентифікатором
-      const index = state.findIndex(product => product._id === id);
+      const index = state.product.findIndex(product => product._id === id);
       if (index !== -1) {
         // Знайшли об'єкт, оновлюємо значення count
-        state[index].count = Number(counter);
+        state.product[index].count = Number(counter);
       }
     },
   },
   extraReducers: {
     [addProductBusketAuth.fulfilled](state, action) {
       state.isFetching = false;
-
       state.product.push(action.payload);
     },
     [fetchProductUser.fulfilled](state, action) {
       state.isFetching = false;
-      state.product.splice(0, state.product.length, ...action.payload);
+      state.product = action.payload.productBusket;
+      state.myFavorite = action.payload.idProductsFetch;
     },
     [fetchCurrentUser.rejected](state) {
-      state.product.length = 0;
+      state.product = [];
     },
     [onDeleteProductBusket.pending](state) {
       state.isFetching = true;
-    },
-    [onDeleteProductBusket.fulfilled](state, action) {
-      state.isFetching = false;
-      const updatedState = state.product.filter(
-        pr => pr._id !== action.payload._id
-      );
-      return updatedState;
     },
     [onDeleteProductBusket.fulfilled](state, action) {
       state.isFetching = false;
@@ -53,6 +49,17 @@ export const buyProducSlice = createSlice({
         pr => pr._id !== deletedProductId
       );
       state.product.splice(0, state.product.length, ...updatedState);
+    },
+    [addMyFavorite.fulfilled](state, action) {
+      state.isFetching = false;
+      state.myFavorite.push(action.payload);
+    },
+    [delMyFavorite.fulfilled](state, action) {
+      state.isFetching = false;
+      const deletedProductId = action.payload.idProduct;
+      state.myFavorite = state.myFavorite.filter(
+        pr => pr.idProduct !== deletedProductId
+      );
     },
   },
 });

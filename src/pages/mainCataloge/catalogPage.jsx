@@ -44,6 +44,7 @@ const CatalogePage = () => {
                   price={product.price}
                   id={product._id}
                   img={product.img}
+                  code={product.code}
                 />
               </li>
             ))}
@@ -54,10 +55,10 @@ const CatalogePage = () => {
         <ReactPaginate
           breakLabel="..."
           nextLabel="next >"
-          onPageChange={handlePageClick}
+          onPageChange={''}
           pageRangeDisplayed={5}
-          pageCount={page}
-          previousLabel="< previous"
+          pageCount={5}
+          previousLabel="<"
           renderOnZeroPageCount={null}
         />
       </div> */}
