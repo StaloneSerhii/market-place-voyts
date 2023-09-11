@@ -72,17 +72,12 @@ const Busket = () => {
   }, [select]);
   // Стейт форми покупки для відправки
   const initialValues = {
-    name:
-      data !== undefined && data && data.length > 0 ? userAuth.user.name : '',
-    fename:
-      data !== undefined && data && data.length > 0 ? userAuth.user.fename : '',
-    email:
-      data !== undefined && data && data.length > 0 ? userAuth.user.email : '',
-    phone:
-      data !== undefined && data && data.length > 0 ? userAuth.user.phone : '',
+    name: userAuth.isLoggedIn ? userAuth.user.name : '',
+    fename: userAuth.isLoggedIn ? userAuth.user.fename : '',
+    email: userAuth.isLoggedIn ? userAuth.user.email : '',
+    phone: userAuth.isLoggedIn ? userAuth.user.phone : '',
     comments: '-',
-    city:
-      data !== undefined && data && data.length > 0 ? userAuth.user.city : '',
+    city: userAuth.isLoggedIn ? userAuth.user.city : '',
     viddill: '',
     oplata: '',
   };

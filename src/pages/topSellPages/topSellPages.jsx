@@ -73,6 +73,7 @@ const TopSellPages = () => {
                   name={select[0].name}
                   img={select[0].img[0]}
                   id={select[0]._id}
+                  code={select[0].code}
                 />
               </li>
             ))}
