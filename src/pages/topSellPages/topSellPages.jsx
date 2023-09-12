@@ -65,7 +65,7 @@ const TopSellPages = () => {
           className="cataloge__gap top"
           style={{ transform: `translateX(-${currentIndex * 16}%)` }}
         >
-          {/* {data &&
+          {data &&
             data.map(({ select }) => (
               <TopSell
                 price={select.price}
@@ -74,7 +74,7 @@ const TopSellPages = () => {
                 id={select._id}
                 code={select.code}
               />
-            ))} */}
+            ))}
         </ul>
       </animated.div>
     </div>
