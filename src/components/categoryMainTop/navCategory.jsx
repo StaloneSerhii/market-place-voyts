@@ -10,7 +10,10 @@ import { SlBasketLoaded } from 'react-icons/sl';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAuthStatus } from 'redux/authPer/auth-selector';
 import { logIn, logOut } from 'redux/operations';
-import { getProductLocalStorage } from 'redux/selector';
+import {
+  getProductLocalStorage,
+  getProductLocalStorageNotAuth,
+} from 'redux/selector';
 
 const NavigateCategory = () => {
   const dispatch = useDispatch();
@@ -19,6 +22,7 @@ const NavigateCategory = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const select = useSelector(getProductLocalStorage);
   const selectAuth = useSelector(getAuthStatus);
+  const productNotAuth = useSelector(getProductLocalStorageNotAuth);
 
   const menuOpen = () => {
     return setOpenMenu(!openMenu);
@@ -159,7 +163,9 @@ const NavigateCategory = () => {
         <li>
           <Link className="categoty__basket" to="/busket">
             <div className="categoty__basket--num">
-              {select && select.length}
+              {(select && select.length) ||
+                (productNotAuth && !selectAuth && productNotAuth.length) ||
+                0}
             </div>
             <SlBasketLoaded />
           </Link>

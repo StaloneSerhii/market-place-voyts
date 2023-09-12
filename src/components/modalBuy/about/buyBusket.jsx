@@ -4,9 +4,13 @@ import ReactDOM from 'react-dom';
 import test from '../../../image/testBuy.jpg';
 import { useDispatch, useSelector } from 'react-redux';
 import { chancheCounterValue } from 'redux/buyProduct-slice';
-import { getProductLocalStorage } from 'redux/selector';
+import {
+  getProductLocalStorage,
+  getProductLocalStorageNotAuth,
+} from 'redux/selector';
 import { chanchValueProductCounter } from 'redux/operations';
 import { useEffect } from 'react';
+import { getAuthStatus } from 'redux/authPer/auth-selector';
 
 const modalRoot = document.querySelector('#modal-root');
 
@@ -15,13 +19,20 @@ const BuyBusketModal = ({ product, onClose }) => {
   const [idSend, setidSend] = useState(1);
   const dispatch = useDispatch();
   const authData = useSelector(getProductLocalStorage);
+  const selectAuth = useSelector(getAuthStatus);
+  const productNotAuth = useSelector(getProductLocalStorageNotAuth);
 
   // Покупка зі зміною кількості товару в стейті
   const buyProduct = e => {
     setVal(Number(e.target.value));
     const counter = Number(e.target.value);
-    const id = authData[authData.length - 1]._id;
-    dispatch(chancheCounterValue({ id, counter }));
+    if (selectAuth) {
+      const id = authData[authData.length - 1]._id;
+      dispatch(chancheCounterValue({ id, counter, auth: true }));
+    } else {
+      const id = productNotAuth[productNotAuth.length - 1]._id;
+      dispatch(chancheCounterValue({ id, counter, auth: false }));
+    }
   };
 
   useEffect(() => {
@@ -31,7 +42,7 @@ const BuyBusketModal = ({ product, onClose }) => {
   }, [authData]);
 
   const sendValueProduct = () => {
-    if (val > 1) {
+    if (selectAuth && val > 1) {
       dispatch(chanchValueProductCounter({ productId: idSend, newCount: val }));
     }
   };

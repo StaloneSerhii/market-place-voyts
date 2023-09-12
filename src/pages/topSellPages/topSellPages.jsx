@@ -65,18 +65,16 @@ const TopSellPages = () => {
           className="cataloge__gap top"
           style={{ transform: `translateX(-${currentIndex * 16}%)` }}
         >
-          {data &&
+          {/* {data &&
             data.map(({ select }) => (
-              <li key={select[0]._id}>
-                <TopSell
-                  price={select[0].price}
-                  name={select[0].name}
-                  img={select[0].img[0]}
-                  id={select[0]._id}
-                  code={select[0].code}
-                />
-              </li>
-            ))}
+              <TopSell
+                price={select.price}
+                name={select.name}
+                img={select.img[0]}
+                id={select._id}
+                code={select.code}
+              />
+            ))} */}
         </ul>
       </animated.div>
     </div>

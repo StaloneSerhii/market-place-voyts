@@ -66,7 +66,6 @@ export const addProductBusketAuth = createAsyncThunk(
     if (persistedToken === null) {
       return thunkAPI.rejectWithValue('Unable to fetch user');
     }
-
     try {
       setAuthHeader(persistedToken);
       const response = await instance.put('/buy/addbusket', credentials);
@@ -140,7 +139,7 @@ export const register = createAsyncThunk(
       return response.data;
     } catch (error) {
       if (error.response.status === 409) {
-        Notiflix.Report.success(
+        Notiflix.Report.failure(
           `Не вдалося зареєструвати нового користувача, обновіть сторінку і спробуйте ще раз!`
         );
       }
@@ -163,7 +162,6 @@ export const fetchCurrentUser = createAsyncThunk(
         const { data } = await instance.get(`/register/current`);
         return data;
       } catch (error) {
-        console.log(error);
         return thunkAPI.rejectWithValue(error.message);
       }
     }

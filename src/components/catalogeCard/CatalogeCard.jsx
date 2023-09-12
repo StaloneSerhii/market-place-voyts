@@ -6,7 +6,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { addMyFavorite, delMyFavorite } from 'redux/operations';
 import { useState, useEffect } from 'react';
-import { getProductLocalStorage } from 'redux/selector';
+import {
+  getProductLocalStorage,
+  getProductLocalStorageNotAuth,
+} from 'redux/selector';
+import { getAuthStatus } from 'redux/authPer/auth-selector';
+import {
+  addMyFavoritNotAuth,
+  delMyFavoritNotAuth,
+} from 'redux/buyProduct-slice';
 
 const CatalogeCard = ({ price, id, name, img, code }) => {
   const [fav, setFav] = useState(-1);
@@ -16,22 +24,39 @@ const CatalogeCard = ({ price, id, name, img, code }) => {
   const getFavorite = useSelector(
     state => state.persistedReducerAdd.buyProduct.myFavorite
   );
+  const getFavoriteNotAth = useSelector(
+    state => state.persistedReducerAdd.buyProduct.userPr.myFavorite
+  );
+
+  const selectAuth = useSelector(getAuthStatus);
   const productBuyAuth = useSelector(getProductLocalStorage);
+  const productNotAuth = useSelector(getProductLocalStorageNotAuth);
   const onFavorite = getFavorite.findIndex(array => array.idProduct === id);
+  const onFavoriteNotAuth = getFavoriteNotAth.findIndex(
+    array => array.idProduct === id
+  );
 
   useEffect(() => {
-    if (productBuyAuth && productBuyAuth.length > 0) {
+    if (selectAuth && productBuyAuth && productBuyAuth.length > 0) {
       const buyingTrue = productBuyAuth.find(pr => pr.code === code);
       if (buyingTrue) {
         setBuyPr(true);
       }
+    } else if (!selectAuth && productNotAuth && productNotAuth.length > 0) {
+      const buyingTrue = productNotAuth.find(pr => pr.code === code);
+      if (buyingTrue) {
+        setBuyPr(true);
+      }
     }
-  }, [code, productBuyAuth]);
+  }, [code, productBuyAuth, productNotAuth, selectAuth]);
 
   useEffect(() => {
-    setFav(onFavorite);
-  }, [onFavorite]);
-
+    if (selectAuth) {
+      setFav(onFavorite);
+    } else {
+      setFav(onFavoriteNotAuth);
+    }
+  }, [onFavorite, onFavoriteNotAuth, selectAuth]);
   return (
     <div className="card-catalog">
       <div className="sell">
@@ -41,10 +66,16 @@ const CatalogeCard = ({ price, id, name, img, code }) => {
         <div className="beffore__select">
           <button
             onClick={() =>
-              dispatch(fav === -1 ? addMyFavorite(id) : delMyFavorite(id))
+              selectAuth
+                ? dispatch(fav === -1 ? addMyFavorite(id) : delMyFavorite(id))
+                : dispatch(
+                    fav === -1
+                      ? addMyFavoritNotAuth({ idProduct: id })
+                      : delMyFavoritNotAuth({ idProduct: id })
+                  )
             }
           >
-            {onFavorite === -1 ? <AiOutlineHeart /> : <AiFillHeart />}
+            {fav === -1 ? <AiOutlineHeart /> : <AiFillHeart />}
           </button>
         </div>
       </div>

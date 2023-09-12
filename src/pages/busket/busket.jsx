@@ -5,12 +5,21 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 // import { postBuyProduct } from 'redux/service';
 import * as Yup from 'yup';
-import { getFetchingCurr, getProductLocalStorage } from 'redux/selector';
+import {
+  getFetchingCurr,
+  getProductLocalStorage,
+  getProductLocalStorageNotAuth,
+} from 'redux/selector';
 import { buyProductBusket, onDeleteProductBusket } from 'redux/operations';
-import { chancheCounterValue } from 'redux/buyProduct-slice';
+import {
+  chancheCounterValue,
+  dellAllProductOrder,
+  dellProductOrder,
+} from 'redux/buyProduct-slice';
 import { getAuth } from 'redux/authPer/auth-selector';
 import { ThreeCircles } from 'react-loader-spinner';
 import { RiDeleteBin6Line } from 'react-icons/ri';
+import { postBuyProduct } from 'redux/service';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string()
@@ -37,9 +46,9 @@ const Busket = () => {
   const [data, setdata] = useState();
   const [suma, setSuma] = useState(0);
   const userAuth = useSelector(getAuth);
-  const [hover, setHover] = useState(false);
   const isFetchinCurr = useSelector(getFetchingCurr);
   const select = useSelector(getProductLocalStorage);
+  const productNotAuth = useSelector(getProductLocalStorageNotAuth);
 
   // Загальна сума за всі товари
   useEffect(() => {
@@ -53,23 +62,22 @@ const Busket = () => {
 
   // Зміна значення кількості товарів до покупки
   const changeValueCounterProduct = (counter, id) => {
-    dispatch(chancheCounterValue({ id, counter }));
-  };
-
-  // Hover efect
-  const hoverEffect = () => {
-    setHover(true);
-  };
-  const hoverEffectL = () => {
-    setHover(false);
+    if (userAuth.isLoggedIn) {
+      dispatch(chancheCounterValue({ id, counter, auth: true }));
+    } else {
+      dispatch(chancheCounterValue({ id, counter, auth: false }));
+    }
   };
 
   // Запис в стейт
   useEffect(() => {
-    if (select) {
-      setdata(select);
+    if (select.length > 0) {
+      return setdata(select);
+    } else if (!userAuth.isLoggedIn) {
+      return setdata(productNotAuth);
     }
-  }, [select]);
+    setdata([]);
+  }, [select, productNotAuth, userAuth.isLoggedIn]);
   // Стейт форми покупки для відправки
   const initialValues = {
     name: userAuth.isLoggedIn ? userAuth.user.name : '',
@@ -88,10 +96,16 @@ const Busket = () => {
     validationSchema: validationSchema,
     onSubmit: values => {
       const result = window.confirm(`Ви піддтверджуєте свою покупку?`);
-      if (result) {
+      if (result && userAuth.isLoggedIn) {
         dispatch(buyProductBusket({ values, select }));
         navigate('/');
-        // postBuyProduct({ values, select }).then(state => setRes(state));
+      } else {
+        postBuyProduct({ values, productNotAuth }).then(state => {
+          if (state.status === 201) {
+            navigate('/');
+            dispatch(dellAllProductOrder());
+          }
+        });
       }
     },
   });
@@ -131,7 +145,7 @@ const Busket = () => {
         >
           | Кошик |
         </Link>
-        {/* <Link
+        <Link
           to="/myorder"
           style={{
             fontSize: '35px',
@@ -142,7 +156,7 @@ const Busket = () => {
           }}
         >
           | Мої Замовлення |
-        </Link> */}
+        </Link>
       </div>
       {data !== undefined && data && data.length > 0 ? (
         <form
@@ -329,17 +343,13 @@ const Busket = () => {
                   data.map(pr => (
                     <li className="block__listBuy--item" key={pr._id}>
                       <button
+                        className="busketDell"
                         textarea="Вадалити з кошика"
-                        style={{
-                          color: !hover ? 'green' : 'red',
-                          fontSize: '25px',
-                          marginTop: '10px',
-                          position: 'absolute',
-                          right: '10px',
-                        }}
-                        onClick={() => dispatch(onDeleteProductBusket(pr._id))}
-                        onMouseEnter={hoverEffect}
-                        onMouseLeave={hoverEffectL}
+                        onClick={() =>
+                          userAuth.isLoggedIn
+                            ? dispatch(onDeleteProductBusket(pr._id))
+                            : dispatch(dellProductOrder(pr._id))
+                        }
                       >
                         <RiDeleteBin6Line />
                       </button>

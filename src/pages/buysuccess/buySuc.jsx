@@ -1,19 +1,23 @@
 import { useSelector } from 'react-redux';
+import { getAuthStatus } from 'redux/authPer/auth-selector';
 
 const BuyModalSuc = () => {
-  const select = useSelector(state => state.persistedReducerAdd.myOrder);
+  const select = useSelector(
+    state => state.persistedReducerAdd.buyProduct.userPr.history
+  );
+  const selectAuth = useSelector(getAuthStatus);
 
   return (
     <div className="order">
       <h3>Ваші замовлення</h3>
       <ul className="formData--label">
-        {select.length > 0 ? (
+        {!selectAuth && select ? (
           select.map(pr => (
-            <li>
-              <img src={pr[0].img[0]} alt="imgProduct" width="250" />
-              <p>{pr[0].name}</p>
-              <p>{pr[0].price} грн</p>
-              <p>{pr[0].coun} шт</p>
+            <li key={pr._id}>
+              <img src={pr.img[0]} alt="imgProduct" width="250" />
+              <p>{pr.name}</p>
+              <p>{pr.price} грн</p>
+              <p>{pr.count} шт</p>
             </li>
           ))
         ) : (

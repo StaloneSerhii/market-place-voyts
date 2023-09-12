@@ -7,9 +7,9 @@ import { addMyFavorite, delMyFavorite } from 'redux/operations';
 import { getProductLocalStorage } from 'redux/selector';
 
 const TopSell = ({ id, price, img, name, code }) => {
+  console.log(id, price, img, name, code);
   const [fav, setFav] = useState(-1);
   const [buyPr, setBuyPr] = useState(false);
-
   const dispatch = useDispatch();
   const getFavorite = useSelector(
     state => state.persistedReducerAdd.buyProduct.myFavorite
@@ -25,13 +25,13 @@ const TopSell = ({ id, price, img, name, code }) => {
       }
     }
   }, [code, productBuyAuth]);
-  console.log(img);
+
   useEffect(() => {
     setFav(onFavorite);
   }, [onFavorite]);
 
   return (
-    <div className="card-catalog">
+    <li className="card-catalog">
       <div className="sell">
         <div className="beffore__sell">
           <span>Хіти продажу</span>
@@ -66,7 +66,7 @@ const TopSell = ({ id, price, img, name, code }) => {
           <BsFillBasketFill />У кошик
         </Link>
       )}
-    </div>
+    </li>
   );
 };
 export default TopSell;

@@ -1248,6 +1248,17 @@ article.nextSlide {
   color: var(--yellowMain);
 }
 
+.busketDell {
+  color: green;
+  font-size: 25px;
+  margin-top: 10px;
+  position: absolute;
+  right: 10px;
+}
+.busketDell:hover {
+  color: red;
+}
+
 .order {
   display: flex;
   margin-left: auto;

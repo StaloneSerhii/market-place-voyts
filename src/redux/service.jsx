@@ -32,7 +32,7 @@ async function getIdProduct(id) {
 
 // Покупка товару не для авторизованих користуваччів
 async function postBuyProduct(body) {
-  const data = await axios.post(`${API}/buy/product`, body);
+  const data = await axios.post(`${API}/buy/buyProductFromBusketNotAuch`, body);
   if ({ data }) {
     return data;
   }

@@ -9,7 +9,11 @@ import { getIdProduct, postHelpProduct } from 'redux/service';
 import { useRef } from 'react';
 import { getAuthStatus } from 'redux/authPer/auth-selector';
 import { addProductBusketAuth } from 'redux/operations';
-import { getProductLocalStorage } from 'redux/selector';
+import {
+  getProductLocalStorage,
+  getProductLocalStorageNotAuth,
+} from 'redux/selector';
+import { addProductOrder } from 'redux/buyProduct-slice';
 
 const BuyProduct = ({ saveInfo }) => {
   const dispatch = useDispatch();
@@ -32,6 +36,7 @@ const BuyProduct = ({ saveInfo }) => {
 
   // Поверненя даних з лс
   const productBuyAuth = useSelector(getProductLocalStorage);
+  const productNotAuth = useSelector(getProductLocalStorageNotAuth);
 
   // Стейт для відправки форми запиту про допомогу
   const [partNumber, setPartNumber] = useState('');
@@ -54,15 +59,25 @@ const BuyProduct = ({ saveInfo }) => {
     }
   }, [product, hasInfoBeenSaved, saveInfo]);
 
-  // Зміна кнопки на посиланя кошика
+  // Зміна кнопки на посиланя кошика (купити...у кошик)
   useEffect(() => {
-    if (product && productBuyAuth && productBuyAuth.length > 0) {
+    if (selectAuth && product && productBuyAuth && productBuyAuth.length > 0) {
       const buyingTrue = productBuyAuth.find(pr => pr.code === product.code);
       if (buyingTrue) {
         setBuyPr(true);
       }
+    } else if (
+      !selectAuth &&
+      product &&
+      productNotAuth &&
+      productNotAuth.length > 0
+    ) {
+      const buyingTrue = productNotAuth.find(pr => pr.code === product.code);
+      if (buyingTrue) {
+        setBuyPr(true);
+      }
     }
-  }, [product, productBuyAuth]);
+  }, [product, productBuyAuth, selectAuth, productNotAuth]);
 
   // Застосуваня картинки на яку клікнув на головну
   useEffect(() => {
@@ -73,9 +88,11 @@ const BuyProduct = ({ saveInfo }) => {
 
   // Додаваня в кошик на бд і лс
   const buyProduct = () => {
+    const { updatedAt, createdAt, ...obj } = product;
     if (selectAuth) {
-      const { _id, updatedAt, createdAt, ...obj } = product;
       dispatch(addProductBusketAuth({ ...obj, count: 1 }));
+    } else {
+      dispatch(addProductOrder({ ...obj, count: 1 }));
     }
     setIsModalOpen(true);
   };

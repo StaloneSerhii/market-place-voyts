@@ -6,28 +6,80 @@ import {
   onDeleteProductBusket,
   addMyFavorite,
   delMyFavorite,
+  logOut,
 } from './operations';
+import Notiflix from 'notiflix';
 
 export const buyProducSlice = createSlice({
   name: 'busket',
   initialState: {
     product: [],
     myFavorite: [],
+    history: [],
+    userPr: {
+      product: [],
+      history: [],
+      myFavorite: [],
+    },
     isFetching: false,
   },
   reducers: {
     chancheCounterValue(state, action) {
-      const { id, counter } = action.payload;
+      const { id, counter, auth } = action.payload;
       // Знайдемо індекс об'єкта з потрібним ідентифікатором
-      const index = state.product.findIndex(product => product._id === id);
-      if (index !== -1) {
-        // Знайшли об'єкт, оновлюємо значення count
-        state.product[index].count = Number(counter);
+      if (auth) {
+        const index = state.product.findIndex(product => product._id === id);
+        if (index !== -1) {
+          state.product[index].count = Number(counter);
+        }
+      } else {
+        const index = state.userPr.product.findIndex(
+          product => product._id === id
+        );
+        if (index !== -1) {
+          state.userPr.product[index].count = Number(counter);
+        }
       }
+    },
+    addProductOrder(state, action) {
+      state.userPr.product.push(action.payload);
+    },
+    addMyFavoritNotAuth(state, action) {
+      Notiflix.Notify.warning(
+        'Зареєструйтеся щоб бачити ваші обрані на інших пристроях!'
+      );
+      state.userPr.myFavorite.push(action.payload);
+    },
+    delMyFavoritNotAuth(state, action) {
+      const deletedProductId = action.payload.idProduct;
+      const updatedState = state.userPr.myFavorite.filter(
+        pr => pr.idProduct !== deletedProductId
+      );
+      state.userPr.myFavorite.splice(
+        0,
+        state.userPr.myFavorite.length,
+        ...updatedState
+      );
+    },
+    dellProductOrder(state, action) {
+      const deletedProductId = action.payload;
+      const updatedState = state.userPr.product.filter(
+        pr => pr._id !== deletedProductId
+      );
+      state.userPr.product.splice(
+        0,
+        state.userPr.product.length,
+        ...updatedState
+      );
+    },
+    dellAllProductOrder(state) {
+      state.userPr.history = state.userPr.product;
+      state.userPr.product = [];
     },
   },
   extraReducers: {
     [addProductBusketAuth.fulfilled](state, action) {
+      console.log(action.payload);
       state.isFetching = false;
       state.product.push(action.payload);
     },
@@ -37,7 +89,7 @@ export const buyProducSlice = createSlice({
       state.myFavorite = action.payload.idProductsFetch;
     },
     [fetchCurrentUser.rejected](state) {
-      state.product = [];
+      state.isFetching = false;
     },
     [onDeleteProductBusket.pending](state) {
       state.isFetching = true;
@@ -61,6 +113,19 @@ export const buyProducSlice = createSlice({
         pr => pr.idProduct !== deletedProductId
       );
     },
+    [logOut.fulfilled](state) {
+      state.product = [];
+      state.myFavorite = [];
+      // Знайдемо індекс об'єкта з потрібним ідентифікатором
+    },
   },
 });
-export const { chancheCounterValue } = buyProducSlice.actions;
+export const {
+  chancheCounterValue,
+  addProductOrder,
+  dellProductOrder,
+  dellAllProductOrder,
+  delMyFavoritNotAuth,
+  addMyFavoritNotAuth,
+  refreshAuth,
+} = buyProducSlice.actions;

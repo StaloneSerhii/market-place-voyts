@@ -78,3 +78,14 @@
         color: var(--yellowMain);
     }
 }
+
+.busketDell {
+    color: green;
+    font-size: 25px;
+    margin-top: 10px;
+    position: absolute;
+    right: 10px;
+    &:hover {
+        color: red;
+    }
+}
