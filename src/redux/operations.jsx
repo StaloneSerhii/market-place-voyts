@@ -71,9 +71,10 @@ export const addProductBusketAuth = createAsyncThunk(
       const response = await instance.put('/buy/addbusket', credentials);
       if (response) {
         Notiflix.Notify.success('Ваш товар успішно доданий в корзину!');
+        return response.data;
       }
-      return response.data;
     } catch (e) {
+      console.log(e);
       Notiflix.Notify.failure(
         'Не вдалося добавити товар в корзину обновіть сторінку і спробуйте знову!'
       );

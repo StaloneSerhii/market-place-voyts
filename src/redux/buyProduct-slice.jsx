@@ -79,9 +79,11 @@ export const buyProducSlice = createSlice({
   },
   extraReducers: {
     [addProductBusketAuth.fulfilled](state, action) {
-      console.log(action.payload);
       state.isFetching = false;
       state.product.push(action.payload);
+    },
+    [addProductBusketAuth.rejected](state, action) {
+      state.isFetching = false;
     },
     [fetchProductUser.fulfilled](state, action) {
       state.isFetching = false;
