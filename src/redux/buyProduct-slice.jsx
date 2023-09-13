@@ -91,6 +91,7 @@ export const buyProducSlice = createSlice({
   },
   extraReducers: {
     [addProductBusketAuth.fulfilled](state, action) {
+      console.log(action.payload);
       state.isFetching = false;
       state.product.push(action.payload);
     },

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import Notiflix from 'notiflix';
+import { resendEmailVerf } from './service';
 
 const instance = axios.create({
   // baseURL: 'https://voyts.onrender.com/api',
@@ -116,7 +117,23 @@ export const logIn = createAsyncThunk(
       }
       return response.data;
     } catch (error) {
-      if (error) {
+      if (error.response.status === 402) {
+        return Notiflix.Confirm.show(
+          'Вітаємо',
+          'Ви успішно зареєструвалися в нас на сайті, підвердіть свою особу в електроному листі який на пошті яку ви вказали',
+          'Відправити лист повторно?',
+          'Вийти',
+          function okCb() {
+            resendEmailVerf({ email: user.email });
+          },
+          function cancelCb() {},
+          {
+            width: '320px',
+            borderRadius: '8px',
+            // etc...
+          }
+        );
+      } else if (error) {
         Notiflix.Notify.warning('Неправильно ведений логін або пароль');
       }
       return thunkAPI.rejectWithValue(error.message);
@@ -237,6 +254,7 @@ export const buyProductBusket = createAsyncThunk(
     }
   }
 );
+
 // вихід юзера
 export const logOut = createAsyncThunk(
   'register/logout',

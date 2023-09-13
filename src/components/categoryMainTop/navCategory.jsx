@@ -14,6 +14,8 @@ import {
   getProductLocalStorage,
   getProductLocalStorageNotAuth,
 } from 'redux/selector';
+import { resendPass } from 'redux/service';
+import Notiflix from 'notiflix';
 
 const NavigateCategory = () => {
   const dispatch = useDispatch();
@@ -142,9 +144,28 @@ const NavigateCategory = () => {
                   placeholder="Пароль"
                 />
                 <div className="formLogin__item">
-                  <Link to="/" className="formLogin__link">
+                  <button
+                    type="button"
+                    onClick={() =>
+                      Notiflix.Confirm.prompt(
+                        'Забули пароль?',
+                        'Вкажіть пошту для відправки нового пароля?',
+                        '',
+                        'Скинути',
+                        'Відмінити',
+                        function okCb(clientAnswer) {
+                          resendPass({ email: clientAnswer });
+                        },
+                        function cancelCb() {},
+                        {
+                          // Custom options
+                        }
+                      )
+                    }
+                    className="formLogin__link"
+                  >
                     Забули пароль?
-                  </Link>
+                  </button>
                   <button
                     className="formLogin__btn"
                     type="button"

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Notiflix from 'notiflix';
 
 // const API = 'https://voyts.onrender.com/api';
 const API = 'http://localhost:3333/api';
@@ -66,6 +67,22 @@ async function postBuyProductNew(body) {
   console.log('error');
 }
 
+async function resendEmailVerf(body) {
+  const { data } = await axios.post(`${API}/register/verify`, body);
+  if (data) {
+    return data;
+  }
+  console.log('error');
+}
+
+async function resendPass(body) {
+  const { data } = await axios.post(`${API}/register/resendPass`, body);
+  if (data) {
+    Notiflix.Notify.success('Лист на зміну паролю успішно відправлений');
+  }
+  console.log('error');
+}
+
 export {
   getAllProduct,
   getIdProduct,
@@ -74,4 +91,6 @@ export {
   postBuyProductNew,
   postHelpProduct,
   getTopBuyProduct,
+  resendEmailVerf,
+  resendPass,
 };
