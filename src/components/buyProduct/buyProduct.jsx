@@ -13,7 +13,7 @@ import {
   getProductLocalStorage,
   getProductLocalStorageNotAuth,
 } from 'redux/selector';
-import { addProductOrder } from 'redux/buyProduct-slice';
+import { addHistory, addProductOrder } from 'redux/buyProduct-slice';
 
 const BuyProduct = ({ saveInfo }) => {
   const dispatch = useDispatch();
@@ -111,6 +111,12 @@ const BuyProduct = ({ saveInfo }) => {
   const switchToPreviousImage = e => {
     setCurrentImageIndex(e.target.src);
   };
+
+  useEffect(() => {
+    if (product) {
+      dispatch(addHistory(product));
+    }
+  }, [product, dispatch]);
 
   const containerRef = useRef(null);
   // Збільшення зображення

@@ -4,3 +4,5 @@ export const getProductLocalStorageNotAuth = state =>
   state.persistedReducerAdd.buyProduct.userPr.product;
 export const getFetchingCurr = state =>
   state.persistedReducerAdd.buyProduct.isFetching;
+export const getMyStore = state =>
+  state.persistedReducerAdd.buyProduct.userPr.myStore;

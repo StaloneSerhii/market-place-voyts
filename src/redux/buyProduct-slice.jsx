@@ -20,6 +20,7 @@ export const buyProducSlice = createSlice({
       product: [],
       history: [],
       myFavorite: [],
+      myStore: [],
     },
     isFetching: false,
   },
@@ -76,6 +77,17 @@ export const buyProducSlice = createSlice({
       state.userPr.history = state.userPr.product;
       state.userPr.product = [];
     },
+    addHistory(state, action) {
+      const dubl = state.userPr.myStore.findIndex(
+        pr => pr._id === action.payload._id
+      );
+      if (state.userPr.myStore.length === 3 && dubl === -1) {
+        state.userPr.myStore.unshift(action.payload);
+        state.userPr.myStore.pop();
+      } else if (state.userPr.myStore.length !== 3 && dubl === -1) {
+        state.userPr.myStore.push(action.payload);
+      }
+    },
   },
   extraReducers: {
     [addProductBusketAuth.fulfilled](state, action) {
@@ -130,4 +142,5 @@ export const {
   delMyFavoritNotAuth,
   addMyFavoritNotAuth,
   refreshAuth,
+  addHistory,
 } = buyProducSlice.actions;
