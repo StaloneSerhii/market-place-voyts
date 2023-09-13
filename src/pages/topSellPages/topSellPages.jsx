@@ -44,7 +44,7 @@ const TopSellPages = () => {
   }, [currentIndex, prevSlide, nextSlide]);
 
   useEffect(() => {
-    getTopBuyProduct().then(state => setData(state));
+    getTopBuyProduct().then(state => setData(state[0].select));
   }, []);
 
   return (
@@ -66,7 +66,7 @@ const TopSellPages = () => {
           style={{ transform: `translateX(-${currentIndex * 16}%)` }}
         >
           {data &&
-            data.map(({ select }) => (
+            data.map(select => (
               <TopSell
                 price={select.price}
                 name={select.name}

@@ -4,34 +4,57 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addMyFavorite, delMyFavorite } from 'redux/operations';
-import { getProductLocalStorage } from 'redux/selector';
+import {
+  getProductLocalStorage,
+  getProductLocalStorageNotAuth,
+} from 'redux/selector';
+import { FaMoneyBillAlt } from 'react-icons/fa';
+import { getAuthStatus } from 'redux/authPer/auth-selector';
 
 const TopSell = ({ id, price, img, name, code }) => {
-  console.log(id, price, img, name, code);
   const [fav, setFav] = useState(-1);
   const [buyPr, setBuyPr] = useState(false);
+
   const dispatch = useDispatch();
   const getFavorite = useSelector(
     state => state.persistedReducerAdd.buyProduct.myFavorite
   );
+  const getFavoriteNotAth = useSelector(
+    state => state.persistedReducerAdd.buyProduct.userPr.myFavorite
+  );
+
+  const selectAuth = useSelector(getAuthStatus);
   const productBuyAuth = useSelector(getProductLocalStorage);
+  const productNotAuth = useSelector(getProductLocalStorageNotAuth);
   const onFavorite = getFavorite.findIndex(array => array.idProduct === id);
+  const onFavoriteNotAuth = getFavoriteNotAth.findIndex(
+    array => array.idProduct === id
+  );
 
   useEffect(() => {
-    if (productBuyAuth && productBuyAuth.length > 0) {
+    if (selectAuth && productBuyAuth && productBuyAuth.length > 0) {
       const buyingTrue = productBuyAuth.find(pr => pr.code === code);
       if (buyingTrue) {
         setBuyPr(true);
       }
+    } else if (!selectAuth && productNotAuth && productNotAuth.length > 0) {
+      const buyingTrue = productNotAuth.find(pr => pr.code === code);
+      if (buyingTrue) {
+        setBuyPr(true);
+      }
     }
-  }, [code, productBuyAuth]);
+  }, [code, productBuyAuth, productNotAuth, selectAuth]);
 
   useEffect(() => {
-    setFav(onFavorite);
-  }, [onFavorite]);
+    if (selectAuth) {
+      setFav(onFavorite);
+    } else {
+      setFav(onFavoriteNotAuth);
+    }
+  }, [onFavorite, onFavoriteNotAuth, selectAuth]);
 
   return (
-    <li className="card-catalog">
+    <li className="card-catalog" key={id}>
       <div className="sell">
         <div className="beffore__sell">
           <span>Хіти продажу</span>
@@ -59,6 +82,7 @@ const TopSell = ({ id, price, img, name, code }) => {
       </Link>
       {!buyPr ? (
         <Link to={`product/${id}`} className="card-cataloge__btn">
+          <FaMoneyBillAlt />
           Купити
         </Link>
       ) : (

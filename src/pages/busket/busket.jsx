@@ -100,7 +100,7 @@ const Busket = () => {
         dispatch(buyProductBusket({ values, select }));
         navigate('/');
       } else {
-        postBuyProduct({ values, productNotAuth }).then(state => {
+        postBuyProduct({ values, select: productNotAuth }).then(state => {
           if (state.status === 201) {
             navigate('/');
             dispatch(dellAllProductOrder());
