@@ -1139,9 +1139,9 @@ article.nextSlide {
   background-color: green;
   color: #fff;
   width: 40px;
-  height: 40px;
+  padding: 5px;
+  text-align: center;
   font-size: 25px;
-  padding-top: 5px;
   border-bottom-right-radius: 8px;
 }
 

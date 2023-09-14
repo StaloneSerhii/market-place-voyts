@@ -24,6 +24,7 @@ const BuyProduct = ({ saveInfo }) => {
   const [buyPr, setBuyPr] = useState(false);
   // Поверненя продуктів з бд
   const [product, setProduct] = useState();
+
   // Відкритя модалки покупки
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [hasInfoBeenSaved, setHasInfoBeenSaved] = useState(false);
@@ -89,6 +90,7 @@ const BuyProduct = ({ saveInfo }) => {
   // Додаваня в кошик на бд і лс
   const buyProduct = () => {
     const { _id, updatedAt, createdAt, ...obj } = product;
+
     if (selectAuth) {
       dispatch(addProductBusketAuth({ ...obj, count: 1, id: _id }));
     } else {

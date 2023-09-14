@@ -156,9 +156,11 @@ export const register = createAsyncThunk(
       }
       return response.data;
     } catch (error) {
+      console.log(error);
       if (error.response.status === 409) {
         Notiflix.Report.failure(
-          `Не вдалося зареєструвати нового користувача, обновіть сторінку і спробуйте ще раз!`
+          `Не вдалося зареєструвати нового користувача, обновіть сторінку і спробуйте ще раз!`,
+          `${error.response.data.message}`
         );
       }
       return thunkAPI.rejectWithValue(error.message);

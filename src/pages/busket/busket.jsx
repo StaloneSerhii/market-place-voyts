@@ -99,6 +99,7 @@ const Busket = () => {
       if (result && userAuth.isLoggedIn) {
         dispatch(buyProductBusket({ values, select }));
         navigate('/');
+        dispatch(dellAllProductOrder());
       } else {
         postBuyProduct({ values, select: productNotAuth }).then(state => {
           if (state.status === 201) {

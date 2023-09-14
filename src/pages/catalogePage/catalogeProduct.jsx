@@ -1,12 +1,69 @@
 import { Link, useLocation } from 'react-router-dom';
 import test from '../../image/testBuy.jpg';
 import { SlBasketLoaded } from 'react-icons/sl';
+import { MdOutlineAttachMoney } from 'react-icons/md';
+
 import { useEffect, useState } from 'react';
 import { postBuyProductBY, postBuyProductNew } from 'redux/service';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAuthStatus } from 'redux/authPer/auth-selector';
+import { addProductBusketAuth } from 'redux/operations';
+import { addProductOrder } from 'redux/buyProduct-slice';
+import {
+  getProductLocalStorage,
+  getProductLocalStorageNotAuth,
+} from 'redux/selector';
 
 const CatalogeProduct = () => {
   const [listPr, setListPr] = useState([]);
   const navigate = useLocation();
+  const dispatch = useDispatch();
+  const selectAuth = useSelector(getAuthStatus);
+  const productBuyAuth = useSelector(getProductLocalStorage);
+  const productNotAuth = useSelector(getProductLocalStorageNotAuth);
+
+  const svgImg = list => {
+    if (selectAuth && listPr && productBuyAuth && productBuyAuth.length > 0) {
+      const buyingTrue = productBuyAuth.find(pr => pr.code === list.code);
+      if (buyingTrue) {
+        return (
+          <Link to="/busket" type="button" className="product__block--btn">
+            <SlBasketLoaded />
+          </Link>
+        );
+      }
+      return (
+        <button
+          className="product__block--btn"
+          onClick={() => buyProduct(list)}
+        >
+          <MdOutlineAttachMoney />
+        </button>
+      );
+    } else if (
+      !selectAuth &&
+      listPr &&
+      productNotAuth &&
+      productNotAuth.length > 0
+    ) {
+      const buyingTrue = productNotAuth.find(pr => pr.code === list.code);
+      if (buyingTrue) {
+        return (
+          <Link to="/busket" type="button" className="formLogin__btn">
+            <SlBasketLoaded />
+          </Link>
+        );
+      }
+      return (
+        <button
+          className="product__block--btn"
+          onClick={() => buyProduct(list)}
+        >
+          Купити
+        </button>
+      );
+    }
+  };
 
   useEffect(() => {
     if (navigate.pathname === '/productBY') {
@@ -15,6 +72,15 @@ const CatalogeProduct = () => {
       postBuyProductNew().then(state => setListPr(state));
     }
   }, [navigate.pathname]);
+
+  const buyProduct = list => {
+    const { _id, updatedAt, createdAt, ...obj } = list;
+    if (selectAuth) {
+      dispatch(addProductBusketAuth({ ...obj, count: 1, id: _id }));
+    } else {
+      dispatch(addProductOrder({ ...obj, count: 1, id: _id }));
+    }
+  };
 
   return (
     <div style={{ backgroundColor: '#fff' }}>
@@ -49,9 +115,7 @@ const CatalogeProduct = () => {
                       <p>{list.name}</p>
                       <div>
                         <span>{list.price} грн</span>
-                        <button className="product__block--btn">
-                          <SlBasketLoaded />
-                        </button>
+                        {svgImg(list)}
                       </div>
                     </div>
                   </div>

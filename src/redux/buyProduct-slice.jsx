@@ -76,6 +76,7 @@ export const buyProducSlice = createSlice({
     dellAllProductOrder(state) {
       state.userPr.history = state.userPr.product;
       state.userPr.product = [];
+      state.product = [];
     },
     addHistory(state, action) {
       const dubl = state.userPr.myStore.findIndex(
@@ -111,9 +112,9 @@ export const buyProducSlice = createSlice({
     },
     [onDeleteProductBusket.fulfilled](state, action) {
       state.isFetching = false;
-      const deletedProductId = action.payload._id;
+      const deletedProductId = action.payload.id;
       const updatedState = state.product.filter(
-        pr => pr._id !== deletedProductId
+        pr => pr.id !== deletedProductId
       );
       state.product.splice(0, state.product.length, ...updatedState);
     },
