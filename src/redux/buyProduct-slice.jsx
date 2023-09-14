@@ -112,9 +112,9 @@ export const buyProducSlice = createSlice({
     },
     [onDeleteProductBusket.fulfilled](state, action) {
       state.isFetching = false;
-      const deletedProductId = action.payload.id;
+      const deletedProductId = action.payload._id;
       const updatedState = state.product.filter(
-        pr => pr.id !== deletedProductId
+        pr => pr._id !== deletedProductId
       );
       state.product.splice(0, state.product.length, ...updatedState);
     },
