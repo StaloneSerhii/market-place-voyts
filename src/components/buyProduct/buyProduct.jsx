@@ -88,11 +88,11 @@ const BuyProduct = ({ saveInfo }) => {
 
   // Додаваня в кошик на бд і лс
   const buyProduct = () => {
-    const { updatedAt, createdAt, ...obj } = product;
+    const { _id, updatedAt, createdAt, ...obj } = product;
     if (selectAuth) {
-      dispatch(addProductBusketAuth({ ...obj, count: 1 }));
+      dispatch(addProductBusketAuth({ ...obj, count: 1, id: _id }));
     } else {
-      dispatch(addProductOrder({ ...obj, count: 1 }));
+      dispatch(addProductOrder({ ...obj, count: 1, id: _id }));
     }
     setIsModalOpen(true);
   };
