@@ -49,20 +49,17 @@ const CatalogeProduct = () => {
       const buyingTrue = productNotAuth.find(pr => pr.code === list.code);
       if (buyingTrue) {
         return (
-          <Link to="/busket" type="button" className="formLogin__btn">
+          <Link to="/busket" type="button" className="product__block--btn">
             <SlBasketLoaded />
           </Link>
         );
       }
-      return (
-        <button
-          className="product__block--btn"
-          onClick={() => buyProduct(list)}
-        >
-          Купити
-        </button>
-      );
     }
+    return (
+      <button className="product__block--btn" onClick={() => buyProduct(list)}>
+        <MdOutlineAttachMoney />
+      </button>
+    );
   };
 
   useEffect(() => {

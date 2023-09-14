@@ -51,10 +51,11 @@ const BuyBusketModal = ({ product, onClose }) => {
     <div className="modal" id="modal-root">
       <div className="modal__block">
         <div>
-          <p className="modal__text">Ваші товари</p>
+          <p className="modal__text">{product.name}</p>
+          <button onClick={onClose}>X</button>
         </div>
         <div className="block__listBuy">
-          <ul>
+          <ul style={{ width: '550px' }}>
             <li className="block__listBuy--item">
               <img
                 className="block__listBuy--img"
@@ -62,86 +63,67 @@ const BuyBusketModal = ({ product, onClose }) => {
                 alt="img"
                 width="100px"
               />
-              <div style={{ display: 'flex' }}>
-                <div>
-                  <p className="block__listBuy--name">{product.name}</p>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  gap: '25px',
+                  marginLeft: '15px',
+                  alignItems: 'center',
+                }}
+              >
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                  <span
+                    style={{ color: 'rgb(134, 134, 134)', lineHeight: '1.5' }}
+                  >
+                    Ціна
+                  </span>
+                  <span style={{ fontSize: '20px' }}>
+                    {product.price} грн/шт
+                  </span>
                 </div>
                 <div
                   style={{
                     display: 'flex',
-                    flexDirection: 'row',
-                    gap: '15px',
-                    marginLeft: '15px',
+                    flexDirection: 'column',
+                    lineHeight: '1.5',
                   }}
                 >
-                  <div style={{ display: 'flex', flexDirection: 'column' }}>
-                    <span
-                      style={{ color: 'rgb(134, 134, 134)', lineHeight: '1.5' }}
-                    >
-                      Ціна
-                    </span>
-                    <span style={{ fontSize: '20px' }}>
-                      {product.price} грн/шт
-                    </span>
-                  </div>
-                  <div
+                  <span style={{ color: 'rgb(134, 134, 134)' }}>Кількість</span>
+                  <label
                     style={{
+                      border: '1px solid rgb(209, 209, 209)',
+                      borderRadius: '5px',
+                      textAlign: 'center',
                       display: 'flex',
-                      flexDirection: 'column',
-                      lineHeight: '1.5',
+                      flexDirection: 'row',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      gap: '5px',
                     }}
                   >
-                    <span style={{ color: 'rgb(134, 134, 134)' }}>
-                      Кількість
-                    </span>
-                    <label
-                      style={{
-                        border: '1px solid rgb(209, 209, 209)',
-                        borderRadius: '5px',
-                        textAlign: 'center',
-                        display: 'flex',
-                        flexDirection: 'row',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        gap: '5px',
-                      }}
-                    >
-                      <input
-                        onChange={buyProduct}
-                        type="number"
-                        name="weight"
-                        min="1"
-                        max="200"
-                        step="1"
-                        value={val}
-                      />
-                    </label>
-                  </div>
-                  <div style={{ display: 'flex', flexDirection: 'column' }}>
-                    <span
-                      style={{ color: 'rgb(134, 134, 134)', lineHeight: '1.5' }}
-                    >
-                      Сума
-                    </span>
-                    <span style={{ color: 'red', fontSize: '20px' }}>
-                      {product.price * val} грн
-                    </span>
-                  </div>
+                    <input
+                      onChange={buyProduct}
+                      type="number"
+                      name="weight"
+                      min="1"
+                      max="200"
+                      step="1"
+                      value={val}
+                    />
+                  </label>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                  <span
+                    style={{ color: 'rgb(134, 134, 134)', lineHeight: '1.5' }}
+                  >
+                    Сума
+                  </span>
+                  <span style={{ color: 'red', fontSize: '20px' }}>
+                    {product.price * val} грн
+                  </span>
                 </div>
               </div>
-              <button
-                style={{
-                  color: 'red',
-                  border: '2px solid red',
-                  borderRadius: '100%',
-                  height: '20px',
-                  width: '20px',
-                  marginTop: '10px',
-                }}
-                onClick={onClose}
-              >
-                X
-              </button>
             </li>
           </ul>
         </div>

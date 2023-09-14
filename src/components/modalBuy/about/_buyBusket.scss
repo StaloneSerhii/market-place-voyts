@@ -16,8 +16,10 @@
     border-top-right-radius: 10px;
     & > div {
         display: flex;
-        justify-content: center;
+        justify-content: space-between;
+
         & > button {
+            margin-right: 20px;
             font-size: 25px;
             color: #fff;
             &:hover {
@@ -89,6 +91,7 @@
 
 .block__listBuy--item {
     background: #fff;
+    justify-content: space-evenly;
     position: relative;
     display: flex;
     padding: 10px 5px;
