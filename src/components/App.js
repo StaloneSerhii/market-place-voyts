@@ -58,7 +58,7 @@ function App() {
             path="product/:id"
             element={<BuyProduct saveInfo={saveInfo} />}
           >
-            <Route path="dital" element={<Dital info={info} />} />
+            <Route path="" element={<Dital info={info} />} />
             <Route path="application" element={<Application info={info} />} />
             <Route path="obm" element={<Obm info={info} />} />
           </Route>

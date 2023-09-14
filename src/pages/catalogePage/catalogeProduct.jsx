@@ -13,6 +13,7 @@ import {
   getProductLocalStorage,
   getProductLocalStorageNotAuth,
 } from 'redux/selector';
+import { Circles } from 'react-loader-spinner';
 
 const CatalogeProduct = () => {
   const [listPr, setListPr] = useState([]);
@@ -92,7 +93,7 @@ const CatalogeProduct = () => {
             <input type="text" placeholder="Пошук" />
             <div className="line"></div>
             <select id="size" name="size">
-              <option value="xs" selected>
+              <option value="xs" select="true">
                 Від дешевих до дорогих
               </option>
               <option value="s">Від дорогих до дешевих</option>
@@ -119,7 +120,19 @@ const CatalogeProduct = () => {
                 </li>
               ))
             ) : (
-              <div>load</div>
+              <Circles
+                height="80"
+                width="80"
+                color="#4fa94d"
+                ariaLabel="circles-loading"
+                wrapperStyle={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  width: '100%',
+                }}
+                wrapperClass=""
+                visible={true}
+              />
             )}
           </ul>
         </div>

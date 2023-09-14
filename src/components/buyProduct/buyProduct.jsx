@@ -246,11 +246,11 @@ const BuyProduct = ({ saveInfo }) => {
             </div>
             <div className="info__btn">
               <Link
-                to="dital"
+                to=""
                 className={
-                  location.pathname === `/product/${id}/dital`
+                  location.pathname === `/product/${id}`
                     ? 'info__btn--details active__btn'
-                    : 'info__btn--details'
+                    : 'info__btn--details  '
                 }
               >
                 Опис
