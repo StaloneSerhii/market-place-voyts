@@ -178,7 +178,7 @@ const BuyProduct = ({ saveInfo }) => {
               <label htmlFor="">
                 <input
                   required
-                  type="number"
+                  type="tel"
                   name="phone"
                   placeholder="Телефон"
                   value={phoneNumber}

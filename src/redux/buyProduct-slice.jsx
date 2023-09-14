@@ -65,7 +65,7 @@ export const buyProducSlice = createSlice({
     dellProductOrder(state, action) {
       const deletedProductId = action.payload;
       const updatedState = state.userPr.product.filter(
-        pr => pr._id !== deletedProductId
+        pr => pr.id !== deletedProductId
       );
       state.userPr.product.splice(
         0,

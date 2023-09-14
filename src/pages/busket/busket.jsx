@@ -348,7 +348,7 @@ const Busket = () => {
                         onClick={() =>
                           userAuth.isLoggedIn
                             ? dispatch(onDeleteProductBusket(pr._id))
-                            : dispatch(dellProductOrder(pr._id))
+                            : dispatch(dellProductOrder(pr.id))
                         }
                       >
                         <RiDeleteBin6Line />
