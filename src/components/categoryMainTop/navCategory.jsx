@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ImFacebook2, ImInstagram } from 'react-icons/im';
 import { BiSolidUser } from 'react-icons/bi';
@@ -25,10 +25,24 @@ const NavigateCategory = () => {
   const select = useSelector(getProductLocalStorage);
   const selectAuth = useSelector(getAuthStatus);
   const productNotAuth = useSelector(getProductLocalStorageNotAuth);
-
   const menuOpen = () => {
-    return setOpenMenu(!openMenu);
+    return setOpenMenu(true);
   };
+  useEffect(() => {
+    const handleClickOutside = event => {
+      if (
+        openMenu &&
+        !event.target.closest('.login') &&
+        !event.target.closest('.formLogin')
+      ) {
+        setOpenMenu(false);
+      }
+    };
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [openMenu]);
 
   const onLogin = () => {
     dispatch(logIn({ email, password }));

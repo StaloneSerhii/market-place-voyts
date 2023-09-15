@@ -10,6 +10,7 @@
 }
 .cataloge__gap {
     display: flex;
+    flex-wrap: wrap;
     gap: 30px;
     padding: 15px;
 }
@@ -49,4 +50,25 @@
     &:hover {
         color: var(--greenMain);
     }
+}
+.page-item.active .page-link {
+    background-color: #337ab7;
+    border-color: #337ab7;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 5px;
+    cursor: pointer;
+    & > li {
+        border: 1px solid gray;
+        padding: 5px;
+    }
+}
+
+.page-item.active .page-link {
+    background-color: #337ab7;
+    border-color: #337ab7;
+    padding: 5px;
 }

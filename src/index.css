@@ -582,6 +582,7 @@ article.nextSlide {
   display: flex;
   width: 1400px;
   overflow: hidden;
+  margin: auto;
 }
 
 .footer {
@@ -954,6 +955,7 @@ article.nextSlide {
 
 .cataloge__gap {
   display: flex;
+  flex-wrap: wrap;
   gap: 30px;
   padding: 15px;
 }
@@ -992,6 +994,28 @@ article.nextSlide {
 }
 .top__btn--right > svg:hover {
   color: var(--greenMain);
+}
+
+.page-item.active .page-link {
+  background-color: #337ab7;
+  border-color: #337ab7;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 5px;
+  cursor: pointer;
+}
+.pagination > li {
+  border: 1px solid gray;
+  padding: 5px;
+}
+
+.page-item.active .page-link {
+  background-color: #337ab7;
+  border-color: #337ab7;
+  padding: 5px;
 }
 
 .lastPrev {

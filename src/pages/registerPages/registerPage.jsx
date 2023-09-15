@@ -2,9 +2,9 @@ import Cards from 'components/cards/cards';
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { register } from 'redux/operations';
 import * as Yup from 'yup';
+import { RulesRegister } from 'components/modalBuy/rulesRegister/rulesRegister';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string()
@@ -24,8 +24,10 @@ const validationSchema = Yup.object().shape({
 });
 
 const RegisterPage = () => {
-  const [reapPass, setReapPass] = useState();
   const dispath = useDispatch();
+  const [reapPass, setReapPass] = useState();
+  const [openRules, setOpenRules] = useState(false);
+
   const initialValues = {
     name: '',
     fename: '',
@@ -34,6 +36,10 @@ const RegisterPage = () => {
     password: '',
   };
 
+  // Відкритя правил користувача
+  const openRulesModal = () => {
+    setOpenRules(!openRules);
+  };
   // Відправка форми після замовлення
   const formik = useFormik({
     initialValues,
@@ -156,16 +162,17 @@ const RegisterPage = () => {
           </div>
           <div className="form__item">
             <label className="docSite">
-              <input type="checkbox" required />Я прочитав і згоден
-              <Link className="linkRegisterRules" to="/">
-                &#0; з правилави Умови використання сайту.
-              </Link>
+              <input type="checkbox" required />Я прочитав і згоден &#0;
+              <button onClick={openRulesModal} className="linkRegisterRules">
+                з правилави Умови використання сайту.
+              </button>
             </label>
             <button className="formLogin__btn" type="submit">
               Реєстрація
             </button>
           </div>
         </form>
+        {openRules && <RulesRegister openRulesModal={openRulesModal} />}
       </div>
       <Cards />
     </>

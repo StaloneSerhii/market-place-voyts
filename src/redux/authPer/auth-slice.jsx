@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { useNavigate } from 'react-router-dom';
 import {
   logIn,
   register,
@@ -31,6 +32,7 @@ export const authSlice = createSlice({
       state.token = action.payload.token;
       state.isLoggedIn = true;
     },
+
     [logIn.fulfilled](state, action) {
       state.user = action.payload.user;
       state.token = action.payload.token;

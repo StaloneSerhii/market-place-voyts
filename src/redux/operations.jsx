@@ -149,6 +149,7 @@ export const register = createAsyncThunk(
       const response = await instance.post('/register', user);
       setAuthHeader(response.data.token);
       if (response) {
+        window.location.href = '/market-place-voyts';
         Notiflix.Report.success(
           'Ви успішно зареєструвалися на нашому сайті',
           'Перейдіть на свою електрону адресу яку ви вказали під час реєстрації щоб підтвердити користувача!'

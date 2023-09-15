@@ -165,6 +165,15 @@ const BuyProduct = ({ saveInfo }) => {
                     onClick={switchToPreviousImage}
                   />
                 ))}
+              <iframe
+                width="100"
+                height="90"
+                src="https://www.youtube.com/embed/VONyCLrp0eg"
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              ></iframe>
             </div>
             <form className="formFind" onSubmit={handleSubmit}>
               <h3>Знайдемо потрібну запчастину:</h3>
@@ -232,8 +241,17 @@ const BuyProduct = ({ saveInfo }) => {
               </form>
               <div className="block__infoCenter">
                 <p> {<FcCallback />} Отримати консультацію</p>
-                <span>+38(67)000-00-00</span>
-                <button className="formLogin__btn">Задати питання</button>
+                <span style={{ marginBottom: '25px' }}>
+                  <a href="tel:+380686473128">+380-68-64-73-128</a>
+                </span>
+                <a
+                  href="https://t.me/n_voyts"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="formLogin__btn"
+                >
+                  Задати питання
+                </a>
               </div>
             </div>
             <div className="block__analog">

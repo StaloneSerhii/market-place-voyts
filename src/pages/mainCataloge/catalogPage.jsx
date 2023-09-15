@@ -4,16 +4,14 @@ import { useInView } from 'react-intersection-observer';
 import { useEffect } from 'react';
 import { getAllProduct } from 'redux/service';
 import { useState } from 'react';
-// import { useState } from 'react';
-// import { AiOutlineArrowRight, AiOutlineArrowLeft } from 'react-icons/ai';
-// import ReactPaginate from 'react-paginate';
 
 const CatalogePage = () => {
   const [product, setProduct] = useState();
+  const [limit, setLimit] = useState(10);
 
   useEffect(() => {
-    getAllProduct().then(pr => setProduct(pr));
-  }, []);
+    getAllProduct(limit).then(pr => setProduct(pr));
+  }, [limit]);
 
   const [ref, inView] = useInView({
     triggerOnce: true, // Анімація відбудеться тільки раз
@@ -26,43 +24,48 @@ const CatalogePage = () => {
     config: { duration: 1000 },
   });
 
-  // const [page, setPage] = useState(1);
-  // const handlePageClick = () => {
-  //   return setPage(page + 1);
-  // };
+  const handlePageClick = () => {
+    setLimit(limit + 10);
+  };
 
   return (
-    <div ref={ref} className="cataloge animated-section">
-      <h3 className="cataloge__title">Каталог продуктів</h3>
-      <animated.div style={sectionAnimation} className="section-content">
-        <ul className="cataloge__gap">
-          {product &&
-            product.map(product => (
-              <li key={product._id}>
-                <CatalogeCard
-                  name={product.name}
-                  price={product.price}
-                  id={product._id}
-                  img={product.img}
-                  code={product.code}
-                />
-              </li>
-            ))}
-        </ul>
-      </animated.div>
-
-      {/* <div className="paginate">
-        <ReactPaginate
-          breakLabel="..."
-          nextLabel="next >"
-          onPageChange={''}
-          pageRangeDisplayed={5}
-          pageCount={5}
-          previousLabel="<"
-          renderOnZeroPageCount={null}
-        />
-      </div> */}
-    </div>
+    <>
+      <div ref={ref} className="cataloge animated-section">
+        <h3 className="cataloge__title">Каталог продуктів</h3>
+        <animated.div style={sectionAnimation} className="section-content">
+          <ul className="cataloge__gap">
+            {product &&
+              product.map(product => (
+                <li key={product._id}>
+                  <CatalogeCard
+                    name={product.name}
+                    price={product.price}
+                    id={product._id}
+                    img={product.img}
+                    code={product.code}
+                  />
+                </li>
+              ))}
+          </ul>
+        </animated.div>
+      </div>
+      <div className="paginate">
+        {product && product.length >= limit && (
+          <button
+            style={{
+              backgroundColor: 'green',
+              borderRadius: '10px',
+              padding: '10px',
+              fontSize: '17px',
+              color: 'white',
+            }}
+            onClick={handlePageClick}
+          >
+            Показати більше
+          </button>
+        )}
+      </div>
+    </>
   );
 };
 
