@@ -27,7 +27,6 @@ const CatalogePage = () => {
   const handlePageClick = () => {
     setLimit(limit + 10);
   };
-
   return (
     <>
       <div ref={ref} className="cataloge animated-section">

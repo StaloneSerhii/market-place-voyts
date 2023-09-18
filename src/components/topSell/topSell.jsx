@@ -10,6 +10,10 @@ import {
 } from 'redux/selector';
 import { FaMoneyBillAlt } from 'react-icons/fa';
 import { getAuthStatus } from 'redux/authPer/auth-selector';
+import {
+  addMyFavoritNotAuth,
+  delMyFavoritNotAuth,
+} from 'redux/buyProduct-slice';
 
 const TopSell = ({ id, price, img, name, code }) => {
   const [fav, setFav] = useState(-1);
@@ -62,10 +66,28 @@ const TopSell = ({ id, price, img, name, code }) => {
         <div className="beffore__select">
           <button
             onClick={() =>
-              dispatch(fav === -1 ? addMyFavorite(id) : delMyFavorite(id))
+              selectAuth
+                ? dispatch(
+                    fav === -1
+                      ? addMyFavorite({ idProduct: id, price, name, img, code })
+                      : delMyFavorite({ idProduct: id })
+                  )
+                : dispatch(
+                    fav === -1
+                      ? addMyFavoritNotAuth({
+                          idProduct: id,
+                          price,
+                          name,
+                          img,
+                          code,
+                        })
+                      : delMyFavoritNotAuth({
+                          idProduct: id,
+                        })
+                  )
             }
           >
-            {onFavorite === -1 ? <AiOutlineHeart /> : <AiFillHeart />}
+            {fav === -1 ? <AiOutlineHeart /> : <AiFillHeart />}
           </button>
         </div>
       </div>

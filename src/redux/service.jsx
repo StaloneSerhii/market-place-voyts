@@ -1,8 +1,8 @@
 import axios from 'axios';
 import Notiflix from 'notiflix';
 
-const API = 'https://voyts.onrender.com/api';
-// const API = 'http://localhost:3333/api';
+// const API = 'https://voyts.onrender.com/api';
+const API = 'http://localhost:3333/api';
 
 // Поверненя всіх товарів на головну
 async function getAllProduct(page) {
@@ -25,6 +25,16 @@ async function getTopBuyProduct() {
 // поверненя товару по ід
 async function getIdProduct(id) {
   const { data } = await axios.get(`${API}/product/${id}`);
+  if (data) {
+    return data;
+  }
+  console.log('error');
+}
+
+async function getAnaloguesProduct(_id) {
+  const { data } = await axios.get(
+    `${API}/product/getall/analogues?_id=${_id}`
+  );
   if (data) {
     return data;
   }
@@ -84,6 +94,7 @@ async function resendPass(body) {
 }
 
 export {
+  getAnaloguesProduct,
   getAllProduct,
   getIdProduct,
   postBuyProduct,

@@ -4,8 +4,8 @@ import Notiflix from 'notiflix';
 import { resendEmailVerf } from './service';
 
 const instance = axios.create({
-  baseURL: 'https://voyts.onrender.com/api',
-  // baseURL: 'http://localhost:3333/api',
+  // baseURL: 'https://voyts.onrender.com/api',
+  baseURL: 'http://localhost:3333/api',
 });
 
 const setAuthHeader = token => {
@@ -27,9 +27,7 @@ export const delMyFavorite = createAsyncThunk(
     }
     try {
       setAuthHeader(persistedToken);
-      const { data } = await instance.put('/buy/dellMyFavorite', {
-        idProduct: id,
-      });
+      const { data } = await instance.put('/buy/dellMyFavorite', id);
       return data;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);
@@ -48,11 +46,10 @@ export const addMyFavorite = createAsyncThunk(
     }
     try {
       setAuthHeader(persistedToken);
-      const { data } = await instance.put('/buy/addMyFavorite', {
-        idProduct: id,
-      });
+      const { data } = await instance.put('/buy/addMyFavorite', id);
       return data;
     } catch (e) {
+      console.log(e);
       return thunkAPI.rejectWithValue(e.message);
     }
   }

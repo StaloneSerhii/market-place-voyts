@@ -1,6 +1,4 @@
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
-import { FaMoneyBillAlt } from 'react-icons/fa';
-
 import { BsFillBasketFill } from 'react-icons/bs';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -16,11 +14,11 @@ import {
   delMyFavoritNotAuth,
 } from 'redux/buyProduct-slice';
 
-const CatalogeCard = ({ price, id, name, img, code }) => {
+const CatalogeCard = ({ price, id, name, img, code, setProduct }) => {
   const [fav, setFav] = useState(-1);
   const [buyPr, setBuyPr] = useState(false);
-
   const dispatch = useDispatch();
+
   const getFavorite = useSelector(
     state => state.persistedReducerAdd.buyProduct.myFavorite
   );
@@ -57,6 +55,7 @@ const CatalogeCard = ({ price, id, name, img, code }) => {
       setFav(onFavoriteNotAuth);
     }
   }, [onFavorite, onFavoriteNotAuth, selectAuth]);
+
   return (
     <div className="card-catalog">
       <div className="sell">
@@ -67,11 +66,23 @@ const CatalogeCard = ({ price, id, name, img, code }) => {
           <button
             onClick={() =>
               selectAuth
-                ? dispatch(fav === -1 ? addMyFavorite(id) : delMyFavorite(id))
+                ? dispatch(
+                    fav === -1
+                      ? addMyFavorite({ idProduct: id, price, name, img, code })
+                      : delMyFavorite({ idProduct: id })
+                  )
                 : dispatch(
                     fav === -1
-                      ? addMyFavoritNotAuth({ idProduct: id })
-                      : delMyFavoritNotAuth({ idProduct: id })
+                      ? addMyFavoritNotAuth({
+                          idProduct: id,
+                          price,
+                          name,
+                          img,
+                          code,
+                        })
+                      : delMyFavoritNotAuth({
+                          idProduct: id,
+                        })
                   )
             }
           >
@@ -91,9 +102,12 @@ const CatalogeCard = ({ price, id, name, img, code }) => {
         </p>
       </Link>
       {!buyPr ? (
-        <Link to={`product/${id}`} className="card-cataloge__btn">
-          <FaMoneyBillAlt />
-          Купити
+        <Link
+          to={`product/${id}`}
+          subcategory={'test'}
+          className="card-cataloge__btn"
+        >
+          Детальніше
         </Link>
       ) : (
         <Link to={`/busket`} className="card-cataloge__btn">

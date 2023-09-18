@@ -6,3 +6,7 @@ export const getFetchingCurr = state =>
   state.persistedReducerAdd.buyProduct.isFetching;
 export const getMyStore = state =>
   state.persistedReducerAdd.buyProduct.userPr.myStore;
+export const getFavoriteProductLocalStorage = state =>
+  state.persistedReducerAdd.buyProduct.myFavorite;
+export const getFavoriteProductLocalStorageAuth = state =>
+  state.persistedReducerAdd.buyProduct.userPr.myFavorite;

@@ -11,11 +11,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAuthStatus } from 'redux/authPer/auth-selector';
 import { logIn, logOut } from 'redux/operations';
 import {
+  getFavoriteProductLocalStorage,
+  getFavoriteProductLocalStorageAuth,
   getProductLocalStorage,
   getProductLocalStorageNotAuth,
 } from 'redux/selector';
 import { resendPass } from 'redux/service';
 import Notiflix from 'notiflix';
+import { AiOutlineHeart } from 'react-icons/ai';
 
 const NavigateCategory = () => {
   const dispatch = useDispatch();
@@ -25,9 +28,14 @@ const NavigateCategory = () => {
   const select = useSelector(getProductLocalStorage);
   const selectAuth = useSelector(getAuthStatus);
   const productNotAuth = useSelector(getProductLocalStorageNotAuth);
+  const productFavoriteNotAuth = useSelector(
+    getFavoriteProductLocalStorageAuth
+  );
+  const productFavorite = useSelector(getFavoriteProductLocalStorage);
   const menuOpen = () => {
     return setOpenMenu(true);
   };
+
   useEffect(() => {
     const handleClickOutside = event => {
       if (
@@ -203,6 +211,18 @@ const NavigateCategory = () => {
                 0}
             </div>
             <SlBasketLoaded />
+          </Link>
+        </li>
+        <li>
+          <Link className="categoty__basket" to="/favorite">
+            <div className="categoty__basket--num">
+              {(productFavorite && selectAuth && productFavorite.length) ||
+                (productFavoriteNotAuth &&
+                  !selectAuth &&
+                  productFavoriteNotAuth.length) ||
+                0}
+            </div>
+            <AiOutlineHeart />
           </Link>
         </li>
       </ul>

@@ -6,7 +6,7 @@ const Header = () => {
     <header className="header">
       <Link className="logo" to="/">
         ZAP4ASTINI
-        <span className="logo__item">ВІД Б/У ДО НОВИХ СГ ЗАПЧАСТИНГ</span>
+        <span className="logo__item">ВІД Б/У ДО НОВИХ СГ ЗАПЧАСТИН</span>
       </Link>
       <p className="header__contact">
         Потрібна допомога?Наші контакти!

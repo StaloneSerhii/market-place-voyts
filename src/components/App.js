@@ -12,13 +12,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchCurrentUser, fetchProductUser } from 'redux/operations';
 import { getAuthStatus, getFetching } from 'redux/authPer/auth-selector';
 import { Circles } from 'react-loader-spinner';
+import Favorite from 'pages/favoriteProduct/favorite';
 
 function App() {
   const dispatch = useDispatch();
   const isLogIn = useSelector(getAuthStatus);
   const isFetching = useSelector(getFetching);
+
   // Пропси з описом для передачі в продукти
   const [info, setInfo] = useState();
+
   const saveInfo = info => {
     setInfo(info);
   };
@@ -54,6 +57,7 @@ function App() {
           <Route path="productNEW" element={<CatalogeProduct />} />
           <Route path="busket" element={<Busket />} />
           <Route path="myorder" element={<BuyModalSuc />} />
+          <Route path="favorite" element={<Favorite />} />
           <Route
             path="product/:id"
             element={<BuyProduct saveInfo={saveInfo} />}

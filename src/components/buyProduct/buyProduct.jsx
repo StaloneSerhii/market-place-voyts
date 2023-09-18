@@ -5,7 +5,11 @@ import BuyBusketModal from 'components/modalBuy/about/buyBusket';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { getIdProduct, postHelpProduct } from 'redux/service';
+import {
+  getAnaloguesProduct,
+  getIdProduct,
+  postHelpProduct,
+} from 'redux/service';
 import { useRef } from 'react';
 import { getAuthStatus } from 'redux/authPer/auth-selector';
 import { addProductBusketAuth } from 'redux/operations';
@@ -25,6 +29,9 @@ const BuyProduct = ({ saveInfo }) => {
   // Поверненя продуктів з бд
   const [product, setProduct] = useState();
 
+  // Поверненя аналогів продуктів з бд
+  const [productAnalogues, setProductAnalogues] = useState([]);
+  console.log(productAnalogues);
   // Відкритя модалки покупки
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [hasInfoBeenSaved, setHasInfoBeenSaved] = useState(false);
@@ -46,6 +53,7 @@ const BuyProduct = ({ saveInfo }) => {
   // Запит по продукту на бд по ід
   useEffect(() => {
     getIdProduct(id).then(pr => setProduct(pr));
+    getAnaloguesProduct(id).then(pr => setProductAnalogues(pr));
   }, [id]);
 
   // Дод інфа
@@ -114,6 +122,7 @@ const BuyProduct = ({ saveInfo }) => {
     setCurrentImageIndex(e.target.src);
   };
 
+  // Додаваня в історію переглядів
   useEffect(() => {
     if (product) {
       dispatch(addHistory(product));
@@ -256,11 +265,17 @@ const BuyProduct = ({ saveInfo }) => {
             </div>
             <div className="block__analog">
               <h4>Аналоги</h4>
-              <Link to="/product/2" className="block__analog--info">
-                <img src={product.img} alt="/" width="70px" />
-                <p>Назва запчастини... хрестовина з головками 4324</p>
-                <p className="price">6805.90 грн</p>
-              </Link>
+              {productAnalogues &&
+                productAnalogues.map(pr => (
+                  <Link
+                    to={`/product/${pr._id}`}
+                    className="block__analog--info"
+                  >
+                    <img src={pr.img[0]} alt="/" width="70px" />
+                    <p>{pr.name}</p>
+                    <p className="price">{pr.price} грн</p>
+                  </Link>
+                ))}
             </div>
             <div className="info__btn">
               <Link

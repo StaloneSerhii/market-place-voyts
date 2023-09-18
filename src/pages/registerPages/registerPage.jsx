@@ -126,7 +126,7 @@ const RegisterPage = () => {
                 required
                 type="tel"
                 name="phone"
-                placeholder="38-000-000-00-00"
+                placeholder="380(00)000-00-00"
                 onBlur={formik.handleBlur}
                 value={formik.values.phone}
                 onChange={handlePhoneNumberChange}
