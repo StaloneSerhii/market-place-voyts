@@ -13,6 +13,7 @@ import { fetchCurrentUser, fetchProductUser } from 'redux/operations';
 import { getAuthStatus, getFetching } from 'redux/authPer/auth-selector';
 import { Circles } from 'react-loader-spinner';
 import Favorite from 'pages/favoriteProduct/favorite';
+import Profile from 'pages/myprofile/userprofile';
 
 function App() {
   const dispatch = useDispatch();
@@ -58,6 +59,12 @@ function App() {
           <Route path="busket" element={<Busket />} />
           <Route path="myorder" element={<BuyModalSuc />} />
           <Route path="favorite" element={<Favorite />} />
+          <Route path="profile" element={<Profile />}>
+            <Route path="store" element={<p>store</p>} />
+            <Route path="history" element={<p>history</p>} />
+            <Route path="favorite" element={<p>favorite</p>} />
+            <Route path="settings" element={<p>settings</p>} />
+          </Route>
           <Route
             path="product/:id"
             element={<BuyProduct saveInfo={saveInfo} />}

@@ -8,6 +8,7 @@
 @import "./components/footer/footer_style";
 @import "./components/buyProduct/buyProduct";
 @import "./components/modalBuy/about/buyBusket";
+@import "./components/settings/settingUser-style";
 
 // Page
 @import "./pages/mainCataloge/catalogPage_style";
@@ -17,6 +18,7 @@
 @import "./pages/catalogePage/catalogeProduct";
 @import "./pages/busket/busket-style";
 @import "./pages/buysuccess/buySuc-style";
+@import "./pages/myprofile/userprofile-sytle";
 
 a {
     text-decoration: none;

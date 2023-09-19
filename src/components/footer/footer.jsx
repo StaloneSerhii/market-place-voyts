@@ -45,24 +45,13 @@ const Footer = () => {
               <li>
                 <a href="email:info@gmail.com">info@gmail.com</a>
               </li>
-              {/* <ul>
-                <li>
-                  <a href="/">asdasd</a>
-                </li>
-                <li>
-                  <a href="/">asdasd</a>
-                </li>
-                <li>
-                  <a href="/">asdasd</a>
-                </li>
-              </ul> */}
             </ul>
           </div>
         </li>
       </ul>
       <div className="copyright">
         <p>
-          <span>&#169;</span> 2023 Fxitiondf asdasd
+          <span>&#169;</span> 2023
         </p>
       </div>
     </div>
