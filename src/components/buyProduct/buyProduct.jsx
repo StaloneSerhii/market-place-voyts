@@ -12,12 +12,25 @@ import {
 } from 'redux/service';
 import { useRef } from 'react';
 import { getAuthStatus } from 'redux/authPer/auth-selector';
-import { addProductBusketAuth } from 'redux/operations';
 import {
+  addMyFavorite,
+  addProductBusketAuth,
+  delMyFavorite,
+} from 'redux/operations';
+import {
+  getFavoriteProductLocalStorage,
+  getFavoriteProductLocalStorageAuth,
   getProductLocalStorage,
   getProductLocalStorageNotAuth,
 } from 'redux/selector';
-import { addHistory, addProductOrder } from 'redux/buyProduct-slice';
+import {
+  addHistory,
+  addMyFavoritNotAuth,
+  addProductOrder,
+  delMyFavoritNotAuth,
+} from 'redux/buyProduct-slice';
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
+import VideoModal from 'components/modalBuy/modalVideo';
 
 const BuyProduct = ({ saveInfo }) => {
   const dispatch = useDispatch();
@@ -28,10 +41,11 @@ const BuyProduct = ({ saveInfo }) => {
   const [buyPr, setBuyPr] = useState(false);
   // Поверненя продуктів з бд
   const [product, setProduct] = useState();
+  const [fav, setFav] = useState(-1);
 
   // Поверненя аналогів продуктів з бд
   const [productAnalogues, setProductAnalogues] = useState([]);
-  console.log(productAnalogues);
+
   // Відкритя модалки покупки
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [hasInfoBeenSaved, setHasInfoBeenSaved] = useState(false);
@@ -49,6 +63,13 @@ const BuyProduct = ({ saveInfo }) => {
   // Стейт для відправки форми запиту про допомогу
   const [partNumber, setPartNumber] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+
+  const getFavorite = useSelector(getFavoriteProductLocalStorage);
+  const getFavoriteNotAth = useSelector(getFavoriteProductLocalStorageAuth);
+  const onFavorite = getFavorite.findIndex(array => array.idProduct === id);
+  const onFavoriteNotAuth = getFavoriteNotAth.findIndex(
+    array => array.idProduct === id
+  );
 
   // Запит по продукту на бд по ід
   useEffect(() => {
@@ -98,7 +119,6 @@ const BuyProduct = ({ saveInfo }) => {
   // Додаваня в кошик на бд і лс
   const buyProduct = () => {
     const { _id, updatedAt, createdAt, ...obj } = product;
-
     if (selectAuth) {
       dispatch(addProductBusketAuth({ ...obj, count: 1, id: _id }));
     } else {
@@ -145,6 +165,14 @@ const BuyProduct = ({ saveInfo }) => {
     image.style.transformOrigin = `${imageX * 100}% ${imageY * 100}%`;
   };
 
+  useEffect(() => {
+    if (selectAuth) {
+      setFav(onFavorite);
+    } else {
+      setFav(onFavoriteNotAuth);
+    }
+  }, [onFavorite, onFavoriteNotAuth, selectAuth]);
+
   return (
     product && (
       <div className="content__product">
@@ -174,15 +202,7 @@ const BuyProduct = ({ saveInfo }) => {
                     onClick={switchToPreviousImage}
                   />
                 ))}
-              <iframe
-                width="100"
-                height="90"
-                src="https://www.youtube.com/embed/VONyCLrp0eg"
-                title="YouTube video player"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-              ></iframe>
+              {product && product.video && <VideoModal props={product.video} />}
             </div>
             <form className="formFind" onSubmit={handleSubmit}>
               <h3>Знайдемо потрібну запчастину:</h3>
@@ -213,7 +233,41 @@ const BuyProduct = ({ saveInfo }) => {
         </div>
         {product && (
           <div>
-            <h3 className="name__product">{product.name}</h3>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                backgroundColor: '#278032',
+              }}
+            >
+              <h3 className="name__product">{product.name}</h3>
+              <button
+                className="favorite"
+                onClick={() =>
+                  selectAuth
+                    ? dispatch(
+                        fav === -1
+                          ? addMyFavorite({
+                              idProduct: id,
+                              ...product,
+                            })
+                          : delMyFavorite({ idProduct: id })
+                      )
+                    : dispatch(
+                        fav === -1
+                          ? addMyFavoritNotAuth({
+                              idProduct: id,
+                              ...product,
+                            })
+                          : delMyFavoritNotAuth({
+                              idProduct: id,
+                            })
+                      )
+                }
+              >
+                {fav === -1 ? <AiOutlineHeart /> : <AiFillHeart />}
+              </button>
+            </div>
             <div className="block__info" id="app-root">
               <form className="block__info--item">
                 <p>

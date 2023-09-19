@@ -1,8 +1,8 @@
 import axios from 'axios';
 import Notiflix from 'notiflix';
 
-const API = 'https://voyts.onrender.com/api';
-// const API = 'http://localhost:3333/api';
+// const API = 'https://voyts.onrender.com/api';
+const API = 'http://localhost:3333/api';
 
 // Поверненя всіх товарів на головну
 async function getAllProduct(page) {
@@ -50,8 +50,10 @@ async function postBuyProduct(body) {
   console.log('error');
 }
 
-async function postBuyProductBY(body) {
-  const { data } = await axios.get(`${API}/product/getAll/by`, body);
+async function postBuyProductBY(body, findWord) {
+  const { data } = await axios.get(
+    `${API}/product/getAll/by?sort=${body}&find=${findWord}`
+  );
   if (data) {
     return data;
   }
@@ -69,8 +71,10 @@ async function postHelpProduct(requestData) {
   console.log('error');
 }
 
-async function postBuyProductNew(body) {
-  const { data } = await axios.get(`${API}/product/getAll/new`, body);
+async function postBuyProductNew(body, findWord) {
+  const { data } = await axios.get(
+    `${API}/product/getAll/new?sort=${body}&find=${findWord}`
+  );
   if (data) {
     return data;
   }

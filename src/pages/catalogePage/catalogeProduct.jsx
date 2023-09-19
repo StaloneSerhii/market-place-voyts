@@ -14,11 +14,14 @@ import {
   getProductLocalStorageNotAuth,
 } from 'redux/selector';
 import { Circles } from 'react-loader-spinner';
+import { debounce } from 'hooks/useHooks';
 
 const CatalogeProduct = () => {
-  const [listPr, setListPr] = useState([]);
   const navigate = useLocation();
   const dispatch = useDispatch();
+  const [listPr, setListPr] = useState([]);
+  const [findWord, setFindWord] = useState('');
+  const [filterSort, setFilterSort] = useState('last');
   const selectAuth = useSelector(getAuthStatus);
   const productBuyAuth = useSelector(getProductLocalStorage);
   const productNotAuth = useSelector(getProductLocalStorageNotAuth);
@@ -63,13 +66,15 @@ const CatalogeProduct = () => {
     );
   };
 
+  // Запит / Запит для сортування по категорії / Пошук по слову
+
   useEffect(() => {
     if (navigate.pathname === '/productBY') {
-      postBuyProductBY().then(state => setListPr(state));
+      postBuyProductBY(filterSort, findWord).then(state => setListPr(state));
     } else if (navigate.pathname === '/productNEW') {
-      postBuyProductNew().then(state => setListPr(state));
+      postBuyProductNew(filterSort, findWord).then(state => setListPr(state));
     }
-  }, [navigate.pathname]);
+  }, [filterSort, navigate.pathname, findWord]);
 
   const buyProduct = list => {
     const { _id, updatedAt, createdAt, ...obj } = list;
@@ -79,6 +84,14 @@ const CatalogeProduct = () => {
       dispatch(addProductOrder({ ...obj, count: 1, id: _id }));
     }
   };
+
+  const filterSortFind = e => {
+    setFilterSort(e.target.value);
+  };
+
+  const findToWord = debounce(value => {
+    setFindWord(value.target.value);
+  }, 800);
 
   return (
     <div style={{ backgroundColor: '#fff' }}>
@@ -90,14 +103,14 @@ const CatalogeProduct = () => {
         </h2>
         <div>
           <div className="block__filter">
-            <input type="text" placeholder="Пошук" />
+            <input type="text" placeholder="Пошук" onChange={findToWord} />
             <div className="line"></div>
-            <select id="size" name="size">
-              <option value="xs" select="true">
-                Від дешевих до дорогих
+            <select id="size" name="size" onChange={filterSortFind}>
+              <option value="last" select="true">
+                Остані додані
               </option>
-              <option value="s">Від дорогих до дешевих</option>
-              <option value="m">За рейтингом</option>
+              <option value="expensive">Від дорогих до дешевих</option>
+              <option value="cheap">Від дешевих до дорогих</option>
             </select>
           </div>
           <ul className="product__container">

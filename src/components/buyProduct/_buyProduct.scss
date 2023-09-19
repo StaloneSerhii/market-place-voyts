@@ -73,7 +73,7 @@
             display: block;
             margin-top: 5px;
 
-            width: 9%;
+            width: 75px;
             height: 3px;
             background-color: var(--yellowMain);
         }
@@ -189,4 +189,11 @@
 .zoomable-image:hover {
     transform: scale(1.7); /* Збільшити зображення на 20% при наведенні */
     cursor: zoom-in; /* Змінити курсор на лупу для вказання можливості збільшення */
+}
+
+.favorite > svg {
+    width: 30px;
+    height: 30px;
+    color: var(--yellowMain);
+    margin-right: 10px;
 }
