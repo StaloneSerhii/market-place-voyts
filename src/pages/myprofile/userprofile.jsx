@@ -1,11 +1,16 @@
 import { AiOutlineHistory } from 'react-icons/ai';
 import { FaStoreAlt } from 'react-icons/fa';
 import { FiSettings } from 'react-icons/fi';
+import { ImExit } from 'react-icons/im';
 import { MdFavoriteBorder } from 'react-icons/md';
+import { useDispatch } from 'react-redux';
 import { Link, Outlet, useLocation } from 'react-router-dom';
+import { logOut } from 'redux/operations';
 
 const Profile = () => {
   const params = useLocation();
+  const dispatch = useDispatch();
+
   return (
     <section className="profile">
       <ul className="profile__list">
@@ -61,6 +66,12 @@ const Profile = () => {
           </span>
           Список бажаного
         </Link>
+        <button className="profile__item" onClick={() => dispatch(logOut())}>
+          <span>
+            <ImExit />
+          </span>
+          Вихід
+        </button>
       </ul>
       <Outlet />
     </section>

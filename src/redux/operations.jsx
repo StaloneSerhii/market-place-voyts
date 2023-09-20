@@ -12,10 +12,6 @@ const setAuthHeader = token => {
   return (instance.defaults.headers.common.Authorization = `Bearer ${token}`);
 };
 
-// const clearAuthHeader = () => {
-//   instance.defaults.headers.common.Authorization = '';
-// };
-
 // Видалення продуктів в обране
 export const delMyFavorite = createAsyncThunk(
   'buy/dellMyFavorite',
@@ -258,7 +254,7 @@ export const buyProductBusket = createAsyncThunk(
 // вихід юзера
 export const logOut = createAsyncThunk(
   'register/logout',
-  async (user, thunkAPI) => {
+  async (_, thunkAPI) => {
     const state = thunkAPI.getState();
     const persistedToken = state.persistedReducerAdd.auth.token;
     if (persistedToken === null) {
@@ -266,7 +262,7 @@ export const logOut = createAsyncThunk(
     } else {
       try {
         setAuthHeader(persistedToken);
-        const response = await instance.post('/register/logout', user);
+        const response = await instance.get('/register/logout');
         if (response) {
           Notiflix.Notify.success('Ви успішно вийшли із свого акаунта!');
         }
@@ -277,6 +273,26 @@ export const logOut = createAsyncThunk(
             'Не вдалося вийти з вашого облікового запису, спробуйте ще раз!'
           );
         }
+        return thunkAPI.rejectWithValue(error.message);
+      }
+    }
+  }
+);
+
+// Історія покупок
+export const getHistoryProduct = createAsyncThunk(
+  'get/history',
+  async (_, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const persistedToken = state.persistedReducerAdd.auth.token;
+    if (persistedToken === null) {
+      return thunkAPI.rejectWithValue();
+    } else {
+      try {
+        setAuthHeader(persistedToken);
+        const { data } = await instance.get(`/buy/gethistory`);
+        return data;
+      } catch (error) {
         return thunkAPI.rejectWithValue(error.message);
       }
     }

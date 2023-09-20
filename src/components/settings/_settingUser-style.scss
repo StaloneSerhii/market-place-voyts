@@ -1,0 +1,51 @@
+.mystore {
+    margin: 20px;
+    width: 70%;
+}
+
+.mystore__h3 {
+    font-size: 50px;
+    font-weight: 900;
+    line-height: 1.3;
+}
+
+.find__input {
+    background-color: white;
+}
+
+.mystore__info {
+    display: flex;
+    flex-direction: column;
+}
+
+.list__store {
+    margin-top: 30px;
+}
+
+.list__store--item {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid gray;
+    border-radius: 5px;
+    background-color: white;
+    margin-bottom: 20px;
+}
+
+.status__pr {
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    margin-right: 15px;
+}
+
+.list__store--mainBlock {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.list__product--user {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}

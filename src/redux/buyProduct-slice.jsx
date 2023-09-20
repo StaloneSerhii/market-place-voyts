@@ -7,6 +7,7 @@ import {
   addMyFavorite,
   delMyFavorite,
   logOut,
+  getHistoryProduct,
 } from './operations';
 import Notiflix from 'notiflix';
 
@@ -132,7 +133,10 @@ export const buyProducSlice = createSlice({
     [logOut.fulfilled](state) {
       state.product = [];
       state.myFavorite = [];
-      // Знайдемо індекс об'єкта з потрібним ідентифікатором
+    },
+    [getHistoryProduct.fulfilled](state, action) {
+      state.isFetching = false;
+      state.history = action.payload;
     },
   },
 });

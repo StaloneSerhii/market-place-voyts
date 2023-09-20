@@ -15,6 +15,7 @@ import { Circles } from 'react-loader-spinner';
 import Favorite from 'pages/favoriteProduct/favorite';
 import Profile from 'pages/myprofile/userprofile';
 import History from './settings/history';
+import MyStore from './settings/mystore';
 
 function App() {
   const dispatch = useDispatch();
@@ -61,7 +62,7 @@ function App() {
           <Route path="myorder" element={<BuyModalSuc />} />
           <Route path="favorite" element={<Favorite />} />
           <Route path="profile" element={<Profile />}>
-            <Route path="store" element={<p>store</p>} />
+            <Route path="store" element={<MyStore />} />
             <Route path="history" element={<History />} />
             <Route path="favorite" element={<Favorite />} />
             <Route path="settings" element={<p>settings</p>} />
