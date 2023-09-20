@@ -9,6 +9,7 @@ import { useState, useEffect } from 'react';
 import { delMyFavorite } from 'redux/operations';
 import { delMyFavoritNotAuth } from 'redux/buyProduct-slice';
 import { AiFillHeart } from 'react-icons/ai';
+import { SlBasketLoaded } from 'react-icons/sl';
 
 const Favorite = () => {
   const productNotAuth = useSelector(getFavoriteProductLocalStorageAuth);
@@ -27,9 +28,9 @@ const Favorite = () => {
   }, [productFavorite, productNotAuth, selectAuth]);
 
   return (
-    <div style={{ backgroundColor: '#fff' }}>
+    <div style={{ margin: '15px' }}>
       <div>
-        <h2 className="cataloge__title">Обране</h2>
+        <h2 className="cataloge__title">Список обраного</h2>
         <ul className="product__container">
           {favoriteProduct.length > 0 ? (
             favoriteProduct.map(list => (
@@ -62,7 +63,10 @@ const Favorite = () => {
                     <span className="product__block--span">{list.code}</span>
                     <p>{list.name}</p>
                     <div>
-                      <span>{list.price} грн</span>
+                      <span className="product__block--spanPrice">
+                        {list.price} грн
+                      </span>
+                      <SlBasketLoaded className="product__block--spanSvg" />
                     </div>
                   </div>
                 </div>

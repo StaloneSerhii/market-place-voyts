@@ -1151,15 +1151,23 @@ article.nextSlide {
 .product__block--text > div {
   display: flex;
 }
-.product__block--text > div > span {
+
+.product__block--spanPrice {
   background-color: #cdcccc;
   border-top-left-radius: 10px;
   display: block;
   margin-left: auto;
-  width: 100px;
   padding: 10px;
   font-size: 20px;
   color: #000;
+}
+
+.product__block--spanSvg {
+  padding: 10px;
+  width: 25px;
+  height: 25px;
+  color: var(--yellowMain);
+  background-color: var(--greenMain);
 }
 
 .product__container {
@@ -1305,6 +1313,44 @@ article.nextSlide {
   margin-bottom: 15px;
   box-shadow: -3px -2px 19px -3px rgba(0, 0, 0, 0.31) inset;
   -webkit-box-shadow: -3px -2px 19px -3px rgba(0, 0, 0, 0.31) inset;
+}
+
+.profile {
+  display: flex;
+  margin: 0px 100px;
+}
+
+.profile__list {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile__item {
+  font-size: 23px;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 5px 10px 5px 0px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.profile__item:hover {
+  background-color: rgb(81, 163, 102);
+}
+.profile__item > span > svg {
+  width: 25px;
+  height: 25px;
+  background-color: rgb(180, 180, 180);
+  border-radius: 100%;
+  padding: 10px;
+}
+
+.profile__list {
+  border-right: 2px solid rgb(146, 146, 146);
+}
+
+.activePr {
+  background-color: rgb(81, 163, 102);
 }
 
 a {

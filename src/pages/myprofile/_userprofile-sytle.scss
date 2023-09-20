@@ -1,0 +1,35 @@
+.profile {
+    display: flex;
+    margin: 0px 100px;
+}
+.profile__list {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile__item {
+    font-size: 23px;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 5px 10px 5px 0px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    &:hover {
+        background-color: rgb(81, 163, 102);
+    }
+    & > span > svg {
+        width: 25px;
+        height: 25px;
+        background-color: rgb(180, 180, 180);
+        border-radius: 100%;
+        padding: 10px;
+    }
+}
+.profile__list {
+    border-right: 2px solid rgb(146, 146, 146);
+}
+
+.activePr {
+    background-color: rgb(81, 163, 102);
+}

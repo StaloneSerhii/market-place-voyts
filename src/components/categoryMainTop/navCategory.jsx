@@ -133,7 +133,7 @@ const NavigateCategory = () => {
         </li>
         <li>
           {selectAuth ? (
-            <Link to="profile">
+            <Link to="profile/settings">
               <BiSolidUser className="svg__main" />
             </Link>
           ) : (

@@ -90,11 +90,7 @@ const CatalogeCard = ({ price, id, name, img, code, setProduct }) => {
           </button>
         </div>
       </div>
-      <Link
-        to={buyPr ? '/busket' : `product/${id}`}
-        state={id}
-        className="card-catalog__link"
-      >
+      <Link to={`product/${id}`} state={id} className="card-catalog__link">
         <img src={img && img[0]} alt="img-buy" className="card-cataloge__img" />
         <p className="card-cataloge__p">{name}</p>
         <p className="card-cataloge__span">
