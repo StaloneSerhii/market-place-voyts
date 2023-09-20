@@ -1,5 +1,4 @@
 import { BsFillArrowDownSquareFill } from 'react-icons/bs';
-import test from '../../image/testBuy.jpg';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getHistoryProduct } from 'redux/operations';
