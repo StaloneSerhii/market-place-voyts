@@ -38,7 +38,7 @@ const SerringProfile = () => {
     email: user.email,
     phone: user.phone,
     password: '',
-    newpassword: '',
+    newPassword: '',
   };
 
   // Відправка форми після замовлення
@@ -46,11 +46,10 @@ const SerringProfile = () => {
     initialValues,
     validationSchema: validationSchema,
     onSubmit: values => {
-      if (formik.values.newpassword) {
+      if (formik.values.newPassword&&formik.values.password) {
         return dispath(changeUserData(values));
       }
-      const { newpassword, password, ...obj } = values;
-
+      const { newPassword, password, ...obj } = values;
       dispath(changeUserData(obj));
     },
   });
@@ -178,13 +177,13 @@ const SerringProfile = () => {
                   required={formik.values.password}
                   type={!hiddenNewPass ? 'password' : 'text'}
                   id="password"
-                  name="newpassword"
+                  name="newPassword"
                   placeholder="Повторити пароль"
                   onBlur={formik.handleBlur}
-                  value={formik.values.newpassword}
+                  value={formik.values.newPassword}
                   onChange={handleInputChange}
                   style={
-                    formik.touched.newpassword && formik.errors.newpassword
+                    formik.touched.newPassword && formik.errors.newPassword
                       ? { border: '1px solid red' }
                       : { border: '1px solid transparent' }
                   }
@@ -196,13 +195,13 @@ const SerringProfile = () => {
                   required={formik.values.password}
                   type={!hiddenNewPass ? 'password' : 'text'}
                   id="password"
-                  name="newpassword"
+                  name="newPassword"
                   placeholder="Повторити пароль"
                   onBlur={formik.handleBlur}
-                  value={formik.values.newpassword}
+                  value={formik.values.newPassword}
                   onChange={handleInputChange}
                   style={
-                    formik.touched.newpassword && formik.errors.newpassword
+                    formik.touched.newPassword && formik.errors.newPassword
                       ? { border: '1px solid red' }
                       : { border: '1px solid transparent' }
                   }

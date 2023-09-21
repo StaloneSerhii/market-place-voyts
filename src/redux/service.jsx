@@ -1,8 +1,8 @@
 import axios from 'axios';
 import Notiflix from 'notiflix';
 
-const API = 'https://voyts.onrender.com/api';
-// const API = 'http://localhost:3333/api';
+// const API = 'https://voyts.onrender.com/api';
+const API = 'http://localhost:3333/api';
 
 // Поверненя всіх товарів на головну
 async function getAllProduct(page) {

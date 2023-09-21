@@ -18,12 +18,13 @@ import {
 } from 'redux/selector';
 import { resendPass } from 'redux/service';
 import Notiflix from 'notiflix';
-import { AiOutlineHeart } from 'react-icons/ai';
+import { AiFillEyeInvisible, AiOutlineHeart } from 'react-icons/ai';
 
 const NavigateCategory = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState();
   const [password, setPass] = useState();
+  const [hiddenNewPass, setHiddenNewPass] = useState();
   const [openMenu, setOpenMenu] = useState(false);
   const select = useSelector(getProductLocalStorage);
   const selectAuth = useSelector(getAuthStatus);
@@ -157,10 +158,21 @@ const NavigateCategory = () => {
                 <input
                   onChange={e => setPass(e.target.value)}
                   value={password}
-                  type="password"
+                  type={!hiddenNewPass ? "password" : "text"}
                   name="password"
                   id="password"
                   placeholder="Пароль"
+                />
+                <AiFillEyeInvisible
+                  style={{
+                    position: 'absolute',
+                    top: '80px',
+                    right: '25px',
+                    cursor: 'pointer',
+                    fontSize: '22px',
+                    color: 'black'
+                  }}
+                  onClick={() => setHiddenNewPass(!hiddenNewPass)}
                 />
                 <div className="formLogin__item">
                   <button
@@ -175,7 +187,7 @@ const NavigateCategory = () => {
                         function okCb(clientAnswer) {
                           resendPass({ email: clientAnswer });
                         },
-                        function cancelCb() {},
+                        function cancelCb() { },
                         {
                           // Custom options
                         }

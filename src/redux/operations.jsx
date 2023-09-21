@@ -4,8 +4,8 @@ import Notiflix from 'notiflix';
 import { resendEmailVerf } from './service';
 
 const instance = axios.create({
-  baseURL: 'https://voyts.onrender.com/api',
-  // baseURL: 'http://localhost:3333/api',
+  // baseURL: 'https://voyts.onrender.com/api',
+  baseURL: 'http://localhost:3333/api',
 });
 
 const setAuthHeader = token => {
@@ -268,6 +268,7 @@ export const logOut = createAsyncThunk(
         }
         return response.data;
       } catch (error) {
+        console.log(error);
         if (error) {
           Notiflix.Notify.failure(
             'Не вдалося вийти з вашого облікового запису, спробуйте ще раз!'
@@ -301,15 +302,15 @@ export const getHistoryProduct = createAsyncThunk(
 
 // Зміна даних користувача
 export const changeUserData = createAsyncThunk(
-  '/changeUserData',
+  'auth/changeUserData',
   async (user, thunkAPI) => {
     try {
-      console.log(user);
-      const response = await instance.post('/changeUserData', user);
+      const response = await instance.patch('register/changeUserData', user);
       setAuthHeader(response.data.token);
       if (response) {
         Notiflix.Notify.success('Ви успішно змінили свої дані');
       }
+      console.log(response.data);
       return response.data;
     } catch (error) {
       console.log(error);

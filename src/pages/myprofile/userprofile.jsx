@@ -4,13 +4,17 @@ import { FiSettings } from 'react-icons/fi';
 import { ImExit } from 'react-icons/im';
 import { MdFavoriteBorder } from 'react-icons/md';
 import { useDispatch } from 'react-redux';
-import { Link, Outlet, useLocation } from 'react-router-dom';
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { logOut } from 'redux/operations';
 
 const Profile = () => {
   const params = useLocation();
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
+  const logOutFn =()=>{
+    navigate('/') 
+    dispatch(logOut())  
+  }
   return (
     <section className="profile">
       <ul className="profile__list">
@@ -66,7 +70,7 @@ const Profile = () => {
           </span>
           Список бажаного
         </Link>
-        <button className="profile__item" onClick={() => dispatch(logOut())}>
+        <button className="profile__item" onClick={logOutFn}>
           <span>
             <ImExit />
           </span>
