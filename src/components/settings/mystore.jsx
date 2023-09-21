@@ -15,7 +15,7 @@ const MyStore = () => {
 
   // Створимо масив станів для кожного елементу інформації
   const [addInfoArray, setAddInfoArray] = useState(
-    new Array(stateHistory.length).fill(false)
+    new Array(stateHistory.length).fill(true)
   );
 
   // Функція для зміни стану для конкретного елементу інформації

@@ -49,3 +49,12 @@
     flex-direction: column;
     align-items: flex-end;
 }
+
+.profile .form__item {
+    margin-top: 20px;
+    justify-content: center;
+}
+
+.form__register > div > input.diss {
+    background-color: rgb(140 140 140);
+}

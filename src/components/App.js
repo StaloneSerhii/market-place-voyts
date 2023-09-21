@@ -16,6 +16,7 @@ import Favorite from 'pages/favoriteProduct/favorite';
 import Profile from 'pages/myprofile/userprofile';
 import History from './settings/history';
 import MyStore from './settings/mystore';
+import SerringProfile from './settings/settingUser';
 
 function App() {
   const dispatch = useDispatch();
@@ -65,7 +66,7 @@ function App() {
             <Route path="store" element={<MyStore />} />
             <Route path="history" element={<History />} />
             <Route path="favorite" element={<Favorite />} />
-            <Route path="settings" element={<p>settings</p>} />
+            <Route path="settings" element={<SerringProfile />} />
           </Route>
           <Route
             path="product/:id"

@@ -298,3 +298,28 @@ export const getHistoryProduct = createAsyncThunk(
     }
   }
 );
+
+// Зміна даних користувача
+export const changeUserData = createAsyncThunk(
+  '/changeUserData',
+  async (user, thunkAPI) => {
+    try {
+      console.log(user);
+      const response = await instance.post('/changeUserData', user);
+      setAuthHeader(response.data.token);
+      if (response) {
+        Notiflix.Notify.success('Ви успішно змінили свої дані');
+      }
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      if (error.response.status === 409) {
+        Notiflix.Report.failure(
+          `Не вдалося змінити дані користувача, обновіть сторінку і спробуйте ще раз!`,
+          `${error.response.data.message}`
+        );
+      }
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
