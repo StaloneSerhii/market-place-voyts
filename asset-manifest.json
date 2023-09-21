@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/market-place-voyts/static/css/main.d23f2059.css",
-    "main.js": "/market-place-voyts/static/js/main.37e35bc0.js",
+    "main.js": "/market-place-voyts/static/js/main.f101765c.js",
     "static/media/cards.jpg": "/market-place-voyts/static/media/cards.6d0b27165d5f50fdbea4.jpg",
     "static/media/testBuy.jpg": "/market-place-voyts/static/media/testBuy.883d2f19961eab487ef8.jpg",
     "static/media/youtube.webp": "/market-place-voyts/static/media/youtube.b9693d97890e7f5497f3.webp",
     "index.html": "/market-place-voyts/index.html",
     "main.d23f2059.css.map": "/market-place-voyts/static/css/main.d23f2059.css.map",
-    "main.37e35bc0.js.map": "/market-place-voyts/static/js/main.37e35bc0.js.map"
+    "main.f101765c.js.map": "/market-place-voyts/static/js/main.f101765c.js.map"
   },
   "entrypoints": [
     "static/css/main.d23f2059.css",
-    "static/js/main.37e35bc0.js"
+    "static/js/main.f101765c.js"
   ]
 }
