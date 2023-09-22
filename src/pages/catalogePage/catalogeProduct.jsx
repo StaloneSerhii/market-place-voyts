@@ -125,7 +125,7 @@ const CatalogeProduct = () => {
                       <span className="product__block--span">{list.ark}</span>
                       <p>{list.name}</p>
                       <div>
-                        <span>{list.price} грн</span>
+                        <span className='product__block--spanPrice'>{list.price} грн</span>
                         {svgImg(list)}
                       </div>
                     </div>
