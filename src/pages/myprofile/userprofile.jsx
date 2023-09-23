@@ -3,6 +3,7 @@ import { FaStoreAlt } from 'react-icons/fa';
 import { FiSettings } from 'react-icons/fi';
 import { ImExit } from 'react-icons/im';
 import { MdFavoriteBorder } from 'react-icons/md';
+import { RiAdminFill } from 'react-icons/ri';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { logOut } from 'redux/operations';
@@ -27,7 +28,7 @@ const Profile = () => {
             }
           >
             <span>
-              <FiSettings />
+              <RiAdminFill />
             </span>
             Адмін панель
           </Link>

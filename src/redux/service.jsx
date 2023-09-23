@@ -1,8 +1,8 @@
 import axios from 'axios';
 import Notiflix from 'notiflix';
 
-const API = 'https://voyts.onrender.com/api';
-// const API = 'http://localhost:3333/api';
+// const API = 'https://voyts.onrender.com/api';
+const API = 'http://localhost:3333/api';
 
 // Поверненя всіх товарів на головну
 async function getAllProduct(page) {
@@ -81,6 +81,26 @@ async function postBuyProductNew(body, findWord) {
   console.log('error');
 }
 
+async function postBuyProductSgTech(body, findWord) {
+  const { data } = await axios.get(
+    `${API}/product/getAll/sgtech?sort=${body}&find=${findWord}`
+  );
+  if (data) {
+    return data;
+  }
+  console.log('error');
+}
+
+async function postBuyProductSg(body, findWord) {
+  const { data } = await axios.get(
+    `${API}/product/getAll/sg?sort=${body}&find=${findWord}`
+  );
+  if (data) {
+    return data;
+  }
+  console.log('error');
+}
+
 async function resendEmailVerf(body) {
   const { data } = await axios.post(`${API}/register/verify`, body);
   if (data) {
@@ -100,7 +120,8 @@ async function resendPass(body) {
 
 
 export {
-
+  postBuyProductSgTech,
+  postBuyProductSg,
   getAnaloguesProduct,
   getAllProduct,
   getIdProduct,

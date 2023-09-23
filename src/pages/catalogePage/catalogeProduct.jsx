@@ -4,7 +4,7 @@ import { SlBasketLoaded } from 'react-icons/sl';
 import { MdOutlineAttachMoney } from 'react-icons/md';
 
 import { useEffect, useState } from 'react';
-import { postBuyProductBY, postBuyProductNew } from 'redux/service';
+import { postBuyProductBY, postBuyProductNew, postBuyProductSg, postBuyProductSgTech } from 'redux/service';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAuthStatus } from 'redux/authPer/auth-selector';
 import { addProductBusketAuth } from 'redux/operations';
@@ -73,7 +73,11 @@ const CatalogeProduct = () => {
       postBuyProductBY(filterSort, findWord).then(state => setListPr(state));
     } else if (navigate.pathname === '/productNEW') {
       postBuyProductNew(filterSort, findWord).then(state => setListPr(state));
-    }
+    } else if (navigate.pathname === '/sg') {
+      postBuyProductSg(filterSort, findWord).then(state => setListPr(state));
+    } else if (navigate.pathname === '/sgtech') {
+      postBuyProductSgTech(filterSort, findWord).then(state => setListPr(state));
+    } 
   }, [filterSort, navigate.pathname, findWord]);
 
   const buyProduct = list => {
@@ -92,14 +96,17 @@ const CatalogeProduct = () => {
   const findToWord = debounce(value => {
     setFindWord(value.target.value);
   }, 800);
-
+  const titleMap = {
+    '/productBY': 'Б/У Запчастини',
+    '/productNEW': 'Нові запчастини',
+    '/sg': 'СГ Навісне',
+    '/sgtech': 'СГ Техніка',
+  };
   return (
     <div style={{ backgroundColor: '#fff' }}>
       <div>
         <h2 className="cataloge__title">
-          {navigate.pathname === '/productBY'
-            ? ' Б/У Запчастини'
-            : ' Нові запчастини'}
+        {titleMap[navigate.pathname] || ''}
         </h2>
         <div>
           <div className="block__filter">

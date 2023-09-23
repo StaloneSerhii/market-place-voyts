@@ -93,6 +93,8 @@ function App() {
             <Route path="busket" element={<Busket />} />
             <Route path="myorder" element={<BuyModalSuc />} />
             <Route path="favorite" element={<Favorite />} />
+            <Route path="sg" element={<CatalogeProduct />} />
+            <Route path="sgtech" element={<CatalogeProduct />} />
             <Route
               path="profile"
               element={

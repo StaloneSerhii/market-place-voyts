@@ -147,7 +147,7 @@
   font-size: 25px;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   font-weight: 900;
-  padding: 25px 10px;
+  padding: 28px 15px;
   cursor: pointer;
 }
 @media (min-width: 1600px) {
@@ -1252,8 +1252,8 @@ article.nextSlide {
 
 .block__filter {
   display: flex;
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: 250px;
+  margin-right: 250px;
 }
 .block__filter > input {
   border-radius: 20px;

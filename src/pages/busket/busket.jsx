@@ -134,6 +134,7 @@ const Busket = () => {
   return (
     <div>
       <div className="block__name">
+        
         <Link
           to="/busket"
           style={{
@@ -147,7 +148,7 @@ const Busket = () => {
           | Кошик |
         </Link>
         <Link
-          to="/myorder"
+          to={userAuth.isLoggedIn?"/profile/store" :"/myorder"}
           style={{
             fontSize: '35px',
             marginLeft: '25px',

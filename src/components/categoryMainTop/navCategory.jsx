@@ -80,12 +80,12 @@ const NavigateCategory = () => {
           </ul>
         </li>
         <li className="navigate__item">
-          <Link className="navigate__link" to="/">
+          <Link className="navigate__link" to="sgtech">
             СГ ТЕХНІКА
           </Link>
         </li>
         <li className="navigate__item">
-          <Link className="navigate__link" to="/">
+          <Link className="navigate__link" to="sg">
             НАВІСНЕ СГ
           </Link>
         </li>
