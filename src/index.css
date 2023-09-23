@@ -105,6 +105,10 @@
   fill: var(--yellowMain);
 }
 
+.navigate--social:nth-child(5) {
+  position: relative;
+}
+
 .background, .navigate__item:hover > .navigate__link {
   background-color: var(--yellowMain);
 }
@@ -143,7 +147,6 @@
   font-size: 25px;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   font-weight: 900;
-  position: relative;
   padding: 25px 10px;
   cursor: pointer;
 }
@@ -160,8 +163,8 @@
   position: absolute;
   background-color: #fff;
   z-index: 10000;
-  top: 77px;
-  right: 0;
+  top: 243px;
+  right: 180px;
   display: flex;
   justify-content: center;
   align-items: center;
