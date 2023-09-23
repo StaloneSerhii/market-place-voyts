@@ -7,6 +7,8 @@ const {
 
 const LastPrev = () => {
   const product = useSelector(getMyStore);
+
+ 
   return (
     <div className="lastPrev">
       <h3 className="lastPrev__title">Остані переглянуті</h3>

@@ -3,7 +3,7 @@ import { FaStoreAlt } from 'react-icons/fa';
 import { FiSettings } from 'react-icons/fi';
 import { ImExit } from 'react-icons/im';
 import { MdFavoriteBorder } from 'react-icons/md';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { logOut } from 'redux/operations';
 
@@ -11,13 +11,27 @@ const Profile = () => {
   const params = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const logOutFn =()=>{
-    navigate('/') 
-    dispatch(logOut())  
+  const isSuperStatus = useSelector(state=>state.persistedReducerAdd.auth.user.status);
+  const logOutFn = () => {
+    navigate('/')
+    dispatch(logOut())
   }
   return (
     <section className="profile">
       <ul className="profile__list">
+        {isSuperStatus === 'superuser' &&
+          <Link
+            to="/adm"
+            className={
+              'profile__item'
+            }
+          >
+            <span>
+              <FiSettings />
+            </span>
+            Адмін панель
+          </Link>
+        }
         <Link
           to="settings"
           className={
