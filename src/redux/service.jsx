@@ -97,7 +97,10 @@ async function resendPass(body) {
   console.log('error');
 }
 
+
+
 export {
+
   getAnaloguesProduct,
   getAllProduct,
   getIdProduct,

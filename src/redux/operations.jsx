@@ -324,3 +324,28 @@ export const changeUserData = createAsyncThunk(
     }
   }
 );
+
+// Додаваня товарів в бд
+export const addProductBS = createAsyncThunk(
+  'adm/addproduct',
+  async (credentials, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const persistedToken = state.persistedReducerAdd.auth.token;
+    if (persistedToken === null) {
+      return thunkAPI.rejectWithValue('Unable to fetch user');
+    }
+    try {
+      setAuthHeader(persistedToken);
+      const response = await instance.post('/adm/addproduct', credentials);
+      if (response) {
+        Notiflix.Notify.success('Ви успішно створили новий товар!');
+        return response.data;
+      }
+    } catch (e) {
+      console.log(e);
+      Notiflix.Notify.failure(
+        'Не вдалося створити товар для продажу!'
+      );
+    }
+  }
+);

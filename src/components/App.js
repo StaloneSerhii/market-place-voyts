@@ -17,6 +17,7 @@ import Profile from 'pages/myprofile/userprofile';
 import History from './settings/history';
 import MyStore from './settings/mystore';
 import SerringProfile from './settings/settingUser';
+import AdminPage from 'pages/adm/adminPane';
 
 function App() {
   const dispatch = useDispatch();
@@ -54,6 +55,9 @@ function App() {
   ) : (
     <div>
       <Routes>
+      <Route path="adm" element={<AdminPage />}>
+            <Route path="product" element={<p>Product</p>} />
+          </Route>
         <Route path="/" element={<Layout />}>
           <Route index element={<MainPages />} />
           <Route path="register" element={<RegisterPage />} />
