@@ -40,6 +40,7 @@ const dispatch = useDispatch()
             category: null,
             subcategory: '',
             hidden: false,
+            video: '',
             info: {
                 obm: '',
                 details: '',
@@ -94,6 +95,8 @@ const dispatch = useDispatch()
                     />
                     <p>Приховати товар</p><Switch {...label}   onChange={formik.handleChange}   id="hidden"
                         name="hidden"/>
+                        <span>Завантажити картинку</span>
+                        <input type="file" />
                     <TextField
                         id="ark"
                         name="ark"
@@ -130,6 +133,8 @@ const dispatch = useDispatch()
                     <TextField name="info.use" id="use" label="Застосування" variant="outlined" value={formik.values.info.use}
                         onChange={formik.handleChange} />
                     <TextField name="info.obm" id="obm" label="ОБМ номер" variant="outlined" value={formik.values.info.obm}
+                        onChange={formik.handleChange} />
+                        <TextField name="video" id="video" label="Силка на відео" variant="outlined" value={formik.values.video}
                         onChange={formik.handleChange} />
                     <Button type="submit" variant="contained">Зберегти</Button>
                 </form>
