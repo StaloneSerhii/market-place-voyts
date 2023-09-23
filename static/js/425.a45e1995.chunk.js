@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkmarket_place_voyts=self.webpackChunkmarket_place_voyts||[]).push([[425],{7425:function(t,a,e){e.d(a,{GnT:function(){return V}});var H=e(9983);function V(t){return(0,H.w_)({tag:"svg",attr:{viewBox:"0 0 24 24"},child:[{tag:"path",attr:{d:"M7 4V2H17V4H22V6H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V6H2V4H7ZM6 6V20H18V6H6ZM9 9H11V17H9V9ZM13 9H15V17H13V9Z"}}]})(t)}}}]);
+//# sourceMappingURL=425.a45e1995.chunk.js.map
