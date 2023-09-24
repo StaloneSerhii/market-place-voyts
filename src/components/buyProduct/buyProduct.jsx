@@ -84,25 +84,29 @@ const BuyProduct = ({ saveInfo }) => {
     setSelectedImage('');
   };
 
-   // Обробник кліку на область навколо модального вікна
-   const handleOutsideClick = (e) => {
-    if (modalRef ) {
-      closeModal();
-    }
-  };
 
    // Додаємо слухач події для обробки кліку поза модальним вікном
    useEffect(() => {
+    // Створюємо функцію обробника кліку поза модальним вікном
+    const handleOutsideClick = (e) => {
+      if (modalRef ) {
+        closeModal();
+      }
+    };
+  
+    // Додаємо слухач події для обробки кліку поза модальним вікном
     if (showModal) {
       document.addEventListener('mousedown', handleOutsideClick);
     } else {
       document.removeEventListener('mousedown', handleOutsideClick);
     }
-
+  
+    // Повертаємо функцію, яка буде виконана при розмінтці компонента
     return () => {
       document.removeEventListener('mousedown', handleOutsideClick);
     };
-  }, [showModal]); 
+  }, [showModal]);
+  
 
   // Запит по продукту на бд по ід
   useEffect(() => {
