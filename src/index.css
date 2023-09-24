@@ -1453,6 +1453,10 @@ p {
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
+body {
+  font-family: serif;
+}
+
 .paginate {
   display: flex;
   justify-content: center;
