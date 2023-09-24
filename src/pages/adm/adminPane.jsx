@@ -16,7 +16,7 @@ const style = {
     width: 400,
     p: 4,
     marginBottom: 10,
-    overflow: 'scroll'
+
 };
 
 const category = [
@@ -105,6 +105,7 @@ const AdminPage = () => {
             onClose={handleClose}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
+            style={{    overflow: 'scroll'}}
         >
             <Box sx={style} >
                 <form onSubmit={formik.handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '150px' }}>
