@@ -66,7 +66,7 @@ const Favorite = () => {
                       <span className="product__block--spanPrice">
                         {list.price} грн
                       </span>
-                      <SlBasketLoaded className="product__block--spanSvg" />
+                     <Link  to={`/product/${list.idProduct}`}  className="product__block--btn"> <SlBasketLoaded  /></Link>
                     </div>
                   </div>
                 </div>

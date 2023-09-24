@@ -165,7 +165,7 @@ const AdminPage = () => {
                         onChange={formik.handleChange} />
                     <TextField name="info.use" id="use" label="Застосування" variant="outlined" value={formik.values.info.use}
                         onChange={formik.handleChange} />
-                    <TextField name="info.obm" id="obm" label="ОБМ номер" variant="outlined" value={formik.values.info.obm}
+                    <TextField name="info.obm" id="obm" label="Локація" variant="outlined" value={formik.values.info.obm}
                         onChange={formik.handleChange} />
                     <TextField name="video" id="video" label="Силка на відео" variant="outlined" value={formik.values.video}
                         onChange={formik.handleChange} />

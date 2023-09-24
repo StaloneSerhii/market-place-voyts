@@ -69,6 +69,41 @@ const BuyProduct = ({ saveInfo }) => {
     array => array.idProduct === id
   );
 
+  const [showModal, setShowModal] = useState(false);
+  const [selectedImage, setSelectedImage] = useState('');
+  const modalRef = useRef(null);
+  // Функція для відкриття модального вікна з вибраним зображенням
+  const openModal = (img) => {
+    setSelectedImage(img);
+    setShowModal(true);
+  };
+
+  // Функція для закриття модального вікна
+  const closeModal = () => {
+    setShowModal(false);
+    setSelectedImage('');
+  };
+
+   // Обробник кліку на область навколо модального вікна
+   const handleOutsideClick = (e) => {
+    if (modalRef ) {
+      closeModal();
+    }
+  };
+
+   // Додаємо слухач події для обробки кліку поза модальним вікном
+   useEffect(() => {
+    if (showModal) {
+      document.addEventListener('mousedown', handleOutsideClick);
+    } else {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, [showModal]); 
+
   // Запит по продукту на бд по ід
   useEffect(() => {
     getIdProduct(id).then(pr => setProduct(pr));
@@ -110,7 +145,7 @@ const BuyProduct = ({ saveInfo }) => {
   // Застосуваня картинки на яку клікнув на головну
   useEffect(() => {
     if (product) {
-      setCurrentImageIndex(`https://voyts.onrender.com/${product.img[0]}`);
+      setCurrentImageIndex(`${product.img[0]}`);
     }
   }, [product]);
 
@@ -180,21 +215,31 @@ const BuyProduct = ({ saveInfo }) => {
               className="zoomable-container"
               ref={containerRef}
               onMouseMove={handleMouseMove}
+              
             >
               <img
                 src={product && currentImageIndex }
                 alt="product"
                 width="400"
                 className="zoomable-image"
+                onClick={() => openModal(product && currentImageIndex)}
               />
             </div>
+            {showModal && (
+        <div className="modal">
+          <span className="close" onClick={closeModal}>
+            &times;
+          </span>
+          <img src={selectedImage} alt="Full Size" />
+        </div>
+      )}
             <div className="block__img--allImg ">
               {product &&
                 product.img.map(img => (
                   <img
                     key={img}
                     className="active"
-                    src={`https://voyts.onrender.com/${img}`}
+                    src={img}
                     alt="allProduct"
                     width="100"
                     onClick={switchToPreviousImage}
@@ -358,7 +403,7 @@ const BuyProduct = ({ saveInfo }) => {
                     : 'info__btn--details'
                 }
               >
-                ОБМ номер
+               Локація
               </Link>
             </div>
             <Outlet />

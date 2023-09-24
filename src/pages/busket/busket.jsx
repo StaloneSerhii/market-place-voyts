@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from 'react-redux';
-import test from '../../image/testBuy.jpg';
 import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -98,7 +97,7 @@ const Busket = () => {
       const result = window.confirm(`Ви піддтверджуєте свою покупку?`);
       if (result && userAuth.isLoggedIn) {
         dispatch(buyProductBusket({ values, select }));
-        navigate('/');
+        navigate('/profile/settings');
         dispatch(dellAllProductOrder());
       } else {
         postBuyProduct({ values, select: productNotAuth }).then(state => {
@@ -134,7 +133,7 @@ const Busket = () => {
   return (
     <div>
       <div className="block__name">
-        
+
         <Link
           to="/busket"
           style={{
@@ -148,7 +147,7 @@ const Busket = () => {
           | Кошик |
         </Link>
         <Link
-          to={userAuth.isLoggedIn?"/profile/store" :"/myorder"}
+          to={userAuth.isLoggedIn ? "/profile/store" : "/myorder"}
           style={{
             fontSize: '35px',
             marginLeft: '25px',
@@ -355,12 +354,13 @@ const Busket = () => {
                       >
                         <RiDeleteBin6Line />
                       </button>
-                      <img
-                        className="block__listBuy--img"
-                        src={test}
-                        alt="img"
-                        width="100px"
-                      />
+                      <Link to={userAuth.isLoggedIn ? `/product/${pr.id}`
+                        : `/product/${pr._id}`}>    <img
+                          className="block__listBuy--img"
+                          src={pr.img[0]}
+                          alt="img"
+                          width="110px"
+                        /></Link>
                       <div style={{ display: 'flex' }}>
                         <div>
                           <p className="block__listBuy--name">{pr.name}</p>

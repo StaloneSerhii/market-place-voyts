@@ -14,6 +14,7 @@ import {
   delMyFavoritNotAuth,
 } from 'redux/buyProduct-slice';
 
+
 const CatalogeCard = ({ price, id, name, img, code, setProduct }) => {
   console.log(img);
   const [fav, setFav] = useState(-1);
@@ -92,7 +93,7 @@ const CatalogeCard = ({ price, id, name, img, code, setProduct }) => {
         </div>
       </div>
       <Link to={`product/${id}`} state={id} className="card-catalog__link">
-        <img src={img && `https://voyts.onrender.com/${img[0]}`} alt="img-buy" className="card-cataloge__img" />
+        <img src={img && img[0]} alt="img-buy" className="card-cataloge__img" />
         <p className="card-cataloge__p">{name}</p>
         <p className="card-cataloge__span">
           {price} <span>грн</span>

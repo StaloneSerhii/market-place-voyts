@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ReactDOM from 'react-dom';
-import test from '../../../image/testBuy.jpg';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { chancheCounterValue } from 'redux/buyProduct-slice';
 import {
@@ -59,7 +59,7 @@ const BuyBusketModal = ({ product, onClose }) => {
             <li className="block__listBuy--item">
               <img
                 className="block__listBuy--img"
-                src={test}
+                src={product.img[0]}
                 alt="img"
                 width="100px"
               />

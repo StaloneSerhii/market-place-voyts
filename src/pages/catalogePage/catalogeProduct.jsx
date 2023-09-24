@@ -1,5 +1,4 @@
 import { Link, useLocation } from 'react-router-dom';
-import test from '../../image/testBuy.jpg';
 import { SlBasketLoaded } from 'react-icons/sl';
 import { MdOutlineAttachMoney } from 'react-icons/md';
 
@@ -126,7 +125,7 @@ const CatalogeProduct = () => {
                 <li key={list._id}>
                   <div className="product__block">
                     <Link to={`/product/${list._id}`}>
-                      <img src={test} alt="sell" width="200px" />
+                      <img src={list.img[0]} alt="sell" width="200px" />
                     </Link>
                     <div className="product__block--text">
                       <span className="product__block--span">{list.ark}</span>
