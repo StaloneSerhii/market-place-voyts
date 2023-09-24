@@ -50,9 +50,7 @@ const BuyProduct = ({ saveInfo }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [hasInfoBeenSaved, setHasInfoBeenSaved] = useState(false);
   // Дефолтна картинка
-  const [currentImageIndex, setCurrentImageIndex] = useState(
-    '/market-place-voyts/static/media/testBuy.883d2f19961eab487ef8.jpg'
-  );
+  const [currentImageIndex, setCurrentImageIndex] = useState();
   // Перевірка на авторизацію
   const selectAuth = useSelector(getAuthStatus);
 
@@ -81,9 +79,9 @@ const BuyProduct = ({ saveInfo }) => {
   useEffect(() => {
     if (product && !hasInfoBeenSaved) {
       saveInfo({
-        use: product.info.use || 'інформація відсутння',
+        use:product.info.use ||  'інформація відсутння',
         obm: product.info.obm || 'інформація відсутння',
-        details: product.info.details || 'інформація відсутння',
+        details:product.info.details ||  'інформація відсутння',
       });
       setHasInfoBeenSaved(true);
     }
@@ -112,7 +110,7 @@ const BuyProduct = ({ saveInfo }) => {
   // Застосуваня картинки на яку клікнув на головну
   useEffect(() => {
     if (product) {
-      setCurrentImageIndex(product.img[0]);
+      setCurrentImageIndex(`https://voyts.onrender.com/${product.img[0]}`);
     }
   }, [product]);
 
@@ -184,7 +182,7 @@ const BuyProduct = ({ saveInfo }) => {
               onMouseMove={handleMouseMove}
             >
               <img
-                src={currentImageIndex}
+                src={product && currentImageIndex }
                 alt="product"
                 width="400"
                 className="zoomable-image"
@@ -196,7 +194,7 @@ const BuyProduct = ({ saveInfo }) => {
                   <img
                     key={img}
                     className="active"
-                    src={img}
+                    src={`https://voyts.onrender.com/${img}`}
                     alt="allProduct"
                     width="100"
                     onClick={switchToPreviousImage}
@@ -232,7 +230,7 @@ const BuyProduct = ({ saveInfo }) => {
           </div>
         </div>
         {product && (
-          <div>
+          <div style={{width: '700px'}}>
             <div
               style={{
                 display: 'flex',
