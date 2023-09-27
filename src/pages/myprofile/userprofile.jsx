@@ -22,7 +22,7 @@ const Profile = () => {
       <ul className="profile__list">
         {isSuperStatus === 'superuser' &&
           <Link
-            to="/adm"
+            to="/adm/product"
             className={
               'profile__item'
             }

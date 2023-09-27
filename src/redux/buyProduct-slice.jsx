@@ -67,7 +67,8 @@ export const buyProducSlice = createSlice({
       const deletedProductId = action.payload;
       const updatedState = state.userPr.product.filter(
         pr => pr.id !== deletedProductId
-      );
+        );
+        console.log(updatedState);
       state.userPr.product.splice(
         0,
         state.userPr.product.length,

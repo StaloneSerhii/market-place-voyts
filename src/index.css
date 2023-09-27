@@ -1361,7 +1361,6 @@ article.nextSlide {
 
 .formData--buy {
   margin-left: 50px;
-  height: 100%;
   font-size: 20px;
   display: flex;
   flex-direction: column;
@@ -1439,6 +1438,9 @@ article.nextSlide {
 .profile__list {
   border-right: 2px solid rgb(146, 146, 146);
 }
+.profile__list > li {
+  margin-bottom: 15px;
+}
 
 .activePr {
   background-color: rgb(81, 163, 102);
@@ -1455,6 +1457,12 @@ p {
 
 body {
   font-family: serif;
+}
+
+.inputAdm {
+  border: 1px solid black;
+  padding: 5px;
+  margin: 0 5px;
 }
 
 .paginate {

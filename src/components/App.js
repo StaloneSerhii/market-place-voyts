@@ -9,6 +9,7 @@ import { getAuthStatus, getFetching } from 'redux/authPer/auth-selector';
 import { Circles } from 'react-loader-spinner';
 import { PrivateRoute } from 'redux/privateRoute';
 import { AdmRoute } from 'redux/admRoute';
+import AddProduct from './adm/addProduct/addProduct';
 
 
 // import RegisterPage from 'pages/registerPages/registerPage';
@@ -83,7 +84,7 @@ function App() {
                 />
               }
             >
-            <Route path="product" element={<p>Product</p>} />
+            <Route path="product" element={<AddProduct/>} />
           </Route>
           <Route path="/" element={<Layout />}>
             <Route index element={<MainPages />} />

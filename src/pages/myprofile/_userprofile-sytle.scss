@@ -28,6 +28,9 @@
 }
 .profile__list {
     border-right: 2px solid rgb(146, 146, 146);
+&>li{
+    margin-bottom: 15px;
+}
 }
 
 .activePr {
