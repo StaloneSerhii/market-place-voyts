@@ -72,6 +72,7 @@ const BuyProduct = ({ saveInfo }) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState('');
   const modalRef = useRef(null);
+  
   // Функція для відкриття модального вікна з вибраним зображенням
   const openModal = (img) => {
     setSelectedImage(img);

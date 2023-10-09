@@ -15,6 +15,9 @@ const AdminPage = () => {
                 <li>
                     <Link className="formLogin__btn postBtn" to='product'>Добавити товар</Link>
                 </li>
+                <li>
+                    <Link className="formLogin__btn postBtn" to='allProduct'>Список товарів</Link>
+                </li>
             </ul>
         </div>
         <Outlet />

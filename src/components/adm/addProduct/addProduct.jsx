@@ -4,10 +4,11 @@ import { AiOutlineHeart } from "react-icons/ai";
 import { FcCallback } from "react-icons/fc";
 import { FiChevronRight } from "react-icons/fi";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import { addProductBS } from "redux/operations";
 import nofoto from '../../../image/noimage.jpg'
+import { getIdProduct } from "redux/service";
 const category = [
     { label: 'by' },
     { label: 'new' }
@@ -16,8 +17,18 @@ const label = { inputProps: { true: false } };
 
 const AddProduct = () => {
     const [currentImageIndex, setCurrentImageIndex] = useState('');
+    const [data, setData] = useState('');
     const [img, setImg] = useState('')
     const dispatch = useDispatch()
+    const paramsFind = useParams()
+
+
+    useEffect(() => {
+        if (paramsFind.id) {
+            getIdProduct(paramsFind.id).then(pr => setData(pr))
+        }
+    }, [paramsFind])
+
     const formik = useFormik({
         initialValues: {
             name: '',
@@ -84,14 +95,11 @@ const AddProduct = () => {
     const handleMouseMove = event => {
         const container = containerRef.current;
         const image = container.querySelector('.zoomable-image');
-
         const containerRect = container.getBoundingClientRect();
         const mouseX = event.clientX - containerRect.left;
         const mouseY = event.clientY - containerRect.top;
-
         const imageX = ((mouseX / containerRect.width) * 100) / 100;
         const imageY = ((mouseY / containerRect.height) * 100) / 100;
-
         image.style.transformOrigin = `${imageX * 100}% ${imageY * 100}%`;
     };
 
@@ -143,9 +151,7 @@ const AddProduct = () => {
 
     return (
         <form onSubmit={formik.handleSubmit}>
-
             <div className="content__product">
-
                 <div>
                     <div className="block__img">
                         <div
@@ -154,7 +160,7 @@ const AddProduct = () => {
                             onMouseMove={handleMouseMove}
                         >
                             <img
-                                src={img ? img.url :nofoto}
+                                src={img ? img.url : nofoto}
                                 alt="product"
                                 width="400"
                                 className="zoomable-image"
@@ -173,7 +179,7 @@ const AddProduct = () => {
                             <img
                                 key={img}
                                 className="active"
-                                src={img ? img.url :nofoto}
+                                src={img ? img.url : nofoto}
                                 alt="allProduct"
                                 width="100"
                                 onClick={switchToPreviousImage}
@@ -184,19 +190,16 @@ const AddProduct = () => {
                             <h3>Знайдемо потрібну запчастину:</h3>
                             <label htmlFor="">
                                 <input
-                                    
                                     type="text"
                                     placeholder="Номер або назва запчастини"
-                                
+
                                 />
                             </label>
                             <label htmlFor="">
                                 <input
-                                    
                                     type="tel"
                                     name="phone"
                                     placeholder="Телефон"
-                                
                                 />
                             </label>
                             <button className="formLogin__btn postBtn" type="submit">
@@ -208,13 +211,13 @@ const AddProduct = () => {
 
                 <div style={{ width: '700px' }}>
                     <input
-                    required
+                        required
                         id="name"
                         name="name"
                         placeholder="Назва товару"
                         variant="outlined"
                         sx={{ width: '100%' }}
-                        value={formik.values.name}
+                        value={formik.values.name.toString()}
                         onChange={formik.handleChange}
                         error={formik.touched.name && Boolean(formik.errors.name)}
                         helperText={formik.touched.name && formik.errors.name}
@@ -252,7 +255,7 @@ const AddProduct = () => {
                                 <input required name="code" id="code" placeholder="Унікальний код" variant="outlined" type="number" value={formik.values.code} className="inputAdm" onChange={formik.handleChange} />
                             </p>
                             <Autocomplete
-                            required
+                                required
                                 disablePortal
                                 value={formik.values.category}
                                 onChange={(event, newValue) => {
@@ -269,7 +272,7 @@ const AddProduct = () => {
                             <p>
                                 Артикул: <span>{formik.values.ark}</span>
                                 <input
-                                required
+                                    required
                                     className="inputAdm"
                                     id="ark"
                                     name="ark"
@@ -284,10 +287,10 @@ const AddProduct = () => {
                             <p>
                                 Виробник:
                                 <span>{formik.values.producer}</span>
-                                <input  className="inputAdm" name="producer" id="producer" placeholder="Фірма виробник" variant="outlined" type="text" value={formik.values.producer}
+                                <input className="inputAdm" name="producer" id="producer" placeholder="Фірма виробник" variant="outlined" type="text" value={formik.values.producer}
                                     onChange={formik.handleChange} />
                             </p>
-                            <p className="block__info--on">{!formik.values.hidden? "В наявності": 'Прихований'}</p>
+                            <p className="block__info--on">{!formik.values.hidden ? "В наявності" : 'Прихований'}</p>
                             <p>Приховати товару<Switch {...label} onChange={formik.handleChange} id="hidden"
                                 name="hidden" /></p>
                             <input required className="inputAdm"
@@ -319,7 +322,7 @@ const AddProduct = () => {
                             // to={`/product/${pr._id}`}
                             className="block__analog--info"
                         >
-                            <img src={img ? img.url :nofoto} alt="/" width="70px" />
+                            <img src={img ? img.url : nofoto} alt="/" width="70px" />
                             <p>{formik.values.name}</p>
                             <p className="price">{formik.values.price} грн</p>
                         </Link>

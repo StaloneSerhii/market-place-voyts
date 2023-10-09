@@ -10,19 +10,9 @@ import { Circles } from 'react-loader-spinner';
 import { PrivateRoute } from 'redux/privateRoute';
 import { AdmRoute } from 'redux/admRoute';
 import AddProduct from './adm/addProduct/addProduct';
+import ProductList from './adm/addProduct/productList';
 
 
-// import RegisterPage from 'pages/registerPages/registerPage';
-// import BuyModalSuc from '../pages/buysuccess/buySuc';
-// import Favorite from 'pages/favoriteProduct/favorite';
-// import Profile from 'pages/myprofile/userprofile';
-// import History from './settings/history';
-// import MyStore from './settings/mystore';
-// import SerringProfile from './settings/settingUser';
-// import MainPages from 'pages/mainPage/mainPage';
-// import AdminPage from 'pages/adm/adminPane';
-// import CatalogeProduct from 'pages/catalogePage/catalogeProduct';
-// import Busket from 'pages/busket/busket';
 
 const BuyProduct = lazy(() => import('./buyProduct/buyProduct'));
 const RegisterPage = lazy(() => import('pages/registerPages/registerPage'));
@@ -85,6 +75,9 @@ function App() {
               }
             >
             <Route path="product" element={<AddProduct/>} />
+            <Route path="allProduct" element={<ProductList/>} />
+            <Route path="product/:id" element={<AddProduct/>} />
+
           </Route>
           <Route path="/" element={<Layout />}>
             <Route index element={<MainPages />} />
