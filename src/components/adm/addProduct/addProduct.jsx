@@ -6,7 +6,7 @@ import { FiChevronRight } from "react-icons/fi";
 import { useDispatch } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
-import { addProductBS } from "redux/operations";
+import { addProductBS, chengeProductBS } from "redux/operations";
 import nofoto from '../../../image/noimage.jpg'
 import { getIdProduct } from "redux/service";
 const category = [
@@ -26,28 +26,38 @@ const AddProduct = () => {
     useEffect(() => {
         if (paramsFind.id) {
             getIdProduct(paramsFind.id).then(pr => setData(pr))
+
         }
     }, [paramsFind])
 
+    useEffect(() => {
+        if (data) {
+            setImg({ url: data.img[0] })
+
+        }
+    }, [data])
+
+
     const formik = useFormik({
         initialValues: {
-            name: '',
-            ark: '',
-            counter: '',
-            code: '',
-            price: '',
-            category: null,
-            subcategory: '',
-            hidden: false,
-            video: '',
-            producer: '',
+            name: data ? data.name : '',
+            ark: data ? data.ark : "",
+            counter: data ? data.counter : '',
+            code: data ? data.code : '',
+            price: data ? data.price : '',
+            category: data ? data.category : null,
+            subcategory: data ? data.subcategory : '',
+            hidden: data ? data.hidden : false,
+            video: data ? data.video : '',
+            producer: data ? data.producer : '',
             info: {
-                obm: '',
-                details: '',
-                use: ''
+                obm: data ? data.info.obm : '',
+                details: data ? data.info.details : '',
+                use: data ? data.info.use : ''
             },
-            img: null
+            img: data ? data.img[0] : null
         },
+        enableReinitialize: true,
         validate: (values) => {
             const errors = {};
 
@@ -82,10 +92,13 @@ const AddProduct = () => {
             formData.append("info[use]", obj.info.use);
             formData.append("producer", obj.producer);
 
-            for (let pair of formData.entries()) {
-                console.log(pair[0], pair[1]);
+
+            if (paramsFind.id) {
+               const {id}=paramsFind
+                dispatch(chengeProductBS({formData, id}))
+            } else {
+                dispatch(addProductBS(formData))
             }
-            dispatch(addProductBS(formData))
             // handleClose();
         },
     });
@@ -217,7 +230,7 @@ const AddProduct = () => {
                         placeholder="Назва товару"
                         variant="outlined"
                         sx={{ width: '100%' }}
-                        value={formik.values.name.toString()}
+                        value={formik.values.name}
                         onChange={formik.handleChange}
                         error={formik.touched.name && Boolean(formik.errors.name)}
                         helperText={formik.touched.name && formik.errors.name}

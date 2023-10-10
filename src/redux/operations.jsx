@@ -349,3 +349,28 @@ export const addProductBS = createAsyncThunk(
     }
   }
 );
+
+export const chengeProductBS = createAsyncThunk(
+  'adm/changeproduct',
+  async (credentials, thunkAPI) => {
+    console.log(credentials);
+    const state = thunkAPI.getState();
+    const persistedToken = state.persistedReducerAdd.auth.token;
+    if (persistedToken === null) {
+      return thunkAPI.rejectWithValue('Unable to fetch user');
+    }
+    try {
+      setAuthHeader(persistedToken);
+      const response = await instance.patch(`/adm/changeproduct/${credentials.id}`, credentials.formData);
+      if (response) {
+        Notiflix.Notify.success('Ви успішно створили новий товар!');
+        return response.data;
+      }
+    } catch (e) {
+      console.log(e);
+      Notiflix.Notify.failure(
+        'Не вдалося створити товар для продажу!'
+      );
+    }
+  }
+);

@@ -11,7 +11,7 @@ const ProductList = () => {
     return (
         <>
             {data && data.map(pr => (
-                <div className="card-catalog">
+                <div className="card-catalog" key={pr._id}>
                     <div className="sell">
                         <div className="beffore__select">
                         </div>
