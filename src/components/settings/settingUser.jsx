@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import * as Yup from 'yup';
 import { getAuth } from 'redux/authPer/auth-selector';
-import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
+import { AiFillEye, AiFillEyeInvisible, AiFillSetting } from 'react-icons/ai';
 import { changeUserData } from 'redux/operations';
+import { useLocation } from 'react-router-dom';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string()
@@ -31,6 +32,8 @@ const SerringProfile = () => {
   const selecAuth = useSelector(getAuth);
   const [isFormChanged, setIsFormChanged] = useState(true);
   const { user } = selecAuth;
+  const location = useLocation();
+  const { pathname } = location;
 
   const initialValues = {
     name: user.name,
@@ -46,7 +49,7 @@ const SerringProfile = () => {
     initialValues,
     validationSchema: validationSchema,
     onSubmit: values => {
-      if (formik.values.newPassword&&formik.values.password) {
+      if (formik.values.newPassword && formik.values.password) {
         return dispath(changeUserData(values));
       }
       const { newPassword, password, ...obj } = values;
@@ -76,7 +79,17 @@ const SerringProfile = () => {
   return (
     <>
       <div className="register">
-        <h2>РЕРЕЄСТРАЦІЯ</h2>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <h2 className="register-text">
+            {pathname === '/profile/settings' ? 'Мій профіль' : 'РЕРЕЄСТРАЦІЯ'}
+          </h2>
+          <button
+            style={{ color: '#278032', fontSize: '30px' }}
+            title="Скинути історію профілю"
+          >
+            <AiFillSetting />
+          </button>
+        </div>
         <form onSubmit={formik.handleSubmit}>
           <div className="form__register">
             <div>

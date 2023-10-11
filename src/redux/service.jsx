@@ -4,6 +4,14 @@ import Notiflix from 'notiflix';
 const API = 'https://voyts.onrender.com/api';
 // const API = 'http://localhost:3333/api';
 
+async function getAllProductAdm(page) {
+  const { data } = await axios.get(`${API}/getproduct?limit=${page}`);
+  if (data) {
+    return data;
+  }
+  console.log('error');
+}
+
 // Поверненя всіх товарів на головну
 async function getAllProduct(page) {
   const { data } = await axios.get(`${API}/product?limit=${page}`);
@@ -117,8 +125,6 @@ async function resendPass(body) {
   console.log('error');
 }
 
-
-
 export {
   postBuyProductSgTech,
   postBuyProductSg,
@@ -132,4 +138,5 @@ export {
   getTopBuyProduct,
   resendEmailVerf,
   resendPass,
+  getAllProductAdm,
 };

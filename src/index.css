@@ -852,7 +852,6 @@ article.nextSlide {
   margin: 0 auto;
   max-width: 90%;
   max-height: 90%;
-  margin-top: 10vh;
 }
 
 .modal .close {
@@ -970,7 +969,7 @@ article.nextSlide {
   font-size: 18px;
   font-weight: 600;
   margin-left: 10px;
-  margin-right: 30px;
+  width: 200px;
 }
 
 .diff {
@@ -1171,7 +1170,7 @@ article.nextSlide {
   width: 700px;
 }
 
-.register > h2 {
+.register-text {
   margin-bottom: 30px;
   color: var(--greenMain);
   font-size: 25px;
