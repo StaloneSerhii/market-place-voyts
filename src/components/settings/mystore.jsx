@@ -56,7 +56,8 @@ const MyStore = () => {
                       className="status__pr"
                       style={{
                         backgroundColor:
-                          (pr.status === 'pending' && 'gray') ||
+                          (pr.status === 'wait' && 'gray') ||
+                          (pr.status === 'pending' && 'orange') ||
                           (pr.status === 'rejected' && 'red') ||
                           (pr.status === 'fullfild' && 'green'),
                       }}

@@ -23,11 +23,11 @@ const SellProduct = () => {
 
   const appendProduct = (id, status) => {
     if (status === 'apruve') {
-      return dispatch(apruveProduct({ id }));
+      return dispatch(apruveProduct({ id, ttn: 'pending' }));
     } else if (status === 'send' && ttn) {
       return dispatch(apruveProduct({ id, ttn }));
     } else if (status === 'cancell') {
-      return dispatch(apruveProduct({ id }));
+      return dispatch(apruveProduct({ id,ttn: 'rejected' }));
     }
   };
 
@@ -62,7 +62,8 @@ const SellProduct = () => {
                       className="status__pr"
                       style={{
                         backgroundColor:
-                          (pr.status === 'pending' && 'gray') ||
+                          (pr.status === 'wait' && 'gray') ||
+                          (pr.status === 'pending' && 'orange') ||
                           (pr.status === 'rejected' && 'red') ||
                           (pr.status === 'fullfild' && 'green'),
                       }}
@@ -72,7 +73,7 @@ const SellProduct = () => {
                       <br />
                       <span>
                         {(pr.status === 'pending' &&
-                          'Очікується підтвердження') ||
+                          ' підтвердження') ||
                           (pr.status === 'rejected' && 'Скасовано') ||
                           (pr.status === 'fullfild' && 'Відправлено')}
                       </span>

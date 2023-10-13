@@ -4,8 +4,8 @@ import Notiflix from 'notiflix';
 import { resendEmailVerf } from './service';
 
 const instance = axios.create({
-  baseURL: 'https://voyts.onrender.com/api',
-  // baseURL: 'http://localhost:3333/api',
+  // baseURL: 'https://voyts.onrender.com/api',
+  baseURL: 'http://localhost:3333/api',
 });
 
 const setAuthHeader = token => {
@@ -424,8 +424,8 @@ export const apruveProduct = createAsyncThunk(
     try {
       setAuthHeader(persistedToken);
       const response = await instance.patch(
-        `/adm/apruveProduct/${credentials.id}`,
-        credentials.ttn || ''
+        `/adm/chengesellproduct/${credentials.id}`,
+        credentials || ''
       );
       if (response) {
         Notiflix.Notify.success('Ви успішно створили новий товар!');
