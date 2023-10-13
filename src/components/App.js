@@ -2,7 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import Layout from './Layout';
 import { Application, Dital, Obm } from './buyProduct/buyProduct';
 import { useState } from 'react';
-import { useEffect,Suspense,lazy } from 'react';
+import { useEffect, Suspense, lazy } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCurrentUser, fetchProductUser } from 'redux/operations';
 import { getAuthStatus, getFetching } from 'redux/authPer/auth-selector';
@@ -11,8 +11,7 @@ import { PrivateRoute } from 'redux/privateRoute';
 import { AdmRoute } from 'redux/admRoute';
 import AddProduct from './adm/addProduct/addProduct';
 import ProductList from './adm/addProduct/productList';
-
-
+import SellProduct from './adm/addProduct/sellProduct';
 
 const BuyProduct = lazy(() => import('./buyProduct/buyProduct'));
 const RegisterPage = lazy(() => import('pages/registerPages/registerPage'));
@@ -24,9 +23,10 @@ const MyStore = lazy(() => import('./settings/mystore'));
 const SerringProfile = lazy(() => import('./settings/settingUser'));
 const MainPages = lazy(() => import('pages/mainPage/mainPage'));
 const AdminPage = lazy(() => import('pages/adm/adminPane'));
-const CatalogeProduct = lazy(() => import('pages/catalogePage/catalogeProduct'));
+const CatalogeProduct = lazy(() =>
+  import('pages/catalogePage/catalogeProduct')
+);
 const Busket = lazy(() => import('pages/busket/busket'));
-
 
 function App() {
   const dispatch = useDispatch();
@@ -65,19 +65,14 @@ function App() {
     <div>
       <Suspense>
         <Routes>
-        <Route
-              path="adm"
-              element={
-                <AdmRoute
-                  redirectTo="/"
-                  component={<AdminPage />}
-                />
-              }
-            >
-            <Route path="product" element={<AddProduct/>} />
-            <Route path="allProduct" element={<ProductList/>} />
-            <Route path="product/:id" element={<AddProduct/>} />
-
+          <Route
+            path="adm"
+            element={<AdmRoute redirectTo="/" component={<AdminPage />} />}
+          >
+            <Route path="product" element={<AddProduct />} />
+            <Route path="allProduct" element={<ProductList />} />
+            <Route path="buyPr" element={<SellProduct />} />
+            <Route path="product/:id" element={<AddProduct />} />
           </Route>
           <Route path="/" element={<Layout />}>
             <Route index element={<MainPages />} />
@@ -92,10 +87,7 @@ function App() {
             <Route
               path="profile"
               element={
-                <PrivateRoute
-                  redirectTo="/register"
-                  component={<Profile />}
-                />
+                <PrivateRoute redirectTo="/register" component={<Profile />} />
               }
             >
               <Route path="store" element={<MyStore />} />

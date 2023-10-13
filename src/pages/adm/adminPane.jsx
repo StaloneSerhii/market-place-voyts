@@ -20,6 +20,11 @@ const AdminPage = () => {
               Список товарів
             </Link>
           </li>
+          <li>
+            <Link className="formLogin__btn postBtn" to="buyPr">
+              Куплені товари
+            </Link>
+          </li>
         </ul>
       </div>
       <Outlet />

@@ -343,9 +343,7 @@ export const addProductBS = createAsyncThunk(
       }
     } catch (e) {
       console.log(e);
-      Notiflix.Notify.failure(
-        'Не вдалося створити товар для продажу!'
-      );
+      Notiflix.Notify.failure('Не вдалося створити товар для продажу!');
     }
   }
 );
@@ -353,7 +351,6 @@ export const addProductBS = createAsyncThunk(
 export const chengeProductBS = createAsyncThunk(
   'adm/changeproduct',
   async (credentials, thunkAPI) => {
-    console.log(credentials);
     const state = thunkAPI.getState();
     const persistedToken = state.persistedReducerAdd.auth.token;
     if (persistedToken === null) {
@@ -361,16 +358,82 @@ export const chengeProductBS = createAsyncThunk(
     }
     try {
       setAuthHeader(persistedToken);
-      const response = await instance.patch(`/adm/changeproduct/${credentials.id}`, credentials.formData);
+      const response = await instance.patch(
+        `/adm/changeproduct/${credentials.id}`,
+        credentials.formData
+      );
       if (response) {
         Notiflix.Notify.success('Ви успішно створили новий товар!');
         return response.data;
       }
     } catch (e) {
       console.log(e);
-      Notiflix.Notify.failure(
-        'Не вдалося створити товар для продажу!'
+      Notiflix.Notify.failure('Не вдалося створити товар для продажу!');
+    }
+  }
+);
+
+export const getAllProductAdm = createAsyncThunk(
+  'adm/getproduct',
+  async (_, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const persistedToken = state.persistedReducerAdd.auth.token;
+    if (persistedToken === null) {
+      return thunkAPI.rejectWithValue('Unable to fetch user');
+    }
+    try {
+      setAuthHeader(persistedToken);
+      const response = await instance.get(`/adm/getproduct`);
+      if (response) {
+        return response.data;
+      }
+    } catch (e) {
+      Notiflix.Notify.failure('Не вдалося створити товар для продажу!');
+    }
+  }
+);
+
+export const getSellAllProductAdm = createAsyncThunk(
+  'adm/getsellproduct',
+  async (_, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const persistedToken = state.persistedReducerAdd.auth.token;
+    if (persistedToken === null) {
+      return thunkAPI.rejectWithValue('Unable to fetch user');
+    }
+    try {
+      setAuthHeader(persistedToken);
+      const response = await instance.get(`/adm/getsellproduct`);
+      if (response) {
+        return response.data;
+      }
+    } catch (e) {
+      Notiflix.Notify.failure('Не вдалося створити товар для продажу!');
+    }
+  }
+);
+
+export const apruveProduct = createAsyncThunk(
+  'adm/apruveProduct',
+  async (credentials, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const persistedToken = state.persistedReducerAdd.auth.token;
+    if (persistedToken === null) {
+      return thunkAPI.rejectWithValue('Unable to fetch user');
+    }
+    try {
+      setAuthHeader(persistedToken);
+      const response = await instance.patch(
+        `/adm/apruveProduct/${credentials.id}`,
+        credentials.ttn || ''
       );
+      if (response) {
+        Notiflix.Notify.success('Ви успішно створили новий товар!');
+        return response.data;
+      }
+    } catch (e) {
+      console.log(e);
+      Notiflix.Notify.failure('Не вдалося створити товар для продажу!');
     }
   }
 );
