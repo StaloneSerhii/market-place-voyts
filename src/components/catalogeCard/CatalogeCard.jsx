@@ -14,9 +14,7 @@ import {
   delMyFavoritNotAuth,
 } from 'redux/buyProduct-slice';
 
-
 const CatalogeCard = ({ price, id, name, img, code, setProduct }) => {
-  console.log(img);
   const [fav, setFav] = useState(-1);
   const [buyPr, setBuyPr] = useState(false);
   const dispatch = useDispatch();

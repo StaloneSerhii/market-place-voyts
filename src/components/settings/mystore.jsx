@@ -67,9 +67,11 @@ const MyStore = () => {
                       <br />
                       <span>
                         {(pr.status === 'pending' &&
-                          'Очікується підтвердження') ||
-                          (pr.status === 'rejected' && 'Скасовано') ||
-                          (pr.status === 'fullfild' && 'Відправлено')}
+                          'Підтверджено замовлення, очікування відправки') ||
+                          (pr.status === 'rejected' &&
+                            'Замовлення скасовано') ||
+                          (pr.status === 'fullfild' &&
+                            `Замовлення відправлено: номер ттн ${pr.ttn}`)}
                       </span>
                     </span>
                   </div>

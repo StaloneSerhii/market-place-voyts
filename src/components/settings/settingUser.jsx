@@ -3,9 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import * as Yup from 'yup';
 import { getAuth } from 'redux/authPer/auth-selector';
-import { AiFillEye, AiFillEyeInvisible, AiFillSetting } from 'react-icons/ai';
+import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { changeUserData } from 'redux/operations';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { BiReset } from 'react-icons/bi';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string()
@@ -34,6 +35,7 @@ const SerringProfile = () => {
   const { user } = selecAuth;
   const location = useLocation();
   const { pathname } = location;
+  const navigate = useNavigate();
 
   const initialValues = {
     name: user.name,
@@ -56,6 +58,11 @@ const SerringProfile = () => {
       dispath(changeUserData(obj));
     },
   });
+
+  const clearLS = () => {
+    localStorage.clear();
+    navigate('/');
+  };
 
   // Збереження ведених даних в форму
   const handleInputChange = event => {
@@ -84,10 +91,11 @@ const SerringProfile = () => {
             {pathname === '/profile/settings' ? 'Мій профіль' : 'РЕРЕЄСТРАЦІЯ'}
           </h2>
           <button
+            onClick={() => clearLS()}
             style={{ color: '#278032', fontSize: '30px' }}
             title="Скинути історію профілю"
           >
-            <AiFillSetting />
+            <BiReset />
           </button>
         </div>
         <form onSubmit={formik.handleSubmit}>

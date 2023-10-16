@@ -19,15 +19,15 @@ const SellProduct = () => {
       }
     };
     fetchData();
-  }, [dispatch]);
+  }, [dispatch, stateHistory]);
 
   const appendProduct = (id, status) => {
     if (status === 'apruve') {
-      return dispatch(apruveProduct({ id, ttn: 'pending' }));
+      return dispatch(apruveProduct({ id, status: 'pending', ttn: '' }));
     } else if (status === 'send' && ttn) {
-      return dispatch(apruveProduct({ id, ttn }));
+      return dispatch(apruveProduct({ id, status: 'fullfild', ttn }));
     } else if (status === 'cancell') {
-      return dispatch(apruveProduct({ id,ttn: 'rejected' }));
+      return dispatch(apruveProduct({ id, status: 'rejected', ttn: '' }));
     }
   };
 
@@ -72,8 +72,7 @@ const SellProduct = () => {
                       № {pr._id.slice(18, 30)} від {pr.createdAt.slice(0, 10)}
                       <br />
                       <span>
-                        {(pr.status === 'pending' &&
-                          ' підтвердження') ||
+                        {(pr.status === 'pending' && ' підтвердження') ||
                           (pr.status === 'rejected' && 'Скасовано') ||
                           (pr.status === 'fullfild' && 'Відправлено')}
                       </span>
@@ -157,7 +156,7 @@ const SellProduct = () => {
                       />
                     </label>
                     <button
-                      type="submit"
+                      type="button"
                       style={{
                         backgroundColor: 'green',
                         color: 'white',
