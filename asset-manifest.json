@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/market-place-voyts/static/css/main.3e0d9acc.css",
-    "main.js": "/market-place-voyts/static/js/main.8b1b4163.js",
+    "main.js": "/market-place-voyts/static/js/main.9645cb14.js",
     "static/js/834.045ed345.chunk.js": "/market-place-voyts/static/js/834.045ed345.chunk.js",
     "static/js/265.b802274b.chunk.js": "/market-place-voyts/static/js/265.b802274b.chunk.js",
     "static/js/209.ec458f07.chunk.js": "/market-place-voyts/static/js/209.ec458f07.chunk.js",
@@ -22,7 +22,7 @@
     "static/media/youtube.webp": "/market-place-voyts/static/media/youtube.b9693d97890e7f5497f3.webp",
     "index.html": "/market-place-voyts/index.html",
     "main.3e0d9acc.css.map": "/market-place-voyts/static/css/main.3e0d9acc.css.map",
-    "main.8b1b4163.js.map": "/market-place-voyts/static/js/main.8b1b4163.js.map",
+    "main.9645cb14.js.map": "/market-place-voyts/static/js/main.9645cb14.js.map",
     "834.045ed345.chunk.js.map": "/market-place-voyts/static/js/834.045ed345.chunk.js.map",
     "265.b802274b.chunk.js.map": "/market-place-voyts/static/js/265.b802274b.chunk.js.map",
     "209.ec458f07.chunk.js.map": "/market-place-voyts/static/js/209.ec458f07.chunk.js.map",
@@ -41,6 +41,6 @@
   },
   "entrypoints": [
     "static/css/main.3e0d9acc.css",
-    "static/js/main.8b1b4163.js"
+    "static/js/main.9645cb14.js"
   ]
 }
