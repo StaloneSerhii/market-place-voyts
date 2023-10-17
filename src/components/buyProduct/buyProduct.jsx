@@ -72,9 +72,9 @@ const BuyProduct = ({ saveInfo }) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState('');
   const modalRef = useRef(null);
-  
+
   // Функція для відкриття модального вікна з вибраним зображенням
-  const openModal = (img) => {
+  const openModal = img => {
     setSelectedImage(img);
     setShowModal(true);
   };
@@ -85,29 +85,27 @@ const BuyProduct = ({ saveInfo }) => {
     setSelectedImage('');
   };
 
-
-   // Додаємо слухач події для обробки кліку поза модальним вікном
-   useEffect(() => {
+  // Додаємо слухач події для обробки кліку поза модальним вікном
+  useEffect(() => {
     // Створюємо функцію обробника кліку поза модальним вікном
-    const handleOutsideClick = (e) => {
-      if (modalRef ) {
+    const handleOutsideClick = e => {
+      if (modalRef) {
         closeModal();
       }
     };
-  
+
     // Додаємо слухач події для обробки кліку поза модальним вікном
     if (showModal) {
       document.addEventListener('mousedown', handleOutsideClick);
     } else {
       document.removeEventListener('mousedown', handleOutsideClick);
     }
-  
+
     // Повертаємо функцію, яка буде виконана при розмінтці компонента
     return () => {
       document.removeEventListener('mousedown', handleOutsideClick);
     };
   }, [showModal]);
-  
 
   // Запит по продукту на бд по ід
   useEffect(() => {
@@ -119,9 +117,9 @@ const BuyProduct = ({ saveInfo }) => {
   useEffect(() => {
     if (product && !hasInfoBeenSaved) {
       saveInfo({
-        use:product.info.use ||  'інформація відсутння',
+        use: product.info.use || 'інформація відсутння',
         obm: product.info.obm || 'інформація відсутння',
-        details:product.info.details ||  'інформація відсутння',
+        details: product.info.details || 'інформація відсутння',
       });
       setHasInfoBeenSaved(true);
     }
@@ -220,10 +218,9 @@ const BuyProduct = ({ saveInfo }) => {
               className="zoomable-container"
               ref={containerRef}
               onMouseMove={handleMouseMove}
-              
             >
               <img
-                src={product && currentImageIndex }
+                src={product && currentImageIndex}
                 alt="product"
                 width="400"
                 className="zoomable-image"
@@ -231,13 +228,13 @@ const BuyProduct = ({ saveInfo }) => {
               />
             </div>
             {showModal && (
-        <div className="modal">
-          <span className="close" onClick={closeModal}>
-            &times;
-          </span>
-          <img src={selectedImage} alt="Full Size" />
-        </div>
-      )}
+              <div className="modal">
+                <span className="close" onClick={closeModal}>
+                  &times;
+                </span>
+                <img src={selectedImage} alt="Full Size" />
+              </div>
+            )}
             <div className="block__img--allImg ">
               {product &&
                 product.img.map(img => (
@@ -280,7 +277,7 @@ const BuyProduct = ({ saveInfo }) => {
           </div>
         </div>
         {product && (
-          <div style={{width: '700px'}}>
+          <div style={{ width: '700px' }}>
             <div
               style={{
                 display: 'flex',
@@ -408,7 +405,7 @@ const BuyProduct = ({ saveInfo }) => {
                     : 'info__btn--details'
                 }
               >
-               Локація
+                Локація
               </Link>
             </div>
             <Outlet />

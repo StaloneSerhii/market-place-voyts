@@ -1,10 +1,4 @@
-import {
-  Autocomplete,
-  Button,
-  Switch,
-  TextField,
-  useForkRef,
-} from '@mui/material';
+import { Autocomplete, Button, Switch, TextField } from '@mui/material';
 import { useFormik } from 'formik';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { FcCallback } from 'react-icons/fc';
@@ -21,8 +15,9 @@ const label = { inputProps: { true: false } };
 
 const AddProduct = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState('');
+  const [selectedFiles, setSelectedFiles] = useState([]);
   const [data, setData] = useState('');
-  const [img, setImg] = useState('');
+  const [img, setImg] = useState([]);
   const dispatch = useDispatch();
   const paramsFind = useParams();
 
@@ -31,12 +26,6 @@ const AddProduct = () => {
       getIdProduct(paramsFind.id).then(pr => setData(pr));
     }
   }, [paramsFind]);
-
-  useEffect(() => {
-    if (data) {
-      setImg({ url: data.img[0] });
-    }
-  }, [data]);
 
   const formik = useFormik({
     initialValues: {
@@ -55,7 +44,6 @@ const AddProduct = () => {
         details: data ? data.info.details : '',
         use: data ? data.info.use : '',
       },
-      img: data ? data.img[0] : null,
     },
     enableReinitialize: true,
     validate: values => {
@@ -75,8 +63,10 @@ const AddProduct = () => {
       // Створіть новий об'єкт FormData для відправки на сервер
       const formData = new FormData();
       formData.append('category', category ? category.label : ''); // Додайте категорію або порожню строку
-      if (img) {
-        formData.append('img', img); // Додайте зображення до FormData, якщо воно вибране
+      if (selectedFiles.length > 0) {
+        for (let i = 0; i < selectedFiles.length; i++) {
+          formData.append('img', selectedFiles[i]);
+        }
       }
       formData.append('name', obj.name);
       formData.append('fename', obj.name);
@@ -91,7 +81,6 @@ const AddProduct = () => {
       formData.append('info[details]', obj.info.details);
       formData.append('info[use]', obj.info.use);
       formData.append('producer', obj.producer);
-
       if (paramsFind.id) {
         const { id } = paramsFind;
         dispatch(chengeProductBS({ formData, id }));
@@ -102,7 +91,8 @@ const AddProduct = () => {
     },
   });
 
-  const containerRef = useForkRef(null);
+  const containerRef = useRef(null);
+
   const handleMouseMove = event => {
     const container = containerRef.current;
     const image = container.querySelector('.zoomable-image');
@@ -168,13 +158,25 @@ const AddProduct = () => {
               ref={containerRef}
               onMouseMove={handleMouseMove}
             >
-              <img
-                src={img ? img.url : nofoto}
-                alt="product"
-                width="400"
-                className="zoomable-image"
-                onClick={() => openModal(currentImageIndex)}
-              />
+              {data ? (
+                <img
+                  key={data.img[0]}
+                  className="zoomable-image"
+                  src={currentImageIndex || data.img[0]}
+                  alt="allProduct"
+                  width="400"
+                  onClick={() => openModal(currentImageIndex)}
+                />
+              ) : (
+                <img
+                  key={img[0]}
+                  className="zoomable-image"
+                  src={img[0]}
+                  alt="allProduct"
+                  width="400"
+                  onClick={() => openModal(currentImageIndex)}
+                />
+              )}
             </div>
             {showModal && (
               <div className="modal">
@@ -185,14 +187,27 @@ const AddProduct = () => {
               </div>
             )}
             <div className="block__img--allImg ">
-              <img
-                key={img}
-                className="active"
-                src={img ? img.url : nofoto}
-                alt="allProduct"
-                width="100"
-                onClick={switchToPreviousImage}
-              />
+              {data ? (
+                data.img.map(img => (
+                  <img
+                    key={img}
+                    className="active"
+                    src={img}
+                    alt="allProduct"
+                    width="100"
+                    onClick={switchToPreviousImage}
+                  />
+                ))
+              ) : (
+                <img
+                  key={img[0]}
+                  className="active"
+                  src={img[0]}
+                  alt="allProduct"
+                  width="100"
+                  onClick={switchToPreviousImage}
+                />
+              )}
               {data && data.video && <VideoModal props={data.video} />}
             </div>
             <div className="formFind">
@@ -241,14 +256,16 @@ const AddProduct = () => {
               <span>Завантажити картинку</span>
               <input
                 type="file"
+                name="photos"
+                multiple
                 onChange={event => {
-                  const selectedFile = event.target.files[0];
+                  const selectedFile = event.target.files;
+                  setSelectedFiles(selectedFile);
                   const imageUrl = URL.createObjectURL(selectedFile);
 
                   // Зберігаємо URL-об'єкт і вибраний файл в стані компонента
                   setImg({ url: imageUrl, file: selectedFile });
                   // Зберігаємо вибраний файл в стані компонента
-                  formik.setFieldValue('img', selectedFile);
                 }}
               />
               <p>
