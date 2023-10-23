@@ -1,10 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ImFacebook2, ImInstagram } from 'react-icons/im';
 import { BiSolidUser } from 'react-icons/bi';
-import { SiTiktok } from 'react-icons/si';
-import { TfiYoutube } from 'react-icons/tfi';
-import { MdArrowDropDown } from 'react-icons/md';
 import { CgEnter } from 'react-icons/cg';
 import { SlBasketLoaded } from 'react-icons/sl';
 import { useDispatch, useSelector } from 'react-redux';
@@ -61,77 +57,32 @@ const NavigateCategory = () => {
     <nav className="navigate">
       <ul className="navigate__list">
         <li className="navigate__item">
-          <Link className={'navigate__link background'} to="/">
-            ГОЛОВНА
+          <Link className="navigate__link " to="/">
+            Головна
           </Link>
         </li>
         <li className="navigate__item">
-          <div className="navigate__link">
-            ЗАПЧАСТИНИ
-            <MdArrowDropDown className="arrow" />
-          </div>
-          <ul className="navigate__link--subMenu">
-            <li className="items">
-              <Link to="productBY">Запчастини Б/У</Link>
-            </li>
-            <li className="items">
-              <Link to="productNEW">Нові Запчастини</Link>
-            </li>
-          </ul>
+          <Link to="productBY" className="navigate__link">
+            Запчастини
+          </Link>
         </li>
         <li className="navigate__item">
           <Link className="navigate__link" to="sgtech">
-            СГ ТЕХНІКА
+            СГ техніка
           </Link>
         </li>
         <li className="navigate__item">
           <Link className="navigate__link" to="sg">
-            НАВІСНЕ СГ
+            Навісне СГ
           </Link>
         </li>
         <li className="navigate__item">
           <Link className="navigate__link" to="/">
-            КОНТАКТИ
+            Контакти
           </Link>
         </li>
       </ul>
       <ul className="navigate--social">
-        <li>
-          <a
-            target="_blank"
-            rel="noreferrer noopener"
-            href="https://www.facebook.com/groups/zap4astini"
-          >
-            <ImFacebook2 />
-          </a>
-        </li>
-        <li>
-          <a
-            target="_blank"
-            rel="noreferrer noopener"
-            href="https://www.instagram.com/n.voyts/"
-          >
-            <ImInstagram />
-          </a>
-        </li>
-        <li>
-          <a
-            target="_blank"
-            rel="noreferrer noopener"
-            href="https://www.tiktok.com/@n.voyts "
-          >
-            <SiTiktok />
-          </a>
-        </li>
-        <li>
-          <a
-            target="_blank"
-            rel="noreferrer noopener"
-            href="https://www.youtube.com/@NAZARVOYTS/featured"
-          >
-            <TfiYoutube />
-          </a>
-        </li>
         <li>
           {selectAuth ? (
             <Link to="profile/settings">
@@ -144,7 +95,7 @@ const NavigateCategory = () => {
                 onClick={menuOpen}
               >
                 <CgEnter />
-                <span>Увійти/Зареєструватись</span>
+                <span>Особистий кабінет</span>
               </div>
               <form className={openMenu ? 'formLogin' : 'formLogin none'}>
                 <input
@@ -158,7 +109,7 @@ const NavigateCategory = () => {
                 <input
                   onChange={e => setPass(e.target.value)}
                   value={password}
-                  type={!hiddenNewPass ? "password" : "text"}
+                  type={!hiddenNewPass ? 'password' : 'text'}
                   name="password"
                   id="password"
                   placeholder="Пароль"
@@ -170,7 +121,7 @@ const NavigateCategory = () => {
                     right: '25px',
                     cursor: 'pointer',
                     fontSize: '22px',
-                    color: 'black'
+                    color: 'black',
                   }}
                   onClick={() => setHiddenNewPass(!hiddenNewPass)}
                 />
@@ -187,7 +138,7 @@ const NavigateCategory = () => {
                         function okCb(clientAnswer) {
                           resendPass({ email: clientAnswer });
                         },
-                        function cancelCb() { },
+                        function cancelCb() {},
                         {
                           // Custom options
                         }

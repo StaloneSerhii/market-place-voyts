@@ -12,6 +12,7 @@ import { AdmRoute } from 'redux/admRoute';
 import AddProduct from './adm/addProduct/addProduct';
 import ProductList from './adm/addProduct/productList';
 import SellProduct from './adm/addProduct/sellProduct';
+import { RestrictedRoute } from 'redux/restrikedRoute';
 
 const BuyProduct = lazy(() => import('./buyProduct/buyProduct'));
 const RegisterPage = lazy(() => import('pages/registerPages/registerPage'));
@@ -76,7 +77,12 @@ function App() {
           </Route>
           <Route path="/" element={<Layout />}>
             <Route index element={<MainPages />} />
-            <Route path="register" element={<RegisterPage />} />
+            <Route
+              path="register"
+              element={
+                <RestrictedRoute redirectTo="/" component={<RegisterPage />} />
+              }
+            />
             <Route path="productBY" element={<CatalogeProduct />} />
             <Route path="productNEW" element={<CatalogeProduct />} />
             <Route path="busket" element={<Busket />} />

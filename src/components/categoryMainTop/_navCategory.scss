@@ -28,11 +28,9 @@
     padding: 23px 10px 24px 10px;
     font-size: 16px;
     line-height: 33px;
-    font-weight: 600;
     color: #fff;
     position: relative;
     @media (min-width: 1600px) {
-        font-size: 22px;
         padding: 23px 28px 24px 29px;
     }
 }
@@ -43,21 +41,20 @@
     align-items: center;
     gap: 10px;
     & > li > a > svg {
-        height: 40px;
-        width: 40px;
+        height: 32px;
+        width: 32px;
         fill: gray;
         &:hover {
             fill: var(--yellowMain);
         }
     }
-  
 }
 .navigate--social:nth-child(5) {
     position: relative;
 }
 
 .background {
-    background-color: var(--yellowMain);
+    color: var(--yellowMain);
 }
 
 .navigate__link--subMenu {
@@ -92,14 +89,12 @@
     display: flex;
     align-items: center;
     gap: 5px;
-    font-size: 25px;
     font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
     font-weight: 900;
-    padding: 28px 15px;
+    padding: 10px 16px;
     cursor: pointer;
-    @media (min-width: 1600px) {
-        font-size: 30px;
-    }
+    border: 1px solid white;
+    border-radius: 10px;
     &:hover {
         background-color: var(--yellowMain);
     }

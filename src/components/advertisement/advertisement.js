@@ -16,7 +16,7 @@ const Advertisement = () => {
           fontSize: '80px',
         }}
       >
-        Розміщщеня реклами гугл
+        рекламa
       </p>
     </div>
   );

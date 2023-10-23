@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import heroImg from './heroImg';
 
-import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import HeroCategory from './heroCategory/heroCategory';
 import { useCallback } from 'react';
 
@@ -18,18 +17,6 @@ const Hero = () => {
       setCurrentIndex(0);
     }
   }, [currentIndex]);
-
-  const prevSlide = useCallback(() => {
-    if (!effect) {
-      setEffect(true);
-      setTimeout(() => {
-        setCurrentIndex(prevState => prevState - 1);
-        setTimeout(() => {
-          setEffect(false);
-        }, 700);
-      }, 1000);
-    }
-  }, [effect]);
 
   const nextSlide = useCallback(() => {
     if (!effect) {
@@ -55,7 +42,54 @@ const Hero = () => {
 
   return (
     <>
-      <section style={{ display: 'block', height: '600px' }}>
+      <section
+        style={{ display: 'block', height: '600px', position: 'relative' }}
+      >
+        <div className="bf"></div>
+        <div
+          style={{
+            position: 'absolute',
+            top: '120px',
+            left: '80px',
+            zIndex: '10',
+          }}
+        >
+          <h1
+            style={{
+              color: '#009C2C',
+              fontSize: '80px',
+              lineHeight: ' 100px',
+              cursor: 'default',
+            }}
+          >
+            ZAP4ASTINI
+          </h1>
+          <p
+            style={{
+              fontSize: '32px',
+              color: '#fff',
+              margin: '0',
+              cursor: 'default',
+            }}
+          >
+            Від б\у до нових с\г зпчастин
+          </p>
+          <button
+            style={{
+              padding: '10px 20px',
+              backgroundColor: '#009C2C',
+              color: '#fff',
+              width: '220px',
+              textAlign: 'center',
+              fontSize: '16px',
+              lineHeight: '24px',
+              borderRadius: '8px',
+              marginTop: '64px',
+            }}
+          >
+            Зв`язатися з нами
+          </button>
+        </div>
         <div className="section-center">
           {heroImg.map((person, personIndex) => {
             const { id, image } = person;
@@ -71,20 +105,10 @@ const Hero = () => {
             }
             return (
               <article className={position} key={id}>
-                <div className="slide-p">
-                  <img src={image} alt="hero_img" height={600} width={'100%'} />
-                </div>
+                <img src={image} alt="hero_img" width={'100%'} />
               </article>
             );
           })}
-
-          <button className="prev" onClick={prevSlide}>
-            <FiChevronLeft />
-          </button>
-
-          <button className="next" onClick={nextSlide}>
-            <FiChevronRight />
-          </button>
         </div>
         <HeroCategory effect={effect} />
       </section>

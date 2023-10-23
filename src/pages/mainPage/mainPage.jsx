@@ -1,5 +1,5 @@
 import Advertisement from 'components/advertisement/advertisement';
-import Cards from 'components/cards/cards';
+// import Cards from 'components/cards/cards';
 import Hero from 'components/hero/hero';
 import LastPrev from 'pages/lastPrev/lastPrev';
 import CatalogePage from 'pages/mainCataloge/catalogPage';
@@ -10,7 +10,7 @@ const MainPages = () => {
   return (
     <>
       <Hero />
-      <Cards />
+      {/* <Cards /> */}
       <CatalogePage />
       <Advertisement />
       <TopSellPages />

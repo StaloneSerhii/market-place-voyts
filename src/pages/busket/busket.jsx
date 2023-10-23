@@ -19,6 +19,7 @@ import { getAuth } from 'redux/authPer/auth-selector';
 import { ThreeCircles } from 'react-loader-spinner';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { postBuyProduct } from 'redux/service';
+import { Autocomplete, TextField } from '@mui/material';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string()
@@ -38,6 +39,11 @@ const validationSchema = Yup.object().shape({
   viddill: Yup.string().required(),
   oplata: Yup.string().required(),
 });
+
+const options = [
+  { label: 'Тернопіль', id: 1 },
+  { label: 'Львів', id: 2 },
+];
 
 const Busket = () => {
   const dispatch = useDispatch();
@@ -83,7 +89,7 @@ const Busket = () => {
     fename: userAuth.isLoggedIn ? userAuth.user.fename : '',
     email: userAuth.isLoggedIn ? userAuth.user.email : '',
     phone: userAuth.isLoggedIn ? userAuth.user.phone : '',
-    comments: '-',
+    comments: 'Добрго дня. Я б хотів...',
     city: userAuth.isLoggedIn ? userAuth.user.city : '',
     viddill: '',
     oplata: '',
@@ -132,33 +138,6 @@ const Busket = () => {
 
   return (
     <div>
-      <div className="block__name">
-
-        <Link
-          to="/busket"
-          style={{
-            fontSize: '35px',
-            marginLeft: '25px',
-            textAlign: 'center',
-            fontWeight: 900,
-            margin: '15px',
-          }}
-        >
-          | Кошик |
-        </Link>
-        <Link
-          to={userAuth.isLoggedIn ? "/profile/store" : "/myorder"}
-          style={{
-            fontSize: '35px',
-            marginLeft: '25px',
-            textAlign: 'center',
-            fontWeight: 900,
-            margin: '15px',
-          }}
-        >
-          | Мої Замовлення |
-        </Link>
-      </div>
       {data !== undefined && data && data.length > 0 ? (
         <form
           onSubmit={formik.handleSubmit}
@@ -169,14 +148,24 @@ const Busket = () => {
           }}
         >
           <div>
-            <label className="zak">
-              <div className="formData">
-                <h3>Контактні дані</h3>
-                <div className="formData--label">
+            <h3
+              style={{
+                textAlign: 'start',
+                fontSize: '16px',
+                fontWeight: '500',
+              }}
+            >
+              Контактні дані
+            </h3>
+            <div className="formData">
+              <div className="formData--label">
+                <label htmlFor="name">
+                  Ім'я <br />
                   <input
                     required
                     type="text"
                     name="name"
+                    id="name"
                     placeholder="Імя"
                     onBlur={formik.handleBlur}
                     value={formik.values.name}
@@ -184,13 +173,17 @@ const Busket = () => {
                     style={
                       formik.touched.name && formik.errors.name
                         ? { border: '1px solid red' }
-                        : { border: '1px solid gray' }
+                        : { border: '1px solid #009C2C' }
                     }
                   />
+                </label>
+                <label htmlFor="fename">
+                  Прізвище <br />
                   <input
                     required
                     type="text"
                     name="fename"
+                    id="fename"
                     placeholder="Прізвище"
                     onBlur={formik.handleBlur}
                     value={formik.values.fename}
@@ -198,11 +191,15 @@ const Busket = () => {
                     style={
                       formik.touched.fename && formik.errors.fename
                         ? { border: '1px solid red' }
-                        : { border: '1px solid gray' }
+                        : { border: '1px solid #009C2C' }
                     }
                   />
+                </label>
+                <label htmlFor="phone">
+                  Телефон <br />
                   <input
                     required
+                    id="phone"
                     type="tel"
                     name="phone"
                     placeholder="38-000-000-00-00"
@@ -212,10 +209,14 @@ const Busket = () => {
                     style={
                       formik.touched.phone && formik.errors.phone
                         ? { border: '1px solid red' }
-                        : { border: '1px solid gray' }
+                        : { border: '1px solid #009C2C' }
                     }
                   />
+                </label>
+                <label htmlFor="email">
+                  Email <br />
                   <input
+                    id="email"
                     type="email"
                     name="email"
                     placeholder="Email"
@@ -225,98 +226,95 @@ const Busket = () => {
                     style={
                       formik.touched.email && formik.errors.email
                         ? { border: '1px solid red' }
-                        : { border: '1px solid gray' }
+                        : { border: '1px solid #009C2C' }
                     }
                   />
-                </div>
-                <textarea
-                  type="text"
-                  name="comments"
-                  placeholder="Коментарі до замовлення"
-                  onBlur={formik.handleBlur}
-                  value={formik.values.comments}
-                  onChange={handleInputChange}
-                  style={{
-                    width: '750px',
-                    height: '80px',
-                    borderRadius: '5px',
-                    fontSize: '15px',
-                    justifyContent: 'center',
-                  }}
-                />
+                </label>
               </div>
-            </label>
-            <label className="formData--post">
-              Доставка "Нова Пошта" у віділення
-              <input
-                required
+              <textarea
                 type="text"
-                placeholder="Місто/Населений пункт"
+                name="comments"
+                placeholder="Коментарі до замовлення"
+                onBlur={formik.handleBlur}
+                value={formik.values.comments}
+                onChange={handleInputChange}
+                style={{
+                  width: '698px',
+                  height: '80px',
+                  borderRadius: '5px',
+                  fontSize: '15px',
+                  justifyContent: 'center',
+                  border: '1px solid #009C2C',
+                  padding: '16px',
+                }}
+              />
+            </div>
+            <label id="city">
+              Виберіть населений пункт
+              <Autocomplete
+                required
+                renderInput={params => <TextField {...params} />}
+                id="city"
+                options={options}
                 name="city"
                 onBlur={formik.handleBlur}
                 onChange={handleInputChange}
-                style={
-                  formik.touched.city && formik.errors.city
-                    ? { border: '1px solid red' }
-                    : { border: '1px solid gray' }
-                }
+                sx={{ width: '735px' }}
               />
-              <input
+            </label>
+            <label htmlFor="viddill">
+              Виберіть спосіб доставки
+              <Autocomplete
                 required
-                type="text"
-                placeholder="Віділення нової пошти"
+                renderInput={params => <TextField {...params} />}
+                id="viddill"
+                options={options}
+                name="viddill"
+                // onBlur={formik.handleBlur}
+                // onChange={handleInputChange}
+                sx={{
+                  width: '735px',
+                  '& .MuiInput-underline': {
+                    borderColor: '1px solid #009C2C',
+                  },
+                }}
+              />
+            </label>
+            <label htmlFor="viddill">
+              Відділення Нової Пошти
+              <Autocomplete
+                required
+                renderInput={params => <TextField {...params} />}
+                id="viddill"
+                options={options}
                 name="viddill"
                 onBlur={formik.handleBlur}
                 onChange={handleInputChange}
-                style={
-                  formik.touched.viddill && formik.errors.viddill
-                    ? { border: '1px solid red' }
-                    : { border: '1px solid gray' }
-                }
+                sx={{ width: '735px' }}
               />
             </label>
-            <div className="formData--post pay">
-              <label required>
-                <p> Способи оплати</p>
-                <input
-                  type="radio"
-                  name="oplata"
-                  onBlur={formik.handleBlur}
-                  checked={formik.values.postOplata}
-                  onChange={e => {
-                    formik.setFieldValue(
-                      'oplata',
-                      'Післяоплата Нова Пошта, до оплати'
-                    ); // Оновлюємо значення в formik
-                  }}
-                />
-                Післяоплата Нова Пошта, до оплати буде
-                <span> {suma.toFixed(2)} грн</span>
-              </label>
-
-              <label>
-                <input
-                  type="radio"
-                  name="oplata"
-                  onBlur={formik.handleBlur}
-                  checked={formik.values.monoOplata}
-                  onChange={e => {
-                    formik.setFieldValue('oplata', 'Оплата на карту МоноБанку'); // Оновлюємо значення в formik
-                  }}
-                />
-                Оплата на карту МоноБанку 1231234545 Радчів Михасік Поне до
-                оплати
-                <span> {suma.toFixed(2)} грн</span>
-              </label>
-              {formik.touched.oplata && formik.errors.oplata && (
-                <div className="error" style={{ color: 'red' }}>
-                  Ви не вибрали спосіб оплати
-                </div>
-              )}
-            </div>
+            <label htmlFor="oplata">
+              Виберіть спосіб оплати
+              <Autocomplete
+                required
+                renderInput={params => <TextField {...params} />}
+                id="oplata"
+                options={options}
+                name="oplata"
+                // onBlur={formik.handleBlur}
+                onChange={e => {
+                  formik.setFieldValue(
+                    'oplata',
+                    'Післяоплата Нова Пошта, до оплати'
+                  ); // Оновлюємо значення в formik
+                }}
+                sx={{ width: '735px' }}
+              />
+            </label>
           </div>
-          <div >
-            <div className="formData--buy">  <h3>Ваші замовлення</h3>
+          <div>
+            <div className="formData--buy">
+              <h3>Ваші замовлення</h3>
               <div className="block__listBuy">
                 <ul
                   style={{
@@ -354,13 +352,21 @@ const Busket = () => {
                         >
                           <RiDeleteBin6Line />
                         </button>
-                        <Link to={userAuth.isLoggedIn ? `/product/${pr.id}`
-                          : `/product/${pr._id}`}>    <img
+                        <Link
+                          to={
+                            userAuth.isLoggedIn
+                              ? `/product/${pr.id}`
+                              : `/product/${pr._id}`
+                          }
+                        >
+                          {' '}
+                          <img
                             className="block__listBuy--img"
                             src={pr.img[0]}
                             alt="img"
                             width="110px"
-                          /></Link>
+                          />
+                        </Link>
                         <div style={{ display: 'flex' }}>
                           <div>
                             <p className="block__listBuy--name">{pr.name}</p>
@@ -463,9 +469,17 @@ const Busket = () => {
                 style={{ marginTop: '15px' }}
               >
                 ОФОРМИТИ ЗАМОВЛЕННЯ
-              </button></div>
-            
-              {userAuth.isLoggedIn ? '' : <p style={{textAlign:'end', color: 'red',fontWeight: 900}}>Для відслідковування відправки товару або <br/> інших можливостей будь ласка пройдіть авторизацію на сайті!</p>}
+              </button>
+            </div>
+
+            {userAuth.isLoggedIn ? (
+              ''
+            ) : (
+              <p style={{ textAlign: 'end', color: 'red', fontWeight: 900 }}>
+                Для відслідковування відправки товару або <br /> інших
+                можливостей будь ласка пройдіть авторизацію на сайті!
+              </p>
+            )}
           </div>
         </form>
       ) : (

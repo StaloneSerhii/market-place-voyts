@@ -31,11 +31,7 @@ const ProductList = () => {
             <div className="sell">
               <div className="beffore__select"></div>
             </div>
-            <Link
-              to={`/adm/product/${pr._id}`}
-              state={pr.id}
-              className="card-catalog__link"
-            >
+            <Link to={`/adm/product/${pr._id}`} state={pr.id}>
               <img
                 src={pr.img[0]}
                 alt="img-buy"

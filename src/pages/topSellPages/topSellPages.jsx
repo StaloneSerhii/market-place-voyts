@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import TopSell from 'components/topSell/topSell';
-import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { useSpring, animated } from 'react-spring';
 import { useInView } from 'react-intersection-observer';
 import { getTopBuyProduct } from 'redux/service';
@@ -49,31 +48,20 @@ const TopSellPages = () => {
 
   return (
     <div ref={ref} className="cataloge animated-section">
-      <div className="cataloge__top">
-        <h3 className="cataloge__title">Топ продажів</h3>
-        <div>
-          <button className="top__btn--left" onClick={prevSlide}>
-            <FiChevronLeft />
-          </button>
-          <button className="top__btn--right" onClick={nextSlide}>
-            <FiChevronRight />
-          </button>
-        </div>
-      </div>
-      <animated.div style={sectionAnimation} className="section-content">
-        <ul
-          className="cataloge__gap top"
-          style={{ transform: `translateX(-${currentIndex * 16}%)` }}
-        >
+      <h3 className="cataloge__title">Популярні товари</h3>
+      <animated.div style={sectionAnimation}>
+        <ul className="cataloge__gap">
           {data &&
             data.map(select => (
-              <TopSell
-                price={select.price}
-                name={select.name}
-                img={select.img[0]}
-                id={select._id}
-                code={select.code}
-              />
+              <li key={select._id}>
+                <TopSell
+                  price={select.price}
+                  name={select.name}
+                  img={select.img[0]}
+                  id={select._id}
+                  code={select.code}
+                />
+              </li>
             ))}
         </ul>
       </animated.div>

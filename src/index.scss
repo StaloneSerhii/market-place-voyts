@@ -25,19 +25,14 @@ a {
     transition: all 250ms ease;
 }
 
-p {
-    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-}
-
 body {
-    font-family: serif;
-
+    font-family: "Inter", sans-serif;
 }
 
-.inputAdm{
+.inputAdm {
     border: 1px solid black;
     padding: 5px;
-    margin:0 5px;
+    margin: 0 5px;
 }
 
 .paginate {
@@ -156,7 +151,7 @@ video {
     font-size: 100%;
     font: inherit;
     vertical-align: baseline;
-    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+    font-family: "Inter", sans-serif;
 }
 
 article,
@@ -175,11 +170,6 @@ section {
 
 html {
     height: 100%;
-}
-
-body {
-    line-height: 1;
-    background-color: rgb(230, 230, 230);
 }
 
 ol,
@@ -220,6 +210,15 @@ textarea:focus-visible {
 
 img {
     display: block;
+}
+
+p {
+    margin: 0;
+}
+
+label {
+    font-size: 16px;
+    font-weight: 500;
 }
 
 input {

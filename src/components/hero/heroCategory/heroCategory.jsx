@@ -7,27 +7,27 @@ const HeroCategory = ({ effect }) => {
       <ul className="category_list">
         <li className="category_item">
           <Link to="productNEW" className="category_link">
-            НОВІ ЗАПЧАСТИНИ
+            Нові запчастини
           </Link>
         </li>
         <li className="category_item">
           <Link to="productBY" className="category_link">
-            ЗАПЧАСТИНИ Б/У
+            Запчастини б/у
           </Link>
         </li>
         <li className="category_item">
           <Link to="/" className="category_link">
-            АКЦІЙНІ ПРОПОЗИЦІЇ
+            Акційні пропозиції
           </Link>
         </li>
         <li className="category_item">
           <Link to="/" className="category_link">
-            СГ ТЕХНІКА
+            С/Г техніка
           </Link>
         </li>
         <li className="category_item">
           <Link to="/" className="category_link">
-            НАВІСНЕ ОБЛАДНАННЯ
+            Навісне С/Г обладнення
           </Link>
         </li>
       </ul>

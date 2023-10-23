@@ -30,8 +30,8 @@ const CatalogePage = () => {
   return (
     <>
       <div ref={ref} className="cataloge animated-section">
-        <h3 className="cataloge__title">Каталог продуктів</h3>
-        <animated.div style={sectionAnimation} className="section-content">
+        <h3 className="cataloge__title">Каталог товарів</h3>
+        <animated.div style={sectionAnimation}>
           <ul className="cataloge__gap">
             {product &&
               product.map(product => (

@@ -5,7 +5,6 @@
         top: 0;
         left: 0;
         position: absolute;
-
         height: auto;
     }
 }
@@ -25,24 +24,6 @@
 .slidePosition {
     display: flex;
     height: 600px;
-}
-
-.slide-p {
-    display: flex;
-    align-items: center;
-    background-size: cover;
-    .title_hero {
-        position: absolute;
-        bottom: -585px;
-        right: 0;
-        padding: 10px;
-        background-color: var(--yellowMain);
-        color: #000;
-        font-size: 20px;
-        line-height: 1.4;
-        font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana,
-            sans-serif;
-    }
 }
 
 article {
@@ -127,4 +108,14 @@ article.nextSlide {
     font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
     text-align: end;
     margin-top: 360px;
+}
+
+.bf {
+    display: block;
+    content: " ";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 10;
+    background-color: rgb(1 1 1 / 28%);
 }
