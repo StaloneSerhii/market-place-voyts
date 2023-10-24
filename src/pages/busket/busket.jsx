@@ -160,7 +160,7 @@ const Busket = () => {
           />
         </svg>
         <p style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-          Головна
+          <a href="/"> Головна</a>
           <svg
             width="20"
             height="21"
@@ -173,7 +173,7 @@ const Busket = () => {
               fill="#6B7280"
             />
           </svg>{' '}
-          Б/У запчастини
+          <a href="productAll/by"> Б/У запчастини</a>
         </p>
       </div>
       {data !== undefined && data && data.length > 0 ? (
@@ -350,23 +350,17 @@ const Busket = () => {
                 sx={{ width: '735px' }}
               />
             </label>
-            <button
-              type="submit"
-              className="modal__btn"
-              style={{ margin: '15px 0' }}
-            >
-              ОФОРМИТИ ЗАМОВЛЕННЯ
-            </button>
           </div>
           <div>
             <div className="formData--buy">
-              <h3>Ваші замовлення</h3>
+              <h3>Ваші замовлення:</h3>
               <div className="block__listBuy">
                 <ul
                   style={{
                     display: 'flex',
                     flexDirection: 'column',
                     gap: '15px',
+                    padding: '16px',
                   }}
                 >
                   {isFetchinCurr ? (
@@ -387,130 +381,158 @@ const Busket = () => {
                     data.length > 0 &&
                     data.map(pr => (
                       <li className="block__listBuy--item" key={pr._id}>
-                        <button
-                          className="busketDell"
-                          textarea="Вадалити з кошика"
-                          onClick={() =>
-                            userAuth.isLoggedIn
-                              ? dispatch(onDeleteProductBusket(pr._id))
-                              : dispatch(dellProductOrder(pr.id))
-                          }
-                        >
-                          <RiDeleteBin6Line />
-                        </button>
                         <Link
+                          style={{ display: 'flex' }}
                           to={
                             userAuth.isLoggedIn
                               ? `/product/${pr.id}`
                               : `/product/${pr._id}`
                           }
                         >
-                          {' '}
                           <img
                             className="block__listBuy--img"
                             src={pr.img[0]}
                             alt="img"
-                            width="110px"
+                            width="100px"
                           />
-                        </Link>
-                        <div style={{ display: 'flex' }}>
                           <div>
-                            <p className="block__listBuy--name">{pr.name}</p>
-                          </div>
-                          <div
-                            style={{
-                              display: 'flex',
-                              flexDirection: 'row',
-                              gap: '15px',
-                              marginLeft: '15px',
-                            }}
-                          >
                             <div
                               style={{
                                 display: 'flex',
-                                flexDirection: 'column',
+                                justifyContent: 'space-between',
                               }}
                             >
-                              <span
-                                style={{
-                                  color: 'rgb(134, 134, 134)',
-                                  lineHeight: '1.5',
-                                }}
+                              <p className="block__listBuy--name">{pr.name}</p>
+                              <button
+                                className="busketDell"
+                                textarea="Вадалити з кошика"
+                                onClick={() =>
+                                  userAuth.isLoggedIn
+                                    ? dispatch(onDeleteProductBusket(pr._id))
+                                    : dispatch(dellProductOrder(pr.id))
+                                }
                               >
-                                Ціна
-                              </span>
-                              <span style={{ fontSize: '20px' }}>
-                                {pr.price} грн/шт
-                              </span>
+                                <RiDeleteBin6Line />
+                              </button>
                             </div>
-                            <div
-                              style={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                lineHeight: '1.5',
-                              }}
-                            >
-                              <span style={{ color: 'rgb(134, 134, 134)' }}>
-                                Кількість
-                              </span>
-                              <label
+                            <div style={{ display: 'flex' }}>
+                              <div
                                 style={{
-                                  border: '1px solid rgb(209, 209, 209)',
-                                  borderRadius: '5px',
-                                  textAlign: 'center',
                                   display: 'flex',
                                   flexDirection: 'row',
-                                  justifyContent: 'center',
-                                  alignItems: 'center',
-                                  gap: '5px',
+                                  gap: '15px',
+                                  marginLeft: '15px',
                                 }}
                               >
-                                <input
-                                  type="number"
-                                  name="weight"
-                                  min="1"
-                                  max="200"
-                                  step="1"
-                                  onChange={e =>
-                                    changeValueCounterProduct(
-                                      e.target.value,
-                                      pr._id
-                                    )
-                                  }
-                                  value={pr.count}
-                                />
-                              </label>
-                            </div>
-                            <div
-                              style={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                              }}
-                            >
-                              <span
-                                style={{
-                                  color: 'rgb(134, 134, 134)',
-                                  lineHeight: '1.5',
-                                }}
-                              >
-                                Сума
-                              </span>
-                              <span style={{ color: 'red', fontSize: '20px' }}>
-                                {pr.price * pr.count} грн
-                              </span>
+                                <div
+                                  style={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                  }}
+                                >
+                                  <span
+                                    style={{
+                                      lineHeight: '2',
+                                    }}
+                                  >
+                                    Ціна
+                                  </span>
+                                  <span style={{ fontSize: '20px' }}>
+                                    <span
+                                      style={{
+                                        border: '1px solid #009C2C',
+                                        borderRadius: '8px',
+                                        padding: '0 5px',
+                                      }}
+                                    >
+                                      {pr.price * pr.count}
+                                    </span>{' '}
+                                    грн
+                                  </span>
+                                </div>
+                                <div
+                                  style={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    lineHeight: '1.5',
+                                  }}
+                                >
+                                  <span
+                                    style={{
+                                      lineHeight: '2',
+                                    }}
+                                  >
+                                    Кількість
+                                  </span>
+                                  <label
+                                    style={{
+                                      border: '1px solid rgb(209, 209, 209)',
+                                      borderRadius: '5px',
+                                      textAlign: 'center',
+                                      display: 'flex',
+                                      flexDirection: 'row',
+                                      justifyContent: 'center',
+                                      alignItems: 'center',
+                                      gap: '5px',
+                                    }}
+                                  >
+                                    <input
+                                      type="number"
+                                      name="weight"
+                                      min="1"
+                                      max="200"
+                                      step="1"
+                                      onChange={e =>
+                                        changeValueCounterProduct(
+                                          e.target.value,
+                                          pr._id
+                                        )
+                                      }
+                                      value={pr.count}
+                                    />
+                                  </label>
+                                </div>
+                                <div
+                                  style={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                  }}
+                                >
+                                  {/* <span
+                                    style={{
+                                      color: 'rgb(134, 134, 134)',
+                                      lineHeight: '1.5',
+                                    }}
+                                  >
+                                    Сума
+                                  </span> */}
+                                  {/* <span
+                                    style={{ color: 'red', fontSize: '20px' }}
+                                  >
+                                    {pr.price * pr.count} грн
+                                  </span> */}
+                                </div>
+                              </div>
                             </div>
                           </div>
-                        </div>
+                        </Link>
                       </li>
                     ))
                   )}
-                  <p style={{ textAlign: 'end', marginRight: '10px' }}>
-                    Разом до оплати: {suma.toFixed(2)} грн
-                  </p>
                 </ul>
               </div>
             </div>
-
+            <p style={{ textAlign: 'end' }}>
+              Разом до оплати:
+              <span style={{ fontWeight: '600' }}>{suma.toFixed(2)}</span> грн
+            </p>
+            <button
+              type="submit"
+              className="modal__btn"
+              style={{ margin: '15px 0', width: '100%' }}
+            >
+              ОФОРМИТИ ЗАМОВЛЕННЯ
+            </button>
             {userAuth.isLoggedIn ? (
               ''
             ) : (

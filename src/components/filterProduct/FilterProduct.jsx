@@ -18,17 +18,26 @@ function valuetext(value) {
 }
 
 const Filter = () => {
-  const [value, setValue] = useState([20, 37]);
-  const [selectedValue, setSelectedValue] = useState('new');
   const navigate = useNavigate();
   const location = useLocation();
-  const handleChange = (event, newValue) => {
+  const [value, setValue] = useState([20, 37]);
+  const [selectedValue, setSelectedValue] = useState('');
+
+  const handleChange = (_, newValue) => {
     setValue(newValue);
   };
 
   const handleChangeRadio = event => {
     setSelectedValue(event.target.value);
   };
+
+  useEffect(() => {
+    if (location.pathname === '/productAll/new') {
+      setSelectedValue('new');
+    } else if (location.pathname === '/productAll/by') {
+      setSelectedValue('by');
+    }
+  }, [location, navigate]);
 
   useEffect(() => {
     if (selectedValue === 'new') {

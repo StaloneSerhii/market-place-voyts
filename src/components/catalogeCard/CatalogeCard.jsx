@@ -1,6 +1,6 @@
 import { BsFillBasketFill } from 'react-icons/bs';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import {
   getProductLocalStorage,
@@ -46,21 +46,17 @@ const CatalogeCard = ({ price, id, name, img, code }) => {
           <span>В наявності</span>
         </p>
         {!buyPr ? (
-          <button
-            onClick={() => navigate(`/product/${id}`)}
+          <Link
+            to={`/product/${id}`}
             subcategory={'test'}
             className="card-cataloge__btn"
           >
             Купити
-          </button>
+          </Link>
         ) : (
-          <button
-            type="button"
-            onClick={() => navigate('/busket')}
-            className="card-cataloge__btn"
-          >
+          <Link type="button" to="/busket" className="card-cataloge__btn">
             <BsFillBasketFill />У кошик
-          </button>
+          </Link>
         )}
       </div>
       <button

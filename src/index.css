@@ -914,18 +914,14 @@ article.nextSlide {
   padding: 10px;
 }
 
-.block__listBuy--img {
-  padding: 5px;
-  border: 1px solid rgb(209, 209, 209);
-}
-
 .block__listBuy--item {
   background: #fff;
   justify-content: space-evenly;
   position: relative;
   display: flex;
-  padding: 10px 5px;
-  border-bottom: 1px solid rgb(192, 192, 192);
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 .block__listBuy--item > div {
   display: flex;
@@ -933,8 +929,8 @@ article.nextSlide {
 }
 
 .block__listBuy--name {
-  font-size: 18px;
-  font-weight: 600;
+  color: #585858;
+  font-size: 14px;
   margin-left: 10px;
   width: 200px;
 }
@@ -1321,12 +1317,18 @@ article.nextSlide {
 }
 
 .formData--buy {
-  font-size: 20px;
+  font-size: 16px;
   display: flex;
   flex-direction: column;
   gap: 15px;
-  padding: 10px;
   margin-bottom: 15px;
+  border: 1px solid #009c2c;
+  border-radius: 8px;
+}
+.formData--buy > h3 {
+  font-weight: 500;
+  padding: 16px;
+  border-bottom: 1px solid #009c2c;
 }
 
 .block__name {
@@ -1338,11 +1340,8 @@ article.nextSlide {
 }
 
 .busketDell {
-  color: green;
-  font-size: 25px;
-  margin-top: 10px;
-  position: absolute;
-  right: 10px;
+  color: rgb(83, 83, 83);
+  font-size: 18px;
 }
 .busketDell:hover {
   color: red;

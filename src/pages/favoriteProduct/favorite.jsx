@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { getAuthStatus } from 'redux/authPer/auth-selector';
 import {
   getFavoriteProductLocalStorage,
@@ -9,7 +8,7 @@ import { useState, useEffect } from 'react';
 import { delMyFavorite } from 'redux/operations';
 import { delMyFavoritNotAuth } from 'redux/buyProduct-slice';
 import { AiFillHeart } from 'react-icons/ai';
-import { SlBasketLoaded } from 'react-icons/sl';
+import { useNavigate } from 'react-router-dom';
 
 const Favorite = () => {
   const productNotAuth = useSelector(getFavoriteProductLocalStorageAuth);
@@ -17,7 +16,7 @@ const Favorite = () => {
   const [favoriteProduct, setFavoriteProduct] = useState([]);
   const selectAuth = useSelector(getAuthStatus);
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   // Продукти з лс для авторизованих і не авторизованих
   useEffect(() => {
     if (selectAuth) {
@@ -35,40 +34,59 @@ const Favorite = () => {
           {favoriteProduct.length > 0 ? (
             favoriteProduct.map(list => (
               <li key={list.code}>
-                <div className="product__block">
+                <button
+                  style={{ fontSize: '20px', color: 'orange' }}
+                  onClick={() =>
+                    selectAuth
+                      ? dispatch(delMyFavorite({ idProduct: list.idProduct }))
+                      : dispatch(
+                          delMyFavoritNotAuth({
+                            idProduct: list.idProduct,
+                          })
+                        )
+                  }
+                >
+                  <AiFillHeart />
+                </button>
+                <div state={list.id} style={{ cursor: 'default' }}>
+                  <img
+                    src={list.img[0]}
+                    alt="img-buy"
+                    className="card-cataloge__img"
+                  />
+                  <p className="card-cataloge__p">{list.name}</p>
                   <div
-                    className="beffore__select"
-                    style={{ textAlign: 'end', margin: '10px' }}
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      margin: '24px 0',
+                    }}
                   >
+                    <p className="card-cataloge__span">
+                      {list.price} грн
+                      <span>В наявності</span>
+                    </p>
+
                     <button
-                      onClick={() =>
-                        selectAuth
-                          ? dispatch(
-                              delMyFavorite({ idProduct: list.idProduct })
-                            )
-                          : dispatch(
-                              delMyFavoritNotAuth({
-                                idProduct: list.idProduct,
-                              })
-                            )
-                      }
+                      onClick={() => navigate(`/product/${list.id}`)}
+                      subcategory={'test'}
+                      className="card-cataloge__btn"
                     >
-                      <AiFillHeart />
+                      Купити
                     </button>
                   </div>
-                  <Link to={`/product/${list.idProduct}`}>
-                    <img src={list.img[0]} alt="sell" width="200px" />
-                  </Link>
-                  <div className="product__block--text">
-                    <span className="product__block--span">{list.code}</span>
-                    <p>{list.name}</p>
-                    <div>
-                      <span className="product__block--spanPrice">
-                        {list.price} грн
-                      </span>
-                     <Link  to={`/product/${list.idProduct}`}  className="product__block--btn"> <SlBasketLoaded  /></Link>
-                    </div>
-                  </div>
+                  <button
+                    onClick={() => navigate(`/product/${list._id}`)}
+                    style={{
+                      fontSize: '14px',
+                      color: '#585858',
+                      margin: '0 auto',
+                      display: 'flex',
+                    }}
+                  >
+                    Детальна інформація
+                  </button>
                 </div>
               </li>
             ))

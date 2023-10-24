@@ -50,12 +50,18 @@
 }
 
 .formData--buy {
-    font-size: 20px;
+    font-size: 16px;
     display: flex;
     flex-direction: column;
     gap: 15px;
-    padding: 10px;
     margin-bottom: 15px;
+    border: 1px solid #009c2c;
+    border-radius: 8px;
+    & > h3 {
+        font-weight: 500;
+        padding: 16px;
+        border-bottom: 1px solid #009c2c;
+    }
 }
 
 .block__name {
@@ -67,11 +73,8 @@
 }
 
 .busketDell {
-    color: green;
-    font-size: 25px;
-    margin-top: 10px;
-    position: absolute;
-    right: 10px;
+    color: rgb(83, 83, 83);
+    font-size: 18px;
     &:hover {
         color: red;
     }
