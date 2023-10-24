@@ -46,16 +46,21 @@ const Hero = () => {
         style={{ display: 'block', height: '600px', position: 'relative' }}
       >
         <div className="bf"></div>
-        <div
+        <div>        
+      <div
           style={{
-            position: 'absolute',
-            top: '120px',
-            left: '80px',
+            // position: 'absolute',
+            // left: '80px',
+            width:'100%',
+            height: '600px',
             zIndex: '10',
+            display:"flex",
+            justifyContent:'space-evenly'
           }}
         >
-          <h1
+         <div style={{display:'flex',flexDirection:'column',marginTop:'120px'}}> <h1
             style={{
+              display:'inline-block',
               color: '#009C2C',
               fontSize: '80px',
               lineHeight: ' 100px',
@@ -66,6 +71,7 @@ const Hero = () => {
           </h1>
           <p
             style={{
+              display:'inline-block',
               fontSize: '32px',
               color: '#fff',
               margin: '0',
@@ -88,7 +94,8 @@ const Hero = () => {
             }}
           >
             Зв`язатися з нами
-          </button>
+          </button></div>
+          <HeroCategory effect={effect} /></div>
         </div>
         <div className="section-center">
           {heroImg.map((person, personIndex) => {
@@ -110,7 +117,7 @@ const Hero = () => {
             );
           })}
         </div>
-        <HeroCategory effect={effect} />
+
       </section>
     </>
   );

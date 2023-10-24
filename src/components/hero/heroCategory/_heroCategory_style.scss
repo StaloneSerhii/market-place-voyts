@@ -1,10 +1,6 @@
 .hero_category {
-    position: absolute;
+    margin-top: 120px;
     width: 425px;
-    top: 0px;
-    padding-top: 25px;
-    right: 0;
-    z-index: 100;
     transition: all 500ms linear;
 }
 
@@ -23,13 +19,12 @@
 }
 
 .category_list {
-    margin-top: 100px;
     line-height: 1.5;
 }
 
 .category_item {
     font-size: 24px;
-    color: #fff;
+    color: #ffffff;
     line-height: 36px;
     &::before {
         content: "/// ";
