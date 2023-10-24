@@ -1,5 +1,5 @@
 import { BsFillBasketFill } from 'react-icons/bs';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import {
@@ -30,7 +30,7 @@ const TopSell = ({ id, price, img, name, code }) => {
   }, [code, productBuyAuth, productNotAuth, selectAuth]);
 
   return (
-    <Link to={`product/${id}`} state={id}>
+    <div state={id}>
       <img src={img} alt="img-buy" className="card-cataloge__img" />
       <p className="card-cataloge__p">{name}</p>
       <div
@@ -47,7 +47,7 @@ const TopSell = ({ id, price, img, name, code }) => {
         </p>
         {!buyPr ? (
           <button
-            onClick={() => navigate(`/product${id}`)}
+            onClick={() => navigate(`/product/${id}`)}
             subcategory={'test'}
             className="card-cataloge__btn"
           >
@@ -55,6 +55,7 @@ const TopSell = ({ id, price, img, name, code }) => {
           </button>
         ) : (
           <button
+            type="button"
             onClick={() => navigate('/busket')}
             className="card-cataloge__btn"
           >
@@ -62,10 +63,18 @@ const TopSell = ({ id, price, img, name, code }) => {
           </button>
         )}
       </div>
-      <p style={{ textAlign: 'center', fontSize: '14px', color: '#585858' }}>
+      <button
+        onClick={() => navigate(`/product/${id}`)}
+        style={{
+          fontSize: '14px',
+          color: '#585858',
+          margin: '0 auto',
+          display: 'flex',
+        }}
+      >
         Детальна інформація
-      </p>
-    </Link>
+      </button>
+    </div>
   );
 };
 export default TopSell;

@@ -55,6 +55,9 @@
     & > svg {
         margin-right: 5px;
     }
+    &:hover {
+        background-color: #017021;
+    }
 }
 
 .card-catalog:hover .card-cataloge__btn {

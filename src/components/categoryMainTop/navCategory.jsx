@@ -62,7 +62,7 @@ const NavigateCategory = () => {
           </Link>
         </li>
         <li className="navigate__item">
-          <Link to="productBY" className="navigate__link">
+          <Link to="productAll" className="navigate__link">
             Запчастини
           </Link>
         </li>

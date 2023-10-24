@@ -1,23 +1,23 @@
 import { Link, useLocation } from 'react-router-dom';
-import { SlBasketLoaded } from 'react-icons/sl';
-import { MdOutlineAttachMoney } from 'react-icons/md';
-
 import { useEffect, useState } from 'react';
-import { postBuyProductBY, postBuyProductNew, postBuyProductSg, postBuyProductSgTech } from 'redux/service';
-import { useDispatch, useSelector } from 'react-redux';
+import {
+  postBuyProductBY,
+  postBuyProductNew,
+  postBuyProductSg,
+  postBuyProductSgTech,
+} from 'redux/service';
+import { useSelector } from 'react-redux';
 import { getAuthStatus } from 'redux/authPer/auth-selector';
-import { addProductBusketAuth } from 'redux/operations';
-import { addProductOrder } from 'redux/buyProduct-slice';
 import {
   getProductLocalStorage,
   getProductLocalStorageNotAuth,
 } from 'redux/selector';
 import { Circles } from 'react-loader-spinner';
-import { debounce } from 'hooks/useHooks';
+import { BsFillBasketFill, BsSearch } from 'react-icons/bs';
+import { Autocomplete, TextField } from '@mui/material';
 
 const CatalogeProduct = () => {
   const navigate = useLocation();
-  const dispatch = useDispatch();
   const [listPr, setListPr] = useState([]);
   const [findWord, setFindWord] = useState('');
   const [filterSort, setFilterSort] = useState('last');
@@ -30,17 +30,21 @@ const CatalogeProduct = () => {
       const buyingTrue = productBuyAuth.find(pr => pr.code === list.code);
       if (buyingTrue) {
         return (
-          <Link to="/busket" type="button" className="product__block--btn">
-            <SlBasketLoaded />
-          </Link>
+          <button
+            onClick={() => navigate(`/product${list.id}`)}
+            subcategory={'test'}
+            className="card-cataloge__btn"
+          >
+            Купити
+          </button>
         );
       }
       return (
         <button
-          className="product__block--btn"
-          onClick={() => buyProduct(list)}
+          onClick={() => navigate('/busket')}
+          className="card-cataloge__btn"
         >
-          <MdOutlineAttachMoney />
+          <BsFillBasketFill />У кошик
         </button>
       );
     } else if (
@@ -52,15 +56,22 @@ const CatalogeProduct = () => {
       const buyingTrue = productNotAuth.find(pr => pr.code === list.code);
       if (buyingTrue) {
         return (
-          <Link to="/busket" type="button" className="product__block--btn">
-            <SlBasketLoaded />
-          </Link>
+          <button
+            onClick={() => navigate('/busket')}
+            className="card-cataloge__btn"
+          >
+            <BsFillBasketFill />У кошик
+          </button>
         );
       }
     }
     return (
-      <button className="product__block--btn" onClick={() => buyProduct(list)}>
-        <MdOutlineAttachMoney />
+      <button
+        onClick={() => navigate(`/product${list.id}`)}
+        subcategory={'test'}
+        className="card-cataloge__btn"
+      >
+        Купити
       </button>
     );
   };
@@ -68,94 +79,107 @@ const CatalogeProduct = () => {
   // Запит / Запит для сортування по категорії / Пошук по слову
 
   useEffect(() => {
-    if (navigate.pathname === '/productBY') {
+    if (navigate.pathname === '/productAll/by') {
       postBuyProductBY(filterSort, findWord).then(state => setListPr(state));
-    } else if (navigate.pathname === '/productNEW') {
+    } else if (navigate.pathname === '/productAll/new') {
       postBuyProductNew(filterSort, findWord).then(state => setListPr(state));
     } else if (navigate.pathname === '/sg') {
       postBuyProductSg(filterSort, findWord).then(state => setListPr(state));
     } else if (navigate.pathname === '/sgtech') {
-      postBuyProductSgTech(filterSort, findWord).then(state => setListPr(state));
-    } 
+      postBuyProductSgTech(filterSort, findWord).then(state =>
+        setListPr(state)
+      );
+    }
   }, [filterSort, navigate.pathname, findWord]);
 
-  const buyProduct = list => {
-    const { _id, updatedAt, createdAt, ...obj } = list;
-    if (selectAuth) {
-      dispatch(addProductBusketAuth({ ...obj, count: 1, id: _id }));
-    } else {
-      dispatch(addProductOrder({ ...obj, count: 1, id: _id }));
-    }
-  };
+  const options = [
+    { label: 'Від дешевих', id: 'chep' },
+    { label: 'Від дорогих', id: 'expensive' },
+    { label: 'Остані додані', id: 'last' },
+  ];
 
-  const filterSortFind = e => {
-    setFilterSort(e.target.value);
-  };
-
-  const findToWord = debounce(value => {
-    setFindWord(value.target.value);
-  }, 800);
-  const titleMap = {
-    '/productBY': 'Б/У Запчастини',
-    '/productNEW': 'Нові запчастини',
-    '/sg': 'СГ Навісне',
-    '/sgtech': 'СГ Техніка',
-  };
   return (
-    <div style={{ backgroundColor: '#fff' }}>
-      <div>
-        <h2 className="cataloge__title">
-        {titleMap[navigate.pathname] || ''}
-        </h2>
-        <div>
-          <div className="block__filter">
-            <input type="text" placeholder="Пошук" onChange={findToWord} />
-            <div className="line"></div>
-            <select id="size" name="size" onChange={filterSortFind}>
-              <option value="last" select="true">
-                Остані додані
-              </option>
-              <option value="expensive">Від дорогих до дешевих</option>
-              <option value="cheap">Від дешевих до дорогих</option>
-            </select>
-          </div>
-          <ul className="product__container">
-            {listPr.length > 0 ? (
-              listPr.map(list => (
-                <li key={list._id}>
-                  <div className="product__block">
-                    <Link to={`/product/${list._id}`}>
-                      <img src={list.img[0]} alt="sell" width="200px" />
-                    </Link>
-                    <div className="product__block--text">
-                      <span className="product__block--span">{list.ark}</span>
-                      <p>{list.name}</p>
-                      <div>
-                        <span className='product__block--spanPrice'>{list.price} грн</span>
-                        {svgImg(list)}
-                      </div>
-                    </div>
-                  </div>
-                </li>
-              ))
-            ) : (
-              <Circles
-                height="80"
-                width="80"
-                color="#4fa94d"
-                ariaLabel="circles-loading"
-                wrapperStyle={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  width: '100%',
-                }}
-                wrapperClass=""
-                visible={true}
-              />
-            )}
-          </ul>
+    <div style={{ margin: '24px 0', width: '100%', marginRight: '80px' }}>
+      <div className="block__filter">
+        <div style={{ position: 'relative' }}>
+          <TextField
+            sx={{ width: '460px' }}
+            value={findWord}
+            id="outlined-basic"
+            variant="outlined"
+            defaultValue={options[0]}
+            type="text"
+            placeholder="Пошук"
+            onChange={(e, _) => setFindWord(e.target.value)}
+          />
+          <BsSearch
+            style={{ position: 'absolute', right: '15px', top: '20px' }}
+          />
         </div>
+        <Autocomplete
+          disablePortal
+          onChange={(_, newVall) => {
+            setFilterSort(newVall.id);
+          }}
+          id="combo-box-demo"
+          options={options}
+          sx={{ width: 300 }}
+          renderInput={params => <TextField {...params} label="Сортувати" />}
+        />
       </div>
+      <ul className="product__container">
+        {listPr.length > 0 ? (
+          listPr.map(list => (
+            <li key={list._id}>
+              <Link to={`/product/${list._id}`} state={list._id}>
+                <img
+                  src={list.img[0]}
+                  alt="img-buy"
+                  className="card-cataloge__img"
+                />
+                <p className="card-cataloge__p">{list.name}</p>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    margin: '24px 0',
+                  }}
+                >
+                  <p className="card-cataloge__span">
+                    {list.price} грн
+                    <span>В наявності</span>
+                  </p>
+                  {svgImg(list)}
+                </div>
+                <p
+                  style={{
+                    textAlign: 'center',
+                    fontSize: '14px',
+                    color: '#585858',
+                  }}
+                >
+                  Детальна інформація
+                </p>
+              </Link>
+            </li>
+          ))
+        ) : (
+          <Circles
+            height="80"
+            width="80"
+            color="#4fa94d"
+            ariaLabel="circles-loading"
+            wrapperStyle={{
+              display: 'flex',
+              justifyContent: 'center',
+              width: '100%',
+            }}
+            wrapperClass=""
+            visible={true}
+          />
+        )}
+      </ul>
     </div>
   );
 };

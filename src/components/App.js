@@ -13,6 +13,7 @@ import AddProduct from './adm/addProduct/addProduct';
 import ProductList from './adm/addProduct/productList';
 import SellProduct from './adm/addProduct/sellProduct';
 import { RestrictedRoute } from 'redux/restrikedRoute';
+import Filter from './filterProduct/FilterProduct';
 
 const BuyProduct = lazy(() => import('./buyProduct/buyProduct'));
 const RegisterPage = lazy(() => import('pages/registerPages/registerPage'));
@@ -83,13 +84,15 @@ function App() {
                 <RestrictedRoute redirectTo="/" component={<RegisterPage />} />
               }
             />
-            <Route path="productBY" element={<CatalogeProduct />} />
-            <Route path="productNEW" element={<CatalogeProduct />} />
+            <Route path="productAll" element={<Filter />}>
+              <Route path="by" element={<CatalogeProduct />} />
+              <Route path="new" element={<CatalogeProduct />} />
+              <Route path="sg" element={<CatalogeProduct />} />
+              <Route path="sgtech" element={<CatalogeProduct />} />
+            </Route>
             <Route path="busket" element={<Busket />} />
             <Route path="myorder" element={<BuyModalSuc />} />
             <Route path="favorite" element={<Favorite />} />
-            <Route path="sg" element={<CatalogeProduct />} />
-            <Route path="sgtech" element={<CatalogeProduct />} />
             <Route
               path="profile"
               element={

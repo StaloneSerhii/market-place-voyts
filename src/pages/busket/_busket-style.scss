@@ -23,6 +23,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
+    font-size: 14px;
 }
 
 .formData--post {
@@ -49,16 +50,12 @@
 }
 
 .formData--buy {
-    margin-left: 50px;
     font-size: 20px;
     display: flex;
     flex-direction: column;
     gap: 15px;
     padding: 10px;
     margin-bottom: 15px;
-    box-shadow: -3px -2px 19px -3px rgba(0, 0, 0, 0.31) inset;
-    -webkit-box-shadow: -3px -2px 19px -3px rgba(0, 0, 0, 0.31) inset;
-    -moz-box-shadow: -3px -2px 19px -3px rgba(0, 0, 0, 0.31) inset;
 }
 
 .block__name {
