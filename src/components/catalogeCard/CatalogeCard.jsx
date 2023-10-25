@@ -30,7 +30,15 @@ const CatalogeCard = ({ price, id, name, img, code }) => {
   }, [code, productBuyAuth, productNotAuth, selectAuth]);
 
   return (
-    <div state={id} style={{ cursor: 'default' }}>
+    <div
+      state={id}
+      style={{
+        cursor: 'default',
+        padding: '16px',
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
       <img src={img && img[0]} alt="img-buy" className="card-cataloge__img" />
       <p className="card-cataloge__p">{name}</p>
       <div

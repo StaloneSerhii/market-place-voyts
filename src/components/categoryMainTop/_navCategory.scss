@@ -1,11 +1,14 @@
 .navigate {
-    width: 100%;
+    max-width: 1280px;
+    color: #fff;
     background-color: #191919;
     display: flex;
-    color: #fff;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
+    padding: 0 15px;
+    margin-left: auto;
+    margin-right: auto;
     height: 80px;
     font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }

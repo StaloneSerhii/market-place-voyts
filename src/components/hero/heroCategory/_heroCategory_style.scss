@@ -1,6 +1,4 @@
 .hero_category {
-    margin-top: 120px;
-    width: 425px;
     transition: all 500ms linear;
 }
 
@@ -13,12 +11,13 @@
     right: 0;
     top: 0;
     z-index: -1;
-    width: 400px;
+    width: 500px;
     border-bottom: 600px solid #1076119b;
     border-left: 300px solid transparent;
 }
 
 .category_list {
+    text-align: end;
     line-height: 1.5;
 }
 

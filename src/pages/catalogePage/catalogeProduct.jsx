@@ -30,22 +30,19 @@ const CatalogeProduct = () => {
       const buyingTrue = productBuyAuth.find(pr => pr.code === list.code);
       if (buyingTrue) {
         return (
-          <button
-            onClick={() => navigate(`/product${list.id}`)}
+          <Link
+            to={`/product/${list._id}`}
             subcategory={'test'}
             className="card-cataloge__btn"
           >
             Купити
-          </button>
+          </Link>
         );
       }
       return (
-        <button
-          onClick={() => navigate('/busket')}
-          className="card-cataloge__btn"
-        >
+        <Link to="/busket" className="card-cataloge__btn">
           <BsFillBasketFill />У кошик
-        </button>
+        </Link>
       );
     } else if (
       !selectAuth &&
@@ -56,23 +53,20 @@ const CatalogeProduct = () => {
       const buyingTrue = productNotAuth.find(pr => pr.code === list.code);
       if (buyingTrue) {
         return (
-          <button
-            onClick={() => navigate('/busket')}
-            className="card-cataloge__btn"
-          >
+          <Link to="/busket" className="card-cataloge__btn">
             <BsFillBasketFill />У кошик
-          </button>
+          </Link>
         );
       }
     }
     return (
-      <button
-        onClick={() => navigate(`/product${list.id}`)}
+      <Link
+        to={`/product/${list._id}`}
         subcategory={'test'}
         className="card-cataloge__btn"
       >
         Купити
-      </button>
+      </Link>
     );
   };
 
@@ -99,7 +93,7 @@ const CatalogeProduct = () => {
   ];
 
   return (
-    <div style={{ margin: '24px 0', width: '100%', marginRight: '80px' }}>
+    <div style={{ width: '100%' }}>
       <div className="block__filter">
         <div style={{ position: 'relative' }}>
           <TextField
@@ -127,13 +121,21 @@ const CatalogeProduct = () => {
           renderInput={params => <TextField {...params} label="Сортувати" />}
         />
       </div>
-      <ul className="product__container">
+      <ul className="cataloge__gap">
         {listPr.length > 0 ? (
           listPr.map(list => (
             <li key={list._id}>
-              <Link to={`/product/${list._id}`} state={list._id}>
+              <div
+                state={list._id}
+                style={{
+                  cursor: 'default',
+                  padding: '16px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                }}
+              >
                 <img
-                  src={list.img[0]}
+                  src={list.img && list.img[0]}
                   alt="img-buy"
                   className="card-cataloge__img"
                 />
@@ -152,16 +154,18 @@ const CatalogeProduct = () => {
                   </p>
                   {svgImg(list)}
                 </div>
-                <p
+                <Link
+                  to={`/product/${list._id}`}
                   style={{
-                    textAlign: 'center',
                     fontSize: '14px',
                     color: '#585858',
+                    margin: '0 auto',
+                    display: 'flex',
                   }}
                 >
                   Детальна інформація
-                </p>
-              </Link>
+                </Link>
+              </div>
             </li>
           ))
         ) : (

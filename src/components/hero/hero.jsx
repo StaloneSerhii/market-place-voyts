@@ -46,56 +46,69 @@ const Hero = () => {
         style={{ display: 'block', height: '600px', position: 'relative' }}
       >
         <div className="bf"></div>
-        <div>        
-      <div
-          style={{
-            // position: 'absolute',
-            // left: '80px',
-            width:'100%',
-            height: '600px',
-            zIndex: '10',
-            display:"flex",
-            justifyContent:'space-evenly'
-          }}
-        >
-         <div style={{display:'flex',flexDirection:'column',marginTop:'120px'}}> <h1
+        <div>
+          <div
             style={{
-              display:'inline-block',
-              color: '#009C2C',
-              fontSize: '80px',
-              lineHeight: ' 100px',
-              cursor: 'default',
+              maxWidth: '1280px',
+              height: '600px',
+              zIndex: '10',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              marginLeft: 'auto',
+              marginRight: 'auto',
+              gap: '420px',
+              padding: '0 15px',
             }}
           >
-            ZAP4ASTINI
-          </h1>
-          <p
-            style={{
-              display:'inline-block',
-              fontSize: '32px',
-              color: '#fff',
-              margin: '0',
-              cursor: 'default',
-            }}
-          >
-            Від б\у до нових с\г зпчастин
-          </p>
-          <button
-            style={{
-              padding: '10px 20px',
-              backgroundColor: '#009C2C',
-              color: '#fff',
-              width: '220px',
-              textAlign: 'center',
-              fontSize: '16px',
-              lineHeight: '24px',
-              borderRadius: '8px',
-              marginTop: '64px',
-            }}
-          >
-            Зв`язатися з нами
-          </button></div>
-          <HeroCategory effect={effect} /></div>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+              }}
+            >
+              {' '}
+              <h1
+                style={{
+                  display: 'inline-block',
+                  color: '#009C2C',
+                  fontSize: '80px',
+                  lineHeight: ' 100px',
+                  cursor: 'default',
+                  fontWeight: '400',
+                }}
+              >
+                ZAP4ASTINI
+              </h1>
+              <p
+                style={{
+                  display: 'inline-block',
+                  fontSize: '32px',
+                  color: '#fff',
+                  margin: '0',
+                  cursor: 'default',
+                }}
+              >
+                Від б\у до нових с\г зпчастин
+              </p>
+              <button
+                style={{
+                  padding: '10px 20px',
+                  backgroundColor: '#009C2C',
+                  color: '#fff',
+                  width: '220px',
+                  textAlign: 'center',
+                  fontSize: '16px',
+                  lineHeight: '24px',
+                  borderRadius: '8px',
+                  marginTop: '64px',
+                }}
+              >
+                Зв`язатися з нами
+              </button>
+            </div>
+            <HeroCategory effect={effect} />
+          </div>
         </div>
         <div className="section-center">
           {heroImg.map((person, personIndex) => {
@@ -117,7 +130,6 @@ const Hero = () => {
             );
           })}
         </div>
-
       </section>
     </>
   );

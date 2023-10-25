@@ -54,7 +54,6 @@ const Filter = () => {
           display: 'flex',
           alignItems: 'center',
           gap: '5px',
-          marginLeft: '80px',
         }}
       >
         <svg
@@ -93,7 +92,6 @@ const Filter = () => {
           display: 'flex',
           alignItems: 'center',
           gap: '5px',
-          marginLeft: '80px',
         }}
       >
         <svg
@@ -131,17 +129,29 @@ const Filter = () => {
   };
 
   return (
-    <>
+    <div
+      style={{
+        maxWidth: '1280px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+      }}
+    >
       <div className="cataloge__title" style={{ fontSize: '14px' }}>
         {titleMap[location.pathname] || ''}
       </div>
-      <div style={{ display: 'flex' }}>
+      <div
+        style={{
+          display: 'flex',
+          marginTop: '24px',
+          marginBottom: '24px',
+          gap: '24px',
+        }}
+      >
         <Box
           sx={{
             width: '300px',
             p: '16px 24px',
             boxShadow: '0px 4px 4px 0px rgba(0, 0, 0, 0.25);',
-            margin: '24px 80px',
           }}
         >
           <p
@@ -240,7 +250,7 @@ const Filter = () => {
         </Box>
         <Outlet />
       </div>
-    </>
+    </div>
   );
 };
 

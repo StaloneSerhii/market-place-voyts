@@ -6,12 +6,12 @@ const HeroCategory = ({ effect }) => {
       <div className="borderDec "></div>
       <ul className="category_list">
         <li className="category_item">
-          <Link to="productNEW" className="category_link">
+          <Link to="productAll/new" className="category_link">
             Нові запчастини
           </Link>
         </li>
         <li className="category_item">
-          <Link to="productBY" className="category_link">
+          <Link to="productAll/by" className="category_link">
             Запчастини б/у
           </Link>
         </li>

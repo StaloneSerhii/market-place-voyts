@@ -7,11 +7,11 @@ import { useState } from 'react';
 
 const CatalogePage = () => {
   const [product, setProduct] = useState();
-  const [limit, setLimit] = useState(10);
+  // const [limit, setLimit] = useState(10);
 
   useEffect(() => {
-    getAllProduct(limit).then(pr => setProduct(pr));
-  }, [limit]);
+    getAllProduct(0).then(pr => setProduct(pr));
+  }, []);
 
   const [ref, inView] = useInView({
     triggerOnce: true, // Анімація відбудеться тільки раз
@@ -24,9 +24,10 @@ const CatalogePage = () => {
     config: { duration: 1000 },
   });
 
-  const handlePageClick = () => {
-    setLimit(limit + 10);
-  };
+  // const handlePageClick = () => {
+  //   setLimit(limit + 10);
+  // };
+
   return (
     <>
       <div ref={ref} className="cataloge animated-section">
@@ -47,22 +48,6 @@ const CatalogePage = () => {
               ))}
           </ul>
         </animated.div>
-      </div>
-      <div className="paginate">
-        {product && product.length >= limit && (
-          <button
-            style={{
-              backgroundColor: 'green',
-              borderRadius: '10px',
-              padding: '10px',
-              fontSize: '17px',
-              color: 'white',
-            }}
-            onClick={handlePageClick}
-          >
-            Показати більше
-          </button>
-        )}
       </div>
     </>
   );

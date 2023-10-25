@@ -1,5 +1,5 @@
 import { BsFillBasketFill } from 'react-icons/bs';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import {
@@ -30,7 +30,15 @@ const TopSell = ({ id, price, img, name, code }) => {
   }, [code, productBuyAuth, productNotAuth, selectAuth]);
 
   return (
-    <div state={id}>
+    <div
+      state={id}
+      style={{
+        cursor: 'default',
+        padding: '16px',
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
       <img src={img} alt="img-buy" className="card-cataloge__img" />
       <p className="card-cataloge__p">{name}</p>
       <div
@@ -46,21 +54,17 @@ const TopSell = ({ id, price, img, name, code }) => {
           <span>В наявності</span>
         </p>
         {!buyPr ? (
-          <button
-            onClick={() => navigate(`/product/${id}`)}
+          <Link
+            to={`/product/${id}`}
             subcategory={'test'}
             className="card-cataloge__btn"
           >
             Купити
-          </button>
+          </Link>
         ) : (
-          <button
-            type="button"
-            onClick={() => navigate('/busket')}
-            className="card-cataloge__btn"
-          >
+          <Link type="button" to="/busket" className="card-cataloge__btn">
             <BsFillBasketFill />У кошик
-          </button>
+          </Link>
         )}
       </div>
       <button

@@ -137,13 +137,15 @@ const Busket = () => {
   };
 
   return (
-    <div>
+    <div
+      style={{ maxWidth: '1280px', marginLeft: 'auto', marginRight: 'auto' }}
+    >
       <div
         style={{
           display: 'flex',
           alignItems: 'center',
           gap: '5px',
-          margin: '24px 80px',
+          margin: '24px auto',
           padding: ' 12px 0',
         }}
       >
@@ -160,7 +162,7 @@ const Busket = () => {
           />
         </svg>
         <p style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-          <a href="/"> Головна</a>
+          <Link to="/"> Головна</Link>
           <svg
             width="20"
             height="21"
@@ -172,8 +174,8 @@ const Busket = () => {
               d="M7.78901 16.3333C7.56973 16.3333 7.35538 16.2649 7.17307 16.1369C6.99076 16.0088 6.84867 15.8269 6.76476 15.614C6.68085 15.4011 6.65889 15.1668 6.70166 14.9408C6.74443 14.7148 6.85 14.5072 7.00503 14.3443L10.6566 10.5071L7.00503 6.67003C6.89912 6.56254 6.81465 6.43396 6.75653 6.2918C6.69842 6.14964 6.66783 5.99674 6.66655 5.84202C6.66527 5.6873 6.69332 5.53386 6.74908 5.39066C6.80483 5.24745 6.88717 5.11735 6.99129 5.00795C7.0954 4.89854 7.21921 4.81202 7.35549 4.75343C7.49177 4.69484 7.63778 4.66536 7.78502 4.6667C7.93226 4.66804 8.07776 4.70019 8.21305 4.76126C8.34834 4.82233 8.4707 4.9111 8.57299 5.02239L13.0085 9.68333C13.2164 9.90184 13.3332 10.1982 13.3332 10.5071C13.3332 10.8161 13.2164 11.1125 13.0085 11.331L8.57299 15.9919C8.36508 16.2104 8.08308 16.3333 7.78901 16.3333Z"
               fill="#6B7280"
             />
-          </svg>{' '}
-          <a href="productAll/by"> Б/У запчастини</a>
+          </svg>
+          <Link to="/busket"> Корзина</Link>
         </p>
       </div>
       {data !== undefined && data && data.length > 0 ? (
@@ -181,8 +183,9 @@ const Busket = () => {
           onSubmit={formik.handleSubmit}
           style={{
             display: 'flex',
-            justifyContent: 'center',
+            justifyContent: 'space-between',
             flexWrap: 'wrap',
+            padding: '0 15px',
           }}
         >
           <div>
