@@ -24,13 +24,15 @@ import {
   delMyFavoritNotAuth,
 } from 'redux/buyProduct-slice';
 import { TiMessages } from 'react-icons/ti';
-import VideoModal from 'components/modalBuy/modalVideo';
 import { Rating } from '@mui/material';
-import { BiDownArrow } from 'react-icons/bi';
+import {
+  BiDownArrow,
+  BiSolidLeftArrow,
+  BiSolidRightArrow,
+} from 'react-icons/bi';
 
 const BuyProduct = () => {
   const dispatch = useDispatch();
-  // const location = useLocation();
   // Ід для запиту в бд
   const { id } = useParams();
   // Перевірка на наявність у кошику
@@ -38,9 +40,6 @@ const BuyProduct = () => {
   // Поверненя продуктів з бд
   const [product, setProduct] = useState();
   const [fav, setFav] = useState(-1);
-
-  // Поверненя аналогів продуктів з бд
-  // const [productAnalogues, setProductAnalogues] = useState([]);
 
   // Відкритя модалки покупки
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -102,7 +101,7 @@ const BuyProduct = () => {
     };
   }, [showModal]);
 
-  // Запит по продукту на бд по ід аналогів
+  // Запит по продукту на бд по ід і аналогів
   useEffect(() => {
     getIdProduct(id).then(pr => setProduct(pr));
     // getAnaloguesProduct(id).then(pr => setProductAnalogues(pr));
@@ -128,10 +127,37 @@ const BuyProduct = () => {
     }
   }, [product, productBuyAuth, selectAuth, productNotAuth]);
 
+  const nextImg = () => {
+    const currentIndex = product.img.indexOf(currentImageIndex);
+
+    // Перевіряємо, чи знайдено поточний індекс у масиві
+    if (currentIndex !== -1) {
+      // Збільшуємо індекс на 1, але перевіряємо, чи не вийшли за межі масиву
+      const nextIndex = (currentIndex + 1) % product.img.length;
+
+      // Встановлюємо нове значення currentImageIndex
+      setCurrentImageIndex(product.img[nextIndex]);
+    }
+  };
+
+  const BackImg = () => {
+    const currentIndex = product.img.indexOf(currentImageIndex);
+
+    // Перевіряємо, чи знайдено поточний індекс у масиві
+    if (currentIndex !== -1) {
+      // Зменшуємо індекс на 1, але перевіряємо, чи не вийшли за межі масиву
+      const previousIndex =
+        (currentIndex - 1 + product.img.length) % product.img.length;
+
+      // Встановлюємо нове значення currentImageIndex
+      setCurrentImageIndex(product.img[previousIndex]);
+    }
+  };
+
   // Застосуваня картинки на яку клікнув на головну
   useEffect(() => {
     if (product) {
-      setCurrentImageIndex(`${product.img[0]}`);
+      setCurrentImageIndex(product.img[0]);
     }
   }, [product]);
 
@@ -191,7 +217,7 @@ const BuyProduct = () => {
       setFav(onFavoriteNotAuth);
     }
   }, [onFavorite, onFavoriteNotAuth, selectAuth]);
-  console.log(product);
+
   return (
     product && (
       <div
@@ -204,26 +230,35 @@ const BuyProduct = () => {
         }}
       >
         <div>
-          {' '}
           <h3 style={{ fontSize: '25px', fontWeight: '500', margin: '24px 0' }}>
             {product && product.name}
           </h3>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <ul style={{ display: 'flex', gap: '40px' }}>
               <li>
-                <button style={{ fontSize: '16px' }}>Усе про товар</button>
+                <a href="#all" style={{ fontSize: '16px' }}>
+                  Усе про товар
+                </a>
               </li>
               <li>
-                <button style={{ fontSize: '16px' }}>Характеристика</button>
+                <a style={{ fontSize: '16px' }} href="#details">
+                  Характеристика
+                </a>
               </li>
               <li>
-                <button style={{ fontSize: '16px' }}>Спосіб доставки</button>
+                <a style={{ fontSize: '16px' }} href="#dostavka">
+                  Спосіб доставки
+                </a>
               </li>
               <li>
-                <button style={{ fontSize: '16px' }}>Оплата</button>
+                <a style={{ fontSize: '16px' }} href="#video">
+                  Відео
+                </a>
               </li>
               <li>
-                <button style={{ fontSize: '16px' }}>Відгуки</button>
+                <a style={{ fontSize: '16px' }} href="#rev">
+                  Відгуки
+                </a>
               </li>
             </ul>
             <button style={{ fontSize: '16px' }}>
@@ -248,7 +283,7 @@ const BuyProduct = () => {
               Залишити відгук
             </button>
           </div>
-          <div className="content__product">
+          <div className="content__product" id="all">
             <div className="block__img">
               <div
                 className="zoomable-container"
@@ -262,6 +297,30 @@ const BuyProduct = () => {
                   className="zoomable-image"
                   onClick={() => openModal(product && currentImageIndex)}
                 />
+                <button
+                  onClick={BackImg}
+                  style={{
+                    position: 'absolute',
+                    top: '200px',
+                    left: '10px',
+                    color: '#ffffffbd',
+                    fontSize: '25px',
+                  }}
+                >
+                  <BiSolidLeftArrow />
+                </button>
+                <button
+                  onClick={nextImg}
+                  style={{
+                    position: 'absolute',
+                    top: '200px',
+                    right: '10px',
+                    color: '#ffffffbd',
+                    fontSize: '25px',
+                  }}
+                >
+                  <BiSolidRightArrow />
+                </button>
               </div>
               {showModal && (
                 <div className="modal">
@@ -271,47 +330,21 @@ const BuyProduct = () => {
                   <img src={selectedImage} alt="Full Size" />
                 </div>
               )}
-              <div className="block__img--allImg ">
-                {product &&
-                  product.img.map(img => (
-                    <img
-                      key={img}
-                      className="active"
-                      src={img}
-                      alt="allProduct"
-                      width="100"
-                      onClick={switchToPreviousImage}
-                    />
-                  ))}
-                {product && product.video && (
-                  <VideoModal props={product.video} />
-                )}
+              <div style={{ overflowX: 'scroll', width: '628px' }}>
+                <div className="block__img--allImg ">
+                  {product &&
+                    product.img.map(img => (
+                      <img
+                        key={img}
+                        className={img === currentImageIndex && 'active'}
+                        src={img}
+                        alt="allProduct"
+                        width="100"
+                        onClick={switchToPreviousImage}
+                      />
+                    ))}
+                </div>
               </div>
-              {/* <form className="formFind" onSubmit={handleSubmit}>
-                <h3>Знайдемо потрібну запчастину:</h3>
-                <label htmlFor="">
-                  <input
-                    required
-                    type="text"
-                    placeholder="Номер або назва запчастини"
-                    value={partNumber}
-                    onChange={e => setPartNumber(e.target.value)}
-                  />
-                </label>
-                <label htmlFor="">
-                  <input
-                    required
-                    type="tel"
-                    name="phone"
-                    placeholder="Телефон"
-                    value={phoneNumber}
-                    onChange={e => setPhoneNumber(e.target.value)}
-                  />
-                </label>
-                <button className="formLogin__btn postBtn" type="submit">
-                  Надіслати запит <FiChevronRight />
-                </button>
-              </form> */}
             </div>
             {product && (
               <div
@@ -437,7 +470,7 @@ const BuyProduct = () => {
                           fill="#2F2F37"
                         />
                       </svg>
-                    </span>{' '}
+                    </span>
                     Улюблені
                   </button>
                 </div>
@@ -447,20 +480,6 @@ const BuyProduct = () => {
                     onClose={() => setIsModalOpen(false)}
                   />
                 )}
-                {/* <div className="block__analog">
-                <h4>Аналоги</h4>
-                {productAnalogues &&
-                  productAnalogues.map(pr => (
-                    <Link
-                      to={`/product/${pr._id}`}
-                      className="block__analog--info"
-                    >
-                      <img src={pr.img[0]} alt="/" width="70px" />
-                      <p>{pr.name}</p>
-                      <p className="price">{pr.price} грн</p>
-                    </Link>
-                  ))}
-              </div> */}
               </div>
             )}
           </div>
@@ -474,6 +493,7 @@ const BuyProduct = () => {
           }}
         >
           <div
+            id="details"
             style={{
               maxWidth: '628px',
             }}
@@ -490,6 +510,7 @@ const BuyProduct = () => {
             <p>{product.info.use}</p>
           </div>
           <div
+            id="dostavka"
             style={{
               display: 'flex',
               flexDirection: 'column',
@@ -507,6 +528,7 @@ const BuyProduct = () => {
               Спосіб доставки
             </p>
             <div
+              id="video"
               style={{
                 display: 'flex',
                 flexDirection: 'column',
@@ -606,7 +628,29 @@ const BuyProduct = () => {
             <p>Готівкою, банківською карткою</p>
           </div>
         </div>
+        {product && product.video && (
+          <div style={{ margin: '64px 0' }}>
+            <p style={{ fontSize: '24px', fontWeight: '500' }}>Відео</p>
+            <div
+              className="video_container"
+              style={{ marginTop: '40px', background: 'none' }}
+            >
+              <div className="con3">
+                <iframe
+                  width="846"
+                  height="489"
+                  src={product.video}
+                  title="YouTube video player"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                ></iframe>
+              </div>
+            </div>
+          </div>
+        )}
         <div
+          id="rev"
           style={{
             width: '100%',
             padding: '24px',

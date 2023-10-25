@@ -26,16 +26,15 @@ function VideoModal({ props }) {
   };
 
   return (
-    <div>
-      <button onClick={openModal}>
-        <img
-          src={yt}
-          alt="відкрити відео"
-          width="100"
-          height="89"
-          style={{ border: '1px solid red' }}
-        />
-      </button>
+    <>
+      <img
+        onClick={openModal}
+        src={yt}
+        alt="відкрити відео"
+        width="100"
+        height="58"
+        style={{ border: '1px solid red' }}
+      />
       <Modal
         isOpen={isOpen}
         onRequestClose={closeModal}
@@ -50,7 +49,7 @@ function VideoModal({ props }) {
         </button>
         <YouTube videoId={videoId} opts={opts} />
       </Modal>
-    </div>
+    </>
   );
 }
 

@@ -116,13 +116,34 @@
 }
 
 .block__img--allImg {
-    overflow: hidden;
-    width: 628px;
-    margin-top: 15px;
+    margin: 15px 0;
     display: flex;
     align-items: center;
     gap: 15px;
     cursor: pointer;
+}
+
+.active {
+    border: 1px solid rgb(26, 122, 35);
+}
+
+::-webkit-scrollbar {
+    background-color: #f0f0f0;
+}
+
+/* Змінити колір скролбарної шкали (бару) */
+::-webkit-scrollbar-thumb {
+    background-color: #888;
+}
+
+/* Змінити розмір скролбарної шкали (бару) */
+::-webkit-scrollbar-thumb {
+    height: 15px;
+}
+
+/* Змінити рамку скролбару */
+::-webkit-scrollbar {
+    border: 1px solid #ddd;
 }
 
 .formFind {

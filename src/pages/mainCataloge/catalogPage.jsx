@@ -7,11 +7,11 @@ import { useState } from 'react';
 
 const CatalogePage = () => {
   const [product, setProduct] = useState();
-  // const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(4);
 
   useEffect(() => {
-    getAllProduct(0).then(pr => setProduct(pr));
-  }, []);
+    getAllProduct(limit).then(pr => setProduct(pr));
+  }, [limit]);
 
   const [ref, inView] = useInView({
     triggerOnce: true, // Анімація відбудеться тільки раз
@@ -24,9 +24,9 @@ const CatalogePage = () => {
     config: { duration: 1000 },
   });
 
-  // const handlePageClick = () => {
-  //   setLimit(limit + 10);
-  // };
+  const handlePageClick = () => {
+    setLimit(limit + 10);
+  };
 
   return (
     <>
@@ -49,6 +49,22 @@ const CatalogePage = () => {
           </ul>
         </animated.div>
       </div>
+      {product && product.length >= limit && (
+        <button
+          onClick={handlePageClick}
+          className="formLogin__btn--pr"
+          style={{
+            background: '#fff',
+            border: '1px solid #009C2C',
+            color: '#000',
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            marginBottom: '64px',
+          }}
+        >
+          Показати більше
+        </button>
+      )}
     </>
   );
 };
