@@ -198,6 +198,19 @@
   border-top-left-radius: 10px;
 }
 
+.formLogin__btn--pr {
+  font-size: 16px;
+  padding: 10px 16px;
+  background-color: #009c2c;
+  border-radius: 8px;
+  width: 300px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
 .formLogin__register {
   color: var(--greenMain);
   font-size: 25px;
@@ -607,7 +620,6 @@ article.nextSlide {
 
 .block__info {
   display: flex;
-  background-color: rgb(213, 213, 213);
 }
 
 .name__product {
@@ -620,36 +632,25 @@ article.nextSlide {
 
 .content__product {
   display: flex;
-  justify-content: center;
-  gap: 50px;
+  gap: 24px;
   background-color: #fff;
-  padding: 35px 0;
+  padding-top: 35px;
 }
 
 .block__info--item {
-  padding: 30px;
-  font-size: 18px;
+  font-size: 24px;
 }
 
 .block__info--on {
-  color: var(--greenMain);
-  font-size: 18px;
-  font-weight: 900;
-}
-.block__info--on::before {
-  content: " ";
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  background-color: var(--greenMain);
-  border-radius: 100%;
-  margin-right: 5px;
+  color: #009c2c;
+  font-size: 16px;
 }
 
 .block__info--price {
+  padding: 5px;
   font-size: 30px;
-  display: block;
-  margin-bottom: 20px;
+  border: 1px solid #009c2c;
+  border-radius: 8px;
 }
 
 .block__infoCenter {
@@ -731,14 +732,13 @@ article.nextSlide {
 }
 
 .block__img--allImg {
+  overflow: hidden;
+  width: 628px;
   margin-top: 15px;
   display: flex;
   align-items: center;
   gap: 15px;
   cursor: pointer;
-}
-.block__img--allImg > img {
-  border: 1px solid rgb(183, 183, 183);
 }
 
 .formFind {
@@ -774,16 +774,16 @@ article.nextSlide {
 
 /* Стилі для контейнера */
 .zoomable-container {
-  border: 1px solid rgb(26, 122, 35);
   overflow: hidden; /* Обрізати зображення за межами контейнера */
   position: relative; /* Потрібно для абсолютної позиції зображення */
-  width: 400px; /* Змініть це на відповідний розмір вашого зображення */
-  height: 300px; /* Змініть це на відповідний розмір вашого зображення */
+  width: 628px; /* Змініть це на відповідний розмір вашого зображення */
+  height: 400px; /* Змініть це на відповідний розмір вашого зображення */
 }
 
 /* Звичайний стиль для зображення */
 .zoomable-image {
-  width: 100%; /* Забезпечити, що зображення вписується в контейнер */
+  width: 100%;
+  height: 100%; /* Забезпечити, що зображення вписується в контейнер */
   transition: transform 0.3s; /* Додати плавну анімацію */
 }
 

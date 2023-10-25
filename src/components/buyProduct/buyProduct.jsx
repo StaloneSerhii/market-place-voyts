@@ -1,15 +1,9 @@
-import { FcCallback } from 'react-icons/fc';
-import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
-import { FiChevronRight } from 'react-icons/fi';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import BuyBusketModal from 'components/modalBuy/about/buyBusket';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import {
-  getAnaloguesProduct,
-  getIdProduct,
-  postHelpProduct,
-} from 'redux/service';
+import { getAnaloguesProduct, getIdProduct } from 'redux/service';
 import { useRef } from 'react';
 import { getAuthStatus } from 'redux/authPer/auth-selector';
 import {
@@ -29,10 +23,12 @@ import {
   addProductOrder,
   delMyFavoritNotAuth,
 } from 'redux/buyProduct-slice';
-import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
+import { TiMessages } from 'react-icons/ti';
 import VideoModal from 'components/modalBuy/modalVideo';
+import { Rating } from '@mui/material';
+import { BiDownArrow } from 'react-icons/bi';
 
-const BuyProduct = ({ saveInfo }) => {
+const BuyProduct = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   // Ід для запиту в бд
@@ -59,9 +55,8 @@ const BuyProduct = ({ saveInfo }) => {
   const productNotAuth = useSelector(getProductLocalStorageNotAuth);
 
   // Стейт для відправки форми запиту про допомогу
-  const [partNumber, setPartNumber] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
 
+  const [value, setValue] = useState(0);
   const getFavorite = useSelector(getFavoriteProductLocalStorage);
   const getFavoriteNotAth = useSelector(getFavoriteProductLocalStorageAuth);
   const onFavorite = getFavorite.findIndex(array => array.idProduct === id);
@@ -113,18 +108,6 @@ const BuyProduct = ({ saveInfo }) => {
     getAnaloguesProduct(id).then(pr => setProductAnalogues(pr));
   }, [id]);
 
-  // Дод інфа
-  useEffect(() => {
-    if (product && !hasInfoBeenSaved) {
-      saveInfo({
-        use: product.info.use || 'інформація відсутння',
-        obm: product.info.obm || 'інформація відсутння',
-        details: product.info.details || 'інформація відсутння',
-      });
-      setHasInfoBeenSaved(true);
-    }
-  }, [product, hasInfoBeenSaved, saveInfo]);
-
   // Зміна кнопки на посиланя кошика (купити...у кошик)
   useEffect(() => {
     if (selectAuth && product && productBuyAuth && productBuyAuth.length > 0) {
@@ -163,16 +146,16 @@ const BuyProduct = ({ saveInfo }) => {
     setIsModalOpen(true);
   };
 
-  // Пост пошуку запчастини по номеру
-  const handleSubmit = e => {
-    e.preventDefault();
-    const requestData = {
-      partNumber,
-      phoneNumber,
-    };
+  // // Пост пошуку запчастини по номеру
+  // const handleSubmit = e => {
+  //   e.preventDefault();
+  //   const requestData = {
+  //     partNumber,
+  //     phoneNumber,
+  //   };
 
-    postHelpProduct(requestData).then(state => console.log(state));
-  };
+  //   postHelpProduct(requestData).then(state => console.log(state));
+  // };
 
   const switchToPreviousImage = e => {
     setCurrentImageIndex(e.target.src);
@@ -208,224 +191,494 @@ const BuyProduct = ({ saveInfo }) => {
       setFav(onFavoriteNotAuth);
     }
   }, [onFavorite, onFavoriteNotAuth, selectAuth]);
-
+  console.log(product);
   return (
     product && (
-      <div className="content__product">
+      <div
+        style={{
+          maxWidth: '1280px',
+          marginLeft: 'auto',
+          marginRight: 'auto',
+          padding: '0 15px',
+          gap: '48px',
+        }}
+      >
         <div>
-          <div className="block__img">
-            <div
-              className="zoomable-container"
-              ref={containerRef}
-              onMouseMove={handleMouseMove}
-            >
-              <img
-                src={product && currentImageIndex}
-                alt="product"
-                width="400"
-                className="zoomable-image"
-                onClick={() => openModal(product && currentImageIndex)}
-              />
-            </div>
-            {showModal && (
-              <div className="modal">
-                <span className="close" onClick={closeModal}>
-                  &times;
-                </span>
-                <img src={selectedImage} alt="Full Size" />
-              </div>
-            )}
-            <div className="block__img--allImg ">
-              {product &&
-                product.img.map(img => (
-                  <img
-                    key={img}
-                    className="active"
-                    src={img}
-                    alt="allProduct"
-                    width="100"
-                    onClick={switchToPreviousImage}
+          {' '}
+          <h3 style={{ fontSize: '25px', fontWeight: '500', margin: '24px 0' }}>
+            {product && product.name}
+          </h3>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <ul style={{ display: 'flex', gap: '40px' }}>
+              <li>
+                <button style={{ fontSize: '16px' }}>Усе про товар</button>
+              </li>
+              <li>
+                <button style={{ fontSize: '16px' }}>Характеристика</button>
+              </li>
+              <li>
+                <button style={{ fontSize: '16px' }}>Спосіб доставки</button>
+              </li>
+              <li>
+                <button style={{ fontSize: '16px' }}>Оплата</button>
+              </li>
+              <li>
+                <button style={{ fontSize: '16px' }}>Відгуки</button>
+              </li>
+            </ul>
+            <button style={{ fontSize: '16px' }}>
+              <span>
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M20 7H17V9H20V16H18C17.7348 16 17.4804 16.1054 17.2929 16.2929C17.1054 16.4804 17 16.7348 17 17V18L14.6 16.2C14.4269 16.0702 14.2164 16 14 16H10V15.5L8.2 16.852C8.36095 17.1938 8.61545 17.4831 8.93401 17.6863C9.25257 17.8894 9.62217 17.9982 10 18H13.667L17.4 20.8C17.5731 20.9298 17.7836 21 18 21C18.2652 21 18.5196 20.8946 18.7071 20.7071C18.8946 20.5196 19 20.2652 19 20V18H20C20.5304 18 21.0391 17.7893 21.4142 17.4142C21.7893 17.0391 22 16.5304 22 16V9C22 8.46957 21.7893 7.96086 21.4142 7.58579C21.0391 7.21071 20.5304 7 20 7Z"
+                    fill="#1F2A37"
                   />
-                ))}
-              {product && product.video && <VideoModal props={product.video} />}
-            </div>
-            <form className="formFind" onSubmit={handleSubmit}>
-              <h3>Знайдемо потрібну запчастину:</h3>
-              <label htmlFor="">
-                <input
-                  required
-                  type="text"
-                  placeholder="Номер або назва запчастини"
-                  value={partNumber}
-                  onChange={e => setPartNumber(e.target.value)}
-                />
-              </label>
-              <label htmlFor="">
-                <input
-                  required
-                  type="tel"
-                  name="phone"
-                  placeholder="Телефон"
-                  value={phoneNumber}
-                  onChange={e => setPhoneNumber(e.target.value)}
-                />
-              </label>
-              <button className="formLogin__btn postBtn" type="submit">
-                Надіслати запит <FiChevronRight />
-              </button>
-            </form>
+                  <path
+                    d="M6 17C5.73478 17 5.48043 16.8946 5.29289 16.7071C5.10536 16.5196 5 16.2652 5 16V14H4C3.46957 14 2.96086 13.7893 2.58579 13.4142C2.21071 13.0391 2 12.5304 2 12V5C2 4.46957 2.21071 3.96086 2.58579 3.58579C2.96086 3.21071 3.46957 3 4 3H14C14.5304 3 15.0391 3.21071 15.4142 3.58579C15.7893 3.96086 16 4.46957 16 5V12C16 12.5304 15.7893 13.0391 15.4142 13.4142C15.0391 13.7893 14.5304 14 14 14H10.333L6.6 16.8C6.4269 16.9298 6.21637 17 6 17ZM4 5V12H6C6.26522 12 6.51957 12.1054 6.70711 12.2929C6.89464 12.4804 7 12.7348 7 13V14L9.4 12.2C9.5731 12.0702 9.78363 12 10 12H14V5H4Z"
+                    fill="#1F2A37"
+                  />
+                </svg>
+              </span>
+              Залишити відгук
+            </button>
           </div>
-        </div>
-        {product && (
-          <div style={{ width: '700px' }}>
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                backgroundColor: '#278032',
-              }}
-            >
-              <h3 className="name__product">{product.name}</h3>
-              <button
-                className="favorite"
-                onClick={() =>
-                  selectAuth
-                    ? dispatch(
-                        fav === -1
-                          ? addMyFavorite({
-                              idProduct: id,
-                              ...product,
-                            })
-                          : delMyFavorite({ idProduct: id })
-                      )
-                    : dispatch(
-                        fav === -1
-                          ? addMyFavoritNotAuth({
-                              idProduct: id,
-                              ...product,
-                            })
-                          : delMyFavoritNotAuth({
-                              idProduct: id,
-                            })
-                      )
-                }
+          <div className="content__product">
+            <div className="block__img">
+              <div
+                className="zoomable-container"
+                ref={containerRef}
+                onMouseMove={handleMouseMove}
               >
-                {fav === -1 ? <AiOutlineHeart /> : <AiFillHeart />}
-              </button>
-            </div>
-            <div className="block__info" id="app-root">
-              <form className="block__info--item">
-                <p>
-                  Код: <span>{product.code}</span>
-                </p>
-                <p>
-                  Артикул: <span>{product.ark}</span>
-                </p>
-                <p>
-                  Виробник:
-                  <span>{product.producer || <span>не вказано</span>}</span>
-                </p>
-                <p className="block__info--on">В наявності</p>
-                <span className="block__info--price">{product.price} грн</span>
-                {buyPr ? (
-                  <Link to="/busket" type="button" className="formLogin__btn">
-                    У Кошик
-                  </Link>
-                ) : (
-                  <button
-                    type="button"
-                    className="formLogin__btn"
-                    onClick={buyProduct}
-                  >
-                    Купити
-                  </button>
+                <img
+                  src={product && currentImageIndex}
+                  alt="product"
+                  width="400"
+                  className="zoomable-image"
+                  onClick={() => openModal(product && currentImageIndex)}
+                />
+              </div>
+              {showModal && (
+                <div className="modal">
+                  <span className="close" onClick={closeModal}>
+                    &times;
+                  </span>
+                  <img src={selectedImage} alt="Full Size" />
+                </div>
+              )}
+              <div className="block__img--allImg ">
+                {product &&
+                  product.img.map(img => (
+                    <img
+                      key={img}
+                      className="active"
+                      src={img}
+                      alt="allProduct"
+                      width="100"
+                      onClick={switchToPreviousImage}
+                    />
+                  ))}
+                {product && product.video && (
+                  <VideoModal props={product.video} />
                 )}
+              </div>
+              {/* <form className="formFind" onSubmit={handleSubmit}>
+                <h3>Знайдемо потрібну запчастину:</h3>
+                <label htmlFor="">
+                  <input
+                    required
+                    type="text"
+                    placeholder="Номер або назва запчастини"
+                    value={partNumber}
+                    onChange={e => setPartNumber(e.target.value)}
+                  />
+                </label>
+                <label htmlFor="">
+                  <input
+                    required
+                    type="tel"
+                    name="phone"
+                    placeholder="Телефон"
+                    value={phoneNumber}
+                    onChange={e => setPhoneNumber(e.target.value)}
+                  />
+                </label>
+                <button className="formLogin__btn postBtn" type="submit">
+                  Надіслати запит <FiChevronRight />
+                </button>
+              </form> */}
+            </div>
+            {product && (
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '16px',
+                }}
+              >
+                <p className="block__info--on">В наявності</p>
+                <div>
+                  <span className="block__info--price">
+                    {product.price} грн
+                  </span>
+                </div>
+                <Rating
+                  name="simple-controlled"
+                  value={value}
+                  onChange={(_, newValue) => {
+                    setValue(newValue);
+                  }}
+                />
+                <div>
+                  <p style={{ fontSize: '16px', fontWeight: '600' }}>
+                    Отримати консультацію
+                  </p>
+                  <a
+                    href="tel:380686473128"
+                    style={{
+                      color: '#666',
+                      fontSize: '16px',
+                      lineHeight: '24px',
+                    }}
+                  >
+                    +380-68-64-73-128
+                  </a>
+                </div>
+                <div>
+                  <p style={{ fontSize: '16px', fontWeight: '600' }}>
+                    Опис товару
+                  </p>
+                  <p
+                    style={{
+                      color: '#666',
+                      fontSize: '16px',
+                      lineHeight: '24px',
+                    }}
+                  >
+                    {product.info.details}
+                  </p>
+                </div>
+                <div style={{ display: 'flex', gap: '28px' }}>
+                  {buyPr ? (
+                    <Link
+                      to="/busket"
+                      type="button"
+                      className="formLogin__btn--pr"
+                    >
+                      У Кошик
+                    </Link>
+                  ) : (
+                    <button
+                      type="button"
+                      className="formLogin__btn--pr"
+                      onClick={buyProduct}
+                    >
+                      <span>
+                        <svg
+                          width="21"
+                          height="20"
+                          viewBox="0 0 25 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M12.5 1.5C13.4946 1.5 14.4484 1.89509 15.1517 2.59835C15.8549 3.30161 16.25 4.25544 16.25 5.25V6H8.75V5.25C8.75 4.25544 9.14509 3.30161 9.84835 2.59835C10.5516 1.89509 11.5054 1.5 12.5 1.5ZM17.75 6V5.25C17.75 3.85761 17.1969 2.52226 16.2123 1.53769C15.2277 0.553123 13.8924 0 12.5 0C11.1076 0 9.77226 0.553123 8.78769 1.53769C7.80312 2.52226 7.25 3.85761 7.25 5.25V6H2V21C2 21.7956 2.31607 22.5587 2.87868 23.1213C3.44129 23.6839 4.20435 24 5 24H20C20.7956 24 21.5587 23.6839 22.1213 23.1213C22.6839 22.5587 23 21.7956 23 21V6H17.75ZM3.5 7.5H21.5V21C21.5 21.3978 21.342 21.7794 21.0607 22.0607C20.7794 22.342 20.3978 22.5 20 22.5H5C4.60218 22.5 4.22064 22.342 3.93934 22.0607C3.65804 21.7794 3.5 21.3978 3.5 21V7.5Z"
+                            fill="white"
+                          />
+                        </svg>
+                      </span>{' '}
+                      Купити
+                    </button>
+                  )}
+                  <button
+                    className="formLogin__btn--pr"
+                    style={{
+                      background: '#fff',
+                      border: '1px solid #009C2C',
+                      color: '#000',
+                    }}
+                    onClick={() =>
+                      selectAuth
+                        ? dispatch(
+                            fav === -1
+                              ? addMyFavorite({
+                                  idProduct: id,
+                                  ...product,
+                                })
+                              : delMyFavorite({ idProduct: id })
+                          )
+                        : dispatch(
+                            fav === -1
+                              ? addMyFavoritNotAuth({
+                                  idProduct: id,
+                                  ...product,
+                                })
+                              : delMyFavoritNotAuth({
+                                  idProduct: id,
+                                })
+                          )
+                    }
+                  >
+                    <span style={{ color: '#000' }}>
+                      <svg
+                        width="21"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M12.0003 4.12207L10.9248 3.01657C8.40033 0.421573 3.77133 1.31707 2.10033 4.57957C1.31583 6.11407 1.13883 8.32957 2.57133 11.1571C3.95133 13.8796 6.82233 17.1406 12.0003 20.6926C17.1783 17.1406 20.0478 13.8796 21.4293 11.1571C22.8618 8.32807 22.6863 6.11407 21.9003 4.57957C20.2293 1.31707 15.6003 0.420073 13.0758 3.01507L12.0003 4.12207ZM12.0003 22.5001C-10.9992 7.30207 4.91883 -4.55993 11.7363 1.71457C11.8263 1.79707 11.9148 1.88257 12.0003 1.97107C12.085 1.88265 12.173 1.79759 12.2643 1.71607C19.0803 -4.56293 34.9998 7.30057 12.0003 22.5001Z"
+                          fill="#2F2F37"
+                        />
+                      </svg>
+                    </span>{' '}
+                    Улюблені
+                  </button>
+                </div>
                 {isModalOpen && (
                   <BuyBusketModal
                     product={product}
                     onClose={() => setIsModalOpen(false)}
                   />
                 )}
-              </form>
-              <div className="block__infoCenter">
-                <p> {<FcCallback />} Отримати консультацію</p>
-                <span style={{ marginBottom: '25px' }}>
-                  <a href="tel:+380686473128">+380-68-64-73-128</a>
-                </span>
-                <a
-                  href="https://t.me/n_voyts"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="formLogin__btn"
-                >
-                  Задати питання
-                </a>
+                {/* <div className="block__analog">
+                <h4>Аналоги</h4>
+                {productAnalogues &&
+                  productAnalogues.map(pr => (
+                    <Link
+                      to={`/product/${pr._id}`}
+                      className="block__analog--info"
+                    >
+                      <img src={pr.img[0]} alt="/" width="70px" />
+                      <p>{pr.name}</p>
+                      <p className="price">{pr.price} грн</p>
+                    </Link>
+                  ))}
+              </div> */}
               </div>
-            </div>
-            <div className="block__analog">
-              <h4>Аналоги</h4>
-              {productAnalogues &&
-                productAnalogues.map(pr => (
-                  <Link
-                    to={`/product/${pr._id}`}
-                    className="block__analog--info"
-                  >
-                    <img src={pr.img[0]} alt="/" width="70px" />
-                    <p>{pr.name}</p>
-                    <p className="price">{pr.price} грн</p>
-                  </Link>
-                ))}
-            </div>
-            <div className="info__btn">
-              <Link
-                to=""
-                className={
-                  location.pathname === `/product/${id}`
-                    ? 'info__btn--details active__btn'
-                    : 'info__btn--details  '
-                }
-              >
-                Опис
-              </Link>
-              <Link
-                to={{ pathname: 'application', state: product.info }}
-                className={
-                  location.pathname === `/product/${id}/application`
-                    ? 'info__btn--details active__btn'
-                    : 'info__btn--details'
-                }
-              >
-                Застосування
-              </Link>
-              <Link
-                to="obm"
-                className={
-                  location.pathname === `/product/${id}/obm`
-                    ? 'info__btn--details active__btn'
-                    : 'info__btn--details'
-                }
-              >
-                Локація
-              </Link>
-            </div>
-            <Outlet />
+            )}
           </div>
-        )}
+        </div>
+        <div
+          style={{
+            width: '100%',
+            marginTop: '48px',
+            display: 'flex',
+            justifyContent: 'space-between',
+          }}
+        >
+          <div
+            style={{
+              maxWidth: '628px',
+            }}
+          >
+            <p
+              style={{
+                fontSize: '24px',
+                fontWeight: '500',
+                marginBottom: '24px',
+              }}
+            >
+              Характеристика
+            </p>
+            <p>{product.info.use}</p>
+          </div>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '24px',
+              padding: '24px',
+              boxShadow: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
+            }}
+          >
+            <p
+              style={{
+                fontSize: '24px',
+                fontWeight: '500',
+              }}
+            >
+              Спосіб доставки
+            </p>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '16px',
+              }}
+            >
+              <p
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                }}
+              >
+                <span>
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M20 7H17V9H20V16H18C17.7348 16 17.4804 16.1054 17.2929 16.2929C17.1054 16.4804 17 16.7348 17 17V18L14.6 16.2C14.4269 16.0702 14.2164 16 14 16H10V15.5L8.2 16.852C8.36095 17.1938 8.61545 17.4831 8.93401 17.6863C9.25257 17.8894 9.62217 17.9982 10 18H13.667L17.4 20.8C17.5731 20.9298 17.7836 21 18 21C18.2652 21 18.5196 20.8946 18.7071 20.7071C18.8946 20.5196 19 20.2652 19 20V18H20C20.5304 18 21.0391 17.7893 21.4142 17.4142C21.7893 17.0391 22 16.5304 22 16V9C22 8.46957 21.7893 7.96086 21.4142 7.58579C21.0391 7.21071 20.5304 7 20 7Z"
+                      fill="#1F2A37"
+                    />
+                    <path
+                      d="M6 17C5.73478 17 5.48043 16.8946 5.29289 16.7071C5.10536 16.5196 5 16.2652 5 16V14H4C3.46957 14 2.96086 13.7893 2.58579 13.4142C2.21071 13.0391 2 12.5304 2 12V5C2 4.46957 2.21071 3.96086 2.58579 3.58579C2.96086 3.21071 3.46957 3 4 3H14C14.5304 3 15.0391 3.21071 15.4142 3.58579C15.7893 3.96086 16 4.46957 16 5V12C16 12.5304 15.7893 13.0391 15.4142 13.4142C15.0391 13.7893 14.5304 14 14 14H10.333L6.6 16.8C6.4269 16.9298 6.21637 17 6 17ZM4 5V12H6C6.26522 12 6.51957 12.1054 6.70711 12.2929C6.89464 12.4804 7 12.7348 7 13V14L9.4 12.2C9.5731 12.0702 9.78363 12 10 12H14V5H4Z"
+                      fill="#1F2A37"
+                    />
+                  </svg>
+                </span>
+                Самовивіз Безкоштовно
+              </p>
+              <p
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                }}
+              >
+                <span>
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M20 7H17V9H20V16H18C17.7348 16 17.4804 16.1054 17.2929 16.2929C17.1054 16.4804 17 16.7348 17 17V18L14.6 16.2C14.4269 16.0702 14.2164 16 14 16H10V15.5L8.2 16.852C8.36095 17.1938 8.61545 17.4831 8.93401 17.6863C9.25257 17.8894 9.62217 17.9982 10 18H13.667L17.4 20.8C17.5731 20.9298 17.7836 21 18 21C18.2652 21 18.5196 20.8946 18.7071 20.7071C18.8946 20.5196 19 20.2652 19 20V18H20C20.5304 18 21.0391 17.7893 21.4142 17.4142C21.7893 17.0391 22 16.5304 22 16V9C22 8.46957 21.7893 7.96086 21.4142 7.58579C21.0391 7.21071 20.5304 7 20 7Z"
+                      fill="#1F2A37"
+                    />
+                    <path
+                      d="M6 17C5.73478 17 5.48043 16.8946 5.29289 16.7071C5.10536 16.5196 5 16.2652 5 16V14H4C3.46957 14 2.96086 13.7893 2.58579 13.4142C2.21071 13.0391 2 12.5304 2 12V5C2 4.46957 2.21071 3.96086 2.58579 3.58579C2.96086 3.21071 3.46957 3 4 3H14C14.5304 3 15.0391 3.21071 15.4142 3.58579C15.7893 3.96086 16 4.46957 16 5V12C16 12.5304 15.7893 13.0391 15.4142 13.4142C15.0391 13.7893 14.5304 14 14 14H10.333L6.6 16.8C6.4269 16.9298 6.21637 17 6 17ZM4 5V12H6C6.26522 12 6.51957 12.1054 6.70711 12.2929C6.89464 12.4804 7 12.7348 7 13V14L9.4 12.2C9.5731 12.0702 9.78363 12 10 12H14V5H4Z"
+                      fill="#1F2A37"
+                    />
+                  </svg>
+                </span>
+                Доставка до поштоматів «Нової Пошти» від 89 ₴
+              </p>
+              <p
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                }}
+              >
+                <span>
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M20 7H17V9H20V16H18C17.7348 16 17.4804 16.1054 17.2929 16.2929C17.1054 16.4804 17 16.7348 17 17V18L14.6 16.2C14.4269 16.0702 14.2164 16 14 16H10V15.5L8.2 16.852C8.36095 17.1938 8.61545 17.4831 8.93401 17.6863C9.25257 17.8894 9.62217 17.9982 10 18H13.667L17.4 20.8C17.5731 20.9298 17.7836 21 18 21C18.2652 21 18.5196 20.8946 18.7071 20.7071C18.8946 20.5196 19 20.2652 19 20V18H20C20.5304 18 21.0391 17.7893 21.4142 17.4142C21.7893 17.0391 22 16.5304 22 16V9C22 8.46957 21.7893 7.96086 21.4142 7.58579C21.0391 7.21071 20.5304 7 20 7Z"
+                      fill="#1F2A37"
+                    />
+                    <path
+                      d="M6 17C5.73478 17 5.48043 16.8946 5.29289 16.7071C5.10536 16.5196 5 16.2652 5 16V14H4C3.46957 14 2.96086 13.7893 2.58579 13.4142C2.21071 13.0391 2 12.5304 2 12V5C2 4.46957 2.21071 3.96086 2.58579 3.58579C2.96086 3.21071 3.46957 3 4 3H14C14.5304 3 15.0391 3.21071 15.4142 3.58579C15.7893 3.96086 16 4.46957 16 5V12C16 12.5304 15.7893 13.0391 15.4142 13.4142C15.0391 13.7893 14.5304 14 14 14H10.333L6.6 16.8C6.4269 16.9298 6.21637 17 6 17ZM4 5V12H6C6.26522 12 6.51957 12.1054 6.70711 12.2929C6.89464 12.4804 7 12.7348 7 13V14L9.4 12.2C9.5731 12.0702 9.78363 12 10 12H14V5H4Z"
+                      fill="#1F2A37"
+                    />
+                  </svg>
+                </span>
+                Доставка у зручний вам пункт «Нової Пошти» від 99 ₴
+              </p>
+            </div>
+            <p
+              style={{
+                fontSize: '24px',
+                fontWeight: '500',
+              }}
+            >
+              Оплата
+            </p>
+            <p>Готівкою, банківською карткою</p>
+          </div>
+        </div>
+        <div
+          style={{
+            width: '100%',
+            padding: '24px',
+            border: '1px solid #009C2C',
+            borderRadius: '8px',
+            margin: '48px 0',
+          }}
+        >
+          <p style={{ fontSize: '24px', fontWeight: '500px' }}>
+            Відгуки покупців
+          </p>
+          <ul
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '24px',
+              margin: '24px 0',
+            }}
+          >
+            <li>
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <p
+                  style={{
+                    fontSize: '16px',
+                    fontWeight: '600',
+                    marginBottom: '8px',
+                  }}
+                >
+                  User Name
+                </p>
+                <span style={{ color: '#939292', fontSize: '12px' }}>
+                  2 дні тому
+                </span>
+              </div>
+              <Rating
+                name="simple-controlled"
+                value={value}
+                onChange={(_, newValue) => {
+                  setValue(newValue);
+                }}
+              />
+              <p
+                style={{
+                  fontSize: '16px',
+                  fontWeight: '400px',
+                  margin: '16px 0',
+                }}
+              >
+                Homey atmosphere, comfortable rooms. Ideal for a simple stay.!
+              </p>
+              <button style={{ fontSize: '16px', textAlign: 'center' }}>
+                <TiMessages /> Відповісти <BiDownArrow />
+              </button>
+            </li>
+          </ul>
+          <button
+            className="formLogin__btn--pr"
+            style={{
+              background: '#fff',
+              border: '1px solid #009C2C',
+              color: '#000',
+              marginRight: 'auto',
+              marginLeft: 'auto',
+            }}
+          >
+            <span style={{ color: '#000' }}></span>
+            Більше
+          </button>
+        </div>
       </div>
     )
   );
 };
 
 export default BuyProduct;
-
-export const Application = ({ info }) => {
-  return <p>{info && info.use}</p>;
-};
-
-export const Obm = ({ info }) => {
-  return <p>{info && info.obm}</p>;
-};
-
-export const Dital = ({ info }) => {
-  return <p>{info && info.details}</p>;
-};

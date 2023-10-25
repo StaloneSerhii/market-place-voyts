@@ -1,7 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import Layout from './Layout';
-import { Application, Dital, Obm } from './buyProduct/buyProduct';
-import { useState } from 'react';
+// import { useState } from 'react';
 import { useEffect, Suspense, lazy } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCurrentUser, fetchProductUser } from 'redux/operations';
@@ -34,13 +33,6 @@ function App() {
   const dispatch = useDispatch();
   const isLogIn = useSelector(getAuthStatus);
   const isFetching = useSelector(getFetching);
-
-  // Пропси з описом для передачі в продукти
-  const [info, setInfo] = useState();
-
-  const saveInfo = info => {
-    setInfo(info);
-  };
 
   useEffect(() => {
     dispatch(fetchCurrentUser());
@@ -104,14 +96,7 @@ function App() {
               <Route path="favorite" element={<Favorite />} />
               <Route path="settings" element={<SerringProfile />} />
             </Route>
-            <Route
-              path="product/:id"
-              element={<BuyProduct saveInfo={saveInfo} />}
-            >
-              <Route path="" element={<Dital info={info} />} />
-              <Route path="application" element={<Application info={info} />} />
-              <Route path="obm" element={<Obm info={info} />} />
-            </Route>
+            <Route path="product/:id" element={<BuyProduct />} />
           </Route>
           <Route path="*" element={<p>404 not found</p>} />
         </Routes>
