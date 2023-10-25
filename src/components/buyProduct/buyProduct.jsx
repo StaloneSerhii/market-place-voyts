@@ -1,9 +1,9 @@
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import BuyBusketModal from 'components/modalBuy/about/buyBusket';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { getAnaloguesProduct, getIdProduct } from 'redux/service';
+import { getIdProduct } from 'redux/service';
 import { useRef } from 'react';
 import { getAuthStatus } from 'redux/authPer/auth-selector';
 import {
@@ -30,7 +30,7 @@ import { BiDownArrow } from 'react-icons/bi';
 
 const BuyProduct = () => {
   const dispatch = useDispatch();
-  const location = useLocation();
+  // const location = useLocation();
   // Ід для запиту в бд
   const { id } = useParams();
   // Перевірка на наявність у кошику
@@ -40,11 +40,11 @@ const BuyProduct = () => {
   const [fav, setFav] = useState(-1);
 
   // Поверненя аналогів продуктів з бд
-  const [productAnalogues, setProductAnalogues] = useState([]);
+  // const [productAnalogues, setProductAnalogues] = useState([]);
 
   // Відкритя модалки покупки
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [hasInfoBeenSaved, setHasInfoBeenSaved] = useState(false);
+  // const [hasInfoBeenSaved, setHasInfoBeenSaved] = useState(false);
   // Дефолтна картинка
   const [currentImageIndex, setCurrentImageIndex] = useState();
   // Перевірка на авторизацію
@@ -102,10 +102,10 @@ const BuyProduct = () => {
     };
   }, [showModal]);
 
-  // Запит по продукту на бд по ід
+  // Запит по продукту на бд по ід аналогів
   useEffect(() => {
     getIdProduct(id).then(pr => setProduct(pr));
-    getAnaloguesProduct(id).then(pr => setProductAnalogues(pr));
+    // getAnaloguesProduct(id).then(pr => setProductAnalogues(pr));
   }, [id]);
 
   // Зміна кнопки на посиланя кошика (купити...у кошик)

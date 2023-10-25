@@ -768,10 +768,6 @@ article.nextSlide {
   align-items: center;
 }
 
-.active:hover {
-  border: 1px solid rgb(26, 122, 35);
-}
-
 /* Стилі для контейнера */
 .zoomable-container {
   overflow: hidden; /* Обрізати зображення за межами контейнера */
@@ -840,9 +836,9 @@ article.nextSlide {
 }
 
 .modal__block {
-  background-color: var(--greenMain);
-  border-bottom-left-radius: 10px;
-  border-top-right-radius: 10px;
+  background-color: #fff;
+  border-radius: 8px;
+  width: 1162px;
 }
 .modal__block > div {
   display: flex;
@@ -1270,9 +1266,8 @@ article.nextSlide {
   display: flex;
   align-items: flex-start;
   flex-direction: column;
-  gap: 10px;
+  gap: 32px;
   width: 800px;
-  margin-bottom: 15px;
 }
 .formData > div > label > input {
   border-radius: 5px;
@@ -1594,6 +1589,7 @@ p {
 
 label {
   font-weight: 500;
+  line-height: 2;
 }
 
 input {

@@ -50,10 +50,7 @@ const BuyBusketModal = ({ product, onClose }) => {
   return ReactDOM.createPortal(
     <div className="modal" id="modal-root">
       <div className="modal__block">
-        <div>
-          <p className="modal__text">{product.name}</p>
-          <button onClick={onClose}>X</button>
-        </div>
+        <p className="modal__text">Кошик</p>
         <div className="block__listBuy">
           <ul style={{ width: '550px' }}>
             <li className="block__listBuy--item">
@@ -72,6 +69,7 @@ const BuyBusketModal = ({ product, onClose }) => {
                   alignItems: 'center',
                 }}
               >
+                <p className="modal__text">{product.name}</p>
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                   <span
                     style={{ color: 'rgb(134, 134, 134)', lineHeight: '1.5' }}
