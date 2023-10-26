@@ -50,9 +50,9 @@ async function postBuyProduct(body) {
   console.log('error');
 }
 
-async function postBuyProductBY(body, findWord) {
+async function postBuyProductBY(body, findWord, filter) {
   const { data } = await axios.get(
-    `${API}/product/getAll/by?sort=${body}&find=${findWord}`
+    `${API}/product/getAll/by?sort=${body}&find=${findWord}&filter=${filter}`
   );
   if (data) {
     return data;
@@ -71,9 +71,9 @@ async function postHelpProduct(requestData) {
   console.log('error');
 }
 
-async function postBuyProductNew(body, findWord) {
+async function postBuyProductNew(body, findWord, filter) {
   const { data } = await axios.get(
-    `${API}/product/getAll/new?sort=${body}&find=${findWord}`
+    `${API}/product/getAll/new?sort=${body}&find=${findWord}&filter=${filter}`
   );
   if (data) {
     return data;
@@ -81,9 +81,9 @@ async function postBuyProductNew(body, findWord) {
   console.log('error');
 }
 
-async function postBuyProductSgTech(body, findWord) {
+async function postBuyProductSgTech(body, findWord, filter) {
   const { data } = await axios.get(
-    `${API}/product/getAll/sgtech?sort=${body}&find=${findWord}`
+    `${API}/product/getAll/sgtech?sort=${body}&find=${findWord}&filter=${filter}`
   );
   if (data) {
     return data;
@@ -91,9 +91,9 @@ async function postBuyProductSgTech(body, findWord) {
   console.log('error');
 }
 
-async function postBuyProductSg(body, findWord) {
+async function postBuyProductSg(body, findWord, filter) {
   const { data } = await axios.get(
-    `${API}/product/getAll/sg?sort=${body}&find=${findWord}`
+    `${API}/product/getAll/sg?sort=${body}&find=${findWord}&filter=${filter}`
   );
   if (data) {
     return data;

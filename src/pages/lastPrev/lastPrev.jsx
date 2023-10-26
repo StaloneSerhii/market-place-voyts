@@ -8,10 +8,9 @@ const {
 const LastPrev = () => {
   const product = useSelector(getMyStore);
 
- 
   return (
-    <div className="lastPrev">
-      <h3 className="lastPrev__title">Остані переглянуті</h3>
+    <div className="cataloge animated-section">
+      <h3 className="cataloge__title">Остані переглянуті</h3>
       <ul className="lastPrev__gap">
         {product &&
           product.map(product => (

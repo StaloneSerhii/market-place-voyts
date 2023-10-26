@@ -437,3 +437,27 @@ export const apruveProduct = createAsyncThunk(
     }
   }
 );
+
+export const addComents = createAsyncThunk(
+  'user/commnet',
+  async (credentials, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const persistedToken = state.persistedReducerAdd.auth.token;
+    if (persistedToken === null) {
+      return thunkAPI.rejectWithValue('Unable to fetch user');
+    }
+    try {
+      setAuthHeader(persistedToken);
+      const response = await instance.post(`/product/comment`, credentials);
+      if (response) {
+        Notiflix.Notify.success('Ви успішно залишили коментар!');
+        return response.data;
+      }
+    } catch (e) {
+      console.log(e);
+      Notiflix.Notify.failure(
+        'Не вдалося створити коментар, зверність в тех-службу!'
+      );
+    }
+  }
+);

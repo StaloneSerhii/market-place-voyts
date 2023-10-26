@@ -14,6 +14,7 @@ const MainPages = () => {
       <CatalogePage />
       <Advertisement />
       <TopSellPages />
+      <Advertisement />
       <LastPrev />
       <VideoContent />
     </>

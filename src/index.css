@@ -201,10 +201,8 @@
 .formLogin__btn--pr {
   font-size: 16px;
   padding: 10px 16px;
-  background-color: #009c2c;
   border-radius: 8px;
   width: 300px;
-  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -247,6 +245,27 @@
   gap: 10px;
   font-size: 16px;
   border: 1px solid #d5d5d5;
+}
+
+.btnHover:hover {
+  background-color: #005819;
+}
+
+.btnHoverReverse:hover {
+  background-color: #009c2c;
+  color: white;
+}
+
+.borderGreen {
+  border: 1px solid #009c2c;
+}
+
+.bgWhite {
+  background: #fff;
+}
+
+.bgGreen {
+  background: #009c2c;
 }
 
 .backImg {
@@ -1366,6 +1385,16 @@ article.nextSlide {
   color: red;
 }
 
+.MuiAutocomplete-hasPopupIcon.css-1l413ns-MuiAutocomplete-root .MuiOutlinedInput-root,
+.MuiAutocomplete-hasClearIcon.css-1l413ns-MuiAutocomplete-root .MuiOutlinedInput-root {
+  padding: 2px;
+}
+
+.MuiAutocomplete-hasPopupIcon.css-1834aza-MuiAutocomplete-root .MuiOutlinedInput-root,
+.MuiAutocomplete-hasClearIcon.css-1834aza-MuiAutocomplete-root .MuiOutlinedInput-root {
+  padding: 2px;
+}
+
 .order {
   display: flex;
   margin-left: auto;
@@ -1421,7 +1450,8 @@ article.nextSlide {
   background-color: rgb(81, 163, 102);
 }
 
-a {
+a,
+button {
   text-decoration: none;
   transition: all 250ms ease;
 }

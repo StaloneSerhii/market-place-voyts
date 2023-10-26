@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import Layout from './Layout';
-// import { useState } from 'react';
+import { useState } from 'react';
 import { useEffect, Suspense, lazy } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCurrentUser, fetchProductUser } from 'redux/operations';
@@ -33,7 +33,7 @@ function App() {
   const dispatch = useDispatch();
   const isLogIn = useSelector(getAuthStatus);
   const isFetching = useSelector(getFetching);
-
+  const [filter, setFilter] = useState(null);
   useEffect(() => {
     dispatch(fetchCurrentUser());
     if (isLogIn) {
@@ -76,11 +76,14 @@ function App() {
                 <RestrictedRoute redirectTo="/" component={<RegisterPage />} />
               }
             />
-            <Route path="productAll" element={<Filter />}>
-              <Route path="by" element={<CatalogeProduct />} />
-              <Route path="new" element={<CatalogeProduct />} />
-              <Route path="sg" element={<CatalogeProduct />} />
-              <Route path="sgtech" element={<CatalogeProduct />} />
+            <Route path="productAll" element={<Filter filter={setFilter} />}>
+              <Route path="by" element={<CatalogeProduct filter={filter} />} />
+              <Route path="new" element={<CatalogeProduct filter={filter} />} />
+              <Route path="sg" element={<CatalogeProduct filter={filter} />} />
+              <Route
+                path="sgtech"
+                element={<CatalogeProduct filter={filter} />}
+              />
             </Route>
             <Route path="busket" element={<Busket />} />
             <Route path="myorder" element={<BuyModalSuc />} />

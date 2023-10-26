@@ -20,7 +20,8 @@
 @import "./pages/buysuccess/buySuc-style";
 @import "./pages/myprofile/userprofile-sytle";
 
-a {
+a,
+button {
     text-decoration: none;
     transition: all 250ms ease;
 }

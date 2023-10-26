@@ -52,11 +52,8 @@ const CatalogePage = () => {
       {product && product.length >= limit && (
         <button
           onClick={handlePageClick}
-          className="formLogin__btn--pr"
+          className="formLogin__btn--pr btnHoverReverse borderGreen bgWhite"
           style={{
-            background: '#fff',
-            border: '1px solid #009C2C',
-            color: '#000',
             marginLeft: 'auto',
             marginRight: 'auto',
             marginBottom: '64px',

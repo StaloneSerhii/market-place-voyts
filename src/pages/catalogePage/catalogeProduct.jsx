@@ -16,7 +16,7 @@ import { Circles } from 'react-loader-spinner';
 import { BsFillBasketFill, BsSearch } from 'react-icons/bs';
 import { Autocomplete, TextField } from '@mui/material';
 
-const CatalogeProduct = () => {
+const CatalogeProduct = ({ filter }) => {
   const navigate = useLocation();
   const [listPr, setListPr] = useState([]);
   const [findWord, setFindWord] = useState('');
@@ -74,17 +74,23 @@ const CatalogeProduct = () => {
 
   useEffect(() => {
     if (navigate.pathname === '/productAll/by') {
-      postBuyProductBY(filterSort, findWord).then(state => setListPr(state));
+      postBuyProductBY(filterSort, findWord, filter).then(state =>
+        setListPr(state)
+      );
     } else if (navigate.pathname === '/productAll/new') {
-      postBuyProductNew(filterSort, findWord).then(state => setListPr(state));
+      postBuyProductNew(filterSort, findWord, filter).then(state =>
+        setListPr(state)
+      );
     } else if (navigate.pathname === '/sg') {
-      postBuyProductSg(filterSort, findWord).then(state => setListPr(state));
+      postBuyProductSg(filterSort, findWord, filter).then(state =>
+        setListPr(state)
+      );
     } else if (navigate.pathname === '/sgtech') {
-      postBuyProductSgTech(filterSort, findWord).then(state =>
+      postBuyProductSgTech(filterSort, findWord, filter).then(state =>
         setListPr(state)
       );
     }
-  }, [filterSort, navigate.pathname, findWord]);
+  }, [filterSort, navigate.pathname, findWord, filter]);
 
   const options = [
     { label: 'Від дешевих', id: 'chep' },

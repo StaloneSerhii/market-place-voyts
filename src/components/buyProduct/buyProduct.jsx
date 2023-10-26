@@ -30,6 +30,8 @@ import {
   BiSolidLeftArrow,
   BiSolidRightArrow,
 } from 'react-icons/bi';
+import Notiflix from 'notiflix';
+import { ModalComments } from 'components/modalBuy/ModalComent';
 
 const BuyProduct = () => {
   const dispatch = useDispatch();
@@ -40,6 +42,8 @@ const BuyProduct = () => {
   // Поверненя продуктів з бд
   const [product, setProduct] = useState();
   const [fav, setFav] = useState(-1);
+
+  const [openState, setOpen] = useState(false);
 
   // Відкритя модалки покупки
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -229,6 +233,7 @@ const BuyProduct = () => {
           gap: '48px',
         }}
       >
+        <ModalComments openState={openState} setOpen={setOpen} />
         <div>
           <h3 style={{ fontSize: '25px', fontWeight: '500', margin: '24px 0' }}>
             {product && product.name}
@@ -251,9 +256,22 @@ const BuyProduct = () => {
                 </a>
               </li>
               <li>
-                <a style={{ fontSize: '16px' }} href="#video">
-                  Відео
-                </a>
+                {product && product.video ? (
+                  <a style={{ fontSize: '16px' }} href="#video">
+                    Відео
+                  </a>
+                ) : (
+                  <p
+                    style={{
+                      fontSize: '16px',
+                      color: 'gray',
+                      cursor: 'default',
+                    }}
+                    href="#video"
+                  >
+                    Відео
+                  </p>
+                )}
               </li>
               <li>
                 <a style={{ fontSize: '16px' }} href="#rev">
@@ -261,7 +279,17 @@ const BuyProduct = () => {
                 </a>
               </li>
             </ul>
-            <button style={{ fontSize: '16px' }}>
+            <button
+              onClick={() => setOpen(true)}
+              style={{
+                fontSize: '16px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '5px',
+              }}
+              title="Залишати коментарі можуть тілкьи зареєстровані користувачі"
+              disabled={!selectAuth && 'true'}
+            >
               <span>
                 <svg
                   width="24"
@@ -272,11 +300,11 @@ const BuyProduct = () => {
                 >
                   <path
                     d="M20 7H17V9H20V16H18C17.7348 16 17.4804 16.1054 17.2929 16.2929C17.1054 16.4804 17 16.7348 17 17V18L14.6 16.2C14.4269 16.0702 14.2164 16 14 16H10V15.5L8.2 16.852C8.36095 17.1938 8.61545 17.4831 8.93401 17.6863C9.25257 17.8894 9.62217 17.9982 10 18H13.667L17.4 20.8C17.5731 20.9298 17.7836 21 18 21C18.2652 21 18.5196 20.8946 18.7071 20.7071C18.8946 20.5196 19 20.2652 19 20V18H20C20.5304 18 21.0391 17.7893 21.4142 17.4142C21.7893 17.0391 22 16.5304 22 16V9C22 8.46957 21.7893 7.96086 21.4142 7.58579C21.0391 7.21071 20.5304 7 20 7Z"
-                    fill="#1F2A37"
+                    fill="#68798d"
                   />
                   <path
                     d="M6 17C5.73478 17 5.48043 16.8946 5.29289 16.7071C5.10536 16.5196 5 16.2652 5 16V14H4C3.46957 14 2.96086 13.7893 2.58579 13.4142C2.21071 13.0391 2 12.5304 2 12V5C2 4.46957 2.21071 3.96086 2.58579 3.58579C2.96086 3.21071 3.46957 3 4 3H14C14.5304 3 15.0391 3.21071 15.4142 3.58579C15.7893 3.96086 16 4.46957 16 5V12C16 12.5304 15.7893 13.0391 15.4142 13.4142C15.0391 13.7893 14.5304 14 14 14H10.333L6.6 16.8C6.4269 16.9298 6.21637 17 6 17ZM4 5V12H6C6.26522 12 6.51957 12.1054 6.70711 12.2929C6.89464 12.4804 7 12.7348 7 13V14L9.4 12.2C9.5731 12.0702 9.78363 12 10 12H14V5H4Z"
-                    fill="#1F2A37"
+                    fill="#596472"
                   />
                 </svg>
               </span>
@@ -364,7 +392,13 @@ const BuyProduct = () => {
                   name="simple-controlled"
                   value={value}
                   onChange={(_, newValue) => {
-                    setValue(newValue);
+                    if (selectAuth) {
+                      setValue(newValue);
+                    } else {
+                      Notiflix.Notify.warning(
+                        'Оцінювати товар можуть тільки зареєстровані користувачі'
+                      );
+                    }
                   }}
                 />
                 <div>
@@ -401,15 +435,17 @@ const BuyProduct = () => {
                     <Link
                       to="/busket"
                       type="button"
-                      className="formLogin__btn--pr"
+                      className="formLogin__btn--pr bgGreen btnHover "
+                      style={{ color: '#fff' }}
                     >
                       У Кошик
                     </Link>
                   ) : (
                     <button
                       type="button"
-                      className="formLogin__btn--pr"
+                      className="formLogin__btn--pr bgGreen btnHover "
                       onClick={buyProduct}
+                      style={{ color: '#fff' }}
                     >
                       <span>
                         <svg
@@ -429,11 +465,9 @@ const BuyProduct = () => {
                     </button>
                   )}
                   <button
-                    className="formLogin__btn--pr"
+                    className="formLogin__btn--pr btnHoverReverse"
                     style={{
-                      background: '#fff',
                       border: '1px solid #009C2C',
-                      color: '#000',
                     }}
                     onClick={() =>
                       selectAuth
@@ -457,7 +491,7 @@ const BuyProduct = () => {
                           )
                     }
                   >
-                    <span style={{ color: '#000' }}>
+                    <span>
                       <svg
                         width="21"
                         height="20"
@@ -467,7 +501,7 @@ const BuyProduct = () => {
                       >
                         <path
                           d="M12.0003 4.12207L10.9248 3.01657C8.40033 0.421573 3.77133 1.31707 2.10033 4.57957C1.31583 6.11407 1.13883 8.32957 2.57133 11.1571C3.95133 13.8796 6.82233 17.1406 12.0003 20.6926C17.1783 17.1406 20.0478 13.8796 21.4293 11.1571C22.8618 8.32807 22.6863 6.11407 21.9003 4.57957C20.2293 1.31707 15.6003 0.420073 13.0758 3.01507L12.0003 4.12207ZM12.0003 22.5001C-10.9992 7.30207 4.91883 -4.55993 11.7363 1.71457C11.8263 1.79707 11.9148 1.88257 12.0003 1.97107C12.085 1.88265 12.173 1.79759 12.2643 1.71607C19.0803 -4.56293 34.9998 7.30057 12.0003 22.5001Z"
-                          fill="#2F2F37"
+                          fill="#cfbd18"
                         />
                       </svg>
                     </span>
@@ -707,11 +741,9 @@ const BuyProduct = () => {
             </li>
           </ul>
           <button
-            className="formLogin__btn--pr"
+            className="formLogin__btn--pr btnHoverReverse"
             style={{
-              background: '#fff',
               border: '1px solid #009C2C',
-              color: '#000',
               marginRight: 'auto',
               marginLeft: 'auto',
             }}

@@ -17,19 +17,35 @@ function valuetext(value) {
   return `${value}$`;
 }
 
-const Filter = () => {
+const Filter = ({ filter }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [value, setValue] = useState([20, 37]);
+  const [value, setValue] = useState([1, 100000]);
+  const [fromValue, setFromValue] = useState(1);
+  const [toValue, setToValue] = useState(100000);
   const [selectedValue, setSelectedValue] = useState('');
-
-  const handleChange = (_, newValue) => {
+  const [checkboxes, setCheckboxes] = useState({
+    label: true, // початковий стан для "Label"
+    required: false, // початковий стан для "Required"
+    disabled: false, // початковий стан для "Disabled"
+  });
+  const handleCheckboxChange = event => {
+    const { name, checked } = event.target;
+    setCheckboxes({ ...checkboxes, [name]: checked });
+  };
+  const handleChange = (event, newValue) => {
     setValue(newValue);
+    setFromValue(newValue[0]);
+    setToValue(newValue[1]);
   };
 
   const handleChangeRadio = event => {
     setSelectedValue(event.target.value);
   };
+
+  useEffect(() => {
+    filter({ price: value, checkboxes: checkboxes });
+  }, [filter, value, checkboxes]);
 
   useEffect(() => {
     if (location.pathname === '/productAll/new') {
@@ -193,7 +209,14 @@ const Filter = () => {
                   variant="outlined"
                   type="text"
                   placeholder="Від"
-                  value={value[0]}
+                  value={fromValue}
+                  onChange={e => {
+                    const newValue = parseInt(e.target.value, 10);
+                    if (!isNaN(newValue) && newValue < toValue) {
+                      setFromValue(newValue);
+                      setValue([newValue, toValue]);
+                    }
+                  }}
                 />
                 <TextField
                   sx={{ width: '117px', height: '44px' }}
@@ -201,11 +224,19 @@ const Filter = () => {
                   variant="outlined"
                   type="text"
                   placeholder="До"
-                  value={value[1]}
-                  onChange={(e, _) => console.log(e.target.value)}
+                  value={toValue}
+                  onChange={e => {
+                    const newValue = parseInt(e.target.value, 10);
+                    if (!isNaN(newValue) && newValue > fromValue) {
+                      setToValue(newValue);
+                      setValue([fromValue, newValue]);
+                    }
+                  }}
                 />
               </div>
               <Slider
+                min={1}
+                max={100000}
                 getAriaLabel={() => 'Temperature range'}
                 value={value}
                 onChange={handleChange}
@@ -239,11 +270,35 @@ const Filter = () => {
               <p style={{ color: 'rgba(0, 0, 0, 0.6)' }}>Amenities</p>
               <FormGroup>
                 <FormControlLabel
-                  control={<Checkbox defaultChecked />}
+                  control={
+                    <Checkbox
+                      name="label"
+                      checked={checkboxes.label}
+                      onChange={handleCheckboxChange}
+                    />
+                  }
                   label="Label"
                 />
-                <FormControlLabel control={<Checkbox />} label="Required" />
-                <FormControlLabel control={<Checkbox />} label="Disabled" />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      name="required"
+                      checked={checkboxes.required}
+                      onChange={handleCheckboxChange}
+                    />
+                  }
+                  label="Required"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      name="disabled"
+                      checked={checkboxes.disabled}
+                      onChange={handleCheckboxChange}
+                    />
+                  }
+                  label="Disabled"
+                />
               </FormGroup>
             </li>
           </ul>

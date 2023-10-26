@@ -35,8 +35,9 @@ const validationSchema = Yup.object().shape({
     .min(14, 'Too Short name!')
     .max(14, 'Too Long name!')
     .notRequired(),
-  city: Yup.string().required().min(3, 'Too Short name!'),
+  city: Yup.string().required(),
   viddill: Yup.string().required(),
+  post: Yup.string().required(),
   oplata: Yup.string().required(),
 });
 
@@ -93,6 +94,7 @@ const Busket = () => {
     city: userAuth.isLoggedIn ? userAuth.user.city : '',
     viddill: '',
     oplata: '',
+    post: '',
   };
 
   // Відправка форми після замовлення
@@ -105,7 +107,7 @@ const Busket = () => {
         dispatch(buyProductBusket({ values, select }));
         navigate('/profile/settings');
         dispatch(dellAllProductOrder());
-      } else {
+      } else if (result) {
         postBuyProduct({ values, select: productNotAuth }).then(state => {
           if (state.status === 201) {
             navigate('/');
@@ -214,8 +216,11 @@ const Busket = () => {
                     value={formik.values.name}
                     onChange={handleInputChange}
                     style={
-                      formik.touched.name && formik.errors.name
-                        ? { border: '1px solid red' }
+                      formik.touched.name === undefined &&
+                      formik.errors.name === undefined
+                        ? { border: '1px solid rgb(164, 164, 164)' }
+                        : formik.touched.name && formik.errors.name
+                        ? { border: '1px solid rgb(244, 0, 0)' }
                         : { border: '1px solid #009C2C' }
                     }
                   />
@@ -232,8 +237,11 @@ const Busket = () => {
                     value={formik.values.fename}
                     onChange={handleInputChange}
                     style={
-                      formik.touched.fename && formik.errors.fename
-                        ? { border: '1px solid red' }
+                      formik.touched.fename === undefined &&
+                      formik.errors.fename === undefined
+                        ? { border: '1px solid rgb(164, 164, 164)' }
+                        : formik.touched.fename && formik.errors.fename
+                        ? { border: '1px solid rgb(244, 0, 0)' }
                         : { border: '1px solid #009C2C' }
                     }
                   />
@@ -250,8 +258,11 @@ const Busket = () => {
                     value={formik.values.phone}
                     onChange={handlePhoneNumberChange}
                     style={
-                      formik.touched.phone && formik.errors.phone
-                        ? { border: '1px solid red' }
+                      formik.touched.phone === undefined &&
+                      formik.errors.phone === undefined
+                        ? { border: '1px solid rgb(164, 164, 164)' }
+                        : formik.touched.phone && formik.errors.phone
+                        ? { border: '1px solid rgb(244, 0, 0)' }
                         : { border: '1px solid #009C2C' }
                     }
                   />
@@ -267,8 +278,11 @@ const Busket = () => {
                     value={formik.values.email}
                     onChange={handleInputChange}
                     style={
-                      formik.touched.email && formik.errors.email
-                        ? { border: '1px solid red' }
+                      formik.touched.email === undefined &&
+                      formik.errors.email === undefined
+                        ? { border: '1px solid rgb(164, 164, 164)' }
+                        : formik.touched.email && formik.errors.email
+                        ? { border: '1px solid rgb(244, 0, 0)' }
                         : { border: '1px solid #009C2C' }
                     }
                   />
@@ -287,12 +301,12 @@ const Busket = () => {
                   borderRadius: '5px',
                   fontSize: '15px',
                   justifyContent: 'center',
-                  border: '1px solid #009C2C',
+                  border: '1px solid rgb(192 193 193)',
                   padding: '16px',
                 }}
               />
             </div>
-            <label id="city">
+            <label id="city" style={{ width: '737px' }}>
               Виберіть населений пункт
               <Autocomplete
                 required
@@ -301,29 +315,81 @@ const Busket = () => {
                 options={options}
                 name="city"
                 onBlur={formik.handleBlur}
-                onChange={handleInputChange}
-                sx={{ width: '735px' }}
+                onChange={(_, newValue) => {
+                  formik.setFieldValue('city', newValue.label);
+                }}
+                sx={
+                  formik.touched.city === undefined &&
+                  formik.errors.city === undefined
+                    ? {
+                        '& div': { padding: '0px' },
+                        '& > div>div': {
+                          border: '1px solid rgb(164, 164, 164)',
+                          padding: '3px',
+                        },
+                      }
+                    : formik.touched.city && formik.errors.city
+                    ? {
+                        '& div': { padding: '0px' },
+                        '& > div>div': {
+                          border: '1px solid rgb(255, 20, 20)',
+                          padding: '3px',
+                        },
+                      }
+                    : {
+                        '& div': { padding: '0px' },
+                        '& > div>div': {
+                          border: '1px solid #009C2C',
+                          padding: '3px',
+                        },
+                      }
+                }
               />
             </label>
-            <label htmlFor="viddill">
+            <label htmlFor="post" style={{ width: '737px' }}>
               Виберіть спосіб доставки
               <Autocomplete
                 required
                 renderInput={params => <TextField {...params} />}
-                id="viddill"
-                options={options}
-                name="viddill"
-                // onBlur={formik.handleBlur}
-                // onChange={handleInputChange}
-                sx={{
-                  width: '735px',
-                  '& .MuiInput-underline': {
-                    borderColor: '1px solid #009C2C',
-                  },
+                id="post"
+                options={[
+                  { label: 'Самовивіз з місця продажу', id: 1 },
+                  { label: 'Доставка Нова Пошта', id: 2 },
+                ]}
+                name="post"
+                onBlur={formik.handleBlur}
+                onChange={(_, newValue) => {
+                  formik.setFieldValue('post', newValue.label);
                 }}
+                sx={
+                  formik.touched.post === undefined &&
+                  formik.errors.post === undefined
+                    ? {
+                        '& div': { padding: '0px' },
+                        '& > div>div': {
+                          border: '1px solid rgb(164, 164, 164)',
+                          padding: '3px',
+                        },
+                      }
+                    : formik.touched.post && formik.errors.post
+                    ? {
+                        '& div': { padding: '0px' },
+                        '& > div>div': {
+                          border: '1px solid rgb(255, 20, 20)',
+                          padding: '3px',
+                        },
+                      }
+                    : {
+                        '& div': { padding: '0px' },
+                        '& > div>div': {
+                          border: '1px solid #009C2C',
+                          padding: '3px',
+                        },
+                      }
+                }
               />
             </label>
-            <label htmlFor="viddill">
+            <label htmlFor="viddill" style={{ width: '737px' }}>
               Відділення Нової Пошти
               <Autocomplete
                 required
@@ -332,26 +398,78 @@ const Busket = () => {
                 options={options}
                 name="viddill"
                 onBlur={formik.handleBlur}
-                onChange={handleInputChange}
-                sx={{ width: '735px' }}
+                onChange={(_, newValue) => {
+                  formik.setFieldValue('viddill', newValue.label);
+                }}
+                sx={
+                  formik.touched.viddill === undefined &&
+                  formik.errors.viddill === undefined
+                    ? {
+                        '& div': { padding: '0px' },
+                        '& > div>div': {
+                          border: '1px solid rgb(164, 164, 164)',
+                          padding: '3px',
+                        },
+                      }
+                    : formik.touched.viddill && formik.errors.viddill
+                    ? {
+                        '& div': { padding: '0px' },
+                        '& > div>div': {
+                          border: '1px solid rgb(255, 20, 20)',
+                          padding: '3px',
+                        },
+                      }
+                    : {
+                        '& div': { padding: '0px' },
+                        '& > div>div': {
+                          border: '1px solid #009C2C',
+                          padding: '3px',
+                        },
+                      }
+                }
               />
             </label>
-            <label htmlFor="oplata">
+            <label htmlFor="oplata" style={{ width: '737px' }}>
               Виберіть спосіб оплати
               <Autocomplete
                 required
                 renderInput={params => <TextField {...params} />}
                 id="oplata"
-                options={options}
+                options={[
+                  { label: 'Предоплата на карточку продавця', id: 1 },
+                  { label: 'Післяоплата Нова Пошта, до оплати', id: 2 },
+                ]}
                 name="oplata"
-                // onBlur={formik.handleBlur}
-                onChange={e => {
-                  formik.setFieldValue(
-                    'oplata',
-                    'Післяоплата Нова Пошта, до оплати'
-                  ); // Оновлюємо значення в formik
+                onBlur={formik.handleBlur}
+                onChange={(_, newValue) => {
+                  formik.setFieldValue('oplata', newValue.label);
                 }}
-                sx={{ width: '735px' }}
+                sx={
+                  formik.touched.oplata === undefined &&
+                  formik.errors.oplata === undefined
+                    ? {
+                        '& div': { padding: '0px' },
+                        '& > div>div': {
+                          border: '1px solid rgb(164, 164, 164)',
+                          padding: '3px',
+                        },
+                      }
+                    : formik.touched.oplata && formik.errors.oplata
+                    ? {
+                        '& div': { padding: '0px' },
+                        '& > div>div': {
+                          border: '1px solid rgb(255, 20, 20)',
+                          padding: '3px',
+                        },
+                      }
+                    : {
+                        '& div': { padding: '0px' },
+                        '& > div>div': {
+                          border: '1px solid #009C2C',
+                          padding: '3px',
+                        },
+                      }
+                }
               />
             </label>
           </div>
@@ -391,7 +509,6 @@ const Busket = () => {
                           alt="img"
                           width="100px"
                         />
-
                         <div>
                           <div
                             style={{
@@ -432,7 +549,8 @@ const Busket = () => {
                               <div
                                 style={{
                                   display: 'flex',
-                                  flexDirection: 'column',
+                                  alignItems: 'center',
+                                  gap: '5px',
                                 }}
                               >
                                 <span

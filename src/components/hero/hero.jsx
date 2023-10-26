@@ -91,10 +91,12 @@ const Hero = () => {
               >
                 Від б\у до нових с\г зпчастин
               </p>
-              <button
+              <a
+                className="btnHover bgGreen "
+                href="tel:+380678645646"
                 style={{
                   padding: '10px 20px',
-                  backgroundColor: '#009C2C',
+
                   color: '#fff',
                   width: '220px',
                   textAlign: 'center',
@@ -105,7 +107,7 @@ const Hero = () => {
                 }}
               >
                 Зв`язатися з нами
-              </button>
+              </a>
             </div>
             <HeroCategory effect={effect} />
           </div>
