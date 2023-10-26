@@ -43,7 +43,7 @@ const BuyProduct = () => {
   const [comments, setComments] = useState();
   const [fav, setFav] = useState(-1);
   const [openState, setOpen] = useState(false);
-console.log(comments);
+
   // Відкритя модалки покупки
   const [isModalOpen, setIsModalOpen] = useState(false);
   // const [hasInfoBeenSaved, setHasInfoBeenSaved] = useState(false);
@@ -201,6 +201,16 @@ console.log(comments);
 
     image.style.transformOrigin = `${imageX * 100}% ${imageY * 100}%`;
   };
+
+  
+
+  const AllRating = () => {
+    let quntity = 0
+    for (let i = 0; i < comments.length; i++) {
+      quntity += comments[i].RatingValue
+    }
+   return quntity / comments.length
+  }
 
   useEffect(() => {
     if (selectAuth) {
@@ -376,7 +386,8 @@ console.log(comments);
                     {product.price} грн
                   </span>
                 </div>
-                <Rating name="simple-controlled" value={0} readOnly />
+             
+                {comments&& <Rating name="simple-controlled" precision={0.5} value={AllRating()} readOnly />}
                 <div>
                   <p style={{ fontSize: '16px', fontWeight: '600' }}>
                     Отримати консультацію
@@ -448,23 +459,23 @@ console.log(comments);
                     onClick={() =>
                       selectAuth
                         ? dispatch(
-                            fav === -1
-                              ? addMyFavorite({
-                                  idProduct: id,
-                                  ...product,
-                                })
-                              : delMyFavorite({ idProduct: id })
-                          )
+                          fav === -1
+                            ? addMyFavorite({
+                              idProduct: id,
+                              ...product,
+                            })
+                            : delMyFavorite({ idProduct: id })
+                        )
                         : dispatch(
-                            fav === -1
-                              ? addMyFavoritNotAuth({
-                                  idProduct: id,
-                                  ...product,
-                                })
-                              : delMyFavoritNotAuth({
-                                  idProduct: id,
-                                })
-                          )
+                          fav === -1
+                            ? addMyFavoritNotAuth({
+                              idProduct: id,
+                              ...product,
+                            })
+                            : delMyFavoritNotAuth({
+                              idProduct: id,
+                            })
+                        )
                     }
                   >
                     <span>
@@ -680,7 +691,7 @@ console.log(comments);
               margin: '24px 0',
             }}
           >
-            {comments&& comments.length>0 ? (
+            {comments && comments.length > 0 ? (
               comments.map(comments => (
                 <li>
                   <div
@@ -693,14 +704,15 @@ console.log(comments);
                         marginBottom: '8px',
                       }}
                     >
-                      {comments.user.name}
-                      {comments.user.fename}
+                      <span>{comments.user.name}</span>
+                     <span> {comments.user.fename}</span>
                     </p>
                     <span style={{ color: '#939292', fontSize: '12px' }}>
                       2 дні тому
                     </span>
                   </div>
                   <Rating
+                  precision={0.5}
                     name="simple-controlled"
                     value={comments.RatingValue}
                     readOnly
@@ -717,6 +729,7 @@ console.log(comments);
                   <button style={{ fontSize: '16px', textAlign: 'center' }}>
                     <TiMessages /> Відповісти <BiDownArrow />
                   </button>
+                  <input type="text" />
                 </li>
               ))
             ) : (

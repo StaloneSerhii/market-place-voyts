@@ -96,10 +96,8 @@ export const ModalComments = ({ openState, setOpen }) => {
   const { id } = params;
 
   const submitComments = () => {
-    if (comments.length > 6) {
       dispatch(addComents({ comments, ProductId: id, RatingValue: value }));
-      // setOpen(false);
-    }
+       setOpen(false);
   };
 
   return (
@@ -129,6 +127,7 @@ export const ModalComments = ({ openState, setOpen }) => {
                 {userName.user.name} {userName.user.fename}
               </Typography>
               <Rating
+              precision={0.5}
                 name="simple-controlled"
                 value={value}
                 onChange={(_, newValue) => {
@@ -144,7 +143,7 @@ export const ModalComments = ({ openState, setOpen }) => {
               <Textarea
                 aria-label="minimum height"
                 minRows={6}
-                placeholder="Мінімум 6 символів"
+                placeholder="Коментар"
                 onChange={e => setComments(e.target.value)}
               />
               <Button
