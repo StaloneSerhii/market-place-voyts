@@ -43,7 +43,7 @@ const BuyProduct = () => {
   const [comments, setComments] = useState();
   const [fav, setFav] = useState(-1);
   const [openState, setOpen] = useState(false);
-
+console.log(comments);
   // Відкритя модалки покупки
   const [isModalOpen, setIsModalOpen] = useState(false);
   // const [hasInfoBeenSaved, setHasInfoBeenSaved] = useState(false);
@@ -680,7 +680,7 @@ const BuyProduct = () => {
               margin: '24px 0',
             }}
           >
-            {comments ? (
+            {comments&& comments.length>0 ? (
               comments.map(comments => (
                 <li>
                   <div
