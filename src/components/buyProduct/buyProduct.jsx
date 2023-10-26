@@ -30,7 +30,6 @@ import {
   BiSolidLeftArrow,
   BiSolidRightArrow,
 } from 'react-icons/bi';
-import Notiflix from 'notiflix';
 import { ModalComments } from 'components/modalBuy/ModalComent';
 
 const BuyProduct = () => {
@@ -41,8 +40,8 @@ const BuyProduct = () => {
   const [buyPr, setBuyPr] = useState(false);
   // Поверненя продуктів з бд
   const [product, setProduct] = useState();
+  const [comments, setComments] = useState();
   const [fav, setFav] = useState(-1);
-
   const [openState, setOpen] = useState(false);
 
   // Відкритя модалки покупки
@@ -59,7 +58,6 @@ const BuyProduct = () => {
 
   // Стейт для відправки форми запиту про допомогу
 
-  const [value, setValue] = useState(0);
   const getFavorite = useSelector(getFavoriteProductLocalStorage);
   const getFavoriteNotAth = useSelector(getFavoriteProductLocalStorageAuth);
   const onFavorite = getFavorite.findIndex(array => array.idProduct === id);
@@ -107,10 +105,11 @@ const BuyProduct = () => {
 
   // Запит по продукту на бд по ід і аналогів
   useEffect(() => {
-    getIdProduct(id).then(pr => setProduct(pr));
-    // getAnaloguesProduct(id).then(pr => setProductAnalogues(pr));
+    getIdProduct(id).then(pr => {
+      setProduct(pr.result);
+      setComments(pr.resultComments);
+    });
   }, [id]);
-
   // Зміна кнопки на посиланя кошика (купити...у кошик)
   useEffect(() => {
     if (selectAuth && product && productBuyAuth && productBuyAuth.length > 0) {
@@ -175,17 +174,6 @@ const BuyProduct = () => {
     }
     setIsModalOpen(true);
   };
-
-  // // Пост пошуку запчастини по номеру
-  // const handleSubmit = e => {
-  //   e.preventDefault();
-  //   const requestData = {
-  //     partNumber,
-  //     phoneNumber,
-  //   };
-
-  //   postHelpProduct(requestData).then(state => console.log(state));
-  // };
 
   const switchToPreviousImage = e => {
     setCurrentImageIndex(e.target.src);
@@ -388,19 +376,7 @@ const BuyProduct = () => {
                     {product.price} грн
                   </span>
                 </div>
-                <Rating
-                  name="simple-controlled"
-                  value={value}
-                  onChange={(_, newValue) => {
-                    if (selectAuth) {
-                      setValue(newValue);
-                    } else {
-                      Notiflix.Notify.warning(
-                        'Оцінювати товар можуть тільки зареєстровані користувачі'
-                      );
-                    }
-                  }}
-                />
+                <Rating name="simple-controlled" value={0} readOnly />
                 <div>
                   <p style={{ fontSize: '16px', fontWeight: '600' }}>
                     Отримати консультацію
@@ -704,53 +680,64 @@ const BuyProduct = () => {
               margin: '24px 0',
             }}
           >
-            <li>
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <p
-                  style={{
-                    fontSize: '16px',
-                    fontWeight: '600',
-                    marginBottom: '8px',
-                  }}
-                >
-                  User Name
-                </p>
-                <span style={{ color: '#939292', fontSize: '12px' }}>
-                  2 дні тому
-                </span>
-              </div>
-              <Rating
-                name="simple-controlled"
-                value={value}
-                onChange={(_, newValue) => {
-                  setValue(newValue);
-                }}
-              />
-              <p
-                style={{
-                  fontSize: '16px',
-                  fontWeight: '400px',
-                  margin: '16px 0',
-                }}
-              >
-                Homey atmosphere, comfortable rooms. Ideal for a simple stay.!
-              </p>
-              <button style={{ fontSize: '16px', textAlign: 'center' }}>
-                <TiMessages /> Відповісти <BiDownArrow />
-              </button>
-            </li>
+            {comments ? (
+              comments.map(comments => (
+                <li>
+                  <div
+                    style={{ display: 'flex', justifyContent: 'space-between' }}
+                  >
+                    <p
+                      style={{
+                        fontSize: '16px',
+                        fontWeight: '600',
+                        marginBottom: '8px',
+                      }}
+                    >
+                      {comments.user.name}
+                      {comments.user.fename}
+                    </p>
+                    <span style={{ color: '#939292', fontSize: '12px' }}>
+                      2 дні тому
+                    </span>
+                  </div>
+                  <Rating
+                    name="simple-controlled"
+                    value={comments.RatingValue}
+                    readOnly
+                  />
+                  <p
+                    style={{
+                      fontSize: '16px',
+                      fontWeight: '400px',
+                      margin: '16px 0',
+                    }}
+                  >
+                    {comments.commentsUser[0]}
+                  </p>
+                  <button style={{ fontSize: '16px', textAlign: 'center' }}>
+                    <TiMessages /> Відповісти <BiDownArrow />
+                  </button>
+                </li>
+              ))
+            ) : (
+              <li>
+                <p>Відгуків немає будь першим</p>
+              </li>
+            )}
           </ul>
-          <button
-            className="formLogin__btn--pr btnHoverReverse"
-            style={{
-              border: '1px solid #009C2C',
-              marginRight: 'auto',
-              marginLeft: 'auto',
-            }}
-          >
-            <span style={{ color: '#000' }}></span>
-            Більше
-          </button>
+          {comments && comments.length > 5 && (
+            <button
+              className="formLogin__btn--pr btnHoverReverse"
+              style={{
+                border: '1px solid #009C2C',
+                marginRight: 'auto',
+                marginLeft: 'auto',
+              }}
+            >
+              <span style={{ color: '#000' }}></span>
+              Більше
+            </button>
+          )}
         </div>
       </div>
     )

@@ -439,7 +439,7 @@ export const apruveProduct = createAsyncThunk(
 );
 
 export const addComents = createAsyncThunk(
-  'user/commnet',
+  'user/commet',
   async (credentials, thunkAPI) => {
     const state = thunkAPI.getState();
     const persistedToken = state.persistedReducerAdd.auth.token;
@@ -448,7 +448,10 @@ export const addComents = createAsyncThunk(
     }
     try {
       setAuthHeader(persistedToken);
-      const response = await instance.post(`/product/comment`, credentials);
+      const response = await instance.post(
+        `/product/user/comment`,
+        credentials
+      );
       if (response) {
         Notiflix.Notify.success('Ви успішно залишили коментар!');
         return response.data;

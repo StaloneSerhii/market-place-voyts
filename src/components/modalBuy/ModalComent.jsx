@@ -1,11 +1,20 @@
-import { Modal, Fade, Box, Typography, Backdrop, Button } from '@mui/material';
+import {
+  Modal,
+  Fade,
+  Box,
+  Typography,
+  Backdrop,
+  Button,
+  Rating,
+} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAuth } from 'redux/authPer/auth-selector';
+import { getAuth, getAuthStatus } from 'redux/authPer/auth-selector';
 import { TextareaAutosize as BaseTextareaAutosize } from '@mui/base/TextareaAutosize';
 import { styled } from '@mui/system';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { addComents } from 'redux/operations';
+import Notiflix from 'notiflix';
 
 const style = {
   position: 'absolute',
@@ -78,57 +87,79 @@ const Textarea = styled(BaseTextareaAutosize)(
 
 export const ModalComments = ({ openState, setOpen }) => {
   const handleClose = () => setOpen(false);
+  const [value, setValue] = useState(0);
   const [comments, setComments] = useState('');
   const userName = useSelector(getAuth);
-  const params = useParams();
   const dispatch = useDispatch();
+  const params = useParams();
+  const selectAuth = useSelector(getAuthStatus);
+  const { id } = params;
 
   const submitComments = () => {
-    if (comments.length < 6) {
-      dispatch(addComents({ comments, params }));
-      setOpen(false);
+    if (comments.length > 6) {
+      dispatch(addComents({ comments, ProductId: id, RatingValue: value }));
+      // setOpen(false);
     }
   };
 
   return (
-    <Modal
-      aria-labelledby="transition-modal-title"
-      aria-describedby="transition-modal-description"
-      open={openState}
-      onClose={handleClose}
-      closeAfterTransition
-      slots={{ backdrop: Backdrop }}
-      slotProps={{
-        backdrop: {
-          timeout: 500,
-        },
-      }}
-    >
-      <Fade in={openState}>
-        <Box sx={style}>
-          <Typography
-            id="transition-modal-title"
-            variant="h6"
-            component="h2"
-            sx={{ mb: '15px' }}
-          >
-            {userName.user.name} {userName.user.fename}
-          </Typography>
-          <Textarea
-            aria-label="minimum height"
-            minRows={6}
-            placeholder="Мінімум 6 символів"
-            onChange={e => setComments(e.target.value)}
-          />
-          <Button
-            onClick={submitComments}
-            variant="contained"
-            sx={{ mr: 'auto', ml: 'auto', mt: '15px' }}
-          >
-            Відправити
-          </Button>
-        </Box>
-      </Fade>
-    </Modal>
+    <div>
+      {userName.isLoggedIn ? (
+        <Modal
+          aria-labelledby="transition-modal-title"
+          aria-describedby="transition-modal-description"
+          open={openState}
+          onClose={handleClose}
+          closeAfterTransition
+          slots={{ backdrop: Backdrop }}
+          slotProps={{
+            backdrop: {
+              timeout: 500,
+            },
+          }}
+        >
+          <Fade in={openState}>
+            <Box sx={style}>
+              <Typography
+                id="transition-modal-title"
+                variant="h6"
+                component="h2"
+                sx={{ mb: '15px' }}
+              >
+                {userName.user.name} {userName.user.fename}
+              </Typography>
+              <Rating
+                name="simple-controlled"
+                value={value}
+                onChange={(_, newValue) => {
+                  if (selectAuth) {
+                    setValue(newValue);
+                  } else {
+                    Notiflix.Notify.warning(
+                      'Оцінювати товар можуть тільки зареєстровані користувачі'
+                    );
+                  }
+                }}
+              />
+              <Textarea
+                aria-label="minimum height"
+                minRows={6}
+                placeholder="Мінімум 6 символів"
+                onChange={e => setComments(e.target.value)}
+              />
+              <Button
+                onClick={submitComments}
+                variant="contained"
+                sx={{ mr: 'auto', ml: 'auto', mt: '15px' }}
+              >
+                Відправити
+              </Button>
+            </Box>
+          </Fade>
+        </Modal>
+      ) : (
+        ''
+      )}
+    </div>
   );
 };

@@ -650,8 +650,8 @@ const Busket = () => {
             </p>
             <button
               type="submit"
-              className="formLogin__btn--pr"
-              style={{ margin: '15px 0', width: '100%' }}
+              className="formLogin__btn--pr bgGreen btnHover"
+              style={{ margin: '15px 0', width: '100%', color: '#fff' }}
             >
               ОФОРМИТИ ЗАМОВЛЕННЯ
             </button>
