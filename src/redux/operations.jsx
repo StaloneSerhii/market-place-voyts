@@ -4,8 +4,8 @@ import Notiflix from 'notiflix';
 import { resendEmailVerf } from './service';
 
 const instance = axios.create({
-  baseURL: 'https://voyts.onrender.com/api',
-  // baseURL: 'http://localhost:3333/api',
+  // baseURL: 'https://voyts.onrender.com/api',
+  baseURL: 'http://localhost:3333/api',
 });
 
 const setAuthHeader = token => {
@@ -113,7 +113,7 @@ export const logIn = createAsyncThunk(
       if (error.response.status === 402) {
         return Notiflix.Confirm.show(
           'Вітаємо',
-          'Ви успішно зареєструвалися в нас на сайті, підвердіть свою особу в електроному листі який на пошті яку ви вказали',
+          'Ви успішно зареєструвалися в нас на сайті, підвердіть свою особу в електроному листі на пошті яку ви вказали',
           'Відправити лист повторно?',
           'Вийти',
           function okCb() {
@@ -142,7 +142,6 @@ export const register = createAsyncThunk(
       const response = await instance.post('/register', user);
       setAuthHeader(response.data.token);
       if (response) {
-        window.location.href = '/market-place-voyts';
         Notiflix.Report.success(
           'Ви успішно зареєструвалися на нашому сайті',
           'Перейдіть на свою електрону адресу яку ви вказали під час реєстрації щоб підтвердити користувача!'
@@ -241,6 +240,7 @@ export const buyProductBusket = createAsyncThunk(
       }
       return response.data;
     } catch (error) {
+      console.log(error);
       if (error) {
         Notiflix.Notify.failure(
           'Не вдалося добавити товар в корзину обновіть сторінку і спробуйте знову!'

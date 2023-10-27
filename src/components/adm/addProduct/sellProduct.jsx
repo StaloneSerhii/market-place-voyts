@@ -1,35 +1,35 @@
-import { BsFillArrowDownSquareFill } from 'react-icons/bs';
-import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { apruveProduct, getSellAllProductAdm } from 'redux/operations';
+// import { BsFillArrowDownSquareFill } from 'react-icons/bs';
+// import { Link } from 'react-router-dom';
+// import { useState, useEffect } from 'react';
+// import { useDispatch } from 'react-redux';
+// import { apruveProduct } from 'redux/operations';
 
 const SellProduct = () => {
-  const [stateHistory, setStateHistory] = useState([]);
-  const [ttn, setTtn] = useState();
-  const dispatch = useDispatch();
+  // const [stateHistory, setStateHistory] = useState([]);
+  // const [ttn, setTtn] = useState();
+  // const dispatch = useDispatch();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await dispatch(getSellAllProductAdm());
-        setStateHistory(response.payload);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchData();
-  }, [dispatch, stateHistory]);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await dispatch(getSellAllProductAdm());
+  //       setStateHistory(response.payload);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+  //   fetchData();
+  // }, [dispatch, stateHistory]);
 
-  const appendProduct = (id, status) => {
-    if (status === 'apruve') {
-      return dispatch(apruveProduct({ id, status: 'pending', ttn: '' }));
-    } else if (status === 'send' && ttn) {
-      return dispatch(apruveProduct({ id, status: 'fullfild', ttn }));
-    } else if (status === 'cancell') {
-      return dispatch(apruveProduct({ id, status: 'rejected', ttn: '' }));
-    }
-  };
+  // const appendProduct = (id, status) => {
+  //   if (status === 'apruve') {
+  //     return dispatch(apruveProduct({ id, status: 'pending', ttn: '' }));
+  //   } else if (status === 'send' && ttn) {
+  //     return dispatch(apruveProduct({ id, status: 'fullfild', ttn }));
+  //   } else if (status === 'cancell') {
+  //     return dispatch(apruveProduct({ id, status: 'rejected', ttn: '' }));
+  //   }
+  // };
 
   return (
     <div className="mystore">
@@ -46,7 +46,7 @@ const SellProduct = () => {
             <option value="cheap">Від дешевих до дорогих</option>
           </select>
         </div>
-        <ul className="list__store">
+        {/* <ul className="list__store">
           {stateHistory.length > 0 &&
             stateHistory.map((pr, index) => (
               <li className="list__store--item" key={pr._id}>
@@ -201,7 +201,7 @@ const SellProduct = () => {
                 </div>
               </li>
             ))}
-        </ul>
+        </ul> */}
       </div>
     </div>
   );

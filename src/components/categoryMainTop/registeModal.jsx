@@ -77,11 +77,10 @@ export const RegisterModal = () => {
     initialValues,
     validationSchema: validationSchema,
     onSubmit: values => {
-      console.log(values);
       if (formik.values.password !== reapPass) {
         return Notiflix.Notify.failure('Паролі  не співпадають');
       }
-      dispath(register(values));
+     const answerRegister =  dispath(register(values));
     },
   });
 
