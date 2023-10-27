@@ -51,7 +51,6 @@ const Hero = () => {
             style={{
               maxWidth: '1280px',
               height: '600px',
-              zIndex: '10',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
@@ -65,6 +64,8 @@ const Hero = () => {
               style={{
                 display: 'flex',
                 flexDirection: 'column',
+                position: 'relative',
+                zIndex: '10',
               }}
             >
               {' '}

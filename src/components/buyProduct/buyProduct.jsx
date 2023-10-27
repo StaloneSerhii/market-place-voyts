@@ -106,6 +106,7 @@ const BuyProduct = () => {
               alignItems: 'center',
               gap: '5px',
             }}
+            className="btnComment"
             title="Залишати коментарі можуть тілкьи зареєстровані користувачі"
             disabled={!selectAuth && true}
           >
@@ -166,7 +167,6 @@ const BuyProduct = () => {
         style={{
           width: '100%',
           padding: '24px',
-          border: '1px solid #009C2C',
           borderRadius: '8px',
           margin: '48px 0',
         }}
@@ -178,13 +178,21 @@ const BuyProduct = () => {
           style={{
             display: 'flex',
             flexDirection: 'column',
-            gap: '24px',
+            gap: '32px',
             margin: '24px 0',
           }}
         >
           {commentsPage && commentsPage.length > 0 ? (
             commentsPage.map((comments, index) => (
-              <li key={comments._id} name={`userIdCom${comments._id}`}>
+              <li
+                key={comments._id}
+                name={`userIdCom${comments._id}`}
+                style={{
+                  background: '#fff',
+                  padding: '16px',
+                  borderRadius: '8px',
+                }}
+              >
                 <div
                   style={{ display: 'flex', justifyContent: 'space-between' }}
                 >
@@ -217,14 +225,29 @@ const BuyProduct = () => {
                 >
                   {comments.commentsUser[0]}
                 </p>
+                <div>
+                  {comments.commentsUser.map(answer =>
+                    answer.fename ? (
+                      <div
+                        style={{
+                          padding: '15px',
+                          margin: '15px',
+                          background: '#e6e6e6',
+                        }}
+                      >
+                        <p style={{ fontWeight: '500', marginBottom: '15px' }}>
+                          <span>{answer.name} </span>
+                          <span>{answer.fename}</span>
+                        </p>
+                        <p>{answer.text}</p>
+                      </div>
+                    ) : (
+                      ''
+                    )
+                  )}
+                </div>
                 <button
-                  style={{
-                    fontSize: '16px',
-                    textAlign: 'center',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '10px',
-                  }}
+                  className="btnComment"
                   onClick={() => toggleHidden(index)}
                 >
                   <TiMessages /> Відповісти <BiDownArrow />

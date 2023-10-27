@@ -22,6 +22,7 @@ export const CommentAnswer = ({ hidden, idComment, setHidden }) => {
         label="Текст"
         variant="outlined"
         onChange={e => setText(e.target.value)}
+        sx={{ width: '600px' }}
       />
       <Button
         sx={{

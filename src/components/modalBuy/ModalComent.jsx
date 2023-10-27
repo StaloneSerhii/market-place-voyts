@@ -96,8 +96,8 @@ export const ModalComments = ({ openState, setOpen }) => {
   const { id } = params;
 
   const submitComments = () => {
-      dispatch(addComents({ comments, ProductId: id, RatingValue: value }));
-       setOpen(false);
+    dispatch(addComents({ comments, ProductId: id, RatingValue: value }));
+    setOpen(false);
   };
 
   return (
@@ -127,7 +127,7 @@ export const ModalComments = ({ openState, setOpen }) => {
                 {userName.user.name} {userName.user.fename}
               </Typography>
               <Rating
-              precision={0.5}
+                precision={0.5}
                 name="simple-controlled"
                 value={value}
                 onChange={(_, newValue) => {

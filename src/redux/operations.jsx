@@ -475,8 +475,8 @@ export const addAnswerComents = createAsyncThunk(
     }
     try {
       setAuthHeader(persistedToken);
-      const response = await instance.post(
-        `/product/user/answecomment`,
+      const response = await instance.patch(
+        `/product/user/answercomment`,
         credentials
       );
       if (response) {

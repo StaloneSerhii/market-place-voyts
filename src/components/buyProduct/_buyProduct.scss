@@ -151,6 +151,17 @@
     border: 1px solid #ddd;
 }
 
+.btnComment {
+    font-size: 16px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
 .formFind {
     color: var(--greenMain);
     font-size: 25px;

@@ -7,14 +7,14 @@ import { Outlet } from 'react-router-dom';
 
 const Layout = () => {
   return (
-    <>
+    <div className="bgMain">
       {/* <Header /> */}
       <NavigateCategory />
       <Suspense>
         <Outlet />
       </Suspense>
       <Footer />
-    </>
+    </div>
   );
 };
 
