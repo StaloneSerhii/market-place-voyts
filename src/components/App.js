@@ -11,11 +11,9 @@ import { AdmRoute } from 'redux/admRoute';
 import AddProduct from './adm/addProduct/addProduct';
 import ProductList from './adm/addProduct/productList';
 import SellProduct from './adm/addProduct/sellProduct';
-import { RestrictedRoute } from 'redux/restrikedRoute';
 import Filter from './filterProduct/FilterProduct';
 
 const BuyProduct = lazy(() => import('./buyProduct/buyProduct'));
-const RegisterPage = lazy(() => import('pages/registerPages/registerPage'));
 const BuyModalSuc = lazy(() => import('../pages/buysuccess/buySuc'));
 const Favorite = lazy(() => import('pages/favoriteProduct/favorite'));
 const Profile = lazy(() => import('pages/myprofile/userprofile'));
@@ -70,12 +68,12 @@ function App() {
           </Route>
           <Route path="/" element={<Layout />}>
             <Route index element={<MainPages />} />
-            <Route
+            {/* <Route
               path="register"
               element={
                 <RestrictedRoute redirectTo="/" component={<RegisterPage />} />
               }
-            />
+            /> */}
             <Route path="productAll" element={<Filter filter={setFilter} />}>
               <Route path="by" element={<CatalogeProduct filter={filter} />} />
               <Route path="new" element={<CatalogeProduct filter={filter} />} />

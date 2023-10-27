@@ -186,8 +186,12 @@
 }
 
 .formLogin__link {
-  font-size: 20px;
+  font-size: 14px;
   color: #777777;
+  margin-left: auto;
+}
+.formLogin__link:hover {
+  text-decoration: underline;
 }
 
 .formLogin__btn {
@@ -210,9 +214,8 @@
 }
 
 .formLogin__register {
-  color: var(--greenMain);
-  font-size: 25px;
-  padding: 10px;
+  color: #585858;
+  font-size: 16px;
 }
 
 .categoty__basket {

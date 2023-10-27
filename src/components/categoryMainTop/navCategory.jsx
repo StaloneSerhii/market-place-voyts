@@ -3,24 +3,19 @@ import { Link } from 'react-router-dom';
 import { BiSolidUser } from 'react-icons/bi';
 import { CgEnter } from 'react-icons/cg';
 import { SlBasketLoaded } from 'react-icons/sl';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { getAuthStatus } from 'redux/authPer/auth-selector';
-import { logIn } from 'redux/operations';
 import {
   getFavoriteProductLocalStorage,
   getFavoriteProductLocalStorageAuth,
   getProductLocalStorage,
   getProductLocalStorageNotAuth,
 } from 'redux/selector';
-import { resendPass } from 'redux/service';
-import Notiflix from 'notiflix';
-import { AiFillEyeInvisible, AiOutlineHeart } from 'react-icons/ai';
+import { AiOutlineHeart } from 'react-icons/ai';
+import NestedModal from './modalLogin';
 
 const NavigateCategory = () => {
-  const dispatch = useDispatch();
-  const [email, setEmail] = useState();
-  const [password, setPass] = useState();
-  const [hiddenNewPass, setHiddenNewPass] = useState();
+  const [open, setOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
   const select = useSelector(getProductLocalStorage);
   const selectAuth = useSelector(getAuthStatus);
@@ -29,10 +24,10 @@ const NavigateCategory = () => {
     getFavoriteProductLocalStorageAuth
   );
   const productFavorite = useSelector(getFavoriteProductLocalStorage);
-  const menuOpen = () => {
-    return setOpenMenu(true);
-  };
 
+  const handleOpen = () => {
+    setOpen(true);
+  };
   useEffect(() => {
     const handleClickOutside = event => {
       if (
@@ -48,10 +43,6 @@ const NavigateCategory = () => {
       document.removeEventListener('click', handleClickOutside);
     };
   }, [openMenu]);
-
-  const onLogin = () => {
-    dispatch(logIn({ email, password }));
-  };
 
   return (
     <div style={{ background: '#191919' }}>
@@ -93,74 +84,16 @@ const NavigateCategory = () => {
               <>
                 <div
                   className={openMenu ? 'login yellow' : 'login'}
-                  onClick={menuOpen}
+                  onClick={handleOpen}
                 >
                   <CgEnter />
                   <span>Особистий кабінет</span>
                 </div>
-                <form className={openMenu ? 'formLogin' : 'formLogin none'}>
-                  <input
-                    onChange={e => setEmail(e.target.value)}
-                    type="email"
-                    name="email"
-                    id="email"
-                    placeholder="E-mail"
-                    value={email}
-                  />
-                  <input
-                    onChange={e => setPass(e.target.value)}
-                    value={password}
-                    type={!hiddenNewPass ? 'password' : 'text'}
-                    name="password"
-                    id="password"
-                    placeholder="Пароль"
-                  />
-                  <AiFillEyeInvisible
-                    style={{
-                      position: 'absolute',
-                      top: '80px',
-                      right: '25px',
-                      cursor: 'pointer',
-                      fontSize: '22px',
-                      color: 'black',
-                    }}
-                    onClick={() => setHiddenNewPass(!hiddenNewPass)}
-                  />
-                  <div className="formLogin__item">
-                    <button
-                      type="button"
-                      onClick={() =>
-                        Notiflix.Confirm.prompt(
-                          'Забули пароль?',
-                          'Вкажіть пошту для відправки нового пароля?',
-                          '',
-                          'Скинути',
-                          'Відмінити',
-                          function okCb(clientAnswer) {
-                            resendPass({ email: clientAnswer });
-                          },
-                          function cancelCb() {},
-                          {
-                            // Custom options
-                          }
-                        )
-                      }
-                      className="formLogin__link"
-                    >
-                      Забули пароль?
-                    </button>
-                    <button
-                      className="formLogin__btn"
-                      type="button"
-                      onClick={onLogin}
-                    >
-                      Увійти
-                    </button>
-                  </div>
-                  <Link to="/register" className="formLogin__register">
-                    Зареєструватися
-                  </Link>
-                </form>
+                <NestedModal
+                  setOpen={setOpen}
+                  open={open}
+                  openMenu={openMenu}
+                />
               </>
             )}
           </li>

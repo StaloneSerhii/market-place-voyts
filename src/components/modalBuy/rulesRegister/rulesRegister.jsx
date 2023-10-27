@@ -1,4 +1,4 @@
-export const RulesRegister = ({ openRulesModal }) => {
+export const RulesRegister = () => {
   return (
     <div>
       <p>
