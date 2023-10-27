@@ -123,6 +123,11 @@
     cursor: pointer;
 }
 
+.content__productPage {
+    display: flex;
+    gap: 24px;
+}
+
 .active {
     border: 1px solid rgb(26, 122, 35);
 }

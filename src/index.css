@@ -758,6 +758,11 @@ article.nextSlide {
   cursor: pointer;
 }
 
+.content__productPage {
+  display: flex;
+  gap: 24px;
+}
+
 .active {
   border: 1px solid rgb(26, 122, 35);
 }
@@ -1622,6 +1627,8 @@ button {
   cursor: pointer;
   padding: 0;
   background-color: transparent;
+  display: flex;
+  align-items: center;
 }
 
 textarea {
