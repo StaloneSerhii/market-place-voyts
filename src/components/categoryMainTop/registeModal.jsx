@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { register } from 'redux/operations';
 import * as Yup from 'yup';
 import { RulesRegister } from 'components/modalBuy/rulesRegister/rulesRegister';
+import Notiflix from 'notiflix';
 // import { RulesRegister } from 'components/modalBuy/rulesRegister/rulesRegister';
 
 const validationSchema = Yup.object().shape({
@@ -72,13 +73,13 @@ export const RegisterModal = () => {
     password: '',
   };
 
-  // Відправка форми після замовлення
   const formik = useFormik({
     initialValues,
     validationSchema: validationSchema,
     onSubmit: values => {
+      console.log(values);
       if (formik.values.password !== reapPass) {
-        return alert('Паролі  не співпадають');
+        return Notiflix.Notify.failure('Паролі  не співпадають');
       }
       dispath(register(values));
     },
@@ -146,11 +147,6 @@ export const RegisterModal = () => {
                 onBlur={formik.handleBlur}
                 value={formik.values.name}
                 onChange={handleInputChange}
-                style={
-                  formik.touched.name && formik.errors.name
-                    ? { border: '1px solid red' }
-                    : { border: '1px solid transparent' }
-                }
                 size="small"
                 sx={{ width: '100%', mt: '0px' }}
               />
@@ -231,7 +227,7 @@ export const RegisterModal = () => {
             </p>
             <button
               className="formLogin__btn--pr bgGreen btnHover"
-              type="button"
+              type="submit"
               style={{
                 width: '100%',
                 color: '#fff',
