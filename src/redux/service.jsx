@@ -12,7 +12,7 @@ async function getAllProduct(page) {
   }
   console.log('error');
 }
-
+// яч
 // Поверненя топових товарів
 async function getTopBuyProduct() {
   const { data } = await axios.get(`${API}/product/get/topbuy`);
