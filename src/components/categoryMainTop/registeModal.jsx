@@ -1,8 +1,8 @@
 import { Box, Button, Modal, TextField } from '@mui/material';
 import { useState } from 'react';
 import { useFormik } from 'formik';
-import { useDispatch } from 'react-redux';
-import { register } from 'redux/operations';
+// import { useDispatch } from 'react-redux';
+// import { register } from 'redux/operations';
 import * as Yup from 'yup';
 import { RulesRegister } from 'components/modalBuy/rulesRegister/rulesRegister';
 import Notiflix from 'notiflix';
@@ -62,7 +62,7 @@ const styleRules = {
 
 export const RegisterModal = () => {
   const [open, setOpen] = useState(false);
-  const dispath = useDispatch();
+  // const dispath = useDispatch();
   const [reapPass, setReapPass] = useState();
 
   const initialValues = {
@@ -80,7 +80,7 @@ export const RegisterModal = () => {
       if (formik.values.password !== reapPass) {
         return Notiflix.Notify.failure('Паролі  не співпадають');
       }
-     const answerRegister =  dispath(register(values));
+    //  const answerRegister =  dispath(register(values));
     },
   });
 
