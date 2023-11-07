@@ -69,7 +69,7 @@ const Favorite = () => {
                     </p>
 
                     <button
-                      onClick={() => navigate(`/product/${list.id}`)}
+                      onClick={() => navigate(`/product/${list._id}`)}
                       subcategory={'test'}
                       className="card-cataloge__btn"
                     >

@@ -12,6 +12,8 @@ import AddProduct from './adm/addProduct/addProduct';
 import ProductList from './adm/addProduct/productList';
 import SellProduct from './adm/addProduct/sellProduct';
 import Filter from './filterProduct/FilterProduct';
+import FindComponentPage from 'pages/findComponentPage/findComponentPage';
+import VideoPage from 'pages/videoContent/videoPage';
 
 const BuyProduct = lazy(() => import('./buyProduct/buyProduct'));
 const BuyModalSuc = lazy(() => import('../pages/buysuccess/buySuc'));
@@ -77,12 +79,13 @@ function App() {
             <Route path="productAll" element={<Filter filter={setFilter} />}>
               <Route path="by" element={<CatalogeProduct filter={filter} />} />
               <Route path="new" element={<CatalogeProduct filter={filter} />} />
-              <Route path="sg" element={<CatalogeProduct filter={filter} />} />
               <Route
                 path="sgtech"
                 element={<CatalogeProduct filter={filter} />}
               />
             </Route>
+            <Route path="video" element={<VideoPage filter={filter} />} />
+            <Route path="find" element={<FindComponentPage />} />
             <Route path="busket" element={<Busket />} />
             <Route path="myorder" element={<BuyModalSuc />} />
             <Route path="favorite" element={<Favorite />} />

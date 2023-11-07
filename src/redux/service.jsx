@@ -12,7 +12,7 @@ async function getAllProduct(page) {
   }
   console.log('error');
 }
-// яч
+
 // Поверненя топових товарів
 async function getTopBuyProduct() {
   const { data } = await axios.get(`${API}/product/get/topbuy`);
@@ -66,9 +66,17 @@ async function postHelpProduct(requestData) {
     requestData
   );
   if (data) {
-    return data;
+    Notiflix.Report.info(
+      'Запит успішно відправлено!',
+      'Ми успішно отримали вашу заявку на пошук товар, очікуйте телефоний дзвінок від наших адміністраторів!'
+    );
+    return;
+  } else {
+    return Notiflix.Report.info(
+      'Не вдалося надіслати запит!',
+      'Сталася помилка, спробуйте повторити пізніше або зверніться в службу пітримки!'
+    );
   }
-  console.log('error');
 }
 
 async function postBuyProductNew(body, findWord, filter) {

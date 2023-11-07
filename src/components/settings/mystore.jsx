@@ -1,5 +1,4 @@
-import { BsFillArrowDownSquareFill } from 'react-icons/bs';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getHistoryProduct } from 'redux/operations';
 import { Link } from 'react-router-dom';
@@ -12,18 +11,6 @@ const MyStore = () => {
   const stateHistory = useSelector(
     state => state.persistedReducerAdd.buyProduct.history
   );
-
-  // Створимо масив станів для кожного елементу інформації
-  const [addInfoArray, setAddInfoArray] = useState(
-    new Array(stateHistory.length).fill(true)
-  );
-
-  // Функція для зміни стану для конкретного елементу інформації
-  const toggleAddInfo = index => {
-    const newArray = [...addInfoArray];
-    newArray[index] = !newArray[index];
-    setAddInfoArray(newArray);
-  };
 
   return (
     <div className="mystore">
@@ -42,79 +29,67 @@ const MyStore = () => {
         </div>
         <ul className="list__store">
           {stateHistory.length > 0 &&
-            stateHistory.map((pr, index) => (
+            stateHistory.map(pr => (
               <li className="list__store--item" key={pr._id}>
                 <div className="list__store--mainBlock">
-                  <div
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                    }}
-                  >
-                    <div
-                      className="status__pr"
-                      style={{
-                        backgroundColor:
-                          (pr.status === 'wait' && 'gray') ||
-                          (pr.status === 'pending' && 'orange') ||
-                          (pr.status === 'rejected' && 'red') ||
-                          (pr.status === 'fullfild' && 'green'),
-                      }}
-                    ></div>
-                    <span>
-                      № {pr._id.slice(18, 30)} від {pr.createdAt.slice(0, 10)}
-                      <br />
-                      <span>
-                        {(pr.status === 'pending' &&
-                          'Підтверджено замовлення, очікування відправки') ||
-                          (pr.status === 'rejected' &&
-                            'Замовлення скасовано') ||
-                          (pr.status === 'fullfild' &&
-                            `Замовлення відправлено: номер ттн ${pr.ttn}`)}
-                      </span>
-                    </span>
-                  </div>
-                  <ul className="list__product--user">
-                    {pr.select.map(product => (
-                      <li
-                        style={{ display: 'flex', gap: '15px' }}
-                        key={product._id}
+                  {pr.select.map(product => (
+                    <li
+                      style={{ display: 'flex', gap: '15px' }}
+                      key={product._id}
+                    >
+                      <Link
+                        to={`/product/${product._id}`}
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                        }}
+                      >
+                        <img src={product.img[0]} alt="img" width="110px" />
+                      </Link>
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          justifyContent: 'space-between',
+                        }}
                       >
                         <p>{product.name}</p>
-                        <p>
-                          Ціна: <br />
-                          <span>{product.price} грн</span>
-                        </p>
-                        <p>
-                          Кількість: <br />
-                          <span>{product.count} грн</span>
-                        </p>
-                        <Link
-                          to={`/product/${product._id}`}
-                          style={{
-                            display: 'flex',
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                          }}
-                        >
-                          <img src={product.img[0]} alt="img" width="110px" />
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                  <button
-                    style={{
-                      marginLeft: '15px',
-                      fontSize: '25px',
-                      color: 'green',
-                    }}
-                    onClick={() => toggleAddInfo(index)} // Використовуйте функцію для зміни стану для конкретного елементу
-                  >
-                    <BsFillArrowDownSquareFill />
-                  </button>
+                        <div>
+                          <p>
+                            Сума замовлення:
+                            <span>{product.price * product.count} грн</span>
+                          </p>
+                          <p>
+                            Кількість:
+                            <span>{product.count} грн</span>
+                          </p>
+                        </div>
+                      </div>
+                    </li>
+                  ))}
                 </div>
                 <div
+                  style={{
+                    width: '220px',
+                    padding: '10px 16px',
+                    borderRadius: '8px',
+                    textAlign: 'center',
+                    color: '#fff',
+                    fontSize: '16px',
+                    background:
+                      (pr.status === 'wait' && '#939292') ||
+                      (pr.status === 'fulffild' && '#009C2C') ||
+                      (pr.status === 'cancell' && '#D60101') ||
+                      (pr.status === 'pending' && '#E49702'),
+                  }}
+                >
+                  {(pr.status === 'wait' && 'Очікує підтвердження') ||
+                    (pr.status === 'fulffild' && 'Відправлено') ||
+                    (pr.status === 'cancell' && 'Скасовано') ||
+                    (pr.status === 'pending' && 'Очікує відправлення')}
+                </div>
+                {/* <div
                   className={
                     addInfoArray[index]
                       ? 'list__store--mainBlock none'
@@ -153,7 +128,7 @@ const MyStore = () => {
                     <br />
                     замовлення
                   </button>
-                </div>
+                </div> */}
               </li>
             ))}
         </ul>

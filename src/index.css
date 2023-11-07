@@ -1011,11 +1011,13 @@ article.nextSlide {
 
 .list__store--item {
   display: flex;
-  flex-direction: column;
   border: 1px solid gray;
   border-radius: 5px;
   background-color: white;
   margin-bottom: 20px;
+  padding: 16px 24px;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .status__pr {
@@ -1027,7 +1029,6 @@ article.nextSlide {
 
 .list__store--mainBlock {
   display: flex;
-  justify-content: space-around;
   align-items: center;
 }
 
@@ -1638,6 +1639,7 @@ button {
   background-color: transparent;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 textarea {

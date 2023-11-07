@@ -59,18 +59,13 @@ const NavigateCategory = () => {
             </Link>
           </li>
           <li className="navigate__item">
-            <Link className="navigate__link" to="sgtech">
-              СГ техніка
+            <Link className="navigate__link" to="find">
+              Знайдемо запчастину
             </Link>
           </li>
           <li className="navigate__item">
-            <Link className="navigate__link" to="sg">
-              Навісне СГ
-            </Link>
-          </li>
-          <li className="navigate__item">
-            <Link className="navigate__link" to="/">
-              Контакти
+            <Link className="navigate__link" to="video">
+              Відео
             </Link>
           </li>
         </ul>

@@ -104,8 +104,8 @@ const Busket = () => {
     onSubmit: values => {
       const result = window.confirm(`Ви піддтверджуєте свою покупку?`);
       if (result && userAuth.isLoggedIn) {
-     dispatch(buyProductBusket({ values, select }));
-        navigate('/profile/settings');
+        dispatch(buyProductBusket({ values, select }));
+        navigate('/profile/store');
         dispatch(dellAllProductOrder());
       } else if (result) {
         postBuyProduct({ values, select: productNotAuth }).then(state => {
