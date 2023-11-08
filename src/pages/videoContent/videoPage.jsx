@@ -89,7 +89,7 @@ const VideoPage = () => {
                 >
                   <h4>{pr.name}</h4>
                   <Link
-                    to={pr._id}
+                    to={`/product/${pr._id}`}
                     style={{ fontSize: '12px', marginBottom: '8px' }}
                   >
                     До продукту...
