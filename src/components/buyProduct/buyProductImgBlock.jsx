@@ -5,9 +5,8 @@ import { useRef } from 'react';
 export const ImgBlockProduct = ({ product }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState();
   const [showModal, setShowModal] = useState(false);
-  const [selectedImage, setSelectedImage] = useState('');
-
   const containerRef = useRef(null);
+
   // Збільшення зображення
   const handleMouseMove = event => {
     const container = containerRef.current;
@@ -54,13 +53,11 @@ export const ImgBlockProduct = ({ product }) => {
     setCurrentImageIndex(e.target.src);
   };
 
-  const modalRef = useRef(null);
-
   // Додаємо слухач події для обробки кліку поза модальним вікном
   useEffect(() => {
     // Створюємо функцію обробника кліку поза модальним вікном
     const handleOutsideClick = e => {
-      if (modalRef) {
+      if (e.target.className === 'modal') {
         closeModal();
       }
     };
@@ -86,15 +83,13 @@ export const ImgBlockProduct = ({ product }) => {
   }, [product]);
 
   // Функція для відкриття модального вікна з вибраним зображенням
-  const openModal = img => {
-    setSelectedImage(img);
+  const openModal = () => {
     setShowModal(true);
   };
 
   // Функція для закриття модального вікна
   const closeModal = () => {
     setShowModal(false);
-    setSelectedImage('');
   };
 
   return (
@@ -138,10 +133,18 @@ export const ImgBlockProduct = ({ product }) => {
       </div>
       {showModal && (
         <div className="modal">
-          <span className="close" onClick={closeModal}>
-            &times;
-          </span>
-          <img src={selectedImage} alt="Full Size" />
+          <div style={{ display: 'flex' }}>
+            <span className="close" onClick={closeModal}>
+              &times;
+            </span>
+            <button onClick={BackImg} className="navigate__btn--img">
+              <BiSolidLeftArrow />
+            </button>
+            <img src={currentImageIndex} alt="Full Size" />
+            <button onClick={nextImg} className="navigate__btn--img">
+              <BiSolidRightArrow />
+            </button>
+          </div>
         </div>
       )}
       <div style={{ overflowX: 'scroll', width: '628px' }}>

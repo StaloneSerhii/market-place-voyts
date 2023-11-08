@@ -645,6 +645,15 @@ article.nextSlide {
   font-weight: 900;
 }
 
+.navigate__btn--img {
+  color: rgba(255, 255, 255, 0.7411764706);
+  font-size: 25px;
+  padding: 0 50px;
+}
+.navigate__btn--img:hover {
+  color: #009c2c;
+}
+
 .content__product {
   display: flex;
   gap: 24px;

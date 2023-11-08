@@ -19,7 +19,6 @@ const BuyProduct = () => {
   const [product, setProduct] = useState();
   const selectAuth = useSelector(getAuthStatus);
   const [hiddenStates, setHiddenStates] = useState([]);
-
   // Запит по продукту на бд по ід і аналогів
   useEffect(() => {
     getIdProduct(id).then(pr => {
@@ -140,7 +139,7 @@ const BuyProduct = () => {
           />
         </div>
       </div>
-      <InfoBlockProduct />
+      <InfoBlockProduct product={product} />
       {product && product.video && (
         <div style={{ margin: '64px 0' }}>
           <p style={{ fontSize: '24px', fontWeight: '500' }}>Відео</p>
@@ -207,7 +206,7 @@ const BuyProduct = () => {
                     <span> {comments.user.fename}</span>
                   </p>
                   <span style={{ color: '#939292', fontSize: '12px' }}>
-                    2 дні тому
+                    {comments.updatedAt.slice(0, 10)}
                   </span>
                 </div>
                 <Rating
@@ -235,9 +234,22 @@ const BuyProduct = () => {
                           background: '#e6e6e6',
                         }}
                       >
-                        <p style={{ fontWeight: '500', marginBottom: '15px' }}>
-                          <span>{answer.name} </span>
-                          <span>{answer.fename}</span>
+                        <p
+                          style={{
+                            fontWeight: '500',
+                            marginBottom: '15px',
+                            display: 'flex',
+                          }}
+                        >
+                          <span style={{ marginRight: '5px' }}>
+                            {answer.name}{' '}
+                          </span>
+                          <span> {answer.fename}</span>
+                          <span
+                            style={{ fontSize: '12px', marginLeft: 'auto' }}
+                          >
+                            {comments.updatedAt.slice(0, 10)}
+                          </span>
                         </p>
                         <p>{answer.text}</p>
                       </div>

@@ -9,6 +9,15 @@
     font-weight: 900;
 }
 
+.navigate__btn--img {
+    color: #ffffffbd;
+    font-size: 25px;
+    padding: 0 50px;
+    &:hover {
+        color: #009c2c;
+    }
+}
+
 .content__product {
     display: flex;
     gap: 24px;

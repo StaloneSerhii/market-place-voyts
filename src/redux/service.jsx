@@ -31,17 +31,18 @@ async function getIdProduct(id) {
   console.log('error');
 }
 
-async function getAnaloguesProduct(_id) {
-  const { data } = await axios.get(
-    `${API}/product/getall/analogues?_id=${_id}`
-  );
-  if (data) {
-    return data;
-  }
-  console.log('error');
-}
+// async function getAnaloguesProduct(_id) {
+//   const { data } = await axios.get(
+//     `${API}/product/getall/analogues?_id=${_id}`
+//   );
+//   if (data) {
+//     return data;
+//   }
+//   console.log('error');
+// }
 
 // Покупка товару не для авторизованих користуваччів
+
 async function postBuyProduct(body) {
   const data = await axios.post(`${API}/buy/buyProductFromBusketNotAuch`, body);
   if ({ data }) {
@@ -52,7 +53,8 @@ async function postBuyProduct(body) {
 
 async function postBuyProductBY(body, findWord, filter) {
   const { data } = await axios.get(
-    `${API}/product/getAll/by?sort=${body}&find=${findWord}&filter=${filter}`
+    `${API}/product/getAll/by?sort=${body}&find=${findWord}`,
+    filter
   );
   if (data) {
     return data;
@@ -128,7 +130,7 @@ async function resendPass(body) {
 export {
   postBuyProductSgTech,
   postBuyProductSg,
-  getAnaloguesProduct,
+  // getAnaloguesProduct,
   getAllProduct,
   getIdProduct,
   postBuyProduct,

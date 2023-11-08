@@ -12,22 +12,23 @@ const Footer = () => {
               flexDirection: 'column',
               gap: '8px',
               textAlign: 'center',
+              alignItems: 'flex-start',
             }}
           >
             <li>
               <Link to="/">Головна</Link>
             </li>
             <li>
-              <Link to="productBY">Запчастини</Link>
+              <Link to="/productAll/new">Нові Запчастини</Link>
             </li>
             <li>
-              <Link to="sgtech">С/Г Техніка</Link>
+              <Link to="/productAll/ин">Б/У Запчастини</Link>
             </li>
             <li>
-              <Link to="sg">Навісне С/Г</Link>
+              <Link to="/find">Знайти запчастину</Link>
             </li>
             <li>
-              <Link to="/">Контакти</Link>
+              <Link to="/video">Відео</Link>
             </li>
           </ul>
         </li>

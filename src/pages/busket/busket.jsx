@@ -670,12 +670,14 @@ const Busket = () => {
           <p
             style={{
               textAlign: 'center',
-              fontSize: '40px',
               margin: '200px auto',
             }}
           >
             У вашому кошику немає товарів, перейдіть до нашого{' '}
-            <Link style={{ textAlign: 'center', color: 'red' }} to="/productBY">
+            <Link
+              style={{ textAlign: 'center', color: 'red' }}
+              to="/productAll/new"
+            >
               каталогу 
             </Link>
             щоб здійснити покупку

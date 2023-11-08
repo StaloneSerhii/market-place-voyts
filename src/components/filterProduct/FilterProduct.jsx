@@ -29,10 +29,12 @@ const Filter = ({ filter }) => {
     required: false, // початковий стан для "Required"
     disabled: false, // початковий стан для "Disabled"
   });
+
   const handleCheckboxChange = event => {
     const { name, checked } = event.target;
     setCheckboxes({ ...checkboxes, [name]: checked });
   };
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
     setFromValue(newValue[0]);

@@ -1,4 +1,4 @@
-export const InfoBlockProduct = () => {
+export const InfoBlockProduct = ({ product }) => {
   return (
     <div
       style={{
@@ -23,7 +23,7 @@ export const InfoBlockProduct = () => {
         >
           Характеристика
         </p>
-        {/* <p>{productPage.info.use}</p> */}
+        <p>{product && product.info.use}</p>
       </div>
       <div
         id="dostavka"

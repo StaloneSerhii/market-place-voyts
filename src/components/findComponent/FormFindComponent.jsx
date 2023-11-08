@@ -19,7 +19,7 @@ const FormFindComponent = () => {
   };
 
   return (
-    <form style={{ width: '632px', margin: '64px auto' }}>
+    <form style={{ width: '632px', margin: '64px auto' }} onSubmit={sendSubmit}>
       <p style={{ fontSize: '16px', fontWeight: '600' }}>Контакті дані</p>
       <div
         style={{
@@ -68,7 +68,7 @@ const FormFindComponent = () => {
           <input
             onChange={e => setPhone(e.target.value)}
             value={phone}
-            type="number"
+            type="tel"
             id="phone"
             required
             placeholder="+380"
@@ -116,7 +116,6 @@ const FormFindComponent = () => {
       ></textarea>
       <button
         type="submit"
-        onClick={sendSubmit}
         style={{
           padding: '10px 16px',
           fontSize: '16px',
