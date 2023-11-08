@@ -5,8 +5,7 @@ import * as Yup from 'yup';
 import { getAuth } from 'redux/authPer/auth-selector';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { changeUserData } from 'redux/operations';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { BiReset } from 'react-icons/bi';
+import { Oval } from 'react-loader-spinner';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string()
@@ -28,14 +27,13 @@ const validationSchema = Yup.object().shape({
 
 const SerringProfile = () => {
   const dispath = useDispatch();
-  const [hiddenPass, setHiddenPass] = useState(false);
   const [hiddenNewPass, setHiddenNewPass] = useState(false);
-  const selecAuth = useSelector(getAuth);
   const [isFormChanged, setIsFormChanged] = useState(true);
+  const [hiddenPass, setHiddenPass] = useState(false);
+  const [repeatPass, setRepetPass] = useState('');
+
+  const selecAuth = useSelector(getAuth);
   const { user } = selecAuth;
-  const location = useLocation();
-  const { pathname } = location;
-  const navigate = useNavigate();
 
   const initialValues = {
     name: user.name,
@@ -59,11 +57,6 @@ const SerringProfile = () => {
     },
   });
 
-  const clearLS = () => {
-    localStorage.clear();
-    navigate('/');
-  };
-
   // Збереження ведених даних в форму
   const handleInputChange = event => {
     const { name, value } = event.target;
@@ -85,184 +78,239 @@ const SerringProfile = () => {
   };
   return (
     <>
-      <div className="register">
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <h2 className="register-text">
-            {pathname === '/profile/settings' ? 'Мій профіль' : 'РЕРЕЄСТРАЦІЯ'}
-          </h2>
-          <button
-            onClick={() => clearLS()}
-            style={{ color: '#278032', fontSize: '30px' }}
-            title="Скинути історію профілю"
+      {selecAuth.isFetching && (
+        <div
+          style={{
+            width: '100%',
+            height: '100%',
+            background: '#80808063',
+            position: 'absolute',
+            top: '0',
+          }}
+        >
+          <div
+            style={{
+              position: 'absolute',
+              top: '40%',
+              left: '50%',
+            }}
           >
-            <BiReset />
-          </button>
+            <Oval
+              height={80}
+              width={80}
+              color="#4fa94d"
+              wrapperStyle={{}}
+              wrapperClass=""
+              visible={true}
+              ariaLabel="oval-loading"
+              secondaryColor="#4fa94d"
+              strokeWidth={2}
+              strokeWidthSecondary={2}
+            />
+          </div>
         </div>
-        <form onSubmit={formik.handleSubmit}>
-          <div className="form__register">
-            <div>
-              <input
-                type="text"
-                name="name"
-                placeholder="Імя"
-                onBlur={formik.handleBlur}
-                value={formik.values.name}
-                onChange={handleInputChange}
-                style={
-                  formik.touched.name && formik.errors.name
-                    ? { border: '1px solid red' }
-                    : { border: '1px solid transparent' }
-                }
-              />
-              <input
-                type="text"
-                name="fename"
-                placeholder="Прізвище"
-                onBlur={formik.handleBlur}
-                value={formik.values.fename}
-                onChange={handleInputChange}
-                style={
-                  formik.touched.fename && formik.errors.fename
-                    ? { border: '1px solid red' }
-                    : { border: '1px solid transparent' }
-                }
-              />
-              <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                onBlur={formik.handleBlur}
-                value={formik.values.email}
-                onChange={handleInputChange}
-                style={
-                  formik.touched.email && formik.errors.email
-                    ? { border: '1px solid red' }
-                    : { border: '1px solid transparent' }
-                }
-              />
+      )}
+      <div className="register">
+        <h2 style={{ fontSize: '24px', margin: '24px 23px' }}>Мій профіль</h2>
+        <div style={{ width: '700px', margin: '0 auto' }}>
+          <form onSubmit={formik.handleSubmit}>
+            <div className="form__register">
+              <div>
+                <label htmlFor="name" className="formLabel">
+                  Ім'я
+                  <input
+                    className="inputForm"
+                    type="text"
+                    name="name"
+                    id="name"
+                    placeholder="Імя"
+                    onBlur={formik.handleBlur}
+                    value={formik.values.name}
+                    onChange={handleInputChange}
+                  />
+                </label>
+                <label htmlFor="fename" className="formLabel">
+                  Прізвище
+                  <input
+                    className="inputForm"
+                    type="text"
+                    id="fename"
+                    name="fename"
+                    placeholder="Прізвище"
+                    onBlur={formik.handleBlur}
+                    value={formik.values.fename}
+                    onChange={handleInputChange}
+                  />
+                </label>
+              </div>
+              <div style={{ position: 'relative' }}>
+                <label htmlFor="email" className="formLabel">
+                  <p>Email</p>
+                  <input
+                    className="inputForm"
+                    type="email"
+                    name="email"
+                    id="email"
+                    placeholder="Email"
+                    onBlur={formik.handleBlur}
+                    value={formik.values.email}
+                    onChange={handleInputChange}
+                  />
+                </label>
+                <label htmlFor="phone" className="formLabel">
+                  Телефон
+                  <input
+                    className="inputForm"
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    placeholder="380(00)000-00-00"
+                    onBlur={formik.handleBlur}
+                    value={formik.values.phone}
+                    onChange={handlePhoneNumberChange}
+                  />
+                </label>
+              </div>
             </div>
-
-            <div style={{ position: 'relative' }}>
-              <input
-                type="tel"
-                name="phone"
-                placeholder="380(00)000-00-00"
-                onBlur={formik.handleBlur}
-                value={formik.values.phone}
-                onChange={handlePhoneNumberChange}
-                style={
-                  formik.touched.phone && formik.errors.phone
-                    ? { border: '1px solid red' }
-                    : { border: '1px solid transparent' }
-                }
-              />
-              <input
-                type={!hiddenPass ? 'password' : 'text'}
-                name="password"
-                placeholder="Пароль"
-                onBlur={formik.handleBlur}
-                value={formik.values.password}
-                onChange={handleInputChange}
-                style={
-                  formik.touched.password && formik.errors.password
-                    ? { border: '1px solid red' }
-                    : { border: '1px solid transparent' }
-                }
-              />
-              {!hiddenPass ? (
-                <AiFillEyeInvisible
-                  style={{
-                    position: 'absolute',
-                    top: '85px',
-                    right: '25px',
-                    cursor: 'pointer',
-                    fontSize: '22px',
-                  }}
-                  onClick={() => setHiddenPass(!hiddenPass)}
+            <div className="form__item profile">
+              <button
+                className="formLogin__btn"
+                type="submit"
+                disabled={!isFormChanged}
+              >
+                Зберегти зміни
+              </button>
+            </div>
+          </form>
+          <p
+            style={{
+              fontSize: '16px',
+              fontWeight: '500',
+              marginBottom: '24px',
+            }}
+          >
+            Змінити пароль
+          </p>
+          <form onSubmit={formik.handleSubmit}>
+            <div style={{ display: 'flex', gap: '24px' }}>
+              <label htmlFor="password" className="formLabel">
+                <p>Старий пароль</p>
+                <input
+                  style={{ width: '200px' }}
+                  className="inputForm"
+                  type={!hiddenPass ? 'password' : 'text'}
+                  name="password"
+                  placeholder="Пароль"
+                  onBlur={formik.handleBlur}
+                  value={formik.values.password}
+                  onChange={handleInputChange}
+                  required
                 />
-              ) : (
-                <AiFillEye
-                  style={{
-                    position: 'absolute',
-                    top: '85px',
-                    right: '25px',
-                    cursor: 'pointer',
-                    fontSize: '22px',
-                  }}
-                  onClick={() => setHiddenPass(!hiddenPass)}
+              </label>
+              <label htmlFor="password" className="formLabel">
+                <p>Новий пароль</p>
+                <input
+                  style={{ width: '200px' }}
+                  className="inputForm"
+                  type={!hiddenPass ? 'password' : 'text'}
+                  name="newPassword"
+                  placeholder="Пароль"
+                  onBlur={formik.handleBlur}
+                  value={formik.values.newPassword}
+                  onChange={handleInputChange}
                 />
-              )}
+                {!hiddenPass ? (
+                  <AiFillEyeInvisible
+                    style={{
+                      position: 'absolute',
+                      top: '35px',
+                      right: '10px',
+                      cursor: 'pointer',
+                      fontSize: '22px',
+                    }}
+                    onClick={() => setHiddenPass(!hiddenPass)}
+                  />
+                ) : (
+                  <AiFillEye
+                    style={{
+                      position: 'absolute',
+                      top: '35px',
+                      right: '10px',
+                      cursor: 'pointer',
+                      fontSize: '22px',
+                    }}
+                    onClick={() => setHiddenPass(!hiddenPass)}
+                  />
+                )}
+              </label>
               {formik.values.password ? (
-                <input
-                  disabled={!formik.values.password}
-                  required={formik.values.password}
-                  type={!hiddenNewPass ? 'password' : 'text'}
-                  id="password"
-                  name="newPassword"
-                  placeholder="Повторити пароль"
-                  onBlur={formik.handleBlur}
-                  value={formik.values.newPassword}
-                  onChange={handleInputChange}
-                  style={
-                    formik.touched.newPassword && formik.errors.newPassword
-                      ? { border: '1px solid red' }
-                      : { border: '1px solid transparent' }
-                  }
-                />
+                <label className="formLabel">
+                  <p>Повторіть пароль</p>
+                  <input
+                    style={{ width: '200px' }}
+                    className="inputForm"
+                    disabled={!formik.values.password}
+                    required={formik.values.password}
+                    type={!hiddenNewPass ? 'password' : 'text'}
+                    placeholder="Повторити пароль"
+                    value={repeatPass}
+                    onChange={e => setRepetPass(e.target.value)}
+                  />
+                  {!hiddenNewPass ? (
+                    <AiFillEyeInvisible
+                      style={{
+                        position: 'absolute',
+                        top: '35px',
+                        right: '10px',
+                        cursor: 'pointer',
+                        fontSize: '22px',
+                      }}
+                      onClick={() => setHiddenNewPass(!hiddenNewPass)}
+                    />
+                  ) : (
+                    <AiFillEye
+                      style={{
+                        position: 'absolute',
+                        top: '35px',
+                        right: '10px',
+                        cursor: 'pointer',
+                        fontSize: '22px',
+                      }}
+                      onClick={() => setHiddenNewPass(!hiddenNewPass)}
+                    />
+                  )}
+                </label>
               ) : (
-                <input
-                  className="diss"
-                  disabled={!formik.values.password}
-                  required={formik.values.password}
-                  type={!hiddenNewPass ? 'password' : 'text'}
-                  id="password"
-                  name="newPassword"
-                  placeholder="Повторити пароль"
-                  onBlur={formik.handleBlur}
-                  value={formik.values.newPassword}
-                  onChange={handleInputChange}
-                  style={
-                    formik.touched.newPassword && formik.errors.newPassword
-                      ? { border: '1px solid red' }
-                      : { border: '1px solid transparent' }
-                  }
-                />
-              )}
-              {!hiddenNewPass ? (
-                <AiFillEyeInvisible
-                  style={{
-                    position: 'absolute',
-                    top: '150px',
-                    right: '25px',
-                    cursor: 'pointer',
-                    fontSize: '22px',
-                  }}
-                  onClick={() => setHiddenNewPass(!hiddenNewPass)}
-                />
-              ) : (
-                <AiFillEye
-                  style={{
-                    position: 'absolute',
-                    top: '150px',
-                    right: '25px',
-                    cursor: 'pointer',
-                    fontSize: '22px',
-                  }}
-                  onClick={() => setHiddenNewPass(!hiddenNewPass)}
-                />
+                <label className="formLabel">
+                  <p> Повторіть пароль</p>
+                  <input
+                    style={{ width: '200px' }}
+                    className="diss inputForm"
+                    disabled={!formik.values.password}
+                    required={formik.values.password}
+                    type={!hiddenNewPass ? 'password' : 'text'}
+                    id="password"
+                    name="newPassword"
+                    placeholder="Повторити пароль"
+                    value={repeatPass}
+                    onChange={e => setRepetPass(e.target.value)}
+                  />
+                </label>
               )}
             </div>
-          </div>
-          <div className="form__item profile">
-            <button
-              className="formLogin__btn"
-              type="submit"
-              disabled={!isFormChanged}
-            >
-              Зберегти зміни
-            </button>
-          </div>
-        </form>
+            <div className="form__item profile">
+              <button
+                className="formLogin__btn"
+                type="submit"
+                disabled={
+                  formik.values.newPassword === repeatPass ? false : true
+                }
+              >
+                Зберегти зміни
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </>
   );

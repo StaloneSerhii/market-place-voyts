@@ -1,11 +1,8 @@
 import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
-
 import { getMyStore } from 'redux/selector';
 import { getAuthStatus } from 'redux/authPer/auth-selector';
-
-import { Link } from 'react-router-dom';
-import { SlBasketLoaded } from 'react-icons/sl';
+import { Link, useNavigate } from 'react-router-dom';
 
 const History = () => {
   const productNotAuth = useSelector(getMyStore);
@@ -21,30 +18,73 @@ const History = () => {
       setFavoriteProduct(productNotAuth);
     }
   }, [productFavorite, productNotAuth, selectAuth]);
+  const navigate = useNavigate();
+
+  const clearLS = () => {
+    localStorage.clear();
+    navigate('/');
+  };
 
   return (
-    <div style={{ margin: '15px' }}>
+    <div style={{ margin: '24px', width: '100%' }}>
       <div>
-        <h2 className="cataloge__title">Переглянуті товари</h2>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <h2 className="cataloge__title">Переглянуті товари</h2>
+          <button className="formLogin__btn" onClick={clearLS}>
+            Очистити історію
+          </button>
+        </div>
         <ul className="product__container">
           {favoriteProduct.length > 0 ? (
             favoriteProduct.map(list => (
               <li key={list.code}>
-                <div className="product__block">
-                  <div style={{ height: '33px' }}></div>
-                  <Link to={`/product/${list.idProduct}`}>
-                    <img src={list.img[0]} alt="sell" width="200px" />
-                  </Link>
-                  <div className="product__block--text">
-                    <span className="product__block--span">{list.code}</span>
-                    <p>{list.name}</p>
-                    <div>
-                      <span className="product__block--spanPrice">
-                        {list.price} грн
-                      </span>
-                      <SlBasketLoaded className="product__block--spanSvg" />
-                    </div>
+                <div
+                  state={list.code}
+                  style={{
+                    cursor: 'default',
+                    padding: '16px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                  }}
+                >
+                  <img
+                    src={list.img[0]}
+                    alt="img-buy"
+                    className="card-cataloge__img"
+                  />
+                  <p className="card-cataloge__p">{list.name}</p>
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      margin: '24px 0',
+                    }}
+                  >
+                    <p className="card-cataloge__span">
+                      {list.price} грн
+                      <span>В наявності</span>
+                    </p>
+                    {console.log(list)}
+                    <Link
+                      to={`/product/${list._id}`}
+                      subcategory={'test'}
+                      className="card-cataloge__btn"
+                    >
+                      Купити
+                    </Link>
                   </div>
+                  <button
+                    onClick={() => navigate(`/product/${list._id}`)}
+                    style={{
+                      fontSize: '14px',
+                      color: '#585858',
+                      margin: '0 auto',
+                      display: 'flex',
+                    }}
+                  >
+                    Детальна інформація
+                  </button>
                 </div>
               </li>
             ))

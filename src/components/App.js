@@ -4,8 +4,7 @@ import { useState } from 'react';
 import { useEffect, Suspense, lazy } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCurrentUser, fetchProductUser } from 'redux/operations';
-import { getAuthStatus, getFetching } from 'redux/authPer/auth-selector';
-import { Circles } from 'react-loader-spinner';
+import { getAuthStatus } from 'redux/authPer/auth-selector';
 import { PrivateRoute } from 'redux/privateRoute';
 import { AdmRoute } from 'redux/admRoute';
 import AddProduct from './adm/addProduct/addProduct';
@@ -32,7 +31,6 @@ const Busket = lazy(() => import('pages/busket/busket'));
 function App() {
   const dispatch = useDispatch();
   const isLogIn = useSelector(getAuthStatus);
-  const isFetching = useSelector(getFetching);
   const [filter, setFilter] = useState(null);
   useEffect(() => {
     dispatch(fetchCurrentUser());
@@ -41,21 +39,7 @@ function App() {
     }
   }, [dispatch, isLogIn]);
 
-  return isFetching ? (
-    <Circles
-      height="80"
-      width="80"
-      color="#4fa94d"
-      ariaLabel="circles-loading"
-      wrapperStyle={{
-        display: 'flex',
-        justifyContent: 'center',
-        marginTop: '25%',
-      }}
-      wrapperClass=""
-      visible={true}
-    />
-  ) : (
+  return (
     <div>
       <Suspense>
         <Routes>

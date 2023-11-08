@@ -73,7 +73,6 @@ export const MainInfoProduct = ({ comments, product }) => {
     } else {
       dispatch(addProductOrder({ ...obj, count: 1, id: _id }));
     }
-    setIsModalOpen(true);
   };
 
   // Зміна кнопки на посиланя кошика (купити...у кошик)

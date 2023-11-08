@@ -5,7 +5,7 @@ import {
   fetchCurrentUser,
   chanchValueProductCounter,
   logOut,
-  changeUserData
+  changeUserData,
 } from 'redux/operations';
 
 const initialState = {
@@ -48,8 +48,12 @@ export const authSlice = createSlice({
       state.user = null;
       state.token = null;
     },
-    [changeUserData.fulfilled](state,action) {
+    [changeUserData.pending](state, action) {
+      state.isFetching = true;
+    },
+    [changeUserData.fulfilled](state, action) {
       state.user = action.payload;
+      state.isFetching = false;
     },
   },
 });

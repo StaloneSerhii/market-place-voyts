@@ -195,11 +195,12 @@
 }
 
 .formLogin__btn {
-  font-size: 20px;
-  padding: 8px 18px;
-  background-color: var(--yellowMain);
-  border-bottom-right-radius: 10px;
-  border-top-left-radius: 10px;
+  border: 1px solid #009c2c;
+  font-size: 16px;
+  padding: 10px 16px;
+  background-color: #009c2c;
+  color: #fff;
+  border-radius: 8px;
 }
 
 .formLogin__btn--pr {
@@ -541,6 +542,7 @@ article.nextSlide {
   font-style: normal;
   font-weight: 500;
   margin-top: 24px;
+  height: 50px;
 }
 
 .card-cataloge__span {
@@ -1188,12 +1190,7 @@ article.nextSlide {
 }
 
 .register {
-  display: flex;
-  flex-direction: column;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 50px;
-  width: 700px;
+  width: 100%;
 }
 
 .register-text {
@@ -1206,10 +1203,24 @@ article.nextSlide {
 
 .form__register {
   display: flex;
+  gap: 24px;
 }
 .form__register > div {
   display: flex;
   flex-direction: column;
+}
+
+.inputForm {
+  border-radius: 8px;
+  border: 1px solid #009c2c;
+  padding: 10px 16px;
+  width: 330px;
+}
+
+.formLabel {
+  font-weight: 400;
+  font-size: 14px;
+  position: relative;
 }
 
 .docSite {
@@ -1217,7 +1228,9 @@ article.nextSlide {
 }
 
 .formLogin__btn:hover {
-  background-color: var(--greenMain);
+  background-color: #ffffff;
+  color: #000000;
+  border: 1px solid #009c2c;
 }
 
 .form__item {
@@ -1422,30 +1435,33 @@ article.nextSlide {
 
 .profile {
   display: flex;
-  margin: 0px 100px;
 }
 
 .profile__list {
   display: flex;
   flex-direction: column;
+  background-color: #009c2c;
+  padding: 24px 16px;
+  color: #fff;
+  width: 290px;
 }
 
 .profile__item {
-  font-size: 23px;
+  color: #fff;
+  font-size: 16px;
   padding: 10px;
   border-radius: 10px;
   margin: 5px 10px 5px 0px;
   display: flex;
   align-items: center;
-  gap: 10px;
+  justify-content: flex-start;
 }
 .profile__item:hover {
   background-color: rgb(81, 163, 102);
 }
 .profile__item > span > svg {
-  width: 25px;
-  height: 25px;
-  background-color: rgb(180, 180, 180);
+  width: 24px;
+  height: 24px;
   border-radius: 100%;
   padding: 10px;
 }
@@ -1495,7 +1511,7 @@ body {
   background-color: var(--yellowMain);
 }
 
-.inputDef, .form__register > div > input {
+.inputDef {
   width: 327px;
   height: 40px;
   margin: 10px;

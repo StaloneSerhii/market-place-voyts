@@ -86,11 +86,6 @@ const RegisterPage = () => {
                 onBlur={formik.handleBlur}
                 value={formik.values.name}
                 onChange={handleInputChange}
-                style={
-                  formik.touched.name && formik.errors.name
-                    ? { border: '1px solid red' }
-                    : { border: '1px solid transparent' }
-                }
               />
               <input
                 required
@@ -100,11 +95,6 @@ const RegisterPage = () => {
                 onBlur={formik.handleBlur}
                 value={formik.values.fename}
                 onChange={handleInputChange}
-                style={
-                  formik.touched.fename && formik.errors.fename
-                    ? { border: '1px solid red' }
-                    : { border: '1px solid transparent' }
-                }
               />
               <input
                 required
@@ -114,11 +104,6 @@ const RegisterPage = () => {
                 onBlur={formik.handleBlur}
                 value={formik.values.email}
                 onChange={handleInputChange}
-                style={
-                  formik.touched.email && formik.errors.email
-                    ? { border: '1px solid red' }
-                    : { border: '1px solid transparent' }
-                }
               />
             </div>
             <div>
@@ -130,11 +115,6 @@ const RegisterPage = () => {
                 onBlur={formik.handleBlur}
                 value={formik.values.phone}
                 onChange={handlePhoneNumberChange}
-                style={
-                  formik.touched.phone && formik.errors.phone
-                    ? { border: '1px solid red' }
-                    : { border: '1px solid transparent' }
-                }
               />
               <input
                 required
@@ -144,11 +124,6 @@ const RegisterPage = () => {
                 onBlur={formik.handleBlur}
                 value={formik.values.password}
                 onChange={handleInputChange}
-                style={
-                  formik.touched.password && formik.errors.password
-                    ? { border: '1px solid red' }
-                    : { border: '1px solid transparent' }
-                }
               />
               <input
                 required

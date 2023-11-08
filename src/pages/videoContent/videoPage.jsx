@@ -1,17 +1,20 @@
-import { Autocomplete, TextField } from '@mui/material';
+import { TextField } from '@mui/material';
 import { BsSearch } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
-
-const options = [
-  { label: 'Від дешевих', id: 'chep' },
-  { label: 'Від дорогих', id: 'expensive' },
-  { label: 'Остані додані', id: 'last' },
-];
+import { useState, useEffect } from 'react';
+import { getAllProduct } from 'redux/service';
 
 const VideoPage = () => {
   const [findWord, setFindWord] = useState('');
-  const [filterSort, setFilterSort] = useState('last');
+  const [limit, setLimit] = useState(4);
+  const [product, setProduct] = useState();
+
+  const handlePageClick = () => {
+    setLimit(limit + 10);
+  };
+  useEffect(() => {
+    getAllProduct(limit).then(pr => setProduct(pr));
+  }, [limit]);
 
   return (
     <div style={{ padding: '0 80px' }}>
@@ -60,7 +63,6 @@ const VideoPage = () => {
             value={findWord}
             id="outlined-basic"
             variant="outlined"
-            defaultValue={options[0]}
             type="text"
             placeholder="Пошук"
             onChange={(e, _) => setFindWord(e.target.value)}
@@ -69,45 +71,63 @@ const VideoPage = () => {
             style={{ position: 'absolute', right: '15px', top: '20px' }}
           />
         </div>
-        <Autocomplete
-          disablePortal
-          onChange={(_, newVall) => {
-            setFilterSort(newVall.id);
-          }}
-          id="combo-box-demo"
-          options={options}
-          sx={{ width: 300 }}
-          renderInput={params => <TextField {...params} label="Сортувати" />}
-        />
       </div>
       <ul style={{ margin: '64px 0' }}>
-        <li
+        {product &&
+          product.map(
+            pr =>
+              pr.video && (
+                <li
+                  style={{
+                    padding: '16px',
+                    fontSize: '20px',
+                    width: '412px',
+                    background: '#fff',
+                    textAlign: 'center',
+                    lineHeight: '1.5',
+                  }}
+                >
+                  <h4>{pr.name}</h4>
+                  <Link
+                    to={pr._id}
+                    style={{ fontSize: '12px', marginBottom: '8px' }}
+                  >
+                    До продукту...
+                  </Link>
+                  <div
+                    style={{
+                      background: '#22ff43442244',
+                      width: '100%',
+                      height: '240px',
+                    }}
+                  >
+                    <iframe
+                      width="412"
+                      height="240"
+                      src={pr.video}
+                      title="YouTube video player"
+                      frameborder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowfullscreen
+                    ></iframe>
+                  </div>
+                </li>
+              )
+          )}
+      </ul>
+      {product && product.length >= limit && (
+        <button
+          onClick={handlePageClick}
+          className="formLogin__btn--pr btnHoverReverse borderGreen bgWhite"
           style={{
-            padding: '16px',
-            fontSize: '20px',
-            width: '412px',
-            background: '#fff',
-            textAlign: 'center',
-            lineHeight: '1.5',
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            marginBottom: '64px',
           }}
         >
-          <h4>Назва відео</h4>
-          <p style={{ fontSize: '12px', marginBottom: '8px' }}>
-            До продукту...
-          </p>
-          <div style={{ background: '#f324', width: '100%', height: '240px' }}>
-            <iframe
-              width="412"
-              height="240"
-              src="https://www.youtube.com/embed/hqpugj8q8KI?si=SLvyIChJbQBcvQ18"
-              title="YouTube video player"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen
-            ></iframe>
-          </div>
-        </li>
-      </ul>
+          Показати більше
+        </button>
+      )}
     </div>
   );
 };

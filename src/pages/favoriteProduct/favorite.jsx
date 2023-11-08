@@ -27,7 +27,7 @@ const Favorite = () => {
   }, [productFavorite, productNotAuth, selectAuth]);
 
   return (
-    <div style={{ margin: '15px' }}>
+    <div style={{ margin: '24px' }}>
       <div>
         <h2 className="cataloge__title">Список обраного</h2>
         <ul className="product__container">
@@ -35,7 +35,11 @@ const Favorite = () => {
             favoriteProduct.map(list => (
               <li key={list.code}>
                 <button
-                  style={{ fontSize: '20px', color: 'orange' }}
+                  style={{
+                    fontSize: '20px',
+                    color: 'orange',
+                    marginLeft: 'auto',
+                  }}
                   onClick={() =>
                     selectAuth
                       ? dispatch(delMyFavorite({ idProduct: list.idProduct }))

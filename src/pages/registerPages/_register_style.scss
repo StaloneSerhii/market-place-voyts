@@ -1,10 +1,5 @@
 .register {
-    display: flex;
-    flex-direction: column;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 50px;
-    width: 700px;
+    width: 100%;
 }
 .register-text {
     margin-bottom: 30px;
@@ -16,13 +11,25 @@
 
 .form__register {
     display: flex;
-    & > div > input {
-        @extend .inputDef;
-    }
+    gap: 24px;
+
     & > div {
         display: flex;
         flex-direction: column;
     }
+}
+
+.inputForm {
+    border-radius: 8px;
+    border: 1px solid #009c2c;
+    padding: 10px 16px;
+    width: 330px;
+}
+
+.formLabel {
+    font-weight: 400;
+    font-size: 14px;
+    position: relative;
 }
 
 .docSite {
@@ -30,7 +37,9 @@
 }
 
 .formLogin__btn:hover {
-    background-color: var(--greenMain);
+    background-color: #ffffff;
+    color: #000000;
+    border: 1px solid #009c2c;
 }
 
 .form__item {

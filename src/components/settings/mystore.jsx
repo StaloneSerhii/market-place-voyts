@@ -2,9 +2,12 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getHistoryProduct } from 'redux/operations';
 import { Link } from 'react-router-dom';
-
+import DetailInfo from './modalDetail';
+import { useState } from 'react';
 const MyStore = () => {
   const dispatch = useDispatch();
+  const [omenModal, setOpenModal] = useState(false);
+
   useEffect(() => {
     dispatch(getHistoryProduct());
   }, [dispatch]);
@@ -15,6 +18,7 @@ const MyStore = () => {
   return (
     <div className="mystore">
       <h3 className="mystore__h3">Мої замовлення</h3>
+
       <div className="mystore__info">
         <div className="block__filter" style={{ margin: '0' }}>
           <input type="text" placeholder="Пошук" className="find__input" />
@@ -58,11 +62,17 @@ const MyStore = () => {
                         <div>
                           <p>
                             Сума замовлення:
-                            <span>{product.price * product.count} грн</span>
+                            <span style={{ fontWeight: '500' }}>
+                              {' '}
+                              {product.price * product.count} грн
+                            </span>
                           </p>
                           <p>
                             Кількість:
-                            <span>{product.count} грн</span>
+                            <span style={{ fontWeight: '500' }}>
+                              {' '}
+                              {product.count} грн
+                            </span>
                           </p>
                         </div>
                       </div>
@@ -71,64 +81,41 @@ const MyStore = () => {
                 </div>
                 <div
                   style={{
-                    width: '220px',
-                    padding: '10px 16px',
-                    borderRadius: '8px',
-                    textAlign: 'center',
-                    color: '#fff',
-                    fontSize: '16px',
-                    background:
-                      (pr.status === 'wait' && '#939292') ||
-                      (pr.status === 'fulffild' && '#009C2C') ||
-                      (pr.status === 'cancell' && '#D60101') ||
-                      (pr.status === 'pending' && '#E49702'),
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    gap: '15px',
                   }}
                 >
-                  {(pr.status === 'wait' && 'Очікує підтвердження') ||
-                    (pr.status === 'fulffild' && 'Відправлено') ||
-                    (pr.status === 'cancell' && 'Скасовано') ||
-                    (pr.status === 'pending' && 'Очікує відправлення')}
-                </div>
-                {/* <div
-                  className={
-                    addInfoArray[index]
-                      ? 'list__store--mainBlock none'
-                      : 'list__store--mainBlock '
-                  }
-                >
-                  <p>
-                    Оплата:
-                    <br />
-                    <span>{pr.values.oplata.slice(0, 22)}</span>
-                  </p>
-                  <p>
-                    Замовник: <br />
-                    <span>
-                      {pr.values.name}
-                      {pr.values.fename}
-                    </span>
-                  </p>
-                  <p>
-                    Доставка:
-                    <br /> <span>міто: {pr.values.city}</span>
-                    <br />
-                    <span>Віділення: {pr.values.viddill}</span>
-                  </p>
-                  <button
-                    type="button"
-                    disabled={pr.status === 'pending' && 'true'}
+                  <div
                     style={{
-                      backgroundColor: pr.status === 'pending' ? 'red' : 'gray',
-                      color: 'white',
-                      padding: '10px',
-                      borderRadius: '10px',
+                      width: '220px',
+                      padding: '10px 16px',
+                      borderRadius: '8px',
+                      textAlign: 'center',
+                      color: '#fff',
+                      fontSize: '16px',
+                      background:
+                        (pr.status === 'wait' && '#939292') ||
+                        (pr.status === 'fulffild' && '#009C2C') ||
+                        (pr.status === 'cancell' && '#D60101') ||
+                        (pr.status === 'pending' && '#E49702'),
                     }}
                   >
-                    Скасувати
-                    <br />
-                    замовлення
+                    {(pr.status === 'wait' && 'Очікує підтвердження') ||
+                      (pr.status === 'fulffild' && 'Відправлено') ||
+                      (pr.status === 'cancell' && 'Скасовано') ||
+                      (pr.status === 'pending' && 'Очікує відправлення')}
+                  </div>
+                  <button onClick={() => setOpenModal(true)}>
+                    Детальні інформація
                   </button>
-                </div> */}
+                  <DetailInfo
+                    openState={omenModal}
+                    setOpen={setOpenModal}
+                    pr={pr}
+                  />
+                </div>
               </li>
             ))}
         </ul>

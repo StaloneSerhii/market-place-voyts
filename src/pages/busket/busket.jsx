@@ -667,16 +667,18 @@ const Busket = () => {
         </form>
       ) : (
         <>
-          <p style={{ textAlign: 'center', fontSize: '40px' }}>
-            У вашому кошику немає товарів, перейдіть до нашого каталогу щоб
-            здійснити покупку <br />
-            <br />
-            <Link
-              style={{ textAlign: 'center', fontSize: '40px', color: 'red' }}
-              to="/productBY"
-            >
-              ТИК!
+          <p
+            style={{
+              textAlign: 'center',
+              fontSize: '40px',
+              margin: '200px auto',
+            }}
+          >
+            У вашому кошику немає товарів, перейдіть до нашого{' '}
+            <Link style={{ textAlign: 'center', color: 'red' }} to="/productBY">
+              каталогу 
             </Link>
+            щоб здійснити покупку
           </p>
         </>
       )}

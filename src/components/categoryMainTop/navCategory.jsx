@@ -103,7 +103,7 @@ const NavigateCategory = () => {
             </Link>
           </li>
           <li>
-            <Link className="categoty__basket" to="/favorite">
+            <Link className="categoty__basket" to="/profile/favorite">
               <div className="categoty__basket--num">
                 {(productFavorite && selectAuth && productFavorite.length) ||
                   (productFavoriteNotAuth &&
