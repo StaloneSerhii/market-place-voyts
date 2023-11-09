@@ -57,6 +57,7 @@ const Favorite = () => {
                     src={list.img[0]}
                     alt="img-buy"
                     className="card-cataloge__img"
+                    style={{ width: '100%' }}
                   />
                   <p className="card-cataloge__p">{list.name}</p>
                   <div

@@ -75,15 +75,14 @@ function App() {
             <Route path="favorite" element={<Favorite />} />
             <Route
               path="profile"
-              element={
-                <PrivateRoute redirectTo="/register" component={<Profile />} />
-              }
+              element={<PrivateRoute redirectTo="/" component={<Profile />} />}
             >
               <Route path="store" element={<MyStore />} />
               <Route path="history" element={<History />} />
-              <Route path="favorite" element={<Favorite />} />
               <Route path="settings" element={<SerringProfile />} />
+              <Route path="favorite" element={<Favorite />} />
             </Route>
+            <Route path="favorite" element={<Favorite />} />
             <Route path="product/:id" element={<BuyProduct />} />
           </Route>
           <Route path="*" element={<p>404 not found</p>} />

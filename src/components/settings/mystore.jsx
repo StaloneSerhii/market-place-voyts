@@ -18,9 +18,8 @@ const MyStore = () => {
   return (
     <div className="mystore">
       <h3 className="mystore__h3">Мої замовлення</h3>
-
       <div className="mystore__info">
-        <div className="block__filter" style={{ margin: '0' }}>
+        {/* <div className="block__filter" style={{ margin: '0' }}>
           <input type="text" placeholder="Пошук" className="find__input" />
           <div className="line"></div>
           <select id="size" name="size">
@@ -30,61 +29,48 @@ const MyStore = () => {
             <option value="expensive">Від дорогих до дешевих</option>
             <option value="cheap">Від дешевих до дорогих</option>
           </select>
-        </div>
+        </div> */}
         <ul className="list__store">
           {stateHistory.length > 0 &&
             stateHistory.map(pr => (
               <li className="list__store--item" key={pr._id}>
-                <div className="list__store--mainBlock">
-                  {pr.select.map(product => (
-                    <li
-                      style={{ display: 'flex', gap: '15px' }}
-                      key={product._id}
+                {pr.select.map(product => (
+                  <div className="list__store--mainBlock">
+                    <Link to={`/product/${product._id}`}>
+                      <img src={product.img[0]} alt="img" width="110px" />
+                    </Link>
+                    <div
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
+                        height: '100px',
+                      }}
                     >
-                      <Link
-                        to={`/product/${product._id}`}
-                        style={{
-                          display: 'flex',
-                          flexDirection: 'row',
-                          alignItems: 'center',
-                        }}
-                      >
-                        <img src={product.img[0]} alt="img" width="110px" />
-                      </Link>
-                      <div
-                        style={{
-                          display: 'flex',
-                          flexDirection: 'column',
-                          justifyContent: 'space-between',
-                        }}
-                      >
-                        <p>{product.name}</p>
-                        <div>
-                          <p>
-                            Сума замовлення:
-                            <span style={{ fontWeight: '500' }}>
-                              {' '}
-                              {product.price * product.count} грн
-                            </span>
-                          </p>
-                          <p>
-                            Кількість:
-                            <span style={{ fontWeight: '500' }}>
-                              {' '}
-                              {product.count} грн
-                            </span>
-                          </p>
-                        </div>
+                      <p style={{ fontSize: '20px' }}>{product.name}</p>
+                      <div>
+                        <p>
+                          Сума замовлення:
+                          <span style={{ fontWeight: '500' }}>
+                            {product.price * product.count} грн
+                          </span>
+                        </p>
+                        <p>
+                          Кількість:
+                          <span style={{ fontWeight: '500' }}>
+                            {product.count} грн
+                          </span>
+                        </p>
                       </div>
-                    </li>
-                  ))}
-                </div>
+                    </div>
+                  </div>
+                ))}
                 <div
                   style={{
                     display: 'flex',
                     flexDirection: 'column',
-                    justifyContent: 'center',
-                    gap: '15px',
+                    justifyContent: 'space-between',
+                    height: '100px',
                   }}
                 >
                   <div

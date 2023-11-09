@@ -1,27 +1,76 @@
+import { Link } from 'react-router-dom';
+
 const VideoContent = () => {
   return (
     <div className="video_container">
-      <div className="con1">
-        <iframe
-          width="600"
-          height="300"
-          src="https://www.youtube.com/embed/VONyCLrp0eg"
-          title="YouTube video player"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowFullScreen
-        ></iframe>
-      </div>
-      <div className="con2">
-        <iframe
-          width="600"
-          height="300"
-          src="https://www.youtube.com/embed/pzKNPsmGbh8"
-          title="YouTube video player"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowFullScreen
-        ></iframe>
+      <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
+        <p className="cataloge__title" style={{ color: '#fff' }}>
+          Відео
+        </p>
+        <div className="video_container--block">
+          <div className="video">
+            <h4>asd</h4>
+            <Link
+              to={`/product/`}
+              style={{ fontSize: '12px', marginBottom: '8px' }}
+            >
+              До продукту...
+            </Link>
+            <div
+              style={{
+                background: '#22ff43442244',
+                width: '100%',
+                height: '240px',
+              }}
+            >
+              <iframe
+                className="youtube"
+                src={'https://www.youtube.com/embed/VONyCLrp0eg'}
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </div>
+          <div className="video">
+            <h4>asd</h4>
+            <Link
+              to={`/product/`}
+              style={{ fontSize: '12px', marginBottom: '8px' }}
+            >
+              До продукту...
+            </Link>
+            <div
+              style={{
+                background: '#22ff43442244',
+                width: '100%',
+                height: '240px',
+              }}
+            >
+              <iframe
+                className="youtube"
+                src={'https://www.youtube.com/embed/VONyCLrp0eg'}
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </div>
+        </div>
+        <Link
+          to="/video"
+          className="formLogin__btn--pr btnHoverReverse"
+          style={{
+            width: '220px',
+            border: '1px solid #fff',
+            margin: '0 auto',
+            color: '#fff',
+          }}
+        >
+          Більше відео
+        </Link>
       </div>
     </div>
   );

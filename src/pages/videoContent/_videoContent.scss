@@ -1,10 +1,36 @@
 .video_container {
     background-color: var(--greenMain);
+    padding: 40px 80px;
+    padding: 24px 16px;
+
+    @media (min-width: 1199px) {
+        padding: 40px 80px;
+    }
+}
+
+.video_container--block {
     display: flex;
     justify-content: center;
-    align-items: center;
-    padding: 10px;
-    gap: 15px;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin: 40px auto;
+}
+.youtube {
+    width: 311px;
+    height: 240px;
+    @media (min-width: 1199px) {
+        width: 379px;
+        height: 240px;
+    }
+}
+
+.video {
+    font-size: 20px;
+    padding: 16px;
+    background: rgb(255, 255, 255);
+    text-align: center;
+    line-height: 1.5;
+    border-radius: 8px;
 }
 
 .con1 {

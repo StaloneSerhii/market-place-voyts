@@ -181,15 +181,7 @@ const Busket = () => {
         </p>
       </div>
       {data !== undefined && data && data.length > 0 ? (
-        <form
-          onSubmit={formik.handleSubmit}
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            padding: '0 15px',
-            marginBottom: '24px',
-          }}
-        >
+        <form onSubmit={formik.handleSubmit} className="busketForm">
           <div
             style={{ display: 'flex', gap: '32px', flexDirection: 'column' }}
           >
@@ -288,25 +280,20 @@ const Busket = () => {
                   />
                 </label>
               </div>
-              <textarea
-                type="text"
-                name="comments"
-                placeholder="Коментарі до замовлення"
-                onBlur={formik.handleBlur}
-                value={formik.values.comments}
-                onChange={handleInputChange}
-                style={{
-                  width: '698px',
-                  height: '80px',
-                  borderRadius: '5px',
-                  fontSize: '15px',
-                  justifyContent: 'center',
-                  border: '1px solid rgb(192 193 193)',
-                  padding: '16px',
-                }}
-              />
+              <label htmlFor="text">
+                <textarea
+                  id="text"
+                  type="text"
+                  name="comments"
+                  className="texteria"
+                  placeholder="Коментарі до замовлення"
+                  onBlur={formik.handleBlur}
+                  value={formik.values.comments}
+                  onChange={handleInputChange}
+                />
+              </label>
             </div>
-            <label id="city" style={{ width: '737px' }}>
+            <label id="city" style={{ maxWidth: '737px' }}>
               Виберіть населений пункт
               <Autocomplete
                 required
@@ -346,7 +333,7 @@ const Busket = () => {
                 }
               />
             </label>
-            <label htmlFor="post" style={{ width: '737px' }}>
+            <label htmlFor="post" style={{ maxWidth: '737px' }}>
               Виберіть спосіб доставки
               <Autocomplete
                 required
@@ -389,7 +376,7 @@ const Busket = () => {
                 }
               />
             </label>
-            <label htmlFor="viddill" style={{ width: '737px' }}>
+            <label htmlFor="viddill" style={{ maxWidth: '737px' }}>
               Відділення Нової Пошти
               <Autocomplete
                 required
@@ -429,7 +416,7 @@ const Busket = () => {
                 }
               />
             </label>
-            <label htmlFor="oplata" style={{ width: '737px' }}>
+            <label htmlFor="oplata" style={{ maxWidth: '737px' }}>
               Виберіть спосіб оплати
               <Autocomplete
                 required
@@ -544,6 +531,7 @@ const Busket = () => {
                                 flexDirection: 'row',
                                 gap: '15px',
                                 marginLeft: '15px',
+                                alignItems: 'flex-end',
                               }}
                             >
                               <div

@@ -111,9 +111,22 @@ const SerringProfile = () => {
         </div>
       )}
       <div className="register">
-        <h2 style={{ fontSize: '24px', margin: '24px 23px' }}>Мій профіль</h2>
+        <h2
+          style={{ fontSize: '24px', margin: '24px 23px', fontWeight: '400' }}
+        >
+          Мій профіль
+        </h2>
         <div style={{ width: '700px', margin: '0 auto' }}>
           <form onSubmit={formik.handleSubmit}>
+            <p
+              style={{
+                fontSize: '16px',
+                fontWeight: '500',
+                marginBottom: '24px',
+              }}
+            >
+              Контактні дані
+            </p>{' '}
             <div className="form__register">
               <div>
                 <label htmlFor="name" className="formLabel">

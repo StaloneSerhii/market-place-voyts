@@ -11,16 +11,19 @@
 }
 
 .lastPrev__gap {
-    padding: 30px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
     gap: 40px;
+    @media (min-width: 1199px) {
+        flex-direction: row;
+        padding: 30px;
+    }
     & > li {
         box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
         border-radius: 8px;
         background-color: #fff;
         width: 302px;
-        padding: 16px;
     }
 }

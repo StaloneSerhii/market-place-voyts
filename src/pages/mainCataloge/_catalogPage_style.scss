@@ -1,18 +1,26 @@
 .cataloge {
-    max-width: 1280px;
-    padding: 0px 80px;
+    padding: 0px 16px;
     margin: 76px auto 76px auto;
+    @media (min-width: 1199px) {
+        padding: 0px 80px;
+    }
 }
 .cataloge__title {
-    font-size: 32px;
+    font-size: 24px;
     line-height: 48px;
-    font-weight: 500;
+    font-weight: 400;
+    margin-bottom: 8px;
 }
 .cataloge__gap {
     display: flex;
     flex-wrap: wrap;
     gap: 24px;
     margin-top: 48px;
+    justify-content: center;
+    @media (min-width: 1199px) {
+        padding: 0px 80px;
+        justify-content: flex-start;
+    }
     & > li {
         box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
         border-radius: 8px;

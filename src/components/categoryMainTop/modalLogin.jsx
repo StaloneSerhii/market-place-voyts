@@ -10,7 +10,7 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
+  maxWidth: 400,
   bgcolor: 'background.paper',
   border: '1px solid #000',
   boxShadow: 24,
@@ -43,7 +43,7 @@ function ChildModal() {
         onClose={handleClose}
         aria-labelledby="child-modal-title"
       >
-        <Box sx={{ ...style, width: 400 }}>
+        <Box sx={{ ...style, maxWidth: 400 }}>
           <h2 id="child-modal-title" style={{ textAlign: 'center' }}>
             Забули пароль?
           </h2>
@@ -100,7 +100,7 @@ export default function NestedModal({ setOpen, open, openMenu }) {
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
       >
-        <Box sx={{ ...style, width: '526px' }}>
+        <Box sx={{ ...style, maxWidth: '526px' }}>
           <h2
             id="parent-modal-title"
             style={{ textAlign: 'center', fontSize: '32px' }}

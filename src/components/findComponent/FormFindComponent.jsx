@@ -19,16 +19,12 @@ const FormFindComponent = () => {
   };
 
   return (
-    <form style={{ width: '632px', margin: '64px auto' }} onSubmit={sendSubmit}>
+    <form
+      style={{ maxWidth: '632px', margin: '64px auto' }}
+      onSubmit={sendSubmit}
+    >
       <p style={{ fontSize: '16px', fontWeight: '600' }}>Контакті дані</p>
-      <div
-        style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          gap: '24px',
-          margin: '16px 0',
-        }}
-      >
+      <div className="formFindInput">
         <label htmlFor="name">
           <p> Ім'я</p>
           <input
@@ -98,22 +94,24 @@ const FormFindComponent = () => {
           />
         </label>
       </div>
-      <p style={{ fontSize: '16px', fontWeight: '600' }}>Назва Запчастини</p>
-      <textarea
-        onChange={e => setText(e.target.value)}
-        value={text}
-        cols="100"
-        rows="10"
-        placeholder="Текст"
-        required
-        style={{
-          border: '1px solid #009C2C',
-          borderRadius: '8px',
-          padding: '12px 16px',
-          width: '600px',
-          margin: '16px 0',
-        }}
-      ></textarea>
+      <div className="textFormFind">
+        <p style={{ fontSize: '16px', fontWeight: '600' }}>Назва Запчастини</p>
+        <textarea
+          onChange={e => setText(e.target.value)}
+          value={text}
+          cols="100"
+          rows="10"
+          placeholder="Текст"
+          required
+          style={{
+            border: '1px solid #009C2C',
+            borderRadius: '8px',
+            padding: '12px 16px',
+            width: '100%',
+            margin: '16px 0',
+          }}
+        ></textarea>
+      </div>
       <button
         type="submit"
         style={{

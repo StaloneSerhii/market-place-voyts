@@ -1,6 +1,42 @@
 .hero_category {
     transition: all 500ms linear;
     z-index: 20;
+    display: none;
+    @media (min-width: 1199px) {
+        display: flex;
+    }
+}
+
+.hero__text {
+    display: inline-block;
+    color: #009c2c;
+    font-size: 32px;
+    line-height: 100%;
+    cursor: default;
+    font-weight: 400;
+    @media (min-width: 1199px) {
+        font-size: 80px;
+        line-height: 100px;
+    }
+}
+
+.hero__btn {
+    margin-top: 24px;
+    @media (min-width: 1199px) {
+        margin-top: 64px;
+    }
+}
+
+.hero__text--p {
+    display: inline-block;
+    color: #fff;
+    font-size: 16px;
+    cursor: default;
+    font-weight: 400;
+    @media (min-width: 1199px) {
+        font-size: 32px;
+        line-height: 100px;
+    }
 }
 
 .noneTransition {

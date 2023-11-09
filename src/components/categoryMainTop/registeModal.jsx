@@ -30,7 +30,7 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
+  maxWidth: 400,
   bgcolor: 'background.paper',
   border: '1px solid #000',
   boxShadow: 24,
@@ -47,7 +47,7 @@ const styleRules = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
+  maxWidth: 400,
   bgcolor: 'background.paper',
   border: '1px solid #000',
   boxShadow: 24,
@@ -80,7 +80,7 @@ export const RegisterModal = () => {
       if (formik.values.password !== reapPass) {
         return Notiflix.Notify.failure('Паролі  не співпадають');
       }
-    //  const answerRegister =  dispath(register(values));
+      //  const answerRegister =  dispath(register(values));
     },
   });
 
@@ -125,7 +125,7 @@ export const RegisterModal = () => {
         aria-labelledby="child-modal-title"
       >
         <form onSubmit={formik.handleSubmit}>
-          <Box sx={{ ...style, width: 526 }}>
+          <Box sx={{ ...style, maxWidth: 526 }}>
             <h2
               id="child-modal-title"
               style={{

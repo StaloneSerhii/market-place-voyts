@@ -69,42 +69,19 @@ const Hero = () => {
               }}
             >
               {' '}
-              <h1
-                style={{
-                  display: 'inline-block',
-                  color: '#009C2C',
-                  fontSize: '80px',
-                  lineHeight: ' 100px',
-                  cursor: 'default',
-                  fontWeight: '400',
-                }}
-              >
-                ZAP4ASTINI
-              </h1>
-              <p
-                style={{
-                  display: 'inline-block',
-                  fontSize: '32px',
-                  color: '#fff',
-                  margin: '0',
-                  cursor: 'default',
-                }}
-              >
-                Від б\у до нових с\г зпчастин
-              </p>
+              <h1 className="hero__text">ZAP4ASTINI</h1>
+              <p className="hero__text--p">Від б\у до нових с\г зпчастин</p>
               <a
-                className="btnHover bgGreen "
+                className="btnHover bgGreen hero__btn"
                 href="tel:+380678645646"
                 style={{
                   padding: '10px 20px',
-
                   color: '#fff',
                   width: '220px',
                   textAlign: 'center',
                   fontSize: '16px',
                   lineHeight: '24px',
                   borderRadius: '8px',
-                  marginTop: '64px',
                 }}
               >
                 Зв`язатися з нами

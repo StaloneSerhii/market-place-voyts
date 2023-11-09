@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <div className="footer">
       <ul className="footer__section">
-        <li>
+        <li className="first">
           <ul
             style={{
               fontSize: '16px',
@@ -32,11 +32,11 @@ const Footer = () => {
             </li>
           </ul>
         </li>
-        <li>
+        <li className="nextF">
           <div className="footer__section--second">
             <p>Потрібна допомога? Наші контакти!</p>
             <ul>
-              <li>
+              <li style={{ textAlign: 'center', fontSize: '14px' }}>
                 <ul style={{ margin: '20px 0' }}>
                   <li>
                     <a href="tel:380678645646">Телефон: +380678645646</a>
@@ -57,7 +57,7 @@ const Footer = () => {
             </ul>
           </div>
         </li>
-        <li>
+        <li className="last">
           <ul>
             <li>
               <a href="/">

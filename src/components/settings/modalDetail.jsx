@@ -14,7 +14,7 @@ const style = {
 const DetailInfo = ({ openState, setOpen, pr }) => {
   const handleClose = () => setOpen(false);
   return (
-    <div>
+    <div style={{ display: 'none' }}>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"

@@ -17,7 +17,7 @@ const VideoPage = () => {
   }, [limit]);
 
   return (
-    <div style={{ padding: '0 80px' }}>
+    <div className="cataloge" style={{ margin: '0' }}>
       <div
         style={{
           display: 'flex',
@@ -53,13 +53,13 @@ const VideoPage = () => {
               fill="#6B7280"
             />
           </svg>
-          <Link to="/find">Відео</Link>
+          <Link to="/video">Відео</Link>
         </p>
       </div>
       <div className="block__filter">
         <div style={{ position: 'relative' }}>
           <TextField
-            sx={{ width: '460px' }}
+            sx={{ maxWidth: '460px' }}
             value={findWord}
             id="outlined-basic"
             variant="outlined"
@@ -72,21 +72,12 @@ const VideoPage = () => {
           />
         </div>
       </div>
-      <ul style={{ margin: '64px 0' }}>
+      <ul className="video_container--block">
         {product &&
           product.map(
             pr =>
               pr.video && (
-                <li
-                  style={{
-                    padding: '16px',
-                    fontSize: '20px',
-                    width: '412px',
-                    background: '#fff',
-                    textAlign: 'center',
-                    lineHeight: '1.5',
-                  }}
-                >
+                <li className="video">
                   <h4>{pr.name}</h4>
                   <Link
                     to={`/product/${pr._id}`}
@@ -102,8 +93,7 @@ const VideoPage = () => {
                     }}
                   >
                     <iframe
-                      width="412"
-                      height="240"
+                      className="youtube"
                       src={pr.video}
                       title="YouTube video player"
                       frameborder="0"

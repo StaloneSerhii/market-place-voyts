@@ -3,11 +3,7 @@ import { Link } from 'react-router-dom';
 
 const FindComponentPage = () => {
   return (
-    <div
-      style={{
-        margin: '0 80px',
-      }}
-    >
+    <div className="cataloge" style={{ margin: '0' }}>
       <div
         style={{
           display: 'flex',

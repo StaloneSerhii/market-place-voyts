@@ -14,14 +14,14 @@
 .profile__item {
     color: #fff;
     font-size: 16px;
-    padding: 10px;
+    padding: 0 10px;
     border-radius: 10px;
     margin: 5px 10px 5px 0px;
     display: flex;
     align-items: center;
     justify-content: flex-start;
     &:hover {
-        background-color: rgb(81, 163, 102);
+        background-color: #101010;
     }
     & > span > svg {
         width: 24px;
@@ -38,5 +38,5 @@
 }
 
 .activePr {
-    background-color: rgb(81, 163, 102);
+    background-color: #101010;
 }

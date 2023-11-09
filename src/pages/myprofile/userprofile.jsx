@@ -12,27 +12,24 @@ const Profile = () => {
   const params = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const isSuperStatus = useSelector(state=>state.persistedReducerAdd.auth.user.status);
+  const isSuperStatus = useSelector(
+    state => state.persistedReducerAdd.auth.user.status
+  );
   const logOutFn = () => {
-    navigate('/')
-    dispatch(logOut())
-  }
+    navigate('/');
+    dispatch(logOut());
+  };
   return (
     <section className="profile">
       <ul className="profile__list">
-        {isSuperStatus === 'superuser' &&
-          <Link
-            to="/adm/product"
-            className={
-              'profile__item'
-            }
-          >
+        {isSuperStatus === 'superuser' && (
+          <Link to="/adm/product" className={'profile__item'}>
             <span>
               <RiAdminFill />
             </span>
             Адмін панель
           </Link>
-        }
+        )}
         <Link
           to="settings"
           className={

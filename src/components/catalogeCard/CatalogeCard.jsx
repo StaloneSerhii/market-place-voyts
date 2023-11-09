@@ -47,6 +47,7 @@ const CatalogeCard = ({ price, id, name, img, code }) => {
           justifyContent: 'space-between',
           alignItems: 'center',
           margin: '24px 0',
+          borderBottom: '1px solid #F9F9F9',
         }}
       >
         <p className="card-cataloge__span">
