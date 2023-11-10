@@ -9,13 +9,13 @@ const VideoContent = () => {
         </p>
         <div className="video_container--block">
           <div className="video">
-            <h4>asd</h4>
+            {/* <h4>asd</h4>
             <Link
               to={`/product/`}
               style={{ fontSize: '12px', marginBottom: '8px' }}
             >
               До продукту...
-            </Link>
+            </Link> */}
             <div
               style={{
                 background: '#22ff43442244',
@@ -34,13 +34,13 @@ const VideoContent = () => {
             </div>
           </div>
           <div className="video">
-            <h4>asd</h4>
+            {/* <h4>asd</h4>
             <Link
               to={`/product/`}
               style={{ fontSize: '12px', marginBottom: '8px' }}
             >
               До продукту...
-            </Link>
+            </Link> */}
             <div
               style={{
                 background: '#22ff43442244',

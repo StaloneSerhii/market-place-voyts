@@ -7,9 +7,10 @@
     align-items: flex-start;
     flex-direction: column;
     gap: 32px;
-
+    align-items: center;
     @media (min-width: 1200px) {
         width: 800px;
+        align-items: x;
     }
     & > div > label > input {
         border-radius: 5px;

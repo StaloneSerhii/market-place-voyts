@@ -12,7 +12,10 @@
 .navigate__btn--img {
     color: #ffffffbd;
     font-size: 25px;
-    padding: 0 50px;
+    padding: 0;
+    @media (min-width: 1200px) {
+        padding: 0 50px;
+    }
     &:hover {
         color: #009c2c;
     }
@@ -130,34 +133,20 @@
     align-items: center;
     gap: 15px;
     cursor: pointer;
+    & > img {
+        height: 100px;
+    }
 }
 
 .content__productPage {
-    display: flex;
-    gap: 24px;
+    @media (min-width: 1200px) {
+        display: flex;
+        gap: 24px;
+    }
 }
 
 .active {
     border: 1px solid rgb(26, 122, 35);
-}
-
-::-webkit-scrollbar {
-    background-color: #f0f0f0;
-}
-
-/* Змінити колір скролбарної шкали (бару) */
-::-webkit-scrollbar-thumb {
-    background-color: #888;
-}
-
-/* Змінити розмір скролбарної шкали (бару) */
-::-webkit-scrollbar-thumb {
-    height: 15px;
-}
-
-/* Змінити рамку скролбару */
-::-webkit-scrollbar {
-    border: 1px solid #ddd;
 }
 
 .btnComment {
@@ -202,8 +191,11 @@
 .zoomable-container {
     overflow: hidden; /* Обрізати зображення за межами контейнера */
     position: relative; /* Потрібно для абсолютної позиції зображення */
-    width: 628px; /* Змініть це на відповідний розмір вашого зображення */
+    width: 100%; /* Змініть це на відповідний розмір вашого зображення */
     height: 400px; /* Змініть це на відповідний розмір вашого зображення */
+    @media (min-width: 1200px) {
+        width: 628px;
+    }
 }
 
 /* Звичайний стиль для зображення */
@@ -224,6 +216,40 @@
     height: 30px;
     color: var(--yellowMain);
     margin-right: 10px;
+}
+
+.detailsStyle {
+    width: 100%;
+    margin-top: 48px;
+
+    justify-content: space-between;
+    @media (min-width: 1200px) {
+        display: flex;
+    }
+}
+
+.navigate__product {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow-x: scroll;
+    gap: 16px;
+    margin-bottom: 16px;
+    @media (min-width: 1200px) {
+        overflow-x: hidden;
+        flex-direction: row-reverse;
+    }
+}
+
+.comments__btn {
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-left: auto;
+    @media (min-width: 1200px) {
+        margin-left: 0;
+    }
 }
 
 .modal {

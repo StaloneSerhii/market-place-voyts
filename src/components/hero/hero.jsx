@@ -92,7 +92,7 @@ const Hero = () => {
         </div>
         <div className="section-center">
           {heroImg.map((person, personIndex) => {
-            const { id, image } = person;
+            const { id } = person;
             let position = 'nexSlide';
             if (personIndex === currentIndex) {
               position = 'activeSlide';
@@ -105,7 +105,7 @@ const Hero = () => {
             }
             return (
               <article className={position} key={id}>
-                <img src={image} alt="hero_img" width={'100%'} />
+                <div className={person.classImg}></div>
               </article>
             );
           })}

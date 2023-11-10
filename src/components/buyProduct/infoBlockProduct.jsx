@@ -1,13 +1,6 @@
 export const InfoBlockProduct = ({ product }) => {
   return (
-    <div
-      style={{
-        width: '100%',
-        marginTop: '48px',
-        display: 'flex',
-        justifyContent: 'space-between',
-      }}
-    >
+    <div className="detailsStyle">
       <div
         id="details"
         style={{

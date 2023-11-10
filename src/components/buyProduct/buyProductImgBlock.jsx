@@ -147,7 +147,7 @@ export const ImgBlockProduct = ({ product }) => {
           </div>
         </div>
       )}
-      <div style={{ overflowX: 'scroll', width: '628px' }}>
+      <div style={{ overflowX: 'scroll' }}>
         <div className="block__img--allImg ">
           {product &&
             product.img.map(img => (
