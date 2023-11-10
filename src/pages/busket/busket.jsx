@@ -41,10 +41,6 @@ const validationSchema = Yup.object().shape({
   oplata: Yup.string().required(),
 });
 
-const options = [
-  { label: 'Тернопіль', id: 1 },
-  { label: 'Львів', id: 2 },
-];
 
 const Busket = () => {
   const dispatch = useDispatch();
@@ -84,6 +80,7 @@ const Busket = () => {
     }
     setdata([]);
   }, [select, productNotAuth, userAuth.isLoggedIn]);
+
   // Стейт форми покупки для відправки
   const initialValues = {
     name: userAuth.isLoggedIn ? userAuth.user.name : '',
@@ -102,6 +99,7 @@ const Busket = () => {
     initialValues,
     validationSchema: validationSchema,
     onSubmit: values => {
+      console.log(values);
       const result = window.confirm(`Ви піддтверджуєте свою покупку?`);
       if (result && userAuth.isLoggedIn) {
         dispatch(buyProductBusket({ values, select }));
@@ -363,19 +361,18 @@ const Busket = () => {
               <br />
               <input
                 required
-                id="vidill"
+                id="viddill"
                 type="tel"
-                name="vidill"
-
+                name="viddill"
                 onBlur={formik.handleBlur}
-                value={formik.values.vidill}
+                value={formik.values.viddill}
                 onChange={handleInputChange}
                 className='inputDefault'
                 style={
-                  formik.touched.vidill === undefined &&
-                    formik.errors.vidill === undefined
+                  formik.touched.viddill === undefined &&
+                    formik.errors.viddill === undefined
                     ? { border: '1px solid rgb(164, 164, 164)' }
-                    : formik.touched.vidill && formik.errors.vidill
+                    : formik.touched.viddill && formik.errors.viddill
                       ? { border: '1px solid rgb(244, 0, 0)' }
                       : { border: '1px solid #009C2C ' }
                 }
@@ -455,12 +452,12 @@ const Busket = () => {
                     data.length > 0 &&
                     data.map(pr => (
                       <li className="block__listBuy--item" key={pr._id}>
-                        <img
+                        <Link to={`/product/${pr.id}`}>        <img
                           className="block__listBuy--img"
                           src={pr.img[0]}
                           alt="img"
                           width="100px"
-                        />
+                        /></Link>
                         <div>
                           <div
                             style={{
@@ -574,19 +571,6 @@ const Busket = () => {
                                   flexDirection: 'column',
                                 }}
                               >
-                                {/* <span
-                                    style={{
-                                      color: 'rgb(134, 134, 134)',
-                                      lineHeight: '1.5',
-                                    }}
-                                  >
-                                    Сума
-                                  </span> */}
-                                {/* <span
-                                    style={{ color: 'red', fontSize: '20px' }}
-                                  >
-                                    {pr.price * pr.count} грн
-                                  </span> */}
                               </div>
                             </div>
                           </div>
