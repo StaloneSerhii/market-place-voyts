@@ -116,7 +116,7 @@ const SerringProfile = () => {
         >
           Мій профіль
         </h2>
-        <div style={{ width: '700px', margin: '0 auto' }}>
+        <div style={{ maxWidth: '700px', margin: '0 auto', padding: '16px' }}>
           <form onSubmit={formik.handleSubmit}>
             <p
               style={{
@@ -131,6 +131,7 @@ const SerringProfile = () => {
               <div>
                 <label htmlFor="name" className="formLabel">
                   Ім'я
+                  <br />
                   <input
                     className="inputForm"
                     type="text"
@@ -144,6 +145,7 @@ const SerringProfile = () => {
                 </label>
                 <label htmlFor="fename" className="formLabel">
                   Прізвище
+                  <br />
                   <input
                     className="inputForm"
                     type="text"
@@ -159,6 +161,7 @@ const SerringProfile = () => {
               <div style={{ position: 'relative' }}>
                 <label htmlFor="email" className="formLabel">
                   <p>Email</p>
+
                   <input
                     className="inputForm"
                     type="email"
@@ -171,7 +174,7 @@ const SerringProfile = () => {
                   />
                 </label>
                 <label htmlFor="phone" className="formLabel">
-                  Телефон
+                  <p>Телефон</p>
                   <input
                     className="inputForm"
                     type="tel"
@@ -205,7 +208,7 @@ const SerringProfile = () => {
             Змінити пароль
           </p>
           <form onSubmit={formik.handleSubmit}>
-            <div style={{ display: 'flex', gap: '24px' }}>
+            <div className="form__register">
               <label htmlFor="password" className="formLabel">
                 <p>Старий пароль</p>
                 <input

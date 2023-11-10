@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { BiSolidUser } from 'react-icons/bi';
 import { CgEnter } from 'react-icons/cg';
 import { SlBasketLoaded } from 'react-icons/sl';
@@ -27,6 +27,18 @@ const NavigateCategory = () => {
     getFavoriteProductLocalStorageAuth
   );
   const productFavorite = useSelector(getFavoriteProductLocalStorage);
+  const location = useLocation();
+  const [locationSrc, setLocationSrc] = useState(false);
+  const [state, setState] = useState({
+    left: false,
+  });
+
+  useEffect(() => {
+    if (location.pathname !== locationSrc) {
+      setState({ ...state, left: false });
+    }
+    setLocationSrc(location.pathname);
+  }, [location.pathname, locationSrc, state]);
 
   useEffect(() => {
     const handleClickOutside = event => {
@@ -43,10 +55,6 @@ const NavigateCategory = () => {
       document.removeEventListener('click', handleClickOutside);
     };
   }, [openMenu]);
-
-  const [state, setState] = useState({
-    left: false,
-  });
 
   const toggleDrawer = (anchor, open) => event => {
     if (

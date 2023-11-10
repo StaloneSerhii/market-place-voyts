@@ -3,12 +3,16 @@
 }
 
 .profile__list {
-    display: flex;
+    display: none;
     flex-direction: column;
     background-color: #009c2c;
     padding: 24px 16px;
     color: #fff;
     width: 290px;
+
+    @media (min-width: 1200px) {
+        display: flex;
+    }
 }
 
 .profile__item {

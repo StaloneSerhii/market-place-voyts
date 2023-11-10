@@ -1,6 +1,9 @@
 .mystore {
     margin: 20px;
-    width: 70%;
+    width: 100%;
+    @media (min-width: 1199px) {
+        width: 70%;
+    }
 }
 
 .mystore__h3 {
@@ -49,6 +52,12 @@
     padding: 16px 24px;
     align-items: center;
     justify-content: space-between;
+    flex-direction: column;
+    gap: 20px;
+    @media (min-width: 1200px) {
+        flex-direction: row;
+        gap: 0;
+    }
 }
 
 .status__pr {

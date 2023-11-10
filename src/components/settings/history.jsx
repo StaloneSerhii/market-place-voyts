@@ -65,7 +65,6 @@ const History = () => {
                       {list.price} грн
                       <span>В наявності</span>
                     </p>
-                    {console.log(list)}
                     <Link
                       to={`/product/${list._id}`}
                       subcategory={'test'}

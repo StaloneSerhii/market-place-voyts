@@ -1172,7 +1172,12 @@ article.nextSlide {
 
 .mystore {
   margin: 20px;
-  width: 70%;
+  width: 100%;
+}
+@media (min-width: 1199px) {
+  .mystore {
+    width: 70%;
+  }
 }
 
 .mystore__h3 {
@@ -1225,6 +1230,14 @@ article.nextSlide {
   padding: 16px 24px;
   align-items: center;
   justify-content: space-between;
+  flex-direction: column;
+  gap: 20px;
+}
+@media (min-width: 1200px) {
+  .list__store--item {
+    flex-direction: row;
+    gap: 0;
+  }
 }
 
 .status__pr {
@@ -1266,10 +1279,14 @@ article.nextSlide {
 }
 
 .cataloge__title {
-  font-size: 24px;
   line-height: 48px;
   font-weight: 400;
   margin-bottom: 8px;
+}
+@media (min-width: 1199px) {
+  .cataloge__title {
+    font-size: 24px;
+  }
 }
 
 .cataloge__gap {
@@ -1455,8 +1472,16 @@ article.nextSlide {
 }
 
 .form__register {
-  display: flex;
   gap: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+@media (min-width: 1200px) {
+  .form__register {
+    display: flex;
+    flex-direction: row;
+  }
 }
 .form__register > div {
   display: flex;
@@ -1738,12 +1763,17 @@ article.nextSlide {
 }
 
 .profile__list {
-  display: flex;
+  display: none;
   flex-direction: column;
   background-color: #009c2c;
   padding: 24px 16px;
   color: #fff;
   width: 290px;
+}
+@media (min-width: 1200px) {
+  .profile__list {
+    display: flex;
+  }
 }
 
 .profile__item {

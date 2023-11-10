@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { logIn } from 'redux/operations';
 import { resendPass } from 'redux/service';
 import { RegisterModal } from './registeModal';
+
 const style = {
   position: 'absolute',
   top: '50%',
