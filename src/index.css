@@ -120,6 +120,23 @@
   fill: var(--yellowMain);
 }
 
+.productPrice {
+  display: flex;
+  margin-top: 24px;
+  margin-bottom: 24px;
+  gap: 24px;
+  align-items: center;
+  flex-direction: column;
+  padding: 0 16px;
+}
+@media (min-width: 1200px) {
+  .productPrice {
+    flex-direction: row;
+    align-items: normal;
+    padding: 0;
+  }
+}
+
 .burgerHidden {
   display: block;
 }
@@ -1289,7 +1306,7 @@ article.nextSlide {
   }
 }
 
-.cataloge__gap {
+.cataloge__gap, .cataloge__gap--list {
   display: flex;
   flex-wrap: wrap;
   gap: 24px;
@@ -1297,16 +1314,20 @@ article.nextSlide {
   justify-content: center;
 }
 @media (min-width: 1199px) {
-  .cataloge__gap {
+  .cataloge__gap, .cataloge__gap--list {
     padding: 0px 80px;
     justify-content: flex-start;
   }
 }
-.cataloge__gap > li {
+.cataloge__gap > li, .cataloge__gap--list > li {
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   border-radius: 8px;
   background-color: #fff;
   width: 302px;
+}
+
+.cataloge__gap--list {
+  padding: 0;
 }
 
 .top {
@@ -1604,8 +1625,15 @@ article.nextSlide {
 }
 
 .block__filter {
-  display: flex;
   justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+@media (min-width: 1200px) {
+  .block__filter {
+    flex-direction: row;
+  }
 }
 
 .zak {
@@ -1622,7 +1650,7 @@ article.nextSlide {
 @media (min-width: 1200px) {
   .formData {
     width: 800px;
-    align-items: x;
+    align-items: normal;
   }
 }
 .formData > div > label > input {

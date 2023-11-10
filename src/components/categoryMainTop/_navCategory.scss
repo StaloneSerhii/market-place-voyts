@@ -64,6 +64,21 @@
     }
 }
 
+.productPrice {
+    display: flex;
+    margin-top: 24px;
+    margin-bottom: 24px;
+    gap: 24px;
+    align-items: center;
+    flex-direction: column;
+    padding: 0 16px;
+    @media (min-width: 1200px) {
+        flex-direction: row;
+        align-items: normal;
+        padding: 0;
+    }
+}
+
 .burgerHidden {
     display: block;
     @media (min-width: 1200px) {

@@ -81,6 +81,11 @@
 }
 
 .block__filter {
-    display: flex;
     justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    @media (min-width: 1200px) {
+        flex-direction: row;
+    }
 }

@@ -59,7 +59,7 @@ const VideoPage = () => {
       <div className="block__filter">
         <div style={{ position: 'relative' }}>
           <TextField
-            sx={{ maxWidth: '460px' }}
+            sx={{ width: '361px' }}
             value={findWord}
             id="outlined-basic"
             variant="outlined"

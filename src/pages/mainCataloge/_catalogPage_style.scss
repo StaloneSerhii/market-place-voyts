@@ -13,6 +13,7 @@
         font-size: 24px;
     }
 }
+
 .cataloge__gap {
     display: flex;
     flex-wrap: wrap;
@@ -29,6 +30,11 @@
         background-color: #fff;
         width: 302px;
     }
+}
+
+.cataloge__gap--list {
+    @extend .cataloge__gap;
+    padding: 0;
 }
 
 .top {

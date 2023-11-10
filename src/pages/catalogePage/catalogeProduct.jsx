@@ -103,7 +103,7 @@ const CatalogeProduct = ({ filter }) => {
       <div className="block__filter">
         <div style={{ position: 'relative' }}>
           <TextField
-            sx={{ width: '460px' }}
+            sx={{ width: '355px' }}
             value={findWord}
             id="outlined-basic"
             variant="outlined"
@@ -123,11 +123,13 @@ const CatalogeProduct = ({ filter }) => {
           }}
           id="combo-box-demo"
           options={options}
-          sx={{ width: 300 }}
-          renderInput={params => <TextField {...params} label="Сортувати" />}
+          sx={{ width: '355px' }}
+          renderInput={params => (
+            <TextField {...params} label="Сортувати" sx={{ width: '355px' }} />
+          )}
         />
       </div>
-      <ul className="cataloge__gap">
+      <ul className="cataloge__gap--list">
         {listPr.length > 0 ? (
           listPr.map(list => (
             <li key={list._id}>

@@ -1,9 +1,9 @@
 import {
   Box,
-  Checkbox,
+  // Checkbox,
   FormControl,
   FormControlLabel,
-  FormGroup,
+  // FormGroup,
   FormLabel,
   Radio,
   RadioGroup,
@@ -24,16 +24,16 @@ const Filter = ({ filter }) => {
   const [fromValue, setFromValue] = useState(1);
   const [toValue, setToValue] = useState(100000);
   const [selectedValue, setSelectedValue] = useState('');
-  const [checkboxes, setCheckboxes] = useState({
-    label: true, // початковий стан для "Label"
-    required: false, // початковий стан для "Required"
-    disabled: false, // початковий стан для "Disabled"
-  });
+  // const [checkboxes, setCheckboxes] = useState({
+  //   label: true, // початковий стан для "Label"
+  //   required: false, // початковий стан для "Required"
+  //   disabled: false, // початковий стан для "Disabled"
+  // });
 
-  const handleCheckboxChange = event => {
-    const { name, checked } = event.target;
-    setCheckboxes({ ...checkboxes, [name]: checked });
-  };
+  // const handleCheckboxChange = event => {
+  //   const { name, checked } = event.target;
+  //   setCheckboxes({ ...checkboxes, [name]: checked });
+  // };
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -45,9 +45,9 @@ const Filter = ({ filter }) => {
     setSelectedValue(event.target.value);
   };
 
-  useEffect(() => {
-    filter({ price: value, checkboxes: checkboxes });
-  }, [filter, value, checkboxes]);
+  // useEffect(() => {
+  //   filter({ price: value, checkboxes: checkboxes });
+  // }, [filter, value, checkboxes]);
 
   useEffect(() => {
     if (location.pathname === '/productAll/new') {
@@ -157,14 +157,7 @@ const Filter = ({ filter }) => {
       <div className="cataloge__title" style={{ fontSize: '14px' }}>
         {titleMap[location.pathname] || ''}
       </div>
-      <div
-        style={{
-          display: 'flex',
-          marginTop: '24px',
-          marginBottom: '24px',
-          gap: '24px',
-        }}
-      >
+      <div className="productPrice">
         <Box
           sx={{
             width: '300px',
@@ -268,7 +261,7 @@ const Filter = ({ filter }) => {
                 </RadioGroup>
               </FormControl>
             </li>
-            <li>
+            {/* <li>
               <p style={{ color: 'rgba(0, 0, 0, 0.6)' }}>Amenities</p>
               <FormGroup>
                 <FormControlLabel
@@ -302,7 +295,7 @@ const Filter = ({ filter }) => {
                   label="Disabled"
                 />
               </FormGroup>
-            </li>
+            </li> */}
           </ul>
         </Box>
         <Outlet />
