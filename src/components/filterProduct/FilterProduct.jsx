@@ -45,9 +45,9 @@ const Filter = ({ filter }) => {
     setSelectedValue(event.target.value);
   };
 
-  // useEffect(() => {
-  //   filter({ price: value, checkboxes: checkboxes });
-  // }, [filter, value, checkboxes]);
+  useEffect(() => {
+    filter({ price: value,});
+  }, [filter, value]);
 
   useEffect(() => {
     if (location.pathname === '/productAll/new') {

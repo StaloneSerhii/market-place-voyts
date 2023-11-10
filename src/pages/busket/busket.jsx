@@ -209,11 +209,11 @@ const Busket = () => {
                     onChange={handleInputChange}
                     style={
                       formik.touched.name === undefined &&
-                      formik.errors.name === undefined
+                        formik.errors.name === undefined
                         ? { border: '1px solid rgb(164, 164, 164)' }
                         : formik.touched.name && formik.errors.name
-                        ? { border: '1px solid rgb(244, 0, 0)' }
-                        : { border: '1px solid #009C2C' }
+                          ? { border: '1px solid rgb(244, 0, 0)' }
+                          : { border: '1px solid #009C2C' }
                     }
                   />
                 </label>
@@ -230,11 +230,11 @@ const Busket = () => {
                     onChange={handleInputChange}
                     style={
                       formik.touched.fename === undefined &&
-                      formik.errors.fename === undefined
+                        formik.errors.fename === undefined
                         ? { border: '1px solid rgb(164, 164, 164)' }
                         : formik.touched.fename && formik.errors.fename
-                        ? { border: '1px solid rgb(244, 0, 0)' }
-                        : { border: '1px solid #009C2C' }
+                          ? { border: '1px solid rgb(244, 0, 0)' }
+                          : { border: '1px solid #009C2C' }
                     }
                   />
                 </label>
@@ -251,11 +251,11 @@ const Busket = () => {
                     onChange={handlePhoneNumberChange}
                     style={
                       formik.touched.phone === undefined &&
-                      formik.errors.phone === undefined
+                        formik.errors.phone === undefined
                         ? { border: '1px solid rgb(164, 164, 164)' }
                         : formik.touched.phone && formik.errors.phone
-                        ? { border: '1px solid rgb(244, 0, 0)' }
-                        : { border: '1px solid #009C2C' }
+                          ? { border: '1px solid rgb(244, 0, 0)' }
+                          : { border: '1px solid #009C2C' }
                     }
                   />
                 </label>
@@ -271,11 +271,11 @@ const Busket = () => {
                     onChange={handleInputChange}
                     style={
                       formik.touched.email === undefined &&
-                      formik.errors.email === undefined
+                        formik.errors.email === undefined
                         ? { border: '1px solid rgb(164, 164, 164)' }
                         : formik.touched.email && formik.errors.email
-                        ? { border: '1px solid rgb(244, 0, 0)' }
-                        : { border: '1px solid #009C2C' }
+                          ? { border: '1px solid rgb(244, 0, 0)' }
+                          : { border: '1px solid #009C2C' }
                     }
                   />
                 </label>
@@ -295,41 +295,23 @@ const Busket = () => {
             </div>
             <label id="city" style={{ maxWidth: '737px' }}>
               Виберіть населений пункт
-              <Autocomplete
+              <br />
+              <input
                 required
-                renderInput={params => <TextField {...params} />}
                 id="city"
-                options={options}
+                type="text"
                 name="city"
                 onBlur={formik.handleBlur}
-                onChange={(_, newValue) => {
-                  formik.setFieldValue('city', newValue.label);
-                }}
-                sx={
+                value={formik.values.city}
+                onChange={handleInputChange}
+                className='inputDefault'
+                style={
                   formik.touched.city === undefined &&
-                  formik.errors.city === undefined
-                    ? {
-                        '& div': { padding: '0px' },
-                        '& > div>div': {
-                          border: '1px solid rgb(164, 164, 164)',
-                          padding: '3px',
-                        },
-                      }
+                    formik.errors.city === undefined
+                    ? { border: '1px solid rgb(164, 164, 164)' }
                     : formik.touched.city && formik.errors.city
-                    ? {
-                        '& div': { padding: '0px' },
-                        '& > div>div': {
-                          border: '1px solid rgb(255, 20, 20)',
-                          padding: '3px',
-                        },
-                      }
-                    : {
-                        '& div': { padding: '0px' },
-                        '& > div>div': {
-                          border: '1px solid #009C2C',
-                          padding: '3px',
-                        },
-                      }
+                      ? { border: '1px solid rgb(244, 0, 0)' }
+                      : { border: '1px solid #009C2C ' }
                 }
               />
             </label>
@@ -350,23 +332,23 @@ const Busket = () => {
                 }}
                 sx={
                   formik.touched.post === undefined &&
-                  formik.errors.post === undefined
+                    formik.errors.post === undefined
                     ? {
-                        '& div': { padding: '0px' },
-                        '& > div>div': {
-                          border: '1px solid rgb(164, 164, 164)',
-                          padding: '3px',
-                        },
-                      }
+                      '& div': { padding: '0px' },
+                      '& > div>div': {
+                        border: '1px solid rgb(164, 164, 164)',
+                        padding: '3px',
+                      },
+                    }
                     : formik.touched.post && formik.errors.post
-                    ? {
+                      ? {
                         '& div': { padding: '0px' },
                         '& > div>div': {
                           border: '1px solid rgb(255, 20, 20)',
                           padding: '3px',
                         },
                       }
-                    : {
+                      : {
                         '& div': { padding: '0px' },
                         '& > div>div': {
                           border: '1px solid #009C2C',
@@ -378,41 +360,24 @@ const Busket = () => {
             </label>
             <label htmlFor="viddill" style={{ maxWidth: '737px' }}>
               Відділення Нової Пошти
-              <Autocomplete
+              <br />
+              <input
                 required
-                renderInput={params => <TextField {...params} />}
-                id="viddill"
-                options={options}
-                name="viddill"
+                id="vidill"
+                type="tel"
+                name="vidill"
+
                 onBlur={formik.handleBlur}
-                onChange={(_, newValue) => {
-                  formik.setFieldValue('viddill', newValue.label);
-                }}
-                sx={
-                  formik.touched.viddill === undefined &&
-                  formik.errors.viddill === undefined
-                    ? {
-                        '& div': { padding: '0px' },
-                        '& > div>div': {
-                          border: '1px solid rgb(164, 164, 164)',
-                          padding: '3px',
-                        },
-                      }
-                    : formik.touched.viddill && formik.errors.viddill
-                    ? {
-                        '& div': { padding: '0px' },
-                        '& > div>div': {
-                          border: '1px solid rgb(255, 20, 20)',
-                          padding: '3px',
-                        },
-                      }
-                    : {
-                        '& div': { padding: '0px' },
-                        '& > div>div': {
-                          border: '1px solid #009C2C',
-                          padding: '3px',
-                        },
-                      }
+                value={formik.values.vidill}
+                onChange={handleInputChange}
+                className='inputDefault'
+                style={
+                  formik.touched.vidill === undefined &&
+                    formik.errors.vidill === undefined
+                    ? { border: '1px solid rgb(164, 164, 164)' }
+                    : formik.touched.vidill && formik.errors.vidill
+                      ? { border: '1px solid rgb(244, 0, 0)' }
+                      : { border: '1px solid #009C2C ' }
                 }
               />
             </label>
@@ -433,23 +398,23 @@ const Busket = () => {
                 }}
                 sx={
                   formik.touched.oplata === undefined &&
-                  formik.errors.oplata === undefined
+                    formik.errors.oplata === undefined
                     ? {
-                        '& div': { padding: '0px' },
-                        '& > div>div': {
-                          border: '1px solid rgb(164, 164, 164)',
-                          padding: '3px',
-                        },
-                      }
+                      '& div': { padding: '0px' },
+                      '& > div>div': {
+                        border: '1px solid rgb(164, 164, 164)',
+                        padding: '3px',
+                      },
+                    }
                     : formik.touched.oplata && formik.errors.oplata
-                    ? {
+                      ? {
                         '& div': { padding: '0px' },
                         '& > div>div': {
                           border: '1px solid rgb(255, 20, 20)',
                           padding: '3px',
                         },
                       }
-                    : {
+                      : {
                         '& div': { padding: '0px' },
                         '& > div>div': {
                           border: '1px solid #009C2C',
@@ -666,7 +631,7 @@ const Busket = () => {
               style={{ textAlign: 'center', color: 'red' }}
               to="/productAll/new"
             >
-              каталогу 
+              каталогу
             </Link>
             щоб здійснити покупку
           </p>

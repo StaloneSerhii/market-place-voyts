@@ -51,9 +51,10 @@ async function postBuyProduct(body) {
   console.log('error');
 }
 
-async function postBuyProductBY(body, findWord, filter) {
+async function postBuyProductBY(body, findWord, filter=(1)) {
   const { data } = await axios.get(
-    `${API}/product/getAll/by?sort=${body}&find=${findWord}`,
+    `${API}/product/getAll/by?sort=${body}&find=${findWord}&filterMin=${filter.price
+      [0]}&filterMax=${filter.price[1]}`,
     filter
   );
   if (data) {
@@ -82,8 +83,10 @@ async function postHelpProduct(requestData) {
 }
 
 async function postBuyProductNew(body, findWord, filter) {
+  console.log(filter);
   const { data } = await axios.get(
-    `${API}/product/getAll/new?sort=${body}&find=${findWord}&filter=${filter}`
+    `${API}/product/getAll/new?sort=${body}&find=${findWord}&filterMin=${filter.price
+      [0]}&filterMax=${filter.price[1]}`
   );
   if (data) {
     return data;
