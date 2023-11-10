@@ -1629,10 +1629,12 @@ article.nextSlide {
   display: flex;
   flex-direction: column;
   gap: 24px;
+  align-items: center;
 }
 @media (min-width: 1200px) {
   .block__filter {
     flex-direction: row;
+    align-items: normal;
   }
 }
 
