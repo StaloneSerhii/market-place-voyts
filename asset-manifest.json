@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/market-place-voyts/static/css/main.2431ef98.css",
-    "main.js": "/market-place-voyts/static/js/main.78438c0b.js",
-    "static/js/322.849f9c24.chunk.js": "/market-place-voyts/static/js/322.849f9c24.chunk.js",
+    "main.css": "/market-place-voyts/static/css/main.5142b106.css",
+    "main.js": "/market-place-voyts/static/js/main.f61e943a.js",
+    "static/js/322.3c077cca.chunk.js": "/market-place-voyts/static/js/322.3c077cca.chunk.js",
     "static/js/265.b802274b.chunk.js": "/market-place-voyts/static/js/265.b802274b.chunk.js",
     "static/js/209.1f2d85d7.chunk.js": "/market-place-voyts/static/js/209.1f2d85d7.chunk.js",
     "static/js/63.fd522f01.chunk.js": "/market-place-voyts/static/js/63.fd522f01.chunk.js",
     "static/js/693.1c7966e7.chunk.js": "/market-place-voyts/static/js/693.1c7966e7.chunk.js",
     "static/js/492.9c475906.chunk.js": "/market-place-voyts/static/js/492.9c475906.chunk.js",
     "static/js/357.5a30b712.chunk.js": "/market-place-voyts/static/js/357.5a30b712.chunk.js",
-    "static/js/316.3c71df7b.chunk.js": "/market-place-voyts/static/js/316.3c71df7b.chunk.js",
+    "static/js/316.29541074.chunk.js": "/market-place-voyts/static/js/316.29541074.chunk.js",
     "static/js/936.c3a5cbbf.chunk.js": "/market-place-voyts/static/js/936.c3a5cbbf.chunk.js",
     "static/js/926.8c1f918f.chunk.js": "/market-place-voyts/static/js/926.8c1f918f.chunk.js",
     "static/js/213.1f6cb8b9.chunk.js": "/market-place-voyts/static/js/213.1f6cb8b9.chunk.js",
@@ -18,19 +18,22 @@
     "static/js/814.fa612878.chunk.js": "/market-place-voyts/static/js/814.fa612878.chunk.js",
     "static/js/424.64f31e41.chunk.js": "/market-place-voyts/static/js/424.64f31e41.chunk.js",
     "static/js/725.3a7cc128.chunk.js": "/market-place-voyts/static/js/725.3a7cc128.chunk.js",
+    "static/media/jpg": "/market-place-voyts/static/media/c9a112bb122c5fb4f558794f604fbf1b.fec33fd6822e1e85b23f.jpg",
+    "static/media/r4g080024-large.avif": "/market-place-voyts/static/media/r4g080024-large.ff629c43e992250e379f.avif",
+    "static/media/cards.jpg": "/market-place-voyts/static/media/cards.6d0b27165d5f50fdbea4.jpg",
     "static/media/noimage.jpg": "/market-place-voyts/static/media/noimage.2efe78cdf6dbf909f571.jpg",
     "static/media/youtube.webp": "/market-place-voyts/static/media/youtube.b9693d97890e7f5497f3.webp",
     "index.html": "/market-place-voyts/index.html",
-    "main.2431ef98.css.map": "/market-place-voyts/static/css/main.2431ef98.css.map",
-    "main.78438c0b.js.map": "/market-place-voyts/static/js/main.78438c0b.js.map",
-    "322.849f9c24.chunk.js.map": "/market-place-voyts/static/js/322.849f9c24.chunk.js.map",
+    "main.5142b106.css.map": "/market-place-voyts/static/css/main.5142b106.css.map",
+    "main.f61e943a.js.map": "/market-place-voyts/static/js/main.f61e943a.js.map",
+    "322.3c077cca.chunk.js.map": "/market-place-voyts/static/js/322.3c077cca.chunk.js.map",
     "265.b802274b.chunk.js.map": "/market-place-voyts/static/js/265.b802274b.chunk.js.map",
     "209.1f2d85d7.chunk.js.map": "/market-place-voyts/static/js/209.1f2d85d7.chunk.js.map",
     "63.fd522f01.chunk.js.map": "/market-place-voyts/static/js/63.fd522f01.chunk.js.map",
     "693.1c7966e7.chunk.js.map": "/market-place-voyts/static/js/693.1c7966e7.chunk.js.map",
     "492.9c475906.chunk.js.map": "/market-place-voyts/static/js/492.9c475906.chunk.js.map",
     "357.5a30b712.chunk.js.map": "/market-place-voyts/static/js/357.5a30b712.chunk.js.map",
-    "316.3c71df7b.chunk.js.map": "/market-place-voyts/static/js/316.3c71df7b.chunk.js.map",
+    "316.29541074.chunk.js.map": "/market-place-voyts/static/js/316.29541074.chunk.js.map",
     "936.c3a5cbbf.chunk.js.map": "/market-place-voyts/static/js/936.c3a5cbbf.chunk.js.map",
     "926.8c1f918f.chunk.js.map": "/market-place-voyts/static/js/926.8c1f918f.chunk.js.map",
     "213.1f6cb8b9.chunk.js.map": "/market-place-voyts/static/js/213.1f6cb8b9.chunk.js.map",
@@ -41,7 +44,7 @@
     "725.3a7cc128.chunk.js.map": "/market-place-voyts/static/js/725.3a7cc128.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.2431ef98.css",
-    "static/js/main.78438c0b.js"
+    "static/css/main.5142b106.css",
+    "static/js/main.f61e943a.js"
   ]
 }
