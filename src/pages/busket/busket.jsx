@@ -513,6 +513,7 @@ const Busket = () => {
                               <p className="block__listBuy--name">{pr.name}</p>
                             </Link>
                             <button
+                              type="button"
                               className="busketDell"
                               textarea="Вадалити з кошика"
                               onClick={() =>
@@ -608,21 +609,7 @@ const Busket = () => {
                                   display: 'flex',
                                   flexDirection: 'column',
                                 }}
-                              >
-                                {/* <span
-                                    style={{
-                                      color: 'rgb(134, 134, 134)',
-                                      lineHeight: '1.5',
-                                    }}
-                                  >
-                                    Сума
-                                  </span> */}
-                                {/* <span
-                                    style={{ color: 'red', fontSize: '20px' }}
-                                  >
-                                    {pr.price * pr.count} грн
-                                  </span> */}
-                              </div>
+                              ></div>
                             </div>
                           </div>
                         </div>

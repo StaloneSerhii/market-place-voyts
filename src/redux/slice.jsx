@@ -19,7 +19,7 @@ export const productReducer = createSlice({
     onDeleteProductBusket(state, action) {
       return state.filter(product => product._id !== action.payload);
     },
-    allDeleteProductBusket(state, action) {
+    allDeleteProductBusket(state) {
       return (state = []);
     },
   },

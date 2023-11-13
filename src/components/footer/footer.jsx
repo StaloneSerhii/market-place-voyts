@@ -22,7 +22,7 @@ const Footer = () => {
               <Link to="/productAll/new">Нові Запчастини</Link>
             </li>
             <li>
-              <Link to="/productAll/ин">Б/У Запчастини</Link>
+              <Link to="/productAll/by">Б/У Запчастини</Link>
             </li>
             <li>
               <Link to="/find">Знайти запчастину</Link>
@@ -60,7 +60,11 @@ const Footer = () => {
         <li className="last">
           <ul>
             <li>
-              <a href="/">
+              <a
+                href="https://instagram.com/n.voyts?igshid=ZWI0YzBwbGRqNHRu"
+                target="_blank"
+                rel="noreferrer"
+              >
                 <svg
                   width="33"
                   height="33"
