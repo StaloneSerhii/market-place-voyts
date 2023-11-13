@@ -11,7 +11,7 @@ const people = [
     id: 2,
     image:
       'https://www.deere.ua/assets/images/region-2/tractors/large/9r-series/r4g080024-large.jpg',
-    link: 'https://my.toe.com.ua',
+    link: '',
     p: '',
     classImg: 'imgSlider--next',
   },
@@ -19,7 +19,7 @@ const people = [
     id: 3,
     image:
       'https://www.deere.ua/assets/images/region-2/tractors/large/9r-series/r4g080024-large.jpg',
-    link: 'https://counter.toe.com.ua/',
+    link: '',
     p: '',
     classImg: 'imgSlider--first',
   },

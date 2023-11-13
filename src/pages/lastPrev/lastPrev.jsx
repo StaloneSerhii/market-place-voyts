@@ -13,7 +13,7 @@ const LastPrev = () => {
       <h3 className="cataloge__title">Остані переглянуті</h3>
       <ul className="lastPrev__gap">
         {product &&
-          product.map(product => (
+          product.slice(0, 3).map(product => (
             <li key={product._id}>
               <CatalogeCard
                 name={product.name}

@@ -83,10 +83,7 @@ export const buyProducSlice = createSlice({
       const dubl = state.userPr.myStore.findIndex(
         pr => pr._id === action.payload._id
       );
-      if (state.userPr.myStore.length === 3 && dubl === -1) {
-        state.userPr.myStore.unshift(action.payload);
-        state.userPr.myStore.pop();
-      } else if (state.userPr.myStore.length !== 3 && dubl === -1) {
+      if (dubl === -1) {
         state.userPr.myStore.push(action.payload);
       }
     },

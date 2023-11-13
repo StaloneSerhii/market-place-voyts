@@ -392,7 +392,7 @@ article.nextSlide {
   transform: translateX(100%);
 }
 
-.imgSlider--fist {
+.imgSlider--first {
   width: 100%;
   height: 600px;
   background-size: cover;
@@ -1172,6 +1172,9 @@ article.nextSlide {
   display: flex;
   flex-direction: column;
 }
+.block__listBuy--item > a > img {
+  height: 100px;
+}
 
 .block__listBuy--name {
   color: #585858;
@@ -1316,7 +1319,6 @@ article.nextSlide {
 @media (min-width: 1199px) {
   .cataloge__gap, .cataloge__gap--list {
     padding: 0px 80px;
-    justify-content: flex-start;
   }
 }
 .cataloge__gap > li, .cataloge__gap--list > li {
