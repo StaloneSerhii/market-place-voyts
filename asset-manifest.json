@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/market-place-voyts/static/css/main.c404fd67.css",
-    "main.js": "/market-place-voyts/static/js/main.f3d06103.js",
+    "main.css": "/market-place-voyts/static/css/main.6e63f253.css",
+    "main.js": "/market-place-voyts/static/js/main.74ed86d9.js",
     "static/js/322.3c077cca.chunk.js": "/market-place-voyts/static/js/322.3c077cca.chunk.js",
     "static/js/265.b802274b.chunk.js": "/market-place-voyts/static/js/265.b802274b.chunk.js",
     "static/js/209.1f2d85d7.chunk.js": "/market-place-voyts/static/js/209.1f2d85d7.chunk.js",
@@ -9,10 +9,10 @@
     "static/js/693.7f704f60.chunk.js": "/market-place-voyts/static/js/693.7f704f60.chunk.js",
     "static/js/492.8c2a0f19.chunk.js": "/market-place-voyts/static/js/492.8c2a0f19.chunk.js",
     "static/js/357.b4dfe4de.chunk.js": "/market-place-voyts/static/js/357.b4dfe4de.chunk.js",
-    "static/js/316.29541074.chunk.js": "/market-place-voyts/static/js/316.29541074.chunk.js",
+    "static/js/316.df6ac7ae.chunk.js": "/market-place-voyts/static/js/316.df6ac7ae.chunk.js",
     "static/js/936.c3a5cbbf.chunk.js": "/market-place-voyts/static/js/936.c3a5cbbf.chunk.js",
     "static/js/926.d06019d9.chunk.js": "/market-place-voyts/static/js/926.d06019d9.chunk.js",
-    "static/js/213.2a03c1c4.chunk.js": "/market-place-voyts/static/js/213.2a03c1c4.chunk.js",
+    "static/js/213.55dded86.chunk.js": "/market-place-voyts/static/js/213.55dded86.chunk.js",
     "static/js/307.b015ecbc.chunk.js": "/market-place-voyts/static/js/307.b015ecbc.chunk.js",
     "static/js/425.1a559136.chunk.js": "/market-place-voyts/static/js/425.1a559136.chunk.js",
     "static/js/814.fa612878.chunk.js": "/market-place-voyts/static/js/814.fa612878.chunk.js",
@@ -24,8 +24,8 @@
     "static/media/noimage.jpg": "/market-place-voyts/static/media/noimage.2efe78cdf6dbf909f571.jpg",
     "static/media/youtube.webp": "/market-place-voyts/static/media/youtube.b9693d97890e7f5497f3.webp",
     "index.html": "/market-place-voyts/index.html",
-    "main.c404fd67.css.map": "/market-place-voyts/static/css/main.c404fd67.css.map",
-    "main.f3d06103.js.map": "/market-place-voyts/static/js/main.f3d06103.js.map",
+    "main.6e63f253.css.map": "/market-place-voyts/static/css/main.6e63f253.css.map",
+    "main.74ed86d9.js.map": "/market-place-voyts/static/js/main.74ed86d9.js.map",
     "322.3c077cca.chunk.js.map": "/market-place-voyts/static/js/322.3c077cca.chunk.js.map",
     "265.b802274b.chunk.js.map": "/market-place-voyts/static/js/265.b802274b.chunk.js.map",
     "209.1f2d85d7.chunk.js.map": "/market-place-voyts/static/js/209.1f2d85d7.chunk.js.map",
@@ -33,10 +33,10 @@
     "693.7f704f60.chunk.js.map": "/market-place-voyts/static/js/693.7f704f60.chunk.js.map",
     "492.8c2a0f19.chunk.js.map": "/market-place-voyts/static/js/492.8c2a0f19.chunk.js.map",
     "357.b4dfe4de.chunk.js.map": "/market-place-voyts/static/js/357.b4dfe4de.chunk.js.map",
-    "316.29541074.chunk.js.map": "/market-place-voyts/static/js/316.29541074.chunk.js.map",
+    "316.df6ac7ae.chunk.js.map": "/market-place-voyts/static/js/316.df6ac7ae.chunk.js.map",
     "936.c3a5cbbf.chunk.js.map": "/market-place-voyts/static/js/936.c3a5cbbf.chunk.js.map",
     "926.d06019d9.chunk.js.map": "/market-place-voyts/static/js/926.d06019d9.chunk.js.map",
-    "213.2a03c1c4.chunk.js.map": "/market-place-voyts/static/js/213.2a03c1c4.chunk.js.map",
+    "213.55dded86.chunk.js.map": "/market-place-voyts/static/js/213.55dded86.chunk.js.map",
     "307.b015ecbc.chunk.js.map": "/market-place-voyts/static/js/307.b015ecbc.chunk.js.map",
     "425.1a559136.chunk.js.map": "/market-place-voyts/static/js/425.1a559136.chunk.js.map",
     "814.fa612878.chunk.js.map": "/market-place-voyts/static/js/814.fa612878.chunk.js.map",
@@ -44,7 +44,7 @@
     "725.3a7cc128.chunk.js.map": "/market-place-voyts/static/js/725.3a7cc128.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.c404fd67.css",
-    "static/js/main.f3d06103.js"
+    "static/css/main.6e63f253.css",
+    "static/js/main.74ed86d9.js"
   ]
 }
