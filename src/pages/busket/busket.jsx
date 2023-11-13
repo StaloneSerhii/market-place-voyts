@@ -2,7 +2,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-// import { postBuyProduct } from 'redux/service';
 import * as Yup from 'yup';
 import {
   getFetchingCurr,
@@ -40,11 +39,6 @@ const validationSchema = Yup.object().shape({
   post: Yup.string().required(),
   oplata: Yup.string().required(),
 });
-
-const options = [
-  { label: 'Тернопіль', id: 1 },
-  { label: 'Львів', id: 2 },
-];
 
 const Busket = () => {
   const dispatch = useDispatch();
@@ -84,6 +78,7 @@ const Busket = () => {
     }
     setdata([]);
   }, [select, productNotAuth, userAuth.isLoggedIn]);
+
   // Стейт форми покупки для відправки
   const initialValues = {
     name: userAuth.isLoggedIn ? userAuth.user.name : '',
@@ -295,41 +290,23 @@ const Busket = () => {
             </div>
             <label id="city" style={{ maxWidth: '737px' }}>
               Виберіть населений пункт
-              <Autocomplete
+              <br />
+              <input
                 required
-                renderInput={params => <TextField {...params} />}
                 id="city"
-                options={options}
+                type="text"
                 name="city"
                 onBlur={formik.handleBlur}
-                onChange={(_, newValue) => {
-                  formik.setFieldValue('city', newValue.label);
-                }}
-                sx={
+                value={formik.values.city}
+                onChange={handleInputChange}
+                className="inputDefault"
+                style={
                   formik.touched.city === undefined &&
                   formik.errors.city === undefined
-                    ? {
-                        '& div': { padding: '0px' },
-                        '& > div>div': {
-                          border: '1px solid rgb(164, 164, 164)',
-                          padding: '3px',
-                        },
-                      }
+                    ? { border: '1px solid rgb(164, 164, 164)' }
                     : formik.touched.city && formik.errors.city
-                    ? {
-                        '& div': { padding: '0px' },
-                        '& > div>div': {
-                          border: '1px solid rgb(255, 20, 20)',
-                          padding: '3px',
-                        },
-                      }
-                    : {
-                        '& div': { padding: '0px' },
-                        '& > div>div': {
-                          border: '1px solid #009C2C',
-                          padding: '3px',
-                        },
-                      }
+                    ? { border: '1px solid rgb(244, 0, 0)' }
+                    : { border: '1px solid #009C2C ' }
                 }
               />
             </label>
@@ -378,41 +355,23 @@ const Busket = () => {
             </label>
             <label htmlFor="viddill" style={{ maxWidth: '737px' }}>
               Відділення Нової Пошти
-              <Autocomplete
+              <br />
+              <input
                 required
-                renderInput={params => <TextField {...params} />}
                 id="viddill"
-                options={options}
+                type="tel"
                 name="viddill"
                 onBlur={formik.handleBlur}
-                onChange={(_, newValue) => {
-                  formik.setFieldValue('viddill', newValue.label);
-                }}
-                sx={
+                value={formik.values.viddill}
+                onChange={handleInputChange}
+                className="inputDefault"
+                style={
                   formik.touched.viddill === undefined &&
                   formik.errors.viddill === undefined
-                    ? {
-                        '& div': { padding: '0px' },
-                        '& > div>div': {
-                          border: '1px solid rgb(164, 164, 164)',
-                          padding: '3px',
-                        },
-                      }
+                    ? { border: '1px solid rgb(164, 164, 164)' }
                     : formik.touched.viddill && formik.errors.viddill
-                    ? {
-                        '& div': { padding: '0px' },
-                        '& > div>div': {
-                          border: '1px solid rgb(255, 20, 20)',
-                          padding: '3px',
-                        },
-                      }
-                    : {
-                        '& div': { padding: '0px' },
-                        '& > div>div': {
-                          border: '1px solid #009C2C',
-                          padding: '3px',
-                        },
-                      }
+                    ? { border: '1px solid rgb(244, 0, 0)' }
+                    : { border: '1px solid #009C2C ' }
                 }
               />
             </label>
@@ -490,12 +449,15 @@ const Busket = () => {
                     data.length > 0 &&
                     data.map(pr => (
                       <li className="block__listBuy--item" key={pr._id}>
-                        <img
-                          className="block__listBuy--img"
-                          src={pr.img[0]}
-                          alt="img"
-                          width="100px"
-                        />
+                        <Link to={`/product/${pr.id}`}>
+                          {' '}
+                          <img
+                            className="block__listBuy--img"
+                            src={pr.img[0]}
+                            alt="img"
+                            width="100px"
+                          />
+                        </Link>
                         <div>
                           <div
                             style={{
@@ -604,12 +566,12 @@ const Busket = () => {
                                   />
                                 </label>
                               </div>
-                              <div
+                              {/* <div
                                 style={{
                                   display: 'flex',
                                   flexDirection: 'column',
                                 }}
-                              ></div>
+                              ></div> */}
                             </div>
                           </div>
                         </div>
@@ -653,7 +615,7 @@ const Busket = () => {
               style={{ textAlign: 'center', color: 'red' }}
               to="/productAll/new"
             >
-              каталогу 
+              каталогу
             </Link>
             щоб здійснити покупку
           </p>
