@@ -8,7 +8,7 @@ const AdminPage = () => {
       <NavigateCategory />
       <section className="profile">
         <div>
-          <ul className="profile__list">
+          <ul className="profile__list" style={{ height: '100%' }}>
             <li>
               <Link className="formLogin__btn postBtn" to="/">
                 На головну
