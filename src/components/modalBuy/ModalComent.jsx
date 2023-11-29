@@ -28,7 +28,7 @@ const style = {
   p: 4,
 };
 
-const blue = {
+export const blue = {
   100: '#DAECFF',
   200: '#b6daff',
   400: '#3399FF',
@@ -37,7 +37,7 @@ const blue = {
   900: '#003A75',
 };
 
-const grey = {
+export const grey = {
   50: '#F3F6F9',
   100: '#E5EAF2',
   200: '#DAE2ED',
