@@ -78,7 +78,7 @@ const DetailInfo = ({ openState, setOpen, pr }) => {
               component="h2"
               sx={{ mb: '15px' }}
             >
-              Віділення: {pr.values.vidill}
+              Віділення: {pr.values.viddill}
             </Typography>
             <Typography
               id="transition-modal-title"

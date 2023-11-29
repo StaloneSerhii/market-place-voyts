@@ -83,14 +83,14 @@ const MyStore = () => {
                       fontSize: '16px',
                       background:
                         (pr.status === 'wait' && '#939292') ||
-                        (pr.status === 'fulffild' && '#009C2C') ||
-                        (pr.status === 'cancell' && '#D60101') ||
+                        (pr.status === 'fullfild' && '#009C2C') ||
+                        (pr.status === 'rejected' && '#D60101') ||
                         (pr.status === 'pending' && '#E49702'),
                     }}
                   >
                     {(pr.status === 'wait' && 'Очікує підтвердження') ||
-                      (pr.status === 'fulffild' && 'Відправлено') ||
-                      (pr.status === 'cancell' && 'Скасовано') ||
+                      (pr.status === 'fullfild' && 'Відправлено') ||
+                      (pr.status === 'rejected' && 'Скасовано') ||
                       (pr.status === 'pending' && 'Очікує відправлення')}
                   </div>
                   <button onClick={() => setOpenModal(true)}>

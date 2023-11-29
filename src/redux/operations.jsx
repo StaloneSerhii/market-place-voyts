@@ -416,6 +416,7 @@ export const getSellAllProductAdm = createAsyncThunk(
 export const apruveProduct = createAsyncThunk(
   'adm/apruveProduct',
   async (credentials, thunkAPI) => {
+    console.log(credentials);
     const state = thunkAPI.getState();
     const persistedToken = state.persistedReducerAdd.auth.token;
     if (persistedToken === null) {
