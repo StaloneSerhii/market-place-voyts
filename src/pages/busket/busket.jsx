@@ -314,6 +314,7 @@ const Busket = () => {
               Виберіть спосіб доставки
               <Autocomplete
                 required
+                size="small"
                 renderInput={params => <TextField {...params} />}
                 id="post"
                 options={[
@@ -379,6 +380,7 @@ const Busket = () => {
               Виберіть спосіб оплати
               <Autocomplete
                 required
+                size="small"
                 renderInput={params => <TextField {...params} />}
                 id="oplata"
                 options={[

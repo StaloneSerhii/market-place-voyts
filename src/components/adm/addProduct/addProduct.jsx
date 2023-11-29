@@ -1,6 +1,6 @@
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { addProductBS, chengeProductBS } from 'redux/operations';
 import nofoto from '../../../image/noimage.jpg';
@@ -41,13 +41,15 @@ const Textarea = styled(BaseTextareaAutosize)(
 const AddProduct = () => {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [data, setData] = useState('');
+  const [showModal, setShowModal] = useState(false);
   const [img, setImg] = useState([]);
   const dispatch = useDispatch();
   const paramsFind = useParams();
-
+  const navigate = useNavigate();
+  const [currentImageIndex, setCurrentImageIndex] = useState();
   useEffect(() => {
     if (paramsFind.id) {
-      getIdProduct(paramsFind.id).then(pr => setData(pr));
+      getIdProduct(paramsFind.id).then(pr => setData(pr.result));
     }
   }, [paramsFind]);
 
@@ -94,7 +96,6 @@ const AddProduct = () => {
           formData.append('img', selectedFiles[i]);
         }
       }
-      console.log(category);
       formData.append('category', category || ''); // Додайте категорію або порожню строку
       formData.append('name', obj.name);
       formData.append('ark', obj.ark);
@@ -111,20 +112,63 @@ const AddProduct = () => {
 
       if (paramsFind.id) {
         const { id } = paramsFind;
-        const back = dispatch(chengeProductBS({ formData, id }));
-        console.log(back);
-        if (back) {
-          formik.resetForm();
-        }
+        dispatch(chengeProductBS({ formData, id })).then(response => {
+          console.log(response);
+          if (response.meta.requestStatus === 'fulfilled') {
+            navigate('/adm/product');
+            setData('');
+            formik.resetForm();
+          }
+        });
       } else {
-        dispatch(addProductBS(formData));
+        dispatch(addProductBS(formData)).then(response => {
+          console.log(response);
+          if (response.meta.arg.requestStatus === 'fulfilled') {
+            formik.resetForm();
+          }
+        });
       }
     },
   });
 
+  // Додаємо слухач події для обробки кліку поза модальним вікном
+  useEffect(() => {
+    // Створюємо функцію обробника кліку поза модальним вікном
+    const handleOutsideClick = e => {
+      if (e.target.className === 'modal') {
+        closeModal();
+      }
+    };
+
+    // Додаємо слухач події для обробки кліку поза модальним вікном
+    if (showModal) {
+      document.addEventListener('mousedown', handleOutsideClick);
+    } else {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    }
+
+    // Повертаємо функцію, яка буде виконана при розмінтці компонента
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, [showModal]);
+
+  // Функція для відкриття модального вікна з вибраним зображенням
+  const openModal = url => {
+    setCurrentImageIndex(url);
+    setShowModal(true);
+  };
+
+  // Функція для закриття модального вікна
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
   return (
     <div style={{ width: '100%', margin: '15px' }}>
-      <p style={{ marginBottom: '24px' }}>Добавити товар</p>
+      <p style={{ marginBottom: '24px' }}>
+        {paramsFind.id ? 'Редагувати товар' : 'Добавити товар'}
+      </p>
       <form onSubmit={formik.handleSubmit}>
         <label htmlFor="">
           Добавити фотографії:  
@@ -147,14 +191,37 @@ const AddProduct = () => {
             img.length > 0 &&
             img.map(({ url }) => (
               <li>
-                <img src={url} alt="" width="270" />
+                <img src={url} alt="" width="270" height="240" />
               </li>
-            ))) || (
-            <li>
-              <img src={nofoto} alt="" width="270" />
-            </li>
-          )}
+            ))) ||
+            (data.img &&
+              data.img.length > 0 &&
+              data.img.map(url => (
+                <li>
+                  <img
+                    src={url}
+                    alt=""
+                    width="270"
+                    height="240"
+                    onClick={() => openModal(url)}
+                  />
+                </li>
+              ))) || (
+              <li>
+                <img src={nofoto} alt="" width="270" height="240" />
+              </li>
+            )}
         </ul>
+        {showModal && (
+          <div className="modal">
+            <div style={{ display: 'flex' }}>
+              <span className="close" onClick={closeModal}>
+                &times;
+              </span>
+              <img src={currentImageIndex} alt="Full Size" />
+            </div>
+          </div>
+        )}
         <div
           style={{
             display: 'flex',
