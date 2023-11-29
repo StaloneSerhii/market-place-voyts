@@ -19,6 +19,7 @@ import { ThreeCircles } from 'react-loader-spinner';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { postBuyProduct } from 'redux/service';
 import { Autocomplete, TextField } from '@mui/material';
+import Notiflix from 'notiflix';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string()
@@ -105,6 +106,10 @@ const Busket = () => {
       } else if (result) {
         postBuyProduct({ values, select: productNotAuth }).then(state => {
           if (state.status === 201) {
+            Notiflix.Report.success(
+              'Ваш товар успішно придбаний!',
+              'Очікуйте на дзвінок від нашого менеджера для підтвердження відправки!'
+            );
             navigate('/');
             dispatch(dellAllProductOrder());
           }
@@ -612,14 +617,14 @@ const Busket = () => {
               margin: '200px auto',
             }}
           >
-            У вашому кошику немає товарів, перейдіть до нашого{' '}
+            У вашому кошику немає товарів, перейдіть до нашого 
             <Link
               style={{ textAlign: 'center', color: 'red' }}
               to="/productAll/new"
             >
               каталогу
             </Link>
-            щоб здійснити покупку
+              щоб здійснити покупку
           </p>
         </>
       )}

@@ -7,13 +7,13 @@ const {
 
 const LastPrev = () => {
   const product = useSelector(getMyStore);
-
+  const reversedProduct = product.slice(0, 3).reverse();
   return (
     <div className="cataloge animated-section">
       <h3 className="cataloge__title">Остані переглянуті</h3>
       <ul className="lastPrev__gap">
         {product &&
-          product.slice(0, 3).map(product => (
+          reversedProduct.map(product => (
             <li key={product._id}>
               <CatalogeCard
                 name={product.name}
