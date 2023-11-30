@@ -16,7 +16,23 @@ export const InfoBlockProduct = ({ product }) => {
         >
           Характеристика
         </p>
-        <p>{product && product.info.use}</p>
+        <div>
+          <div style={{ display: 'flex', gap: '5px' }}>
+            {' '}
+            <p>Тех.Характеристика:</p>
+            <p>{product && product.info.use}</p>
+          </div>
+          <div style={{ display: 'flex', gap: '5px' }}>
+            {' '}
+            <p>Розміщенння товару:</p>
+            <span>{product && product.info.obm}</span>
+          </div>
+          <div style={{ display: 'flex', gap: '5px' }}>
+            {' '}
+            <p>Виробник товару:</p>
+            <span>{product && product.producer}</span>
+          </div>
+        </div>
       </div>
       <div
         id="dostavka"

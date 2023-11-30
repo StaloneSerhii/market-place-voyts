@@ -220,7 +220,13 @@ const BuyProduct = () => {
                     {isAuth && isSuperStatus === 'superuser' && (
                       <button
                         style={{ color: 'red' }}
-                        onClick={() => dispatch(deleteComent(comments._id))}
+                        onClick={() => {
+                          dispatch(deleteComent(comments._id)).then(resp => {
+                            if (resp?.meta.requestStatus === 'fulfilled') {
+                              window.location.reload();
+                            }
+                          });
+                        }}
                       >
                         X
                       </button>

@@ -23,7 +23,11 @@ const ProductList = () => {
   const deleteProductBtn = id => {
     const result = window.confirm(`Видалити продукт?`);
     if (result) {
-      dispatch(deleteProduct(id));
+      dispatch(deleteProduct(id)).then(resp => {
+        if (resp?.meta.requestStatus === 'fulfilled') {
+          window.location.reload();
+        }
+      });
     }
   };
 

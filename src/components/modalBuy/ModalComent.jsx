@@ -96,7 +96,13 @@ export const ModalComments = ({ openState, setOpen }) => {
   const { id } = params;
 
   const submitComments = () => {
-    dispatch(addComents({ comments, ProductId: id, RatingValue: value }));
+    dispatch(addComents({ comments, ProductId: id, RatingValue: value })).then(
+      resp => {
+        if (resp?.meta.requestStatus === 'fulfilled') {
+          window.location.reload();
+        }
+      }
+    );
     setOpen(false);
   };
 
@@ -147,6 +153,7 @@ export const ModalComments = ({ openState, setOpen }) => {
                 onChange={e => setComments(e.target.value)}
               />
               <Button
+                type="submit"
                 onClick={submitComments}
                 variant="contained"
                 sx={{ mr: 'auto', ml: 'auto', mt: '15px' }}

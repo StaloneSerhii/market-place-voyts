@@ -28,11 +28,29 @@ const SellProduct = () => {
 
   const appendProduct = id => {
     if (statusPr.status === 'pending') {
-      return dispatch(apruveProduct({ id, status: 'pending', ttn: '' }));
+      return dispatch(apruveProduct({ id, status: 'pending', ttn: '' })).then(
+        resp => {
+          if (resp?.meta.requestStatus === 'fulfilled') {
+            window.location.reload();
+          }
+        }
+      );
     } else if (statusPr.status === 'fulffild' && ttn) {
-      return dispatch(apruveProduct({ id, status: 'fullfild', ttn }));
+      return dispatch(apruveProduct({ id, status: 'fullfild', ttn })).then(
+        resp => {
+          if (resp?.meta.requestStatus === 'fulfilled') {
+            window.location.reload();
+          }
+        }
+      );
     } else if (statusPr.status === 'rejected') {
-      return dispatch(apruveProduct({ id, status: 'rejected', ttn: '' }));
+      return dispatch(apruveProduct({ id, status: 'rejected', ttn: '' })).then(
+        resp => {
+          if (resp?.meta.requestStatus === 'fulfilled') {
+            window.location.reload();
+          }
+        }
+      );
     } else if (statusPr.status === 'fulffild' && !ttn) {
       return Notiflix.Notify.warning('Вкажіть номер ТТН');
     }

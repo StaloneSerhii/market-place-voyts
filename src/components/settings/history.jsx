@@ -23,6 +23,7 @@ const History = () => {
   const clearLS = () => {
     localStorage.clear();
     navigate('/');
+    window.location.reload();
   };
 
   return (
