@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { getAllProductAdm } from 'redux/operations';
+import { deleteProduct, getAllProductAdm } from 'redux/operations';
 
 const ProductList = () => {
   const [data, setData] = useState();
@@ -19,6 +19,13 @@ const ProductList = () => {
     };
     fetchData();
   }, [dispatch]);
+
+  const deleteProductBtn = id => {
+    const result = window.confirm(`Видалити продукт?`);
+    if (result) {
+      dispatch(deleteProduct(id));
+    }
+  };
 
   return (
     <ul className="lastPrev__gap" style={{ flexWrap: 'wrap' }}>
@@ -53,17 +60,28 @@ const ProductList = () => {
                   {pr.price} грн
                   <span>В наявності</span>
                 </p>
-                <Link
-                  to={`/adm/product/${pr._id}`}
-                  subcategory={'test'}
-                  style={{
-                    padding: '5px 10px',
-                    backgroundColor: 'orange',
-                    margin: '5px',
-                  }}
-                >
-                  Редагувати
-                </Link>
+                <div>
+                  <button
+                    onClick={() => deleteProductBtn(pr._id)}
+                    style={{
+                      padding: '5px 10px',
+                      backgroundColor: 'red',
+                      margin: '15px',
+                    }}
+                  >
+                    Видалити
+                  </button>
+                  <Link
+                    to={`/adm/product/${pr._id}`}
+                    subcategory={'test'}
+                    style={{
+                      padding: '5px 10px',
+                      backgroundColor: 'orange',
+                    }}
+                  >
+                    Редагувати
+                  </Link>
+                </div>
               </div>
               <button
                 onClick={() => navigate(`/product/${pr._id}`)}

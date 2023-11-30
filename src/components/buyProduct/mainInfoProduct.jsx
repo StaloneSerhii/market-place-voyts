@@ -144,6 +144,20 @@ export const MainInfoProduct = ({ comments, product }) => {
               {product.info.details}
             </p>
           </div>
+          <div>
+            <p style={{ fontSize: '16px', fontWeight: '600' }}>
+              Розташування товару
+            </p>
+            <p
+              style={{
+                color: '#666',
+                fontSize: '16px',
+                lineHeight: '24px',
+              }}
+            >
+              {product.info.obm}
+            </p>
+          </div>
           <div style={{ display: 'flex', gap: '28px' }}>
             {buyPr ? (
               <Link

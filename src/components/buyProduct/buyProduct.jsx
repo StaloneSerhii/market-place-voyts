@@ -7,10 +7,11 @@ import { ImgBlockProduct } from './buyProductImgBlock';
 import { BiDownArrow } from 'react-icons/bi';
 import { MainInfoProduct } from './mainInfoProduct';
 import { getAuthStatus } from 'redux/authPer/auth-selector';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { InfoBlockProduct } from './infoBlockProduct';
 import { getIdProduct } from 'redux/service';
 import { useParams } from 'react-router-dom';
+import { deleteComent } from 'redux/operations';
 
 const BuyProduct = () => {
   const { id } = useParams();
@@ -19,6 +20,7 @@ const BuyProduct = () => {
   const [product, setProduct] = useState();
   const selectAuth = useSelector(getAuthStatus);
   const [hiddenStates, setHiddenStates] = useState([]);
+  const dispatch = useDispatch();
   // Запит по продукту на бд по ід і аналогів
   useEffect(() => {
     getIdProduct(id).then(pr => {
@@ -26,6 +28,12 @@ const BuyProduct = () => {
       setProduct(pr.result);
     });
   }, [id]);
+
+  const isSuperStatus = useSelector(
+    state => state.persistedReducerAdd.auth.user?.status
+  );
+
+  const isAuth = useSelector(getAuthStatus);
 
   useEffect(() => {
     if (commentsPage && commentsPage.length > 0) {
@@ -209,6 +217,15 @@ const BuyProduct = () => {
                     <span> {comments.user.fename}</span>
                   </p>
                   <span style={{ color: '#939292', fontSize: '12px' }}>
+                    {isAuth && isSuperStatus === 'superuser' && (
+                      <button
+                        style={{ color: 'red' }}
+                        onClick={() => dispatch(deleteComent(comments._id))}
+                      >
+                        X
+                      </button>
+                    )}
+
                     {comments.updatedAt.slice(0, 10)}
                   </span>
                 </div>
@@ -245,7 +262,7 @@ const BuyProduct = () => {
                           }}
                         >
                           <span style={{ marginRight: '5px' }}>
-                            {answer.name}{' '}
+                            {answer.name}
                           </span>
                           <span> {answer.fename}</span>
                           <span

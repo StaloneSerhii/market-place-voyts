@@ -34,13 +34,6 @@ const VideoContent = () => {
             </div>
           </div>
           <div className="video">
-            {/* <h4>asd</h4>
-            <Link
-              to={`/product/`}
-              style={{ fontSize: '12px', marginBottom: '8px' }}
-            >
-              До продукту...
-            </Link> */}
             <div
               style={{
                 background: '#22ff43442244',
@@ -50,7 +43,9 @@ const VideoContent = () => {
             >
               <iframe
                 className="youtube"
-                src={'https://www.youtube.com/embed/VONyCLrp0eg'}
+                src={
+                  'https://www.youtube.com/embed/b44Jmfd5MSw?si=xqx65mJWWdsZlJSc'
+                }
                 title="YouTube video player"
                 frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

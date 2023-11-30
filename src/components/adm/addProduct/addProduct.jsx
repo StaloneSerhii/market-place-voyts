@@ -298,12 +298,23 @@ const AddProduct = () => {
         <label>
           <Textarea
             aria-label="minimum height"
-            minRows={6}
+            minRows={4}
             placeholder="Опис товару"
             name="details"
             onBlur={formik.handleBlur}
             value={formik.values.info.details}
             onChange={e => formik.setFieldValue('info.details', e.target.value)}
+          />
+        </label>
+        <label>
+          <Textarea
+            aria-label="minimum height"
+            minRows={4}
+            placeholder="Характеристика"
+            name="use"
+            onBlur={formik.handleBlur}
+            value={formik.values.info.use}
+            onChange={e => formik.setFieldValue('info.use', e.target.value)}
           />
         </label>
         <div
@@ -319,13 +330,11 @@ const AddProduct = () => {
             size="small"
             onBlur={formik.handleBlur}
             onChange={(_, newLabel) =>
-              formik.setFieldValue('category', newLabel.id)
+              formik.setFieldValue('category', newLabel)
             }
             id="combo-box-demo"
-            options={[
-              { label: 'Б.У', id: 'by' },
-              { label: 'Нові запчастини', id: 'new' },
-            ]}
+            options={['by', 'new']}
+            value={formik.values.category}
             sx={{ width: '40%' }}
             renderInput={params => (
               <TextField

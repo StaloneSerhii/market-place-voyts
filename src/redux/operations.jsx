@@ -348,6 +348,52 @@ export const addProductBS = createAsyncThunk(
   }
 );
 
+// Додаваня товарів в бд
+export const deleteProduct = createAsyncThunk(
+  'adm/deleteproduct',
+  async (id, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const persistedToken = state.persistedReducerAdd.auth.token;
+    if (persistedToken === null) {
+      return thunkAPI.rejectWithValue('Unable to fetch user');
+    }
+    try {
+      setAuthHeader(persistedToken);
+      const response = await instance.delete(`/adm/deleteproduct/${id}`);
+      if (response) {
+        Notiflix.Notify.success('Товар успішно видалений!');
+        return response.data;
+      }
+    } catch (e) {
+      console.log(e);
+      Notiflix.Notify.failure('Не вдалося видалити товар!');
+    }
+  }
+);
+
+// Додаваня товарів в бд
+export const deleteComent = createAsyncThunk(
+  'adm/deletecoment',
+  async (id, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const persistedToken = state.persistedReducerAdd.auth.token;
+    if (persistedToken === null) {
+      return thunkAPI.rejectWithValue('Unable to fetch user');
+    }
+    try {
+      setAuthHeader(persistedToken);
+      const response = await instance.delete(`/adm/deletecoment/${id}`);
+      if (response) {
+        Notiflix.Notify.success('Коментар видалений!');
+        return response.data;
+      }
+    } catch (e) {
+      console.log(e);
+      Notiflix.Notify.failure('Не вдалося видалити коментар!');
+    }
+  }
+);
+
 export const chengeProductBS = createAsyncThunk(
   'adm/changeproduct',
   async (credentials, thunkAPI) => {
