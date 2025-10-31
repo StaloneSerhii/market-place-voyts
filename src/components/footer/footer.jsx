@@ -180,7 +180,7 @@ const Footer = () => {
       </ul>
       <div className="copyright">
         <p>
-          <span>&#169;</span> 2023
+          WEBSHARK <span>&#169;</span> 2023
         </p>
       </div>
     </div>

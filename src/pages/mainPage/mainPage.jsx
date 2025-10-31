@@ -12,9 +12,9 @@ const MainPages = () => {
       <Hero />
       {/* <Cards /> */}
       <CatalogePage />
-      <Advertisement />
+      {/* <Advertisement /> */}
       <TopSellPages />
-      <Advertisement />
+      {/* <Advertisement /> */}
       <LastPrev />
       <VideoContent />
     </>
